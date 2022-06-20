@@ -14,12 +14,12 @@ const auhtorSchema = new Schema({
   country: {
     type: String,
   },
-  picture:{
-    type:String
+  picture: {
+    type: String,
   },
   biography: {
     type: String,
   },
 });
 
-module.exports = model("Auhtor", auhtorSchema);
+module.exports = model("Author", auhtorSchema);
