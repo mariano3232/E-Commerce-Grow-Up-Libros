@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const uri = 'mongodb+srv://dblibros:skyrim34@proyectodb.dhicigr.mongodb.net/?retryWrites=true&w=majority'
+const uri = `mongodb+srv://dblibros:skyrim34@proyectodb.dhicigr.mongodb.net/?retryWrites=true&w=majority`
 
 mongoose.connect(uri)
 .catch(err=>{
