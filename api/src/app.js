@@ -24,6 +24,10 @@ server.use((req, res, next) => {
 
 server.use(morgan("dev"));
 
+server.get("/", (req, res, next) => {
+  res.send("HOla");
+});
+
 server.use("/", routes);
 
 module.exports = server;
