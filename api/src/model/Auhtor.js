@@ -20,6 +20,12 @@ const auhtorSchema = new Schema({
   biography: {
     type: String,
   },
+  books: [
+    {
+      type: [Schema.Types.ObjectId],
+      ref: "Book",
+    },
+  ],
 });
 
 module.exports = model("Author", auhtorSchema);
