@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-
+const{DB_USER,DB_PASSWORD}=process.env
+console.log(DB_USER, DB_PASSWORD )
 const uri = `mongodb+srv://dblibros:skyrim34@proyectodb.dhicigr.mongodb.net/?retryWrites=true&w=majority`
 
 mongoose.connect(uri)
