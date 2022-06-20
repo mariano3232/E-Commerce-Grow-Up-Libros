@@ -12,6 +12,7 @@ router.get("/:id", async function (req, res) {
   try {
     if (id.length !== 24) throw new Error("The id have 24 characters");
     const book = await Books.findById(id);
+    if (book === null) throw new Error("Book not found");
     res.status(200).json(book);
   } catch (err) {
     res.status(404).send(err.message);
