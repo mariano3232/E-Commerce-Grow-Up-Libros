@@ -1,17 +1,21 @@
-const mongoose = require('mongoose')
+require("dotenv").config();
+const mongoose = require("mongoose");
 
-const uri = 'mongodb+srv://dblibros:skyrim34@proyectodb.dhicigr.mongodb.net/?retryWrites=true&w=majority'
+const { DB_USER, DB_PASSWORD } = process.env;
 
-mongoose.connect(uri)
-.catch(err=>{
-console.log('ERROR AL CONECTAR', err)
-})
+console.log(DB_USER, DB_PASSWORD);
 
-const db = mongoose.connection
+const uri = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@proyectodb.dhicigr.mongodb.net/?retryWrites=true&w=majority`;
 
-db.on('open', _=>{
-    console.log('conectado a ', uri)
-})
-db.on('error',err=>{
-    console.log('error en db', err)
-})
+mongoose.connect(uri).catch((err) => {
+  console.log("ERROR AL CONECTAR", err);
+});
+
+const db = mongoose.connection;
+
+db.on("open", (_) => {
+  console.log("conectado a ", uri);
+});
+db.on("error", (err) => {
+  console.log("error en db", err);
+});
