@@ -2,7 +2,6 @@ const { Router } = require("express");
 const Books = require("../model/Books");
 const Author = require("../model/Author");
 const Genres = require("../model/Genres");
-
 const router = Router();
 
 router.get("/", async function (req, res) {
@@ -35,20 +34,48 @@ router.get("/", async function (req, res) {
   }
 });
 
-router.get("/rating", async function (req, res) {
+router.get("/alf/:order", async function (req, res) {
+  const { order } = req.params;
   try {
     const books = await Books.find({}).populate(["authors", "genres"]);
     if (!books) throw new Error("The books not found");
+
+    if (!order) throw new Error("The order not specified");
+
     const auxBooks = [...books];
-    const ratingBooks = auxBooks.sort(function (a, b) {
-      if (a.LastName > b.LastName) {
-        return -1;
-      }
-      if (a.LastName < b.LastName) {
-        return 1;
-      }
-      return 0;
-    });
+    let titleBooks;
+    if (order === "asc") {
+      titleBooks = auxBooks.sort(sortTitle.sortAsc);
+    }
+    if (order === "desc") {
+      titleBooks = auxBooks.sort(sortTitle.sortDesc);
+    }
+    res.status(200).json(titleBooks);
+  } catch (err) {
+    res.status(404).send(err.message);
+  }
+});
+
+router.get("/rating/:order", async function (req, res) {
+  const { order } = req.params;
+  try {
+    const books = await Books.find({}).populate(["authors", "genres"]);
+    if (!books) throw new Error("The books not found");
+
+    if (!order) {
+      throw new Error("The order is not specified");
+    }
+
+    const auxBooks = [...books];
+    let ratingBooks;
+
+    if (order === "asc") {
+      ratingBooks = auxBooks.sort(sortRating.sortAsc);
+    }
+    if (order === "desc") {
+      ratingBooks = auxBooks.sort(sortRating.sortDesc);
+    }
+
     res.status(200).json(ratingBooks);
   } catch (err) {
     res.status(404).send(err.message);
