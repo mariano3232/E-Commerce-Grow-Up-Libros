@@ -35,7 +35,7 @@ router.get("/", async function (req, res) {
   }
 });
 router.get("books/genre/:genre", async function (req, res) {
-  const {  genre } = req.params;
+  const { genre } = req.params;
   try {
     if (genre) {
       const books = await Books.find({})
