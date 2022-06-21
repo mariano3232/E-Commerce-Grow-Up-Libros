@@ -10,8 +10,7 @@ router.get("/", async function (req, res) {
     if (filters) {
       const books = await Books.find({}).populate({
         path: "authors",
-        select: "name",
-        select: { _id: 0 },
+        select: "name",        
         path: "genres",
         select: "genre",
       });
@@ -21,13 +20,12 @@ router.get("/", async function (req, res) {
 
       return res.json(booksGenres);
     }
-    const books = await Books.find({}).populate({
-      path: "authors",
-      select: "name",
-      select: { _id: 0 },
+    const books = await Books.find({}).populate({     
       path: "genres",
       select: "genre",
-    });
+    }).populate({ path: "authors",
+    select: "name",
+    select: { _id: 0 },});
     return res.json(books);
   } catch (error) {
     console.log("FALLO GET BOOKS", error);
