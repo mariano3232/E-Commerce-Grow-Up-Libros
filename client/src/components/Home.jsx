@@ -13,9 +13,9 @@ export default function Home(){
   
 return(
     <div >
-        <NavBar/>
-        <Carrusel/>
-        <SideBar/>
+        {/* <NavBar/> */}
+        {/* <Carrusel/>
+        <SideBar/> */}
 
         <div >
             <div>
@@ -43,16 +43,18 @@ return(
                 allBooks.length 
                 ? allBooks.map(book=>{
                     return(
-                        <Link to={"/book/"+book.id}>
-                            <Card title={book.title} cover={book.cover} price={book.price} rating={book.rating} id={book.id} key={book.id}/>
-                        </Link>
+
+                        // <Link to={"/book/"+book.id}>
+                        //     <Card title={book.title} cover={book.cover} price={book.price} rating={book.rating} id={book.id} key={book.id}/>
+                        // </Link>
+                        book.title
                     )               
                     })
                 : <h5>Book Not Found!</h5>
                 }
             </div>
            
-            <BottomBar/>
+            {/* <BottomBar/> */}
         </div>
     </div>
     
