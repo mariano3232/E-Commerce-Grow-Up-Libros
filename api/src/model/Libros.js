@@ -2,42 +2,44 @@ const { Schema, model } = require("mongoose");
 
 const libroSchema = new Schema({
   title: {
-    type: String
+    type: String,
   },
-  author:[ {
-    type:[Schema.Types.ObjectId],
-    ref: 'Author'
-  }],
+  author: [
+    {
+      type: [Schema.Types.ObjectId],
+      ref: "Author",
+    },
+  ],
   year: {
-    type:Number
+    type: Number,
   },
   pages: {
-    type:Number
+    type: Number,
   },
   editorial: {
-    type:String
+    type: String,
   },
   cover: {
-    Type:String
+    Type: String,
   },
   rating: {
-    Type:Number,
-    default:0,
+    Type: Number,
+    default: 0,
   },
   stock: {
-    Type:Number,
-    default:0
+    Type: Number,
+    default: 0,
   },
   price: {
-    type:Number,
-    default:100
+    type: Number,
+    default: 100,
   },
   genres: {
-    type:[Schema.Types.String]
+    type: [Schema.Types.String],
   },
   review: {
-    type:String
+    type: String,
   },
 });
 
-module.exports = model('Libros', libroSchema)
+module.exports = model("Books", libroSchema);
