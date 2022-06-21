@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getBooks } from "../actions";
+import SideBar from "./SideBar";
+import BottomBar from "./BottomBar";
+import NavBar from "./NavBar";
 import Paginado from "./Paginado";
 
 export default function Home() {
@@ -84,10 +87,16 @@ export default function Home() {
           {allBooks.length ? (
             allBooks.map((book) => {
               return (
-                // <Link to={"/book/"+book.id}>
-                //     <Card title={book.title} cover={book.cover} price={book.price} rating={book.rating} id={book.id} key={book.id}/>
-                // </Link>
-                book.title
+                <Link to={"/book/" + book.id}>
+                  <Card
+                    title={book.title}
+                    cover={book.cover}
+                    price={book.price}
+                    rating={book.rating}
+                    id={book.id}
+                    key={book.id}
+                  />
+                </Link>
               );
             })
           ) : (
