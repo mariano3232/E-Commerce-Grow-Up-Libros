@@ -2,11 +2,37 @@ const { Router } = require("express");
 const Books = require("../model/Books");
 const Author = require("../model/Author");
 const Genres = require("../model/Genres");
+
 const router = Router();
 
 router.get("/", async function (req, res) {
-  const books = await Books.find({}).populate(["authors", "genres"]);
-  res.json(books);
+  const { filters } = req.query;
+  try {
+    if (filters) {
+      const books = await Books.find({}).populate({
+        path: "authors",
+        select: "name",
+        select: { _id: 0 },
+        path: "genres",
+        select: "genre",
+      });
+      const booksGenres = books?.filter((e) =>
+        e.genres?.find((e) => e.genre === filters)
+      );
+
+      return res.json(booksGenres);
+    }
+    const books = await Books.find({}).populate({
+      path: "authors",
+      select: "name",
+      select: { _id: 0 },
+      path: "genres",
+      select: "genre",
+    });
+    return res.json(books);
+  } catch (error) {
+    console.log("FALLO GET BOOKS", error);
+  }
 });
 
 router.get("/rating", async function (req, res) {
@@ -90,7 +116,7 @@ router.post("/addBook", async function (req, res) {
 
     res.send(newBookSaved);
   } catch (err) {
-    res.send(err.message);
+    res.send("FALLO POST BOOKS", err.message);
   }
 });
 
