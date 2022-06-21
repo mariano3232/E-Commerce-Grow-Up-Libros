@@ -65,10 +65,10 @@ export default function Home() {
               <option value="Asc">Name Ascending</option>
               <option value="desc">Name Descending</option>
             </select>
-            <select onChange={(e) => handleRating(e)}>
+            {/* <select onChange={(e) => handleRating(e)}>
               <option value="Asc">Higher Rating</option>
               <option value="desc">Lower Rating</option>
-            </select>
+            </select> */}
             <select onChange={(e) => handlePrice(e)}>
               <option value="Asc">Higher Price</option>
               <option value="desc">Lower Price</option>

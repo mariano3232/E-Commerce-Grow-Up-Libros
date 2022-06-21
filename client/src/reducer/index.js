@@ -46,7 +46,7 @@ function rootReducer(state = initialState, action) {
               }
               return 0;
             });
-      } else {
+      } /* else {
         action.rating === "Asc"
           ? rating.sort(function (a, b) {
               if (a.rating > b.rating) {
@@ -66,7 +66,7 @@ function rootReducer(state = initialState, action) {
               }
               return 0;
             });
-      }
+      } */
       return {
         ...state,
         books: action.payload,
