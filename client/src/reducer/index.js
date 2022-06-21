@@ -9,13 +9,15 @@ function rootReducer (state = initialState, action){
             return{
                 ...state,
                 books: action.payload,
-                booksCopy: action.payload
+                booksCopy: action.payload,
             }
+
         case 'GET_BOOK_TITLE':
             return {
                 ...state,
                 books: action.payload
             }
+
 
         default:
             return state;

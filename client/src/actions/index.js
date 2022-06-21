@@ -5,7 +5,8 @@ export function getBooks () {
     return async function (dispatch) {
     const json = await axios.get('https://ecommercehenryx.herokuapp.com/books');
     
-    console.log('hola')
+    console.log('soy json', json)
+
         return dispatch({
             type:'GET_BOOKS',
             payload: json.data
