@@ -88,13 +88,13 @@ export default function Home() {
           {allBooks.length ? (
             allBooks.map((book) => {
               return (
-                <Link to={"/book/" + book.id}>
+                <Link to={"/book/" + book._id}>
                   <Card
                     title={book.title}
                     cover={book.cover}
                     price={book.price}
                     rating={book.rating}
-                    id={book.id}
+                    id={book._id}
                     key={book.id}
                   />
                 </Link>
@@ -104,14 +104,8 @@ export default function Home() {
             <h5>Book Not Found!</h5>
           )}
         </div>
-        <div>
-          <Paginado
-            bookPerPage={bookPerPage}
-            books1={allBooks.length}
-            paginado={paginado}
-            page={currentPage}
-          />
-        </div>
+        <SideBar />
+        <BottomBar />
       </div>
     </div>
   );
