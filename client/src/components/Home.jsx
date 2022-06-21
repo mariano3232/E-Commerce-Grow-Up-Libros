@@ -2,10 +2,11 @@ import React from 'react';
 import { useState , useEffect } from 'react';
 import { useDispatch , useSelector } from 'react-redux';
 import { Link }  from 'react-router-dom';
-import { getBooks } from '../actions';
 import SideBar from './SideBar';
 import BottomBar from './BottomBar'
-import NavBar from './NavBar';
+import { getBooks } from '../actions';
+
+
 
 
 
@@ -13,16 +14,12 @@ export default function Home(){
 
     const dispatch = useDispatch() 
     const allBooks = useSelector(state => state.books) 
+    console.log('soy allBooks en Home:', allBooks)
 
   
 return(
-    <div >
-
-        <NavBar/>
-        
-        <SideBar/>
-
-
+    <div >       
+       
         <div >
             <div>
                 <select onChange={e => handleOrderByName(e)} defaultValue='default'>
@@ -59,7 +56,7 @@ return(
                 : <h5>Book Not Found!</h5>
                 }
             </div>
-           
+            <SideBar/>
             <BottomBar/>
         </div>
     </div>
