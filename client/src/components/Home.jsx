@@ -14,7 +14,7 @@ export default function Home(){
 
     const dispatch = useDispatch() 
     const allBooks = useSelector(state => state.books) 
-    console.log('soy allBooks en Home:', allBooks)
+    console.log('soy allBooks en /Home:', allBooks)
 
   
 return(
