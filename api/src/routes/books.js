@@ -5,24 +5,7 @@ const Genres = require("../model/Genres");
 const router = Router();
 
 router.get("/", async function (req, res) {
-  const { filters } = req.query;
   try {
-    if (filters) {
-      const books = await Books.find({})
-        .populate({
-          path: "genres",
-          select: "genre",
-        })
-        .populate({
-          path: "authors",
-          select: { name: 1, _id: 0, surname: 1, biography: 1 },
-        });
-      const booksGenres = books?.filter((e) =>
-        e.genres?.find((e) => e.genre === filters)
-      );
-
-      return res.json(booksGenres);
-    }
     const books = await Books.find({})
       .populate({
         path: "genres",
@@ -34,14 +17,16 @@ router.get("/", async function (req, res) {
     console.log("FALLO GET BOOKS", error);
   }
 });
-router.get("books/genre/:genre", async function (req, res) {
+
+router.get("/genre/:genre", async function (req, res) {
   const { genre } = req.params;
+  console.log(genre);
   try {
     if (genre) {
       const books = await Books.find({})
         .populate({
           path: "genres",
-          select:{name: 1, _id: 0},
+          select: { name: 1, _id: 0 },
         })
         .populate({
           path: "authors",
