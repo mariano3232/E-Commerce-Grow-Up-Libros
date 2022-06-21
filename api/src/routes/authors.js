@@ -31,7 +31,15 @@ router.get("/:id/books", async (req, res) => {
 
 router.post("/addAuthor", async (req, res) => {
   const { name, surname, birth, country, picture, biography } = req.body;
+
   try {
+    const getAuthor = await Author.find({
+      name: name,
+      surname: surname,
+    });
+
+    if (getAuthor.length > 0) throw new Error("Author is already exists");
+
     const newAuthor = new Author({
       name,
       surname,
