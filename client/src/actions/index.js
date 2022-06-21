@@ -3,6 +3,7 @@ import axios from "axios";
 export const getBooks = (title, price, rating) => async (dispatch) => {
   try {
     var json = await axios.get("https://ecommercehenryx.herokuapp.com/books");
+    console.log(json);
     return dispatch({
       title: title,
       price: price,

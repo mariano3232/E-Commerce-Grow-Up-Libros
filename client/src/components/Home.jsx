@@ -32,7 +32,9 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getBooks("Asc"));
+    console.log("Entre aca:");
   }, [dispatch]);
+  console.log("libros:", allBooks);
 
   function handleSort(e) {
     setOrder(e.target.value);
