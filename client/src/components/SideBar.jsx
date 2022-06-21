@@ -6,7 +6,8 @@ export default function SideBar(){
 
     
     const allBooks = useSelector((state) => state.books);
-    console.log('soy allBooks en SideBar:',allBooks)
+   
+
 
     const orderBooksByRating = allBooks.sort((a,b) => {
         if (a.price > b.price) return 1;
@@ -31,19 +32,12 @@ export default function SideBar(){
                 <h5>#5{top5Rating[4].cover}{top5Rating[4].title}{top5Rating[4].price}</h5>
                 </div>
                 :'No'
-
                 }
-                {/*  */}
             </div>
-
             <div>
                 <h3>Top 5 Sold</h3>
                 <h5>Soon...</h5>
             </div>
-
-
-
         </div>
-
     )
 }

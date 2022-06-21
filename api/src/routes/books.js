@@ -2,11 +2,61 @@ const { Router } = require("express");
 const Books = require("../model/Books");
 const Author = require("../model/Author");
 const Genres = require("../model/Genres");
+const sortRating = require("../utils/SortsRating");
+const sortTitle = require("../utils/SortTitle");
 const router = Router();
 
 router.get("/", async function (req, res) {
   const books = await Books.find({}).populate(["authors", "genres"]);
   res.json(books);
+});
+
+router.get("/alf/:order", async function (req, res) {
+  const { order } = req.params;
+  try {
+    const books = await Books.find({}).populate(["authors", "genres"]);
+    if (!books) throw new Error("The books not found");
+
+    if (!order) throw new Error("The order not specified");
+
+    const auxBooks = [...books];
+    let titleBooks;
+    if (order === "asc") {
+      titleBooks = auxBooks.sort(sortTitle.sortAsc);
+    }
+    if (order === "desc") {
+      titleBooks = auxBooks.sort(sortTitle.sortDesc);
+    }
+    res.status(200).json(titleBooks);
+  } catch (err) {
+    res.status(404).send(err.message);
+  }
+});
+
+router.get("/rating/:order", async function (req, res) {
+  const { order } = req.params;
+  try {
+    const books = await Books.find({}).populate(["authors", "genres"]);
+    if (!books) throw new Error("The books not found");
+
+    if (!order) {
+      throw new Error("The order is not specified");
+    }
+
+    const auxBooks = [...books];
+    let ratingBooks;
+
+    if (order === "asc") {
+      ratingBooks = auxBooks.sort(sortRating.sortAsc);
+    }
+    if (order === "desc") {
+      ratingBooks = auxBooks.sort(sortRating.sortDesc);
+    }
+
+    res.status(200).json(ratingBooks);
+  } catch (err) {
+    res.status(404).send(err.message);
+  }
 });
 
 router.get("/:id", async function (req, res) {
@@ -43,6 +93,7 @@ router.post("/addBook", async function (req, res) {
 
   try {
     const getAuthor = await Author.findById(author);
+    if (getAuthor === null) throw new Error("Author not found");
     const newBook = new Books({
       title,
       authors: getAuthor._id,
@@ -72,4 +123,5 @@ router.post("/addBook", async function (req, res) {
     res.send(err.message);
   }
 });
+
 module.exports = router;

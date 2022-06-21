@@ -10,6 +10,11 @@ import AboutUs from './components/AboutUs';
 import FAQ from './components/FAQ'
 import Landing from './components/Landing';
 
+import NavBar from './components/NavBar';
+import Author from './components/Author';
+import BookDetails from './components/BookDetails';
+
+
 function App() {
 
   const dispatch = useDispatch() 
@@ -22,15 +27,15 @@ function App() {
 
   return (
     <BrowserRouter>
-    <NavBar/>
-    <Routes>
-        {/* <Route exact path='/' element= {<LandingPage/>}/> */}
+      <NavBar/>
+      <Routes>
         <Route exact path='/' element= {<Landing/>}/>
-        <Route exact path='/home' element= {<Home/>}/>
+        <Route exact path='/home' element= {<Home/>}/>      
         <Route exact path='/aboutus' element={<AboutUs/>}/>
         <Route exact path='/faq' element={<FAQ/>}/>
-        {/* <Route exact path='/book/:id' element={<DetailBook/>} />*/}
-    </Routes>
+        <Route exact path='/author' element={<Author/>}/>
+        <Route exact path='/book/:id' element={<BookDetails/>} />       
+      </Routes>
     </BrowserRouter>
   )
 }

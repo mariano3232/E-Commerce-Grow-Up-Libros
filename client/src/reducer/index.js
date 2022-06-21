@@ -1,6 +1,7 @@
 const initialState = {
     books: [],
     booksCopy: [],
+    bookDetails:{},
 }
 
 function rootReducer (state = initialState, action){
@@ -11,6 +12,11 @@ function rootReducer (state = initialState, action){
                 books: action.payload,
                 booksCopy: action.payload,
             }
+        case 'GET_BOOK_DETAILS':
+            return{
+                ...state,
+                bookDetails:action.payload
+            }
 
         case 'GET_BOOK_TITLE':
             return {
@@ -18,7 +24,12 @@ function rootReducer (state = initialState, action){
                 books: action.payload
             }
 
-
+        case 'GET_BOOK_GENRE':
+            return {
+                ...state,
+                books: action.payload
+            }
+            
         default:
             return state;
     }

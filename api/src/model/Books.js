@@ -24,11 +24,11 @@ const libroSchema = new Schema({
     required: true,
   },
   rating: {
-    Type: Number,
+    type: Number,
     default: 0,
   },
   stock: {
-    Type: Number,
+    type: Number,
     default: 0,
   },
   price: {

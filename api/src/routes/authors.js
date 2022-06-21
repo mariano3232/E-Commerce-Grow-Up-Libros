@@ -5,7 +5,7 @@ const Books = require("../model/Books");
 
 router.get("/", async (req, res) => {
   try {
-    const author = await Authors.find({}).populate("books");
+    const author = await Author.find({}).populate("books");
     if (!author) throw new Error("No author found");
     res.status(200).json(author);
   } catch (err) {
@@ -13,9 +13,45 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    if (id.length !== 24) throw new Error("The id have 24 characters");
+    const author = await Author.findById(id);
+    if (!author) throw new Error("No author found");
+    res.status(200).json(author);
+  } catch (err) {
+    res.status(404).send(err.message);
+  }
+});
+
+router.get("/:id/books", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const getAuthor = await Author.findById(id)
+      .populate("books")
+      .catch(() => {
+        throw new Error("No author found");
+      });
+    if (getAuthor.books.length <= 0) throw new Error("No books found");
+    const authorBooks = getAuthor.books;
+    res.status(200).json(authorBooks);
+  } catch (err) {
+    res.status(404).send(err.message);
+  }
+});
+
 router.post("/addAuthor", async (req, res) => {
   const { name, surname, birth, country, picture, biography } = req.body;
+
   try {
+    const getAuthor = await Author.find({
+      name: name,
+      surname: surname,
+    });
+
+    if (getAuthor.length > 0) throw new Error("Author is already exists");
+
     const newAuthor = new Author({
       name,
       surname,
