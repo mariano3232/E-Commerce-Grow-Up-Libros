@@ -9,7 +9,7 @@ export default function BottomBar(){
 const instagram = 'https://img.icons8.com/nolan/64/instagram-new.png'
     return (
 
-        <div >
+        <div>
             <div className='box' >
                 <Link to='/aboutus'>
                     <h5 >About us</h5>

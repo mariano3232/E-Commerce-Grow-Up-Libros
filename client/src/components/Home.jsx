@@ -7,6 +7,7 @@ import SideBar from "./SideBar";
 import BottomBar from "./BottomBar";
 import NavBar from "./NavBar";
 import Paginado from "./Paginado";
+import Card from "./Card";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -54,9 +55,8 @@ export default function Home() {
 
   return (
     <div>
-      {/* <NavBar/> */}
-      {/* <Carrusel/>
-        <SideBar/> */}
+      <SideBar />
+
       <Paginado
         bookPerPage={bookPerPage}
         books1={allBooks.length}
@@ -81,6 +81,8 @@ export default function Home() {
               <option value="desc">Lower Price</option>
             </select>
           </p>
+
+          <BottomBar />
         </div>
 
         <div>
@@ -111,7 +113,6 @@ export default function Home() {
             page={currentPage}
           />
         </div>
-        {/* <BottomBar/> */}
       </div>
     </div>
   );

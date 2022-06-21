@@ -2,6 +2,15 @@ const { Router } = require("express");
 const Genres = require("../model/Genres");
 const router = Router();
 
+router.get("/", async function (req, res) {
+  try {
+    const genres = await Genres.find({}).populate("books");
+    if (genres.length < 0) throw new Error("Genres not found");
+    res.status(200).json(genres);
+  } catch (err) {
+    res.status(404).send(err.message);
+  }
+});
 router.post("/addGenre", async function (req, res) {
   const { genre } = req.body;
   try {
