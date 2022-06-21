@@ -34,25 +34,30 @@ router.get("/", async function (req, res) {
     console.log("FALLO GET BOOKS", error);
   }
 });
-router.get("books/genre/:genre", async function (req, res) {
+router.get("/genre/:genre", async function (req, res) {
   const { genre } = req.params;
+  console.log(genre);
   try {
     if (genre) {
       const books = await Books.find({})
         .populate({
           path: "genres",
-          select:{name: 1, _id: 0},
+          select: { genre: 1, _id: 0 },
         })
         .populate({
           path: "authors",
           select: { name: 1, _id: 0, surname: 1, biography: 1 },
         });
+
       const booksGenres = books?.filter((e) =>
         e.genres?.find((e) => e.genre === genre)
       );
+
       return res.json(booksGenres);
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log("FALLO GENERO", error);
+  }
 });
 
 router.get("/alf/:order", async function (req, res) {
