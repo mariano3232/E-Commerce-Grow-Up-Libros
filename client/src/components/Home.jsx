@@ -102,7 +102,6 @@ export default function Home() {
             <h5>Book Not Found!</h5>
           )}
         </div>
-        <SideBar />
         <BottomBar />
       </div>
     </div>
