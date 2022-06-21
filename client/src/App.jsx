@@ -18,7 +18,7 @@ function App() {
     dispatch(getBooks())
     },[dispatch]) 
 
-    console.log('Soy App')
+    console.log('Soy App:')
 
   return (
     <BrowserRouter>
