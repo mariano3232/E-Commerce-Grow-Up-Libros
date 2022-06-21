@@ -11,7 +11,7 @@ router.get("/", async function (req, res) {
   res.json(books);
 });
 
-router.get("/alf/:order", async function (req, res) {
+/* router.get("/alf/:order", async function (req, res) {
   const { order } = req.params;
   try {
     const books = await Books.find({}).populate(["authors", "genres"]);
@@ -57,7 +57,7 @@ router.get("/rating/:order", async function (req, res) {
   } catch (err) {
     res.status(404).send(err.message);
   }
-});
+}); */
 
 router.get("/:id", async function (req, res) {
   const { id } = req.params;
