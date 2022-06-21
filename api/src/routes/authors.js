@@ -5,7 +5,7 @@ const Books = require("../model/Books");
 
 router.get("/", async (req, res) => {
   try {
-    const author = await Authors.find({}).populate("books");
+    const author = await Author.find({}).populate("books");
     if (!author) throw new Error("No author found");
     res.status(200).json(author);
   } catch (err) {
