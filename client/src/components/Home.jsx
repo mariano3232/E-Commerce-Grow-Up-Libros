@@ -6,9 +6,6 @@ import { getBooks } from '../actions';
 import Card from './Card';
 import SideBar from './SideBar';
 import BottomBar from './BottomBar'
-import NavBar from './NavBar';
-
-
 
 
 export default function Home(){
@@ -19,10 +16,8 @@ export default function Home(){
   
 return(
     <div >
-
-        <NavBar/>
         
-        <SideBar/>
+        {/* <SideBar/> */}
 
 
         <div >

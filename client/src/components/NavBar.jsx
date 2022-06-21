@@ -2,8 +2,17 @@
 import React from 'react';
 import SearchBar from './SearchBar';
 import style from '../Styles/nav.module.css';
+import {Link} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 
 const NavBar = () => {
+
+    const dispatch = useDispatch
+
+    const handleSelectGenre = (e) => {
+        e.preventDefault();
+        dispatch();
+    }
 
     const genres = ['Salud', 'Deportes', 'Biografia', 'Nutricion', 'Filosofia', 'Ensayo', 'Desarrollo Personal',
     'Economia', 'Espiritualidad', 'Historia', 'Negocios', 'Psicologia', 'Neurociencia'];
@@ -13,10 +22,10 @@ const NavBar = () => {
             
             <h3 className={style.logo}>PG-11 Books</h3>
 
-            <p className={style.inicio}>Inicio</p>
+            <Link to='/home'><p className={style.inicio}>Inicio</p></Link>
 
             <div className={style.select}>
-                <select defaultValue="default">Generos
+                <select defaultValue="default" onSelect={(e) => handleSelectGenre(e)}>Generos
                     <option value="default" disabled>Generos</option>
                     {
                         genres?.map(e => (
@@ -27,7 +36,7 @@ const NavBar = () => {
             </div>
 
             <div className={style.autor}>
-                <p>Autores</p>
+               <Link to='/author'><p>Autores</p></Link> 
             </div>
 
             <SearchBar/>

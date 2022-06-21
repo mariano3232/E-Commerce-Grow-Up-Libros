@@ -24,7 +24,12 @@ function rootReducer (state = initialState, action){
                 books: action.payload
             }
 
-
+        case 'GET_BOOK_GENRE':
+            return {
+                ...state,
+                books: action.payload
+            }
+            
         default:
             return state;
     }

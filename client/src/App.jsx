@@ -7,7 +7,11 @@ import FAQ from './components/FAQ';
 import { getBooks } from './actions';
 import { useDispatch , useSelector } from 'react-redux';
 import { useEffect } from 'react';
+
+import NavBar from './components/NavBar';
+import Author from './components/Author';
 import BookDetails from './components/BookDetails';
+
 
 function App() {
 
@@ -19,13 +23,15 @@ function App() {
 
   return (
     <BrowserRouter>
-    <Routes>
+      <NavBar/>
+      <Routes>
         {/* <Route exact path='/' element= {<LandingPage/>}/> */}
         <Route exact path='/home' element= {<Home/>}/>      
         <Route exact path='/aboutus' element={<AboutUs/>}/>
         <Route exact path='/faq' element={<FAQ/>}/>
+        <Route exact path='/author' element={<Author/>}/>
         <Route exact path='/book/:id' element={<BookDetails/>} />       
-    </Routes>
+      </Routes>
     </BrowserRouter>
   )
 }

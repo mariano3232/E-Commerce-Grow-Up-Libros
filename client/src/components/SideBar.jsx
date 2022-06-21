@@ -5,7 +5,7 @@ import { Link }  from 'react-router-dom';
 export default function SideBar(){
 
     
-    const allBooks = useSelector((state)=> state.books)
+    const allBooks = useSelector(state => state.books);
     console.log('soyallBook',allBooks)
 
     const orderBooksByRating = allBooks.sort((a,b) => {

@@ -35,3 +35,15 @@ export function getBookTitle (title) {
         }
     }
 }
+
+export function getBookGenre (value) {
+
+    return async function (dispatch) {
+        const json = await axios.get();
+
+        return {
+            type: 'GET_BOOK_GENRE',
+            payload: json.data
+        }
+    }
+}
