@@ -43,6 +43,7 @@ router.post("/addBook", async function (req, res) {
 
   try {
     const getAuthor = await Author.findById(author);
+    if (getAuthor === null) throw new Error("Author not found");
     const newBook = new Books({
       title,
       authors: getAuthor._id,
