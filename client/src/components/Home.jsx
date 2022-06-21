@@ -46,7 +46,6 @@ return(
                         <Link to={"/book/"+book.id}>
                             <Card title={book.title} cover={book.cover} price={book.price} rating={book.rating} id={book.id} key={book.id}/>
                         </Link>
-                      
                     )               
                     })
                 : <h5>Book Not Found!</h5>
