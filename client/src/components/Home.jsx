@@ -3,6 +3,10 @@ import { useState , useEffect } from 'react';
 import { useDispatch , useSelector } from 'react-redux';
 import { Link }  from 'react-router-dom';
 import { getBooks } from '../actions';
+import SideBar from './SideBar';
+import BottomBar from './BottomBar'
+import NavBar from './NavBar';
+
 
 
 export default function Home(){
@@ -13,9 +17,11 @@ export default function Home(){
   
 return(
     <div >
-        {/* <NavBar/> */}
-        {/* <Carrusel/>
-        <SideBar/> */}
+
+        <NavBar/>
+        
+        <SideBar/>
+
 
         <div >
             <div>
@@ -54,7 +60,7 @@ return(
                 }
             </div>
            
-            {/* <BottomBar/> */}
+            <BottomBar/>
         </div>
     </div>
     
