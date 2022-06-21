@@ -8,6 +8,7 @@ import NavBar from './components/NavBar';
 import  Home  from './components/Home';
 import AboutUs from './components/AboutUs';
 import FAQ from './components/FAQ'
+import Landing from './components/Landing';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
     <NavBar/>
     <Routes>
         {/* <Route exact path='/' element= {<LandingPage/>}/> */}
+        <Route exact path='/' element= {<Landing/>}/>
         <Route exact path='/home' element= {<Home/>}/>
         <Route exact path='/aboutus' element={<AboutUs/>}/>
         <Route exact path='/faq' element={<FAQ/>}/>
