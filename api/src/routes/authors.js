@@ -13,6 +13,22 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id/books", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const getAuthor = await Author.findById(id)
+      .populate("books")
+      .catch(() => {
+        throw new Error("No author found");
+      });
+    if (getAuthor.books.length <= 0) throw new Error("No books found");
+    const authorBooks = getAuthor.books;
+    res.status(200).json(authorBooks);
+  } catch (err) {
+    res.status(404).send(err.message);
+  }
+});
+
 router.post("/addAuthor", async (req, res) => {
   const { name, surname, birth, country, picture, biography } = req.body;
   try {
