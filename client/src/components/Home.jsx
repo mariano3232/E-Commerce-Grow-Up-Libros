@@ -11,9 +11,6 @@ import Card from "./Card";
 export default function Home() {
   const dispatch = useDispatch();
   const allBooks = useSelector((state) => state.books);
-  const [order, setOrder] = useState("Asc");
-  const [rating, setRating] = useState("");
-  const [price, setPrice] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [bookPerPage] = useState(10);
   var lastBook = currentPage * bookPerPage;
@@ -32,25 +29,20 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getBooks("Asc"));
-    console.log("Entre aca:");
   }, [dispatch]);
-  console.log("libros:", allBooks);
 
   function handleSort(e) {
-    setOrder(e.target.value);
     dispatch(getBooks(e.target.value));
     setCurrentPage(1);
   }
 
   function handleRating(e) {
-    setRating(e.target.value);
-    dispatch(getBooks(order, e.target.value));
+    dispatch(getBooks(e.target.value));
     setCurrentPage(1);
   }
 
   function handlePrice(e) {
-    setPrice(e.target.value);
-    dispatch(getBooks(price, order, e.target.value));
+    dispatch(getBooks(e.target.value));
     setCurrentPage(1);
   }
 
