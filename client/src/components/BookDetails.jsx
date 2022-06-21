@@ -2,36 +2,41 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux";
-import { getDetails } from "../actions";
+import { getBookDetails } from "../actions";
 import { Link } from "react-router-dom";
 
-export default function Details(){
+export default function BookDetails(){
     const id=useParams().id;
     const dispatch=useDispatch();
 
     useEffect(()=>{
-        dispatch(getDetails(id))
+        dispatch(getBookDetails(id))
     },[dispatch])
 
-    const book=useSelector(state=>state.details)
+    const book=useSelector(state=>state.bookDetails)
     console.log('book :',book)
     return(
         <div>
             <h2>{book.title}</h2>
             <Link to='/Home'><h3>Home</h3></Link>
             <img src={book.cover} alt="Not Found ):" width='300px'/>
-            <h3>Autor {book.author}</h3>
+            <h3>Autor: {book.author}</h3>
+            <h4>Rating: {book.rating}</h4>
             <p>editorial : {book.editorial}</p>
-            <span>genres :</span>
+            <span>generos :</span>
+
             {
                 book?.genres?.map(e=>{
                     return <span key={e}>{e},  </span>
                 })
             }
-            <p>pages : {book.pages}</p>
-            <p>price : {book.price}$</p>
-            <p>year : {book.year}</p>
+            <p>Paginas : {book.pages}</p>
+            <p>Precio : {book.price}$</p>
+            <p>Año : {book.year}</p>
             <p>{book.review}</p>
+            <button>Comprar({book.price}$)</button>
+            <input type="number" placeholder="Puntuacion..." />
+            <textarea cols="30" rows="10" placeholder="Comenta!"></textarea>
         </div>
     )
 }

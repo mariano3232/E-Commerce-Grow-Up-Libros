@@ -7,7 +7,7 @@ import FAQ from './components/FAQ';
 import { getBooks } from './actions';
 import { useDispatch , useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import Details from './components/Details';
+import BookDetails from './components/BookDetails';
 
 function App() {
 
@@ -24,7 +24,7 @@ function App() {
         <Route exact path='/home' element= {<Home/>}/>      
         <Route exact path='/aboutus' element={<AboutUs/>}/>
         <Route exact path='/faq' element={<FAQ/>}/>
-        {/* <Route exact path='/book/:id' element={<DetailBook/>} />        */}
+        <Route exact path='/book/:id' element={<BookDetails/>} />       
     </Routes>
     </BrowserRouter>
   )

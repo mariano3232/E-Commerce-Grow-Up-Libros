@@ -22,11 +22,11 @@ export default function SideBar(){
         <div>
             <div>
                 <h3>Top 5 Rating</h3>
-                <h5>#1{top5Rating[0].cover}{top5Rating[0].title}{top5Rating[0].price}</h5>
-                <h5>#2{top5Rating[1].cover}{top5Rating[1].title}{top5Rating[1].price}</h5>
-                <h5>#3{top5Rating[2].cover}{top5Rating[2].title}{top5Rating[2].price}</h5>
-                <h5>#4{top5Rating[3].cover}{top5Rating[3].title}{top5Rating[3].price}</h5>
-                <h5>#5{top5Rating[4].cover}{top5Rating[4].title}{top5Rating[4].price}</h5>
+                <h5>#1{top5Rating[0]?.cover}{top5Rating[0]?.title}{top5Rating[0]?.price}</h5>
+                <h5>#2{top5Rating[1]?.cover}{top5Rating[1]?.title}{top5Rating[1]?.price}</h5>
+                <h5>#3{top5Rating[2]?.cover}{top5Rating[2]?.title}{top5Rating[2]?.price}</h5>
+                <h5>#4{top5Rating[3]?.cover}{top5Rating[3]?.title}{top5Rating[3]?.price}</h5>
+                <h5>#5{top5Rating[4]?.cover}{top5Rating[4]?.title}{top5Rating[4]?.price}</h5>
             </div>
 
             <div>

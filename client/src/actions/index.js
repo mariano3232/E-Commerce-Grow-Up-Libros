@@ -13,12 +13,12 @@ export function getBooks () {
         })
     } 
 }
-export function getDetails(id){
+export function getBookDetails(id){
     return async function (dispatch){
         var json=await axios.get('https://ecommercehenryx.herokuapp.com/books/'+id)
         console.log('detalles :',json.data)
         return dispatch({
-            type:'GET_DETAILS',
+            type:'GET_BOOK_DETAILS',
             payload:json.data
         })
     }    
