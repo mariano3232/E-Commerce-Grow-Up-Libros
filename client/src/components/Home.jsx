@@ -53,13 +53,13 @@ export default function Home() {
           {allBooks.length ? (
             allBooks.map((book) => {
               return (
-                <Link to={"/book/" + book._id}>
+                <Link to={"/book/" + book.id}>
                   <Card
                     title={book.title}
                     cover={book.cover}
                     price={book.price}
                     rating={book.rating}
-                    id={book._id}
+                    id={book.id}
                     key={book.id}
                   />
                 </Link>
