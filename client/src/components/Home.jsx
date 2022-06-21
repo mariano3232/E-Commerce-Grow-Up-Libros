@@ -3,13 +3,13 @@ import { useState , useEffect } from 'react';
 import { useDispatch , useSelector } from 'react-redux';
 import { Link }  from 'react-router-dom';
 import { getBooks } from '../actions';
-
+import Card from './Card';
 
 export default function Home(){
 
     const dispatch = useDispatch() 
     const allBooks = useSelector(state => state.books) 
-
+    console.log('allBooks :',allBooks)
   
 return(
     <div >
@@ -44,10 +44,10 @@ return(
                 ? allBooks.map(book=>{
                     return(
 
-                        // <Link to={"/book/"+book.id}>
-                        //     <Card title={book.title} cover={book.cover} price={book.price} rating={book.rating} id={book.id} key={book.id}/>
-                        // </Link>
-                        book.title
+                        <Link to={"/book/"+book._id}>
+                            <Card title={book.title} cover={book.cover} price={book.price} rating={book.rating} id={book._id} key={book.id}/>
+                        </Link>
+                        // book.title
                     )               
                     })
                 : <h5>Book Not Found!</h5>

@@ -5,6 +5,7 @@ import  Home  from './components/Home';
 import { getBooks } from './actions';
 import { useDispatch , useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import Details from './components/Details';
 
 function App() {
 
@@ -19,7 +20,7 @@ function App() {
     <Routes>
         {/* <Route exact path='/' element= {<LandingPage/>}/> */}
         <Route exact path='/home' element= {<Home/>}/>
-        {/* <Route exact path='/book/:id' element={<DetailBook/>} />        */}
+        <Route exact path='/book/:id' element={<Details/>} />       
     </Routes>
     </BrowserRouter>
   )
