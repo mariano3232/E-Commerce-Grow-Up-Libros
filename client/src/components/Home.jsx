@@ -80,8 +80,6 @@ export default function Home() {
               <option value="desc">Lower Price</option>
             </select>
           </p>
-
-          <BottomBar />
         </div>
 
         <div>
