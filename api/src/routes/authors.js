@@ -13,6 +13,18 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    if (id.length !== 24) throw new Error("The id have 24 characters");
+    const author = await Author.findById(id);
+    if (!author) throw new Error("No author found");
+    res.status(200).json(author);
+  } catch (err) {
+    res.status(404).send(err.message);
+  }
+});
+
 router.get("/:id/books", async (req, res) => {
   const { id } = req.params;
   try {
