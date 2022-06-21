@@ -9,6 +9,26 @@ router.get("/", async function (req, res) {
   res.json(books);
 });
 
+router.get("/rating", async function (req, res) {
+  try {
+    const books = await Books.find({}).populate(["authors", "genres"]);
+    if (!books) throw new Error("The books not found");
+    const auxBooks = [...books];
+    const ratingBooks = auxBooks.sort(function (a, b) {
+      if (a.LastName > b.LastName) {
+        return -1;
+      }
+      if (a.LastName < b.LastName) {
+        return 1;
+      }
+      return 0;
+    });
+    res.status(200).json(ratingBooks);
+  } catch (err) {
+    res.status(404).send(err.message);
+  }
+});
+
 router.get("/:id", async function (req, res) {
   const { id } = req.params;
   try {
@@ -73,4 +93,5 @@ router.post("/addBook", async function (req, res) {
     res.send(err.message);
   }
 });
+
 module.exports = router;
