@@ -7,7 +7,6 @@ import Card from './Card';
 import SideBar from './SideBar';
 import BottomBar from './BottomBar'
 
-
 export default function Home(){
 
     const dispatch = useDispatch() 
@@ -15,10 +14,9 @@ export default function Home(){
     console.log('allBooks :',allBooks)
   
 return(
-    <div >
-        
-        {/* <SideBar/> */}
-
+       <div >
+      
+        <SideBar/>
 
         <div >
             <div>
@@ -55,7 +53,7 @@ return(
                 : <h5>Book Not Found!</h5>
                 }
             </div>
-           
+            <SideBar/>
             <BottomBar/>
         </div>
     </div>
