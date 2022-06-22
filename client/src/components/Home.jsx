@@ -7,6 +7,7 @@ import SideBar from "./SideBar";
 import BottomBar from "./BottomBar";
 import Paginado from "./Paginado";
 import Card from "./Card";
+import Carousel from "./carousel";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -57,6 +58,7 @@ export default function Home() {
   return (
     <div>
       <SideBar />
+      <Carousel/>
       <div>
         <Paginado
           bookPerPage={bookPerPage}
