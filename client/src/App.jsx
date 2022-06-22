@@ -19,8 +19,6 @@ function App() {
     dispatch(getBooks());
   }, [dispatch]);
 
-  console.log("App:");
-
   return (
     <BrowserRouter>
       <NavBar />

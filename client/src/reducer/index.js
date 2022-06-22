@@ -6,46 +6,55 @@ const initialState = {
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case "GET_BOOKS":
+      const allBooks = action.payload;
+      let booksOrder =
+        action.genres === "All"
+          ? allBooks
+          : allBooks.filter((element) =>
+              element.genres.find((e) => e.genres === action.genres)
+            );
       if (action.price !== undefined) {
-        action.price === "Asc"
-          ? price.sort(function (a, b) {
-              if (a.price > b.price) {
-                return 1;
-              }
-              if (b.price > a.price) {
-                return -1;
-              }
-              return 0;
-            })
-          : price.sort(function (a, b) {
-              if (a.price > b.price) {
-                return -1;
-              }
-              if (b.price > a.price) {
-                return 1;
-              }
-              return 0;
-            });
+        booksOrder =
+          action.price === "Asc"
+            ? booksOrder.sort(function (a, b) {
+                if (a.price > b.price) {
+                  return 1;
+                }
+                if (b.price > a.price) {
+                  return -1;
+                }
+                return 0;
+              })
+            : booksOrder.sort(function (a, b) {
+                if (a.price > b.price) {
+                  return -1;
+                }
+                if (b.price > a.price) {
+                  return 1;
+                }
+                return 0;
+              });
       } else if (action.title !== undefined) {
-        action.title === "Asc"
-          ? title.sort(function (a, b) {
-              if (a.title.toLowerCase() > b.title.toLowerCase()) {
-                return 1;
-              }
-              if (b.title.toLowerCase() > a.title.toLowerCase()) {
-                return -1;
-              }
-              return 0;
-            })
-          : title.sort(function (a, b) {
-              if (a.title.toLowerCase() > b.title.toLowerCase()) {
-                return -1;
-              }
-              if (b.title.toLowerCase() > a.title.toLowerCase()) {
-                return 1;
-              }
-              return 0;
-            });
+        booksOrder =
+          action.title === "Asc"
+            ? booksOrder.sort(function (a, b) {
+                if (a.title.toLowerCase() > b.title.toLowerCase()) {
+                  return 1;
+                }
+                if (b.title.toLowerCase() > a.title.toLowerCase()) {
+                  return -1;
+                }
+                return 0;
+              })
+            : booksOrder.sort(function (a, b) {
+                if (a.title.toLowerCase() > b.title.toLowerCase()) {
+                  return -1;
+                }
+                if (b.title.toLowerCase() > a.title.toLowerCase()) {
+                  return 1;
+                }
+                return 0;
+              });
       } /* else {
         action.rating === "Asc"
           ? rating.sort(function (a, b) {
@@ -69,7 +78,7 @@ function rootReducer(state = initialState, action) {
       } */
       return {
         ...state,
-        books: action.payload,
+        books: booksOrder,
         booksCopy: action.payload,
       };
     case "GET_BOOK_TITLE":
@@ -93,6 +102,12 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         books: action.payload,
+      };
+    case "ERROR_MESSAGE":
+      alert(action.payload);
+      return {
+        ...state,
+        food: {},
       };
 
     default:
