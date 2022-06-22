@@ -9,14 +9,21 @@ import BottomBar from './BottomBar'
 
 export default function Home(){
 
-    const dispatch = useDispatch() 
-    const allBooks = useSelector(state => state.books) 
-    console.log('allBooks :',allBooks)
+    const dispatch = useDispatch(); 
+    const allBooks = useSelector(state => state.books); 
+    
+    const handleClick = (e) => {
+        e.preventDefault();
+        dispatch(getBooks());
+    }
+
   
 return(
        <div >
+
+        <p onClick={handleClick}>Refrescar</p>
       
-        <SideBar/>
+        {/* <SideBar/> */}
 
         <div >
             <div>
@@ -53,7 +60,6 @@ return(
                 : <h5>Book Not Found!</h5>
                 }
             </div>
-            <SideBar/>
             <BottomBar/>
         </div>
     </div>

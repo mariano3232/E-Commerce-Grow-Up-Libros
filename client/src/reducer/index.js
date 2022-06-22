@@ -1,9 +1,11 @@
 const initialState = {
     books: [],
     booksCopy: [],
-    bookDetails:{},
+    bookDetails: {},
+    authors: [],
+    authorDetails: [],
 }
-
+console.log('estado global', initialState.authorDetails);
 function rootReducer (state = initialState, action){
     switch(action.type){
         case 'GET_BOOKS':
@@ -19,15 +21,34 @@ function rootReducer (state = initialState, action){
             }
 
         case 'GET_BOOK_TITLE':
+
+            const titleCopy = state.booksCopy;
+            const title = titleCopy.filter(e => e.title.toLowerCase().includes(action.payload.toLowerCase()));
+
+            return {
+                ...state,
+                books: title
+            }
+
+        case 'GET_BOOK_GENRE':
+            
             return {
                 ...state,
                 books: action.payload
             }
+        
+        case 'GET_AUTHORS':
 
-        case 'GET_BOOK_GENRE':
             return {
                 ...state,
-                books: action.payload
+                authors: action.payload
+            }
+
+        case 'GET_AUTHOR_DETAILS':
+
+            return {
+                ...state,
+                authorDetails: action.payload
             }
             
         default:

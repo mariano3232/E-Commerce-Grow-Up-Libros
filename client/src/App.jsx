@@ -9,10 +9,10 @@ import  Home  from './components/Home';
 import AboutUs from './components/AboutUs';
 import FAQ from './components/FAQ'
 import Landing from './components/Landing';
-
-import NavBar from './components/NavBar';
 import Author from './components/Author';
 import BookDetails from './components/BookDetails';
+import AuthorDetails from './components/AuthorDetails';
+
 
 
 function App() {
@@ -21,9 +21,9 @@ function App() {
 
   useEffect(()=> {    
     dispatch(getBooks())
-    },[dispatch]) 
+  },[dispatch])
 
-    console.log('App:')
+  console.log('App:')
 
   return (
     <BrowserRouter>
@@ -33,8 +33,9 @@ function App() {
         <Route exact path='/home' element= {<Home/>}/>      
         <Route exact path='/aboutus' element={<AboutUs/>}/>
         <Route exact path='/faq' element={<FAQ/>}/>
-        <Route exact path='/author' element={<Author/>}/>
         <Route exact path='/book/:id' element={<BookDetails/>} />       
+        <Route exact path='/author' element={<Author/>}/>
+        <Route exact path='/author/:id' element={<AuthorDetails/>} />       
       </Routes>
     </BrowserRouter>
   )
