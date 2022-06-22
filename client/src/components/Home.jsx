@@ -6,7 +6,7 @@ import { getBooks } from "../actions";
 import SideBar from "./SideBar";
 import BottomBar from "./BottomBar";
 import Paginado from "./Paginado";
-import Card from "./Card";
+import CardBook from "./CardBook";
 import Carousel from "./carousel";
 
 export default function Home() {
@@ -40,7 +40,7 @@ export default function Home() {
     firstBook = lastBook - bookPerPage;
     currentBooks = allBooks.slice(firstBook, lastBook);
   }, [allBooks]);
-
+ 
 
   useEffect(() => {
     dispatch(getBooks("Asc"));
@@ -58,57 +58,67 @@ export default function Home() {
     setCurrentPage(1);
   } */
 
-  function handlePrice(e) {
+
+ function handlePrice(e) {
     setPrice(e.target.value);
     dispatch(getBooks(order, e.target.value));
     setCurrentPage(1);
   }
 
-  return (
-    <div>
-    
-      <p onClick={handleClick}>Refrescar</p>
 
-      <SideBar />
+
+return(
+    
+    <div>
+
+        <Link to="/add">
+            <button>Add</button>
+        </Link>
+
+        <p onClick={handleClick}>Refrescar</p>
+
+        <SideBar />
   
-      <Carousel/>
+        <Carousel/>
   
       <div>
+
         <Paginado
           bookPerPage={bookPerPage}
           books1={allBooks.length}
           paginado={paginado}
           page={currentPage}
         />
-      </div>
 
-      <div>
         <div>
+           
           <p>
             Ordenar Por:
+
             <select onChange={(e) => handleSort(e)}>
               <option value="Asc">Nombre Ascendente</option>
               <option value="desc">Nombre Descendente</option>
             </select>
+
             {/* <select onChange={(e) => handleRating(e)}>
               <option value="Asc">Higher Rating</option>
               <option value="desc">Lower Rating</option>
             </select> */}
+
             <select onChange={(e) => handlePrice(e)}>
-              <option value="Asc">Precio mas Alto</option>
-              <option value="desc">Precio mas Bajo</option>
+              <option value="Asc">Precio mas Bajo</option>
+              <option value="desc">Precio mas Alto</option>
             </select>
           </p>
 
         </div>
 
-        <div>
-          {currentBooks.length ? (
+        {currentBooks.length ? (
             currentBooks.map((book, index) => {
               return (
                 <div key={index}>
                   <Link to={"/book/" + book._id}>
-                    <Card
+                    <CardBook
                       title={book.title}
                       cover={book.cover}
                       price={book.price}
@@ -122,17 +132,12 @@ export default function Home() {
           ) : (
             <h5>No se encontro el libro</h5>
           )}
-        </div>
-        <div>
-          <Paginado
-            bookPerPage={bookPerPage}
-            books1={allBooks.length}
-            paginado={paginado}
-            page={currentPage}
-          />
-        </div>
+
         <BottomBar />
-      </div>
+
+       </div>
+
     </div>
-  );
+)
+
 }

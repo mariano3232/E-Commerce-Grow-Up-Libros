@@ -1,8 +1,8 @@
 const initialState = {
-
-  bookDetails: {},
   books: [],
   booksCopy: [],
+  booksTop: [],
+  bookDetails: {}, 
   authors: [],
   authorDetails: [],
   
@@ -91,6 +91,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         books: booksOrder,
         booksCopy: action.payload,
+        booksTop: action.payload
       };
       
       
@@ -123,11 +124,12 @@ function rootReducer(state = initialState, action) {
       
     case 'GET_AUTHORS':
 
-         return {
-            ...state,
-            authors: action.payload
-         }
+      return {
+        ...state,
+        authors: action.payload
+     }
 
+     
      case 'GET_AUTHOR_DETAILS':
 
           return {
@@ -135,11 +137,27 @@ function rootReducer(state = initialState, action) {
               authorDetails: action.payload
           }
       
+      case 'POST_BOOK':
+
+        return({
+            ...state,
+            books:[...state.books,action.payload],
+            booksCopy:[...state.booksCopy,action.payload]                        
+        })
+    
+      case 'POST_AUTHOR':
+
+          return({
+            ...state,
+            authors:[...state.books,action.payload],
+            //booksCopy:[...state.booksCopy,action.payload]                        
+      })
       
     default:
       return state;
   }
 
 }
+
 
 export default rootReducer;

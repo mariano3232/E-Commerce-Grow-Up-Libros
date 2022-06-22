@@ -29,7 +29,9 @@ export const getBooks = (title, price) => async (dispatch) => {
     });
   }
 };
+
 export function getBookDetails(id){
+
     return async function (dispatch){
         var json=await axios.get('https://ecommercehenryx.herokuapp.com/books/'+id)
         
@@ -62,7 +64,11 @@ export function getBookGenre (value) {
             payload: json.data
         })
     }
-}
+};
+    
+
+
+
 
 export function getAuthors () {
 
@@ -78,15 +84,37 @@ export function getAuthors () {
 
 export function getAuthorDetails (id) {
 
-    return async function (dispatch) {
-        const json = await axios.get('https://ecommercehenryx.herokuapp.com/authors/' + id);
-       
-        return dispatch ({
-            type: 'GET_AUTHOR_DETAILS',
-            payload: json.data
-        })
-    }
+  return async function (dispatch) {
+      const json = await axios.get('https://ecommercehenryx.herokuapp.com/authors/' + id);
+     
+      return dispatch ({
+          type: 'GET_AUTHOR_DETAILS',
+          payload: json.data
+      })
+  }
 }
+
+// export function postBook (payload){
+//     return async function (dispatch){
+//        const json = await axios.post('http://localhost:3001/book',payload);
+//         return dispatch({
+//             type:'POST_BOOK',
+//           })
+//     }
+// }
+
+
+// export function postAuthor (payload){
+//     return async function (dispatch){
+//        const json = await axios.post('http://localhost:3001/authors',payload);
+//         return dispatch({
+//             type:'POST_AUTHOR',
+//           })
+//     }
+//   };
+
+
+
 
 
 
