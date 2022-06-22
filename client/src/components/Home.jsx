@@ -6,6 +6,7 @@ import { getBooks } from '../actions';
 import Card from './Card';
 import SideBar from './SideBar';
 import BottomBar from './BottomBar'
+import Shop from './Shop';
 
 export default function Home(){
 
@@ -18,7 +19,9 @@ return(
         <Link to="/add">
             <button>Add</button>
         </Link>
-      
+        <Link to="/shop">
+            <button>shop</button>
+        </Link>
         <SideBar/>
 
         <div >
