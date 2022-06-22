@@ -198,4 +198,14 @@ router.put("/update/:id", async (req, res) => {
   }
 });
 
+router.delete("/deleteBook/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    await Books.deleteOne({ _id: id });
+    res.status(204).send();
+  } catch {
+    res.status(404);
+    res.send({ error: "ESE LIBRO NO EXISTE" });
+  }
+});
 module.exports = router;
