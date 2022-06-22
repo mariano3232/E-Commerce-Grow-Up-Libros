@@ -181,13 +181,28 @@ router.post("/addBook", async function (req, res) {
   }
 });
 
+router.put("/update/:id", async (req, res) => {
+  const { id } = req.params;
+  const data = req.body;
+
+  try {
+    await Books.findByIdAndUpdate(id, data, () => {
+      if (!data) {
+        throw new Error("Failed to update books");
+      } else {
+        return res.status(200).send("Success update");
+      }
+    });
+  } catch (err) {
+    res.status(404).send(err.message);
+  }
+});
+
 router.put("/addRatingStock/:idBook", async (req, res) => {
   const { idBook } = req.params;
   let { stock, rating } = req.body;
   stock = Number(stock);
   rating = Number(rating);
-
-  console.log(stock, rating);
 
   Books.findByIdAndUpdate(
     idBook,
@@ -201,4 +216,6 @@ router.put("/addRatingStock/:idBook", async (req, res) => {
     }
   );
 });
+
 module.exports = router;
+("");
