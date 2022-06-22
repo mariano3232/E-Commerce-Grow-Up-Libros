@@ -10,12 +10,21 @@ import Card from "./Card";
 import Carousel from "./carousel";
 
 export default function Home() {
+  
   const dispatch = useDispatch();
+  
   const allBooks = useSelector((state) => state.books);
+  
+  const handleClick = (e) => {
+        e.preventDefault();
+        dispatch(getBooks());
+    }
+  
   const [order, setOrder] = useState("Asc");
   /* const [rating, setRating] = useState(""); */
   const [price, setPrice] = useState("");
-
+  
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [bookPerPage] = useState(10);
   var lastBook = currentPage * bookPerPage;
@@ -24,14 +33,14 @@ export default function Home() {
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-  console.log(allBooks);
-  console.log(currentBooks);
+  
   useEffect(() => {
     setCurrentPage(1);
     lastBook = currentPage * bookPerPage;
     firstBook = lastBook - bookPerPage;
     currentBooks = allBooks.slice(firstBook, lastBook);
   }, [allBooks]);
+
 
   useEffect(() => {
     dispatch(getBooks("Asc"));
@@ -42,7 +51,7 @@ export default function Home() {
     dispatch(getBooks(e.target.value));
     setCurrentPage(1);
   }
-
+           
   /* function handleRating(e) {
     setRating(e.target.value);
     dispatch(getBooks(order, e.target.value));
@@ -57,8 +66,13 @@ export default function Home() {
 
   return (
     <div>
+    
+      <p onClick={handleClick}>Refrescar</p>
+
       <SideBar />
+  
       <Carousel/>
+  
       <div>
         <Paginado
           bookPerPage={bookPerPage}
@@ -71,20 +85,21 @@ export default function Home() {
       <div>
         <div>
           <p>
-            Order by:
+            Ordenar Por:
             <select onChange={(e) => handleSort(e)}>
-              <option value="Asc">Name Ascending</option>
-              <option value="desc">Name Descending</option>
+              <option value="Asc">Nombre Ascendente</option>
+              <option value="desc">Nombre Descendente</option>
             </select>
             {/* <select onChange={(e) => handleRating(e)}>
               <option value="Asc">Higher Rating</option>
               <option value="desc">Lower Rating</option>
             </select> */}
             <select onChange={(e) => handlePrice(e)}>
-              <option value="Asc">Lower Price</option>
-              <option value="desc">Higher Price</option>
+              <option value="Asc">Precio mas Alto</option>
+              <option value="desc">Precio mas Bajo</option>
             </select>
           </p>
+
         </div>
 
         <div>
@@ -92,20 +107,20 @@ export default function Home() {
             currentBooks.map((book, index) => {
               return (
                 <div key={index}>
-                  <Link to={"/book/" + book.id}>
+                  <Link to={"/book/" + book._id}>
                     <Card
                       title={book.title}
                       cover={book.cover}
                       price={book.price}
                       rating={book.rating}
-                      id={book.id}
+                      id={book._id}
                     />
                   </Link>
                 </div>
               );
             })
           ) : (
-            <h5>Book Not Found!</h5>
+            <h5>No se encontro el libro</h5>
           )}
         </div>
         <div>

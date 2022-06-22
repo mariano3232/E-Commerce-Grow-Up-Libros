@@ -1,11 +1,20 @@
 const initialState = {
+
   bookDetails: {},
   books: [],
   booksCopy: [],
+  authors: [],
+  authorDetails: [],
+  
 };
+
+
 function rootReducer(state = initialState, action) {
+  
   switch (action.type) {
+      
     case "GET_BOOKS":
+      
       const allBooks = action.payload;
       let booksOrder =
         action.genres === "All"
@@ -13,6 +22,7 @@ function rootReducer(state = initialState, action) {
           : allBooks.filter((element) =>
               element.genres.find((e) => e.genres === action.genres)
             );
+      
       if (action.price !== undefined) {
         booksOrder =
           action.price === "Asc"
@@ -76,43 +86,60 @@ function rootReducer(state = initialState, action) {
               return 0;
             });
       } */
+      
       return {
         ...state,
         books: booksOrder,
         booksCopy: action.payload,
       };
-    case "GET_BOOK_TITLE":
-      return {
-        ...state,
-        books: action.payload,
-      };
+      
+      
+   case 'GET_BOOK_TITLE':
+
+            const titleCopy = state.booksCopy;
+            const title = titleCopy.filter(e => e.title.toLowerCase().includes(action.payload.toLowerCase()));
+
+            return {
+                ...state,
+                books: title
+            };
+      
+      
     case "GET_BOOK_DETAILS":
+      
       return {
         ...state,
         bookDetails: action.payload,
       };
 
-    case "GET_BOOK_TITLE":
-      return {
-        ...state,
-        books: action.payload,
-      };
-
+      
     case "GET_BOOK_GENRE":
+      
       return {
         ...state,
         books: action.payload,
       };
-    case "ERROR_MESSAGE":
-      alert(action.payload);
-      return {
-        ...state,
-        food: {},
-      };
+      
+      
+    case 'GET_AUTHORS':
 
+         return {
+            ...state,
+            authors: action.payload
+         }
+
+     case 'GET_AUTHOR_DETAILS':
+
+          return {
+              ...state,
+              authorDetails: action.payload
+          }
+      
+      
     default:
       return state;
   }
+
 }
 
 export default rootReducer;
