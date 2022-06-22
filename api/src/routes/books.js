@@ -183,7 +183,7 @@ router.post("/addBook", async function (req, res) {
 
 router.put("/addRatingStock/:idBook", async (req, res) => {
   const { idBook } = req.params;
-  let { stock, rating } = req.query;
+  let { stock, rating } = req.body;
   stock = Number(stock);
   rating = Number(rating);
 
