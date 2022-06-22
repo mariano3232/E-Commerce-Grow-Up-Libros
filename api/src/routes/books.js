@@ -198,24 +198,4 @@ router.put("/update/:id", async (req, res) => {
   }
 });
 
-router.put("/addRatingStock/:idBook", async (req, res) => {
-  const { idBook } = req.params;
-  let { stock, rating } = req.body;
-  stock = Number(stock);
-  rating = Number(rating);
-
-  Books.findByIdAndUpdate(
-    idBook,
-    {
-      stock: stock,
-      rating: rating,
-    },
-    (err, result) => {
-      if (err) res.send(err);
-      else res.send("Se actualizo correctamente");
-    }
-  );
-});
-
 module.exports = router;
-("");
