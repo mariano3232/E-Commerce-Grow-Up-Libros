@@ -9,10 +9,12 @@ import  Home  from './components/Home';
 import AboutUs from './components/AboutUs';
 import FAQ from './components/FAQ'
 import Landing from './components/Landing';
-
-import NavBar from './components/NavBar';
 import Author from './components/Author';
 import BookDetails from './components/BookDetails';
+import AddBook from './components/AddBook';
+import Add from './components/Add';
+import AddAuthor from './components/AddAuthor';
+import BottomBar from './components/BottomBar';
 
 
 function App() {
@@ -34,8 +36,12 @@ function App() {
         <Route exact path='/aboutus' element={<AboutUs/>}/>
         <Route exact path='/faq' element={<FAQ/>}/>
         <Route exact path='/author' element={<Author/>}/>
-        <Route exact path='/book/:id' element={<BookDetails/>} />       
+        <Route exact path='/book/:id' element={<BookDetails/>} /> 
+        <Route exact path='/add' element={<Add/>} />  
+        <Route exact path='/addbook' element={<AddBook/>} />     
+        <Route exact path='/addauthor' element={<AddAuthor/>} />      
       </Routes>
+      <BottomBar/>
     </BrowserRouter>
   )
 }

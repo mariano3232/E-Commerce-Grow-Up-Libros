@@ -2,6 +2,7 @@ const initialState = {
     books: [],
     booksCopy: [],
     bookDetails:{},
+    authors: []
 }
 
 function rootReducer (state = initialState, action){
@@ -29,6 +30,21 @@ function rootReducer (state = initialState, action){
                 ...state,
                 books: action.payload
             }
+
+        case 'POST_BOOK':
+            return({
+                ...state,
+                books:[...state.books,action.payload],
+                booksCopy:[...state.booksCopy,action.payload]                        
+            })
+
+
+        case 'POST_AUTHOR':
+            return({
+                ...state,
+                authors:[...state.books,action.payload],
+                //booksCopy:[...state.booksCopy,action.payload]                        
+            })
             
         default:
             return state;

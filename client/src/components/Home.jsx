@@ -15,6 +15,9 @@ export default function Home(){
   
 return(
        <div >
+        <Link to="/add">
+            <button>Add</button>
+        </Link>
       
         <SideBar/>
 
@@ -53,7 +56,7 @@ return(
                 : <h5>Book Not Found!</h5>
                 }
             </div>
-            <SideBar/>
+            
             <BottomBar/>
         </div>
     </div>
