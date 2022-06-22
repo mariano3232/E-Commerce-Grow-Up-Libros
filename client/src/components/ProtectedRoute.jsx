@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+
 import {
   Routes,
   Route,
@@ -13,6 +13,7 @@ export default function ProtectedRoute ({
   redirectPath = '/home',
   children
 }) {
+
 
   if (!isAllowed) {
     return <Navigate to={redirectPath} replace />;

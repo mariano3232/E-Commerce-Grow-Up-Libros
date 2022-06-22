@@ -56,6 +56,7 @@ function App() {
       ) : (
         <button onClick={handleLoginAdmin}>Sign In Admin</button>
       )}
+
       {user ? (
         <button onClick={handleLogoutUser}>Sign Out User</button>
       ) : (

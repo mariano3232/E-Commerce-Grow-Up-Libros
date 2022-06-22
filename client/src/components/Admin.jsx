@@ -11,10 +11,10 @@ export function Admin(){
 
         <div>
 
-            <h3>Only Admin</h3>
+            <h3>Solo Administrador</h3>
 
             <Link to="/add">
-                <button>Add Authors and Books</button>
+                <button>Agregar Autor y Libro</button>
             </Link>
             
         </div>

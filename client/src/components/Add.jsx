@@ -43,10 +43,10 @@ return(
   </h2>
 
          <Link to="/addauthor">
-        <button>Add Author</button>
+        <button>Agregar Autor</button>
         </Link>
         <Link to="/addbook">
-        <button>Add Book</button>
+        <button>Agregar Libro</button>
         </Link>
     </div>
 
