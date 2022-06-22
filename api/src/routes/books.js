@@ -17,6 +17,7 @@ router.get("/", async function (req, res) {
     console.log("FALLO GET BOOKS", error);
   }
 });
+
 router.get("/genre/:genre", async function (req, res) {
   const { genre } = req.params;
   console.log(genre);
@@ -40,6 +41,30 @@ router.get("/genre/:genre", async function (req, res) {
     }
   } catch (error) {
     console.log("FALLO GENERO", error);
+  }
+});
+
+router.get("/search", async function (req, res) {
+  let { title, name } = req.query;
+  try {
+    if (title) {
+      title = title[0].toUpperCase() + title.slice(1);
+      const booksNameFilter = await Books.find({
+        title: { $regex: title },
+      }).populate(["authors", "genres"]);
+      res.status(200).json(booksNameFilter);
+    } else if (name) {
+      name = name[0].toUpperCase() + name.slice(1);
+      const authorNameFilter = await Author.find({
+        name: { $regex: name },
+      }).populate("books");
+      res.status(200).json(authorNameFilter);
+    } else {
+      const books = await Books.find({}).populate(["authors", "genres"]);
+      res.json(books);
+    }
+  } catch (err) {
+    res.send(err.message);
   }
 });
 
