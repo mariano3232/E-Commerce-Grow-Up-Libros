@@ -1,6 +1,6 @@
 import React from 'react';
 import { getBooks } from '../actions';
-import Card from './Card';
+import CardBook from './CardBook';
 import SideBar from './SideBar';
 import BottomBar from './BottomBar'
 import { Link } from 'react-router-dom';

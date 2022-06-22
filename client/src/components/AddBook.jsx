@@ -1,6 +1,6 @@
 import React, { useState , useEffect } from 'react';
 import { Link} from 'react-router-dom';
-import { postBook } from '../actions/index';
+//import { postBook } from '../actions/index';
 import { useDispatch , useSelector } from 'react-redux';
 import style from '../Styles/addBook.module.css';
 
@@ -175,7 +175,7 @@ export default function AddBook(){
             <h2>Fill in all the fields</h2>
             <form onSubmit={(e)=>handleSubmit(e)}>
                 <div>
-                    <label >Title:</label>
+                    <label >Titulo:</label>
                     <input                    
                     type='text' 
                     value= {post.title} 
@@ -188,7 +188,7 @@ export default function AddBook(){
                 </div>
 
                 <div>
-                    <label >Author Name:</label>
+                    <label >Nombre de Autor:</label>
                     <input                    
                     type='text' 
                     value= {post.authors.name} 
@@ -201,7 +201,7 @@ export default function AddBook(){
                 </div>
 
                 <div>
-                    <label >Author Surname:</label>
+                    <label >Apellido de Autor:</label>
                     <input                    
                     type='text' 
                     value= {post.authors.surname} 
@@ -227,7 +227,7 @@ export default function AddBook(){
                 </div>
 
                 <div>
-                    <label >Cover:</label>
+                    <label >Imagen:</label>
                     <input                    
                     type='text' 
                     value= {post.cover} 
@@ -254,7 +254,7 @@ export default function AddBook(){
                 </div>
 
                 <div>
-                    <label>Year:</label>
+                    <label>Año:</label>
                     <input 
                     type='number' 
                     value= {post.year} 
@@ -267,7 +267,7 @@ export default function AddBook(){
                 </div>
 
                 <div>
-                    <label>Pages:</label>
+                    <label>Cantidad de paginas:</label>
                     <input 
                     type='number' 
                     value= {post.pages} 
@@ -280,7 +280,7 @@ export default function AddBook(){
                 </div>
 
                 <div>
-                    <label>Price:</label>
+                    <label>Precio:</label>
                     <input 
                     type='number' 
                     value= {post.price} 
@@ -307,7 +307,7 @@ export default function AddBook(){
 
 
                 <div>
-                    <label>Review:</label>
+                    <label>Reseña</label>
                     <textarea 
                     value= {post.review} 
                     name= 'review'
@@ -338,7 +338,7 @@ export default function AddBook(){
                         )}
 
 
-                <button type='submit'>Add Book</button>
+                <button type='submit'>Agregar Libro</button>
 
                 
             </form>

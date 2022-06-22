@@ -1,8 +1,8 @@
 import React, { useState , useEffect } from 'react';
 import { Link} from 'react-router-dom';
-import { postBook } from '../actions/index';
+//import { postBook } from '../actions/index';
 import { useDispatch , useSelector } from 'react-redux';
-import { postAuthor } from '../actions/index';
+//import { postAuthor } from '../actions/index';
 import style from '../Styles/addAuthor.module.css';
 
 
@@ -105,7 +105,7 @@ export default function AddAuthor(){
 
             <form onSubmit={(e)=>handleSubmit(e)}>
                 <div>
-                    <label>Name:</label>
+                    <label>Nombre:</label>
                     <input                    
                     type='text' 
                     value= {post.name} 
@@ -118,7 +118,7 @@ export default function AddAuthor(){
                 </div>
 
                 <div>
-                    <label >Surname:</label>
+                    <label >Apellido:</label>
                     <input                    
                     type='text' 
                     value= {post.surname} 
@@ -131,7 +131,7 @@ export default function AddAuthor(){
                 </div>
 
                 <div>
-                    <label >Birthday:</label>
+                    <label >Fecha de nacimiento:</label>
                     <input                    
                     type='date' 
                     value= {post.date} 
@@ -145,7 +145,7 @@ export default function AddAuthor(){
                 </div>
 
                 <div>
-                    <label >Country:</label>
+                    <label >Pais:</label>
                     <input                    
                     type='text' 
                     value= {post.country} 
@@ -158,7 +158,7 @@ export default function AddAuthor(){
                 </div>
 
                 <div>
-                    <label >Biography:</label>
+                    <label >Biografia:</label>
                     <textarea                   
                     type='text' 
                     value= {post.biography} 
@@ -171,7 +171,7 @@ export default function AddAuthor(){
                 </div>
 
                 <div>
-                    <label >Picture:</label>
+                    <label >Imagen:</label>
                     <input                    
                     type='text' 
                     value= {post.picture} 
@@ -184,7 +184,7 @@ export default function AddAuthor(){
                 </div>
 
                 
-                <button type='submit'>Add Author</button>
+                <button type='submit'>Agregar Autor</button>
 
                 {/* <Link to='./addbook'>
                     <button name='addbook' disabled>Add Book</button>

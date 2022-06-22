@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function SideBar() {
-  const allBooks = useSelector((state) => state.books);
+  const allBooks = useSelector((state) => state.booksTop);
 
   const orderBooksByRating = allBooks.sort((a, b) => {
     if (a.price > b.price) return 1;
