@@ -7,6 +7,7 @@ import SideBar from "./SideBar";
 import BottomBar from "./BottomBar";
 import Paginado from "./Paginado";
 import Card from "./Card";
+import Carousel from "./carousel";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -60,14 +61,19 @@ export default function Home() {
 
 return(
     <div>
-  <Link to="/add">
-            <button>Add</button>
+
+     <Link to="/add">
+        <button>Add</button>
      </Link>
+
      <div>
         <SideBar />
      </div>
 
-     <Paginado
+      <Carousel/>
+      
+      <div>
+        <Paginado
           bookPerPage={bookPerPage}
           books1={allBooks.length}
           paginado={paginado}
@@ -96,13 +102,13 @@ return(
             currentBooks.map((book, index) => {
               return (
                 <div key={index}>
-                  <Link to={"/book/" + book.id}>
+                  <Link to={"/book/" + book._id}>
                     <Card
                       title={book.title}
                       cover={book.cover}
                       price={book.price}
                       rating={book.rating}
-                      id={book.id}
+                      id={book._id}
                     />
                   </Link>
                 </div>
@@ -114,7 +120,7 @@ return(
 
         <BottomBar />
 
-
+        </div>
 
     </div>
 )
