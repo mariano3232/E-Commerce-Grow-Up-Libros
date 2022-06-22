@@ -46,4 +46,4 @@ const libroSchema = new Schema({
   },
 });
 
-module.exports = model("Book", libroSchema);
+module.exports = model("Books", libroSchema);
