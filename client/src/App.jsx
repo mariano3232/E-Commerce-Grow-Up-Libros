@@ -1,3 +1,4 @@
+
 import './App.css';
 import React from 'react';
 import {BrowserRouter , Routes , Route} from 'react-router-dom';
@@ -14,31 +15,31 @@ import BookDetails from './components/BookDetails';
 import AuthorDetails from './components/AuthorDetails';
 
 
-
 function App() {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch() 
 
-  useEffect(()=> {    
-    dispatch(getBooks())
-  },[dispatch])
+  useEffect(() => {
+    dispatch(getBooks());
+  }, [dispatch]);
 
-  console.log('App:')
 
   return (
     <BrowserRouter>
-      <NavBar/>
+      <NavBar />
       <Routes>
-        <Route exact path='/' element= {<Landing/>}/>
-        <Route exact path='/home' element= {<Home/>}/>      
-        <Route exact path='/aboutus' element={<AboutUs/>}/>
-        <Route exact path='/faq' element={<FAQ/>}/>
-        <Route exact path='/book/:id' element={<BookDetails/>} />       
-        <Route exact path='/author' element={<Author/>}/>
-        <Route exact path='/author/:id' element={<AuthorDetails/>} />       
+
+        <Route exact path="/" element={<Landing />} />
+        <Route exact path="/home" element={<Home />} />
+        <Route exact path="/aboutus" element={<AboutUs />} />
+        <Route exact path="/faq" element={<FAQ />} />
+        <Route exact path="/author" element={<Author />} />
+        <Route exact path="/book/:id" element={<BookDetails />} />
+        <Route exact path='/author/:id' element={<AuthorDetails/>} />  
+
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

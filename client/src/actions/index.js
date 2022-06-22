@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export function getBooks () {
+
+/*export function getBooks () {
 
     return async function (dispatch) {
         const json = await axios.get('https://ecommercehenryx.herokuapp.com/books');
@@ -10,7 +11,24 @@ export function getBooks () {
             payload: json.data
         })
     } 
-}
+}*/
+
+export const getBooks = (title, price) => async (dispatch) => {
+  try {
+    var json = await axios.get("https://ecommercehenryx.herokuapp.com/books");
+    dispatch({
+      title: title,
+      price: price,
+      type: "GET_BOOKS",
+      payload: json.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: "ERROR_MESSAGE",
+      payload: error,
+    });
+  }
+};
 export function getBookDetails(id){
     return async function (dispatch){
         var json=await axios.get('https://ecommercehenryx.herokuapp.com/books/'+id)
@@ -69,3 +87,10 @@ export function getAuthorDetails (id) {
         })
     }
 }
+
+
+
+
+
+
+
