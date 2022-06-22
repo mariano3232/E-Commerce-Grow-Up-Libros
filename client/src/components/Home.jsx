@@ -1,64 +1,121 @@
-import React from 'react';
-import { useState , useEffect } from 'react';
-import { useDispatch , useSelector } from 'react-redux';
-import { Link }  from 'react-router-dom';
-import { getBooks } from '../actions';
-import Card from './Card';
-import SideBar from './SideBar';
-import BottomBar from './BottomBar'
+import React from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { getBooks } from "../actions";
+import SideBar from "./SideBar";
+import BottomBar from "./BottomBar";
+import Paginado from "./Paginado";
+import Card from "./Card";
 
-export default function Home(){
+export default function Home() {
+  const dispatch = useDispatch();
+  const allBooks = useSelector((state) => state.books);
+  const [order, setOrder] = useState("Asc");
+  /* const [rating, setRating] = useState(""); */
+  const [price, setPrice] = useState("");
 
-    const dispatch = useDispatch() 
-    const allBooks = useSelector(state => state.books) 
-    console.log('allBooks :',allBooks)
-  
-return(
-       <div >
-      
-        <SideBar/>
+  const [currentPage, setCurrentPage] = useState(1);
+  const [bookPerPage] = useState(10);
+  var lastBook = currentPage * bookPerPage;
+  var firstBook = lastBook - bookPerPage;
+  var currentBooks = allBooks.slice(firstBook, lastBook);
+  const paginado = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  console.log(allBooks);
+  console.log(currentBooks);
+  useEffect(() => {
+    setCurrentPage(1);
+    lastBook = currentPage * bookPerPage;
+    firstBook = lastBook - bookPerPage;
+    currentBooks = allBooks.slice(firstBook, lastBook);
+  }, [allBooks]);
 
-        <div >
-            <div>
-                <select onChange={e => handleOrderByName(e)} defaultValue='default'>
-                    <option value="default" disabled >Alphabetical Order</option>
-                    <option value="ascendent">A-Z</option>
-                    <option value="descendent">Z-A</option>
-                </select>
-           
-                <select  onChange={e => handleOrderByRating(e)} defaultValue='default'>
-                    <option value="default" disabled >Order by Rating</option>
-                    <option value="desc">Higher</option>
-                    <option value="asc">Lower</option>
-                </select>
+  useEffect(() => {
+    dispatch(getBooks("Asc"));
+  }, [dispatch]);
 
-                <select  onChange={e => handleOrderByPrice(e)} defaultValue='default'>
-                    <option value="default" disabled >Order by Price</option>
-                    <option value="desc">Higher</option>
-                    <option value="asc">Lower</option>
-                </select>
-            </div>
-     
-            <div>
-                {
-                allBooks.length 
-                ? allBooks.map(book=>{
-                    return(
+  function handleSort(e) {
+    setOrder(e.target.value);
+    dispatch(getBooks(e.target.value));
+    setCurrentPage(1);
+  }
 
-                        <Link to={"/book/"+book._id}>
-                            <Card title={book.title} cover={book.cover} price={book.price} rating={book.rating} id={book._id} key={book.id}/>
-                        </Link>
-                    )               
-                    })
-                : <h5>Book Not Found!</h5>
-                }
-            </div>
-            <SideBar/>
-            <BottomBar/>
+  /* function handleRating(e) {
+    setRating(e.target.value);
+    dispatch(getBooks(order, e.target.value));
+    setCurrentPage(1);
+  } */
+
+  function handlePrice(e) {
+    setPrice(e.target.value);
+    dispatch(getBooks(order, e.target.value));
+    setCurrentPage(1);
+  }
+
+  return (
+    <div>
+      <SideBar />
+      <div>
+        <Paginado
+          bookPerPage={bookPerPage}
+          books1={allBooks.length}
+          paginado={paginado}
+          page={currentPage}
+        />
+      </div>
+
+      <div>
+        <div>
+          <p>
+            Order by:
+            <select onChange={(e) => handleSort(e)}>
+              <option value="Asc">Name Ascending</option>
+              <option value="desc">Name Descending</option>
+            </select>
+            {/* <select onChange={(e) => handleRating(e)}>
+              <option value="Asc">Higher Rating</option>
+              <option value="desc">Lower Rating</option>
+            </select> */}
+            <select onChange={(e) => handlePrice(e)}>
+              <option value="Asc">Lower Price</option>
+              <option value="desc">Higher Price</option>
+            </select>
+          </p>
         </div>
-    </div>
-    
-)
 
-   
+        <div>
+          {currentBooks.length ? (
+            currentBooks.map((book, index) => {
+              return (
+                <div key={index}>
+                  <Link to={"/book/" + book.id}>
+                    <Card
+                      title={book.title}
+                      cover={book.cover}
+                      price={book.price}
+                      rating={book.rating}
+                      id={book.id}
+                    />
+                  </Link>
+                </div>
+              );
+            })
+          ) : (
+            <h5>Book Not Found!</h5>
+          )}
+        </div>
+        <div>
+          <Paginado
+            bookPerPage={bookPerPage}
+            books1={allBooks.length}
+            paginado={paginado}
+            page={currentPage}
+          />
+        </div>
+        <BottomBar />
+      </div>
+    </div>
+  );
 }
