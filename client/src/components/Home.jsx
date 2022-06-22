@@ -7,6 +7,7 @@ import Card from './Card';
 import SideBar from './SideBar';
 import BottomBar from './BottomBar'
 import Shop from './Shop';
+import { Admin } from './Admin';
 
 export default function Home(){
 
@@ -16,8 +17,8 @@ export default function Home(){
   
 return(
        <div >
-        <Link to="/add">
-            <button>Add</button>
+        <Link to="/admin">
+            <button>Admin</button>
         </Link>
         <Link to="/shop">
             <button>shop</button>
