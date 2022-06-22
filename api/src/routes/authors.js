@@ -13,6 +13,25 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/search/:name", async function (req, res) {
+  let { name } = req.params;
+  name = name[0].toUpperCase() + name.slice(1);
+  try {
+    if (name) {
+      const authorNameFilter = await Author.find({
+        name: { $regex: name },
+      }).populate("books");
+      res.status(200).json(authorNameFilter);
+    } else {
+      const author = await Author.find({}).populate("books");
+      if (!author) throw new Error("No authors found");
+      res.status(200).json(author);
+    }
+  } catch (err) {
+    res.send(err.message);
+  }
+});
+
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
