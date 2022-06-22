@@ -31,8 +31,9 @@ export default function Home() {
     firstBook = lastBook - bookPerPage;
     currentBooks = allBooks.slice(firstBook, lastBook);
   }, [allBooks]);
-
-  useEffect(() => {
+    console.log('allBooks :',allBooks)
+  
+ useEffect(() => {
     dispatch(getBooks("Asc"));
   }, [dispatch]);
 
@@ -48,27 +49,33 @@ export default function Home() {
     setCurrentPage(1);
   } */
 
-  function handlePrice(e) {
+
+ function handlePrice(e) {
     setPrice(e.target.value);
     dispatch(getBooks(order, e.target.value));
     setCurrentPage(1);
   }
 
-  return (
+
+
+return(
     <div>
-      <SideBar />
-      <div>
-        <Paginado
+  <Link to="/add">
+            <button>Add</button>
+     </Link>
+     <div>
+        <SideBar />
+     </div>
+
+     <Paginado
           bookPerPage={bookPerPage}
           books1={allBooks.length}
           paginado={paginado}
           page={currentPage}
         />
-      </div>
 
-      <div>
         <div>
-          <p>
+        <p>
             Order by:
             <select onChange={(e) => handleSort(e)}>
               <option value="Asc">Name Ascending</option>
@@ -85,8 +92,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div>
-          {currentBooks.length ? (
+        {currentBooks.length ? (
             currentBooks.map((book, index) => {
               return (
                 <div key={index}>
@@ -105,17 +111,12 @@ export default function Home() {
           ) : (
             <h5>Book Not Found!</h5>
           )}
-        </div>
-        <div>
-          <Paginado
-            bookPerPage={bookPerPage}
-            books1={allBooks.length}
-            paginado={paginado}
-            page={currentPage}
-          />
-        </div>
+
         <BottomBar />
-      </div>
+
+
+
     </div>
-  );
+)
+
 }

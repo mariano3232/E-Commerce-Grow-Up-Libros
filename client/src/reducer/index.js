@@ -2,6 +2,7 @@ const initialState = {
   bookDetails: {},
   books: [],
   booksCopy: [],
+  authors: []
 };
 function rootReducer(state = initialState, action) {
   switch (action.type) {
@@ -110,9 +111,24 @@ function rootReducer(state = initialState, action) {
         food: {},
       };
 
+      case 'POST_BOOK':
+        return({
+            ...state,
+            books:[...state.books,action.payload],
+            booksCopy:[...state.booksCopy,action.payload]                        
+        })
+
+        case 'POST_AUTHOR':
+          return({
+              ...state,
+              authors:[...state.books,action.payload],
+              //booksCopy:[...state.booksCopy,action.payload]                        
+          })
+
     default:
       return state;
   }
 }
+
 
 export default rootReducer;

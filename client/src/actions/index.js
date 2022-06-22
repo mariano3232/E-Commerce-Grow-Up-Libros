@@ -50,3 +50,32 @@ export function getBookGenre(value) {
     };
   };
 }
+    return async function (dispatch) {
+        const json = await axios.get();
+
+        return {
+            type: 'GET_BOOK_GENRE',
+            payload: json.data
+        }
+    }
+
+
+export function postBook (payload){
+    return async function (dispatch){
+       const json = await axios.post('http://localhost:3001/book',payload);
+        return dispatch({
+            type:'POST_BOOK',
+            payload: json.data
+        })
+    }
+}
+
+export function postAuthor (payload){
+    return async function (dispatch){
+       const json = await axios.post('http://localhost:3001/authors',payload);
+        return dispatch({
+            type:'POST_AUTHOR',
+            payload: json.data
+        })
+    }
+}
