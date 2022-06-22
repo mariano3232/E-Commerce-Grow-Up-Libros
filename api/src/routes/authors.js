@@ -85,5 +85,33 @@ router.post("/addAuthor", async (req, res) => {
     res.status(404).send(err.message);
   }
 });
+router.put("/update/:id", async (req, res) => {
+  const data = req.body;
+  const { id } = req.params;
+
+  try {
+    const authorUpDte = await Author.findByIdAndUpdate({ _id: id }, data, () => {
+      if (!data) {
+        return res.json({ msg: "no realizaste acctualizacion" });
+      } else {
+        return res.json({ msg: "actualizacion exitosa" });
+      }
+    });
+    console.log('***********',authorUpDte)
+    return res.json(authorUpDte);
+  } catch (error) {
+    console.log("FALLO EL UPDATE", error);
+  }
+});
+
+//
+//   "name": 
+//   "surname": 
+//   "birth": 
+//   "country": 
+//   "picture": 
+//   "biography":
+
+
 
 module.exports = router;
