@@ -22,6 +22,7 @@ const NavBar = () => {
         <div className={style.container}>
             
             <h3 className={style.logo}>PG-11 Books</h3>
+            <Link to="/admin"><p className={style.inicio}>Administrador</p></Link>
 
             <Link to='/home'><p className={style.inicio}>Inicio</p></Link>
 

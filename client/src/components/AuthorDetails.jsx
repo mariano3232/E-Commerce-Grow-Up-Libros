@@ -11,19 +11,20 @@ const AuthorDetails = () => {
 
     const dispatch = useDispatch();
     const authorDetails = useSelector(state => state.authorDetails);
+    const books = useSelector(state =>state.books)
+    
     const {id} = useParams();
-
-    const handleClick = (e) => {
-        e.preventDefault();
+    
+   
+    useEffect(() => {
         dispatch(getAuthorDetails(id));
-    }
-
-    /* useEffect(() => dispatch(getAuthorDetails(id)), [dispatch]); */
+    }, [dispatch]);
+    
+      
 
     return (
         <div>
 
-            <button onClick={handleClick}>ingresar</button>
             <Link to='/author'><p>Volver</p></Link>
             <div>
                 <span>{authorDetails.name} </span>
@@ -38,6 +39,10 @@ const AuthorDetails = () => {
             </div>
             <div>
                 <p>{authorDetails.biography}</p>
+            </div>
+
+            <div>
+                <p>{authorDetails.books}</p>
             </div>
       
         </div>

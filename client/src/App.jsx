@@ -17,7 +17,7 @@ import AddBook from './components/AddBook';
 import AddAuthor from './components/AddAuthor';
 import BottomBar from './components/BottomBar';
 import { Admin } from './components/Admin';
-import { Navigation } from './components/Navigation';
+
 import ProtectedRoute from './components/ProtectedRoute';
 import Shop from './components/Shop';
 
@@ -31,9 +31,9 @@ function App() {
   const handleLoginAdmin = () => setUser({ 
     id: '1', 
     name: 'guille',       
-    // permissions: ['analyze'],
      roles: ['admin'], 
   });
+
   const handleLogoutAdmin = () => setUser(null);
 
   const handleLoginUser = () => setUser({ 
@@ -52,7 +52,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Navigation />
+    
       {user ? (
         <button onClick={handleLogoutAdmin}>Sign Out Admin</button>
       ) : (
@@ -64,6 +64,7 @@ function App() {
       ) : (
         <button onClick={handleLoginUser}>Sign In User</button>
       )}
+
       <NavBar/>
       <Routes>
         <Route exact path='/' element= {<Landing/>}/>
@@ -73,6 +74,7 @@ function App() {
         <Route exact path='/author' element={<Author/>}/>
         <Route exact path='/book/:id' element={<BookDetails/>} /> 
         <Route exact path='/author/:id' element={<AuthorDetails/>} />
+        
         <Route element={<ProtectedRoute isAllowed={!!user} />}>
           <Route path="/shop" element={<Shop/>} />
         </Route> 

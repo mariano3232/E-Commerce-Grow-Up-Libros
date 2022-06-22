@@ -10,12 +10,13 @@ export default function Add(){
 return(
     <div>
         <h2>
-    Admin (Protected: authenticated user with role 'admin' required)
-  </h2>
+    Administrador (Protected: authenticated user with role 'admin' required)
+        </h2>
 
          <Link to="/addauthor">
         <button>Agregar Autor</button>
         </Link>
+        
         <Link to="/addbook">
         <button>Agregar Libro</button>
         </Link>
