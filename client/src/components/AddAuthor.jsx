@@ -2,7 +2,7 @@ import React, { useState , useEffect } from 'react';
 import { Link} from 'react-router-dom';
 //import { postBook } from '../actions/index';
 import { useDispatch , useSelector } from 'react-redux';
-//import { postAuthor } from '../actions/index';
+import { postAuthor } from '../actions/index';
 import style from '../Styles/addAuthor.module.css';
 
 

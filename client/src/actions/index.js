@@ -94,24 +94,24 @@ export function getAuthorDetails (id) {
   }
 }
 
-// export function postBook (payload){
-//     return async function (dispatch){
-//        const json = await axios.post('http://localhost:3001/book',payload);
-//         return dispatch({
-//             type:'POST_BOOK',
-//           })
-//     }
-// }
+export function postBook (payload){
+    return async function (dispatch){
+       const json = await axios.post('https://ecommercehenryx.herokuapp.com/books/addBook',payload);
+        return dispatch({
+            type:'POST_BOOK',
+          })
+    }
+}
 
 
-// export function postAuthor (payload){
-//     return async function (dispatch){
-//        const json = await axios.post('http://localhost:3001/authors',payload);
-//         return dispatch({
-//             type:'POST_AUTHOR',
-//           })
-//     }
-//   };
+export function postAuthor (payload){
+    return async function (dispatch){
+       const json = await axios.post('https://ecommercehenryx.herokuapp.com/authors/addAuthor',payload);
+        return dispatch({
+            type:'POST_AUTHOR',
+          })
+    }
+  };
 
 
 
