@@ -3,23 +3,26 @@ import { getBooks } from '../actions';
 import CardBook from './CardBook';
 import SideBar from './SideBar';
 import BottomBar from './BottomBar'
-import { Link } from 'react-router-dom';
+import { Routes, Route, Link, Navigate } from 'react-router-dom'
 
-export default function Home(){
+export default function Add(){
+   
+return(
+    <div>
+        <h2>
+    Admin (Protected: authenticated user with role 'admin' required)
+  </h2>
 
-    return(
-        <div>
+         <Link to="/addauthor">
+        <button>Agregar Autor</button>
+        </Link>
+        <Link to="/addbook">
+        <button>Agregar Libro</button>
+        </Link>
+    </div>
 
-             <Link to="/addauthor">
-            <button>Add Author</button>
-            </Link>
-            <Link to="/addbook">
-            <button>Add Book</button>
-            </Link>
-        </div>
+    
 
-        
-
-        
-    )
+    
+)
 }

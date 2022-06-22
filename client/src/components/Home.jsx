@@ -8,6 +8,8 @@ import BottomBar from "./BottomBar";
 import Paginado from "./Paginado";
 import CardBook from "./CardBook";
 import Carousel from "./carousel";
+import Shop from './Shop';
+import { Admin } from './Admin';
 
 export default function Home() {
   
@@ -68,12 +70,14 @@ export default function Home() {
 
 
 return(
-    
-    <div>
-
-        <Link to="/add">
-            <button>Add</button>
+       <div >
+        <Link to="/admin">
+            <button>Administrador</button>
         </Link>
+        <Link to="/shop">
+            <button>Compras</button>
+        </Link>
+        <SideBar/>
 
         <p onClick={handleClick}>Refrescar</p>
 
