@@ -2,6 +2,15 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import styles from "../Styles/BottomBar.module.css";
+import InfoIcon from "@mui/icons-material/Info";
+import LiveHelpIcon from "@mui/icons-material/LiveHelp";
+import PaymentIcon from "@mui/icons-material/Payment";
+import ShareIcon from "@mui/icons-material/Share";
+import DraftsIcon from "@mui/icons-material/Drafts";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import FacebookIcon from "@mui/icons-material/Facebook";
 
 export default function BottomBar() {
 
@@ -21,35 +30,58 @@ export default function BottomBar() {
   const instagram = "https://img.icons8.com/nolan/64/instagram-new.png";
 
   return (
-    <div>
-      <div className="box">
-        <Link to="/aboutus">
-          <h5>About us</h5>
-        </Link>
+    <div className={styles.container}>
+      <div className={styles.container2}>
+        <ul>
+          <li className={styles.about}>
+            <InfoIcon />
+            <Link to="/aboutus">
+              <span>About us</span>
+            </Link>
+          </li>
+          <li>
+            <LiveHelpIcon />
+            <Link to="/faq">
+              <span>FAQ's</span>
+            </Link>
+          </li>
+          <li className={styles.payments}>
+            <PaymentIcon />
+            <span>Medios de Pago:</span>
+          </li>
 
-        <Link to="/faq">
-          <h5>FAQ's</h5>
-        </Link>
-        <h5>Medios de Pago:</h5>
-        <img
+
+          <Link to="/faq">
+            <h5>FAQ's</h5>
+          </Link>
+            <h5>Medios de Pago:</h5>
+         <img
           src="https://play-lh.googleusercontent.com/4hN-UTy-2_Ma1Ouye5FpN2Issj73Oms62hokLp5OZR6zdt2yzkEpGSpK0v47RK8Oc8Q"
           width="50px"
         ></img>
-        <h5>Redes Sociales:</h5>
-        <li>
-          <a href="https://www.instagram.com/">
-            <img
-              src="https://www.actualidadiphone.com/wp-content/uploads/2016/05/Captura-de-pantalla-2016-05-11-a-las-16.36.33.png"
-              width={80}
-            ></img>
-          </a>
-        </li>
-        {/* <li><a href='https://es-la.facebook.com/'><img src='https://www.kindpng.com/picc/m/243-2433115_computer-icons-facebook-messenger-facebook-icon-hd-png.png' width={30}></img></a></li> */}
+          <li className={styles.networks}>
+            <ShareIcon />
+            <span>Redes Sociales:</span>
+            <a href="https://www.instagram.com/">
+              <InstagramIcon />
+            </a>
+            <a href="https://www.facebook.com/">
+              <FacebookIcon />
+            </a>
+          </li>
         <div>
           <input type="text" placeholder='mail' value={input} onChange={(e) => handleChange(e)}/>
           <button type='submit' onClick={(e) => handleSubmit(e)}>Suscribirse</button>
         </div>
-        <h5>Dirección: Av Belgrano 444, Mendoza, Argentina</h5>
+          <li className={styles.info}>
+            <DraftsIcon />
+            <span>NewsLetter</span>
+          </li>
+          <li>
+            <LocationOnIcon />
+            <span>Dirección: Av Belgrano 444, Mendoza, Argentina</span>
+          </li>
+        </ul>
       </div>
     </div>
   );
