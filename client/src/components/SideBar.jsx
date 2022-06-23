@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import styles from "../Styles/SideBar.module.css"
 
 export default function SideBar() {
   const allBooks = useSelector((state) => state.booksTop);
@@ -17,22 +18,22 @@ export default function SideBar() {
    
 
     return(
-        <div>
+        <div className={styles.container}>
             <div>
-                <h3>Top 5 Rating</h3>
+                <h3 className={styles.title}>Top 5 Rating</h3>
                 {top5Rating.length
-                ?<div>
-                <h5>#1<img src={top5Rating[0].cover} width={150}></img>{top5Rating[0].title}{top5Rating[0].price}</h5>
-                <h5>#2<img src={top5Rating[1].cover} width={150}></img>{top5Rating[1].title}{top5Rating[1].price}</h5>
-                <h5>#3<img src={top5Rating[2].cover} width={150}></img>{top5Rating[2].title}{top5Rating[2].price}</h5>
-                <h5>#4<img src={top5Rating[3].cover} width={150}></img>{top5Rating[3].title}{top5Rating[3].price}</h5>
-                <h5>#5<img src={top5Rating[4].cover} width={150}></img>{top5Rating[4].title}{top5Rating[4].price}</h5>
+                ?<div className={styles.top}>
+                    {
+                        top5Rating.map((e,i)=>{
+                           return <Link to={'/book/'+e._id}><div className={styles.card}><h5>#{i+1}</h5><img src={e.cover} className={styles.img}></img><h3>{e.title}</h3><h3 className={styles.price}>{e.price}$</h3></div></Link>
+                        })
+                    }                    
                 </div>
                 :'No'
                 }
             </div>
             <div>
-                <h3>Top 5 Sold</h3>
+                <h3 className={styles.title}>Top 5 Sold</h3>
                 <h5>Soon...</h5>
             </div>
         </div>

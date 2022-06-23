@@ -6,36 +6,36 @@
     flex: row;
     margin: 15px;
     background-color: rgba(128, 128, 128, 0.431);
-    height: 34em;
-    width: 50em;
+    height: 34rem;
+    width: 60%;
 }
 .img{
     position: absolute;
-    left:15em;
+    left:15rem;
     border-radius: 6px;
     align-content: center;
     opacity:0;
-    height: 30em;
+    height: 30rem;
     transition:1s;   
 }
 .loaded{
     position: absolute;
-    left:15em;
+    left:15rem;
     border-radius: 6px;
     align-content: center;
     opacity:1;
-    height: 30em;
+    height: 30rem;
     transition:1s;  
 }
 .button1{
     position: absolute;
     height: 30px;
-    left:8em;
-    top:13em;
+    left:12rem;
+    top:16rem;
 }
 .button2{
     position: absolute;
     height: 30px;
-    left:24em;
-    top:13em;
+    left:36rem;
+    top:16rem;
 }
