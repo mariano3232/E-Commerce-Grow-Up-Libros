@@ -29,6 +29,8 @@ export default function BottomBar() {
 
   const instagram = "https://img.icons8.com/nolan/64/instagram-new.png";
 
+  
+
   return (
     <div className={styles.container}>
       <div className={styles.container2}>
