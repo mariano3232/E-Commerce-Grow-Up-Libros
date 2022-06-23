@@ -44,13 +44,10 @@ export function getBookDetails(id){
 
 export function getBookTitle (payload) {
 
-    /* return async function (dispatch) {
-        const json = await axios.get('https://ecommercehenryx.herokuapp.com/books'); 
-    }*/
-        return {
-            type: 'GET_BOOK_TITLE',
-            payload: payload
-        }
+    return {
+        type: 'GET_BOOK_TITLE',
+        payload: payload
+    }
     
 }
 
@@ -94,25 +91,74 @@ export function getAuthorDetails (id) {
   }
 }
 
-// export function postBook (payload){
-//     return async function (dispatch){
-//        const json = await axios.post('http://localhost:3001/book',payload);
-//         return dispatch({
-//             type:'POST_BOOK',
-//           })
-//     }
-// }
+export function clearPageAuthorDetails () {
+
+    return {
+        type: 'CLEAR_PAGE_AUTHOR_DETAILS',
+        
+    }
+    
+}
+
+export function postBook (payload){
+    return async function (dispatch){
+       const json = await axios.post('https://ecommercehenryx.herokuapp.com/books/addBook',payload);
+        return dispatch({
+            type:'POST_BOOK',
+          })
+    }
+}
 
 
-// export function postAuthor (payload){
-//     return async function (dispatch){
-//        const json = await axios.post('http://localhost:3001/authors',payload);
-//         return dispatch({
-//             type:'POST_AUTHOR',
-//           })
-//     }
-//   };
+export function postAuthor (payload){
+    return async function (dispatch){
+       const json = await axios.post('https://ecommercehenryx.herokuapp.com/authors/addAuthor',payload);
+        return dispatch({
+            type:'POST_AUTHOR',
+          })
+    }
+  };
 
+  export function deleteBook (id){
+    return async function (dispatch){
+       const json = await axios.delete(`https://ecommercehenryx.herokuapp.com/books/deleteBook/${id}`);
+        return dispatch({
+            type:'DELETE_BOOK',
+          })
+    }
+  };
+
+
+
+
+  export function deleteAuthor(id){
+    return async function (dispatch){
+        await axios.delete()
+        return dispatch({
+            type:'DELETE_AUTHOR'
+        })
+    }
+  }
+
+
+  export function putAuthor (payload,id){
+    return async function (dispatch){
+       const json = await axios.post(`http://ecommercehenryx.herokuapp.com/authors/update/${id}`,payload);
+        return dispatch({
+            type:'PUT_AUTHOR',
+          })
+    }
+  };
+
+
+  export function putBook (payload,id){
+    return async function (dispatch){
+       const json = await axios.post(`http://ecommercehenryx.herokuapp.com/books/update/${id}`,payload);
+        return dispatch({
+            type:'PUT_BOOK',
+          })
+    }
+  };
 
 
 

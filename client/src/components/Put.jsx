@@ -4,8 +4,12 @@ import CardBook from './CardBook';
 import SideBar from './SideBar';
 import BottomBar from './BottomBar'
 import { Routes, Route, Link, Navigate } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 
-export default function Add(){
+export default function Put(){
+
+    // const allBooks = useSelector( state => state.books)
+    // const allAuthors = useSelector( state => state.authors)
    
 return(
     <div>
@@ -13,17 +17,14 @@ return(
     Administrador (Protected: authenticated user with role 'admin' required)
         </h2>
 
-         <Link to="/addauthor">
-        <button>Agregar Autor</button>
+         <Link to="/putauthor">
+        <button>Modificar Autor</button>
         </Link>
         
-        <Link to="/addbook">
-        <button>Agregar Libro</button>
+        <Link to="/putbook">
+        <button>Modificar Libro</button>
         </Link>
-
-        <Link to="/admin">
-        <button>Administrador</button>
-        </Link>
+        
     </div>
 
     
