@@ -14,6 +14,7 @@ export default function BookDetails() {
   }, [dispatch]);
 
   const book = useSelector((state) => state.bookDetails);
+  
   return (
     <div>
       <h2>{book.title}</h2>
@@ -21,13 +22,13 @@ export default function BookDetails() {
         <h3>Home</h3>
       </Link>
       <img src={book.cover} alt="Not Found ):" width="300px" />
-      <h3>Autor: {book.author}</h3>
+      <h3>Autor: {book.authors.name} {book.authors.surname}</h3>
       <h4>Rating: {book.rating}</h4>
       <p>editorial : {book.editorial}</p>
       <span>generos :</span>
 
       {book?.genres?.map((e) => {
-        return <span key={e}>{e}, </span>;
+        return <span key={e.genre}>{e.genre}, </span>;
       })}
       <p>Paginas : {book.pages}</p>
       <p>Precio : {book.price}$</p>

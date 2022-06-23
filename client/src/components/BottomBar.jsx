@@ -3,14 +3,14 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styles from "../Styles/BottomBar.module.css";
-import InfoIcon from "@mui/icons-material/Info";
-import LiveHelpIcon from "@mui/icons-material/LiveHelp";
-import PaymentIcon from "@mui/icons-material/Payment";
-import ShareIcon from "@mui/icons-material/Share";
-import DraftsIcon from "@mui/icons-material/Drafts";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import FacebookIcon from "@mui/icons-material/Facebook";
+// import InfoIcon from "@mui/icons-material/Info";
+// import LiveHelpIcon from "@mui/icons-material/LiveHelp";
+// import PaymentIcon from "@mui/icons-material/Payment";
+// import ShareIcon from "@mui/icons-material/Share";
+// import DraftsIcon from "@mui/icons-material/Drafts";
+// import LocationOnIcon from "@mui/icons-material/LocationOn";
+// import InstagramIcon from "@mui/icons-material/Instagram";
+// import FacebookIcon from "@mui/icons-material/Facebook";
 
 export default function BottomBar() {
 
@@ -33,7 +33,8 @@ export default function BottomBar() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.container2}>
+      BOTTOM BAR
+      {/* <div className={styles.container2}>
         <ul>
           <li className={styles.about}>
             <InfoIcon />
@@ -84,7 +85,7 @@ export default function BottomBar() {
             <span>Dirección: Av Belgrano 444, Mendoza, Argentina</span>
           </li>
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -18,6 +18,11 @@ import AddAuthor from './components/AddAuthor';
 import BottomBar from './components/BottomBar';
 import { Admin } from './components/Admin';
 import DeleteData from "./components/DeleteData";
+import Put from "./components/Put";
+import PutAuthor from "./components/PutAuthor";
+import PutBook from "./components/PutBook";
+import PutAuthorID from "./components/PutAuthorID";
+import PutBookID from "./components/PutBookID";
 
 import ProtectedRoute from './components/ProtectedRoute';
 import Shop from './components/Shop';
@@ -150,6 +155,77 @@ function App() {
               }
             >
               <DeleteData />          
+            </ProtectedRoute>
+          }
+        />
+
+        
+          <Route
+          path="/put"
+          element={
+            <ProtectedRoute
+              redirectPath="/home"
+              isAllowed={
+                !!user && user.roles.includes('admin')
+              }
+            >
+              <Put />          
+            </ProtectedRoute>
+          }
+        />
+
+            <Route
+          path="/putbook"
+          element={
+            <ProtectedRoute
+              redirectPath="/home"
+              isAllowed={
+                !!user && user.roles.includes('admin')
+              }
+            >
+              <PutBook />          
+            </ProtectedRoute>
+          }
+        />
+
+          <Route
+          path="/putauthor"
+          element={
+            <ProtectedRoute
+              redirectPath="/home"
+              isAllowed={
+                !!user && user.roles.includes('admin')
+              }
+            >
+              <PutAuthor />          
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/putAuthorID/:id"
+          element={
+            <ProtectedRoute
+              redirectPath="/home"
+              isAllowed={
+                !!user && user.roles.includes('admin')
+              }
+            >
+              <PutAuthorID />          
+            </ProtectedRoute>
+          }
+        />
+
+          <Route
+          path="/putBookID/:id"
+          element={
+            <ProtectedRoute
+              redirectPath="/home"
+              isAllowed={
+                !!user && user.roles.includes('admin')
+              }
+            >
+              <PutBookID />          
             </ProtectedRoute>
           }
         />

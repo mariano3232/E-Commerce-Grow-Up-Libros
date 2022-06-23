@@ -121,7 +121,7 @@ export function postAuthor (payload){
 
   export function deleteBook (id){
     return async function (dispatch){
-       const json = await axios.post('https://ecommercehenryx.herokuapp.com/books/deleteBook/:id',payload);
+       const json = await axios.delete(`https://ecommercehenryx.herokuapp.com/books/deleteBook/${id}`);
         return dispatch({
             type:'DELETE_BOOK',
           })
@@ -140,6 +140,25 @@ export function postAuthor (payload){
     }
   }
 
+
+  export function putAuthor (payload,id){
+    return async function (dispatch){
+       const json = await axios.post(`http://ecommercehenryx.herokuapp.com/authors/update/${id}`,payload);
+        return dispatch({
+            type:'PUT_AUTHOR',
+          })
+    }
+  };
+
+
+  export function putBook (payload,id){
+    return async function (dispatch){
+       const json = await axios.post(`http://ecommercehenryx.herokuapp.com/books/update/${id}`,payload);
+        return dispatch({
+            type:'PUT_BOOK',
+          })
+    }
+  };
 
 
 
