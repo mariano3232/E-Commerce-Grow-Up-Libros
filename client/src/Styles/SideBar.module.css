@@ -1,34 +1,39 @@
-.container{
-    background-color: rgba(128, 128, 128, 0.427);
-    border-radius: 8px;
-    width: 20rem;
-    height:auto;
-    float:right;
+.container {
+  background-color: rgba(128, 128, 128, 0.427);
+  border-radius: 8px;
+  width: 15rem;
+  height: auto;
+  float: right;
+  margin-right: 80px;
 }
-.title{
-    background-color: rgba(33, 30, 30, 0.447);
-    height: 3rem;
-    width: 20rem;
-    align-items: center;
+.title {
+  background-color: rgba(33, 30, 30, 0.447);
+  height: 3rem;
+  width: 15rem;
+  align-items: center;
 }
-.card{
-    padding:3%;
-    height: 8%;
-    width: 60%;
-    min-width: 100px;
-    margin: 3px;
-    transition:500ms;
-    /* border: 2px solid black; */
+.card {
+  padding-left: 3%;
+  height: 8%;
+  width: 60%;
+  min-width: 100px;
+  transition: 500ms;
+  /* border: 2px solid black; */
 }
-.card:hover{
-    transform:translateY(-5px);
+.card:hover {
+  transform: translateY(-5px);
 }
-.img{
-    width: 150px;
-    height: 250px;
-    border: 1px solid black;
-    border-radius: 2px;
+.img {
+  width: 100px;
+  height: 150px;
+  border: 1px solid black;
+  border-radius: 2px;
 }
-.price{
-    color: orangered;
+.price {
+  color: orangered;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
 }
