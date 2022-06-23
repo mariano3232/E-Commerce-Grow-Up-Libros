@@ -22,12 +22,11 @@ const NavBar = () => {
         <div className={style.container}>
             
             <h3 className={style.logo}>PG-11 Books</h3>
-            <Link to="/admin"><p className={style.inicio}>Administrador</p></Link>
-
+            <Link to="/admin"><p className={style.administrador}>Administrador</p></Link>
             <Link to='/home'><p className={style.inicio}>Inicio</p></Link>
 
-            <div className={style.select}>
-                <select defaultValue="default" onChange={(e) => handleSelectGenre(e)}>Generos
+            <div>
+                <select defaultValue="default" onChange={(e) => handleSelectGenre(e)}  className={style.select}>Generos
                     <option value="default" disabled>Generos</option>
                     {
                         genres?.map(e => (

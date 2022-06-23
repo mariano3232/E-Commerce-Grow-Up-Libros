@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
   try {
     const author = await Author.find({}).populate("books", {
       title: 1,
-      _id: 0,
+      _id: 1,
     });
     if (!author) throw new Error("No author found");
     res.status(200).json(author);
@@ -23,7 +23,7 @@ router.get("/search/:name", async function (req, res) {
     if (name) {
       const authorNameFilter = await Author.find({
         name: { $regex: name },
-      }).populate("books", { title: 1, _id: 0 });
+      }).populate("books", { title: 1 });
       res.status(200).json(authorNameFilter);
     } else {
       const author = await Author.find({}).populate("books");
@@ -41,7 +41,7 @@ router.get("/:id", async (req, res) => {
     if (id.length !== 24) throw new Error("The id have 24 characters");
     const author = await Author.findById(id).populate("books", {
       title: 1,
-      _id: 0,
+      _id: 1,
     });
     if (!author) throw new Error("No author found");
     res.status(200).json(author);
@@ -107,10 +107,46 @@ router.post("/update/:id", async (req, res) => {
         }
       }
     );
-    console.log("***********", authorUpDte);
+
     return res.json(authorUpDte);
   } catch (error) {
     console.log("FALLO EL UPDATE", error);
+  }
+});
+
+router.delete("/deleteAuthor/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const Autor = await Author.findOne({_id: id}).populate("books"); 
+    const books = await Books.find({authors: Autor}).populate({
+      path: "genres",
+      select: "genre",
+    }).populate({ path: "authors", select: "name", select: { _id: 0 } });
+    
+    const deleteBooks = await Books.deleteMany({authors: Autor}).populate({
+      path: "genres",
+      select: "genre",
+    }).populate({ path: "authors", select: "name", select: { _id: 0 } });
+    
+    const deleteAutor = await Author.deleteOne({_id: id}).populate("books");
+    
+
+
+    if(!books){
+      res.send('No hay libros de este autor')
+    } else {
+      res.json(deleteBooks).send('Libros del autor borrados')
+    }
+      
+    if(!Autor){
+      res.send('No existe el autor')
+    } else {
+      res.json(deleteAutor).send('Autor borrado')
+    }
+
+  } catch {
+    res.status(404);
+    res.send({ error: "ESE AUTOR NO EXISTE" });
   }
 });
 
