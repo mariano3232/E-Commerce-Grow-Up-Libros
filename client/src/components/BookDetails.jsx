@@ -15,6 +15,7 @@ export default function BookDetails() {
     dispatch(getBookDetails(id));
   }, [dispatch]);
 
+
   const book = useSelector(state=>state.bookDetails);
 
   return (
@@ -53,6 +54,7 @@ export default function BookDetails() {
         <textarea cols="30" rows="10" placeholder="Comenta!"  className={styles.comment}></textarea>
         <button>Post</button>
       </div>  
+
     </div>
   );
 }

@@ -17,10 +17,15 @@ export function Admin(){
             <Link to="/add">
                 <button>Agregar Data</button>
             </Link>
+            
             <Link to="/delete">
                 <button>Borrar Data</button>
             </Link>
+
+            <Link to="/put">
                 <button>Modificar Data</button>
+            </Link>
+                
                 
                 <button>Ver Ventas</button>
             

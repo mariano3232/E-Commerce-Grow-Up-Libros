@@ -1,10 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
+
 import { deleteBook , deleteAuthor } from "../actions";
+import { useDispatch , useSelector } from 'react-redux';
 
 
 
 export default function Delete(){
+
+    const dispatch = useDispatch()
 
     const allBooks = useSelector(state => state.books)
     const allAuthors = useSelector ( state => state.authors)
