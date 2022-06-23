@@ -192,6 +192,10 @@ export default function AddAuthor(){
 
                 
             </form>
+
+        <Link to="/admin">
+            <button>Administrador</button>
+        </Link>
             
         </div>
     )

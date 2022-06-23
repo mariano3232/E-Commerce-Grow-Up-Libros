@@ -20,6 +20,10 @@ return(
         <Link to="/addbook">
         <button>Agregar Libro</button>
         </Link>
+
+        <Link to="/admin">
+        <button>Administrador</button>
+        </Link>
     </div>
 
     

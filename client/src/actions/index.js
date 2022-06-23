@@ -113,6 +113,27 @@ export function postAuthor (payload){
     }
   };
 
+  export function deleteBook (id){
+    return async function (dispatch){
+       const json = await axios.post('https://ecommercehenryx.herokuapp.com/books/deleteBook/:id',payload);
+        return dispatch({
+            type:'DELETE_BOOK',
+          })
+    }
+  };
+
+
+
+
+  export function deleteAuthor(id){
+    return async function (dispatch){
+        await axios.delete()
+        return dispatch({
+            type:'DELETE_AUTHOR'
+        })
+    }
+  }
+
 
 
 
