@@ -24,14 +24,14 @@ export default function Delete(){
 
 
     function handleDeleteBook(id){
-        console.log('id:',id)
+        
         dispatch(deleteBook(id))
         alert("Successfully Deleted")
     };
 
-    function handleDeleteAuthor(){
-        e.preventDefault(e)
-        dispatch(deleteAuthor(author._id))
+    function handleDeleteAuthor(id){
+        
+        dispatch(deleteAuthor(id))
         alert("Successfully Deleted")
     };
 
@@ -61,7 +61,7 @@ export default function Delete(){
                         return(
                             <li>
                                 {author.name} {author.surname}
-                                <button onClick ={e=> handleDeleteAuthor(e)}>x</button>
+                                <button onClick ={()=> handleDeleteAuthor(author._id)}>x</button>
                             </li>
                         )
                     })
