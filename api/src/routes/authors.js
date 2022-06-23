@@ -107,15 +107,36 @@ router.put("/update/:id", async (req, res) => {
 router.delete("/deleteAuthor/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const Autor = await Author.deleteOne({ _id: id });
-    const borrarLibrosAutor = Autor.books.map((libro)=> {
-      libro.deleteOne({authors: id})
-    })
-    res.send(borrarLibrosAutor);
-    res.status(204).send(Autor);
+    const Autor = await Author.findOne({_id: id}).populate("books"); 
+    const books = await Books.find({authors: Autor}).populate({
+      path: "genres",
+      select: "genre",
+    }).populate({ path: "authors", select: "name", select: { _id: 0 } });
+    
+    const deleteBooks = await Books.deleteMany({authors: Autor}).populate({
+      path: "genres",
+      select: "genre",
+    }).populate({ path: "authors", select: "name", select: { _id: 0 } });
+    
+    const deleteAutor = await Author.deleteOne({_id: id}).populate("books");
+    
+
+
+    if(!books){
+      res.send('No hay libros de este autor')
+    } else {
+      res.json(deleteBooks).send('Libros del autor borrados')
+    }
+      
+    if(!Autor){
+      res.send('No existe el autor')
+    } else {
+      res.json(deleteAutor).send('Autor borrado')
+    }
+
   } catch {
     res.status(404);
-    res.send({ error: "ESE LIBRO NO EXISTE" });
+    res.send({ error: "ESE AUTOR NO EXISTE" });
   }
 });
 

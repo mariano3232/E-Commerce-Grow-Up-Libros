@@ -202,7 +202,13 @@ router.put("/update/:id", async (req, res) => {
 router.delete("/deleteBook/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    await Books.deleteOne({ _id: id });
+    await Books.deleteOne({ _id: id })
+    .populate({
+      path: "genres",
+      select: "genre",
+    })
+    .populate({ path: "authors", select: "name", select: { _id: 0 } });
+    
     res.status(204).send();
   } catch {
     res.status(404);
