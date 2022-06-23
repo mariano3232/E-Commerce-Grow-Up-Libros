@@ -44,13 +44,10 @@ export function getBookDetails(id){
 
 export function getBookTitle (payload) {
 
-    /* return async function (dispatch) {
-        const json = await axios.get('https://ecommercehenryx.herokuapp.com/books'); 
-    }*/
-        return {
-            type: 'GET_BOOK_TITLE',
-            payload: payload
-        }
+    return {
+        type: 'GET_BOOK_TITLE',
+        payload: payload
+    }
     
 }
 
@@ -92,6 +89,15 @@ export function getAuthorDetails (id) {
           payload: json.data
       })
   }
+}
+
+export function clearPageAuthorDetails () {
+
+    return {
+        type: 'CLEAR_PAGE_AUTHOR_DETAILS',
+        
+    }
+    
 }
 
 // export function postBook (payload){
