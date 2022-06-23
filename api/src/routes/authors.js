@@ -104,6 +104,21 @@ router.put("/update/:id", async (req, res) => {
   }
 });
 
+router.delete("/deleteAuthor/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const Autor = await Author.deleteOne({ _id: id });
+    const borrarLibrosAutor = Autor.books.map((libro)=> {
+      libro.deleteOne({authors: id})
+    })
+    res.send(borrarLibrosAutor);
+    res.status(204).send(Autor);
+  } catch {
+    res.status(404);
+    res.send({ error: "ESE LIBRO NO EXISTE" });
+  }
+});
+
 //
 //   "name": 
 //   "surname": 
