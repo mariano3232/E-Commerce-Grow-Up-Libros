@@ -140,7 +140,7 @@ function App() {
         {/* <Route exact path='/addauthor' element={<AddAuthor/>} />  */}
 
       </Routes>
-      <BottomBar/>
+      {/* <BottomBar/> */}
     </BrowserRouter>
   );
 }
