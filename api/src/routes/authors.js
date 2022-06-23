@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
   try {
     const author = await Author.find({}).populate("books", {
       title: 1,
-      _id: 0,
+      _id: 1,
     });
     if (!author) throw new Error("No author found");
     res.status(200).json(author);
@@ -23,7 +23,7 @@ router.get("/search/:name", async function (req, res) {
     if (name) {
       const authorNameFilter = await Author.find({
         name: { $regex: name },
-      }).populate("books", { title: 1, _id: 0 });
+      }).populate("books", { title: 1 });
       res.status(200).json(authorNameFilter);
     } else {
       const author = await Author.find({}).populate("books");
@@ -41,7 +41,7 @@ router.get("/:id", async (req, res) => {
     if (id.length !== 24) throw new Error("The id have 24 characters");
     const author = await Author.findById(id).populate("books", {
       title: 1,
-      _id: 0,
+      _id: 1,
     });
     if (!author) throw new Error("No author found");
     res.status(200).json(author);
@@ -107,7 +107,7 @@ router.put("/update/:id", async (req, res) => {
         }
       }
     );
-    console.log("***********", authorUpDte);
+
     return res.json(authorUpDte);
   } catch (error) {
     console.log("FALLO EL UPDATE", error);
