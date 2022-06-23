@@ -13,9 +13,6 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 
 export default function BottomBar() {
-<<<<<<< HEAD
-  //const instagram = "https://img.icons8.com/nolan/64/instagram-new.png";
-=======
 
   const [input, setInput] = useState('');
   const dispatch = useDispatch();
@@ -32,7 +29,6 @@ export default function BottomBar() {
 
   const instagram = "https://img.icons8.com/nolan/64/instagram-new.png";
 
->>>>>>> d791f7c54f72230038829b1a416547fa753e8d24
   return (
     <div className={styles.container}>
       <div className={styles.container2}>

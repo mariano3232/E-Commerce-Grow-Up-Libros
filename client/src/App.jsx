@@ -1,7 +1,7 @@
 import "./App.css";
 import React from "react";
 import {BrowserRouter , Routes , Route, Navigate, Outlet } from 'react-router-dom';
-import { getBooks } from "./actions";
+import { getBooks , getAuthors } from "./actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect , useState } from "react";
 import NavBar from "./components/NavBar";
@@ -17,6 +17,7 @@ import AddBook from './components/AddBook';
 import AddAuthor from './components/AddAuthor';
 import BottomBar from './components/BottomBar';
 import { Admin } from './components/Admin';
+import DeleteData from "./components/DeleteData";
 
 import ProtectedRoute from './components/ProtectedRoute';
 import Shop from './components/Shop';
@@ -47,6 +48,10 @@ function App() {
 
   useEffect(() => {
     dispatch(getBooks());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getAuthors());
   }, [dispatch]);
 
 
@@ -135,12 +140,26 @@ function App() {
           }
         />
 
+          <Route
+          path="/delete"
+          element={
+            <ProtectedRoute
+              redirectPath="/home"
+              isAllowed={
+                !!user && user.roles.includes('admin')
+              }
+            >
+              <DeleteData />          
+            </ProtectedRoute>
+          }
+        />
+
         {/* <Route exact path='/add' element={<Add/>} /> */}
         {/* <Route exact path='/addbook' element={<AddBook/>} />      */}
         {/* <Route exact path='/addauthor' element={<AddAuthor/>} />  */}
 
       </Routes>
-      {/* <BottomBar/> */}
+      <BottomBar/>
     </BrowserRouter>
   );
 }
