@@ -191,7 +191,7 @@ router.post("/addBook", async function (req, res) {
   }
 });
 
-router.put("/update/:id", async (req, res) => {
+router.post("/update/:id", async (req, res) => {
   const { id } = req.params;
   const data = req.body;
 
