@@ -11,16 +11,14 @@ const Author = () => {
     const dispatch = useDispatch();
     const authors = useSelector(state => state.authors);
     
-    const handleClick = (e) => {
-        e.preventDefault();
+    
+     useEffect(() => {
         dispatch(getAuthors());
-    }
-
-    /* useEffect(() => dispatch(getAuthors()),[dispatch]); */
+      }, [dispatch]);
 
     return (
         <div>
-           <button onClick={handleClick}>ingresar</button>
+         
             <ol>
                 {
                     authors?.map(e => (
