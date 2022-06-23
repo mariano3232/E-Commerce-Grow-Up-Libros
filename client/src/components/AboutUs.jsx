@@ -11,7 +11,7 @@ export default function AboutUs(){
 
         <div>
             <title>E-commerce Libros</title>
-            <h5>About Us:</h5>
+            <h5>Nosotros:</h5>
         </div>
     )
 }

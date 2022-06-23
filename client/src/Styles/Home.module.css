@@ -1,0 +1,31 @@
+.ubiOptions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p {
+  font-weight: bold;
+}
+
+.options {
+  width: 140px;
+  height: 25px;
+  background-color: rgba(128, 128, 128, 0.427);
+  font-weight: bold;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  flex-direction: row;
+  width: 70vw;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+}
