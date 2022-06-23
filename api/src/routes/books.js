@@ -209,4 +209,18 @@ router.delete("/deleteBook/:id", async (req, res) => {
     res.send({ error: "ESE LIBRO NO EXISTE" });
   }
 });
+
+router.put("/addAuthorALBook/:idBook/:idAuthor", async (req, res) => {
+  const { idBook, idAuthor } = req.params;
+  try {
+    const author = await Author.findById(idAuthor);
+    const books = await Books.findByIdAndUpdate(idBook, {
+      authors: author._id,
+    });
+    res.status(200).send("Actualizado!");
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
 module.exports = router;

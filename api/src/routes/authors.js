@@ -90,14 +90,18 @@ router.put("/update/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const authorUpDte = await Author.findByIdAndUpdate({ _id: id }, data, () => {
-      if (!data) {
-        return res.json({ msg: "no realizaste acctualizacion" });
-      } else {
-        return res.json({ msg: "actualizacion exitosa" });
+    const authorUpDte = await Author.findByIdAndUpdate(
+      { _id: id },
+      data,
+      () => {
+        if (!data) {
+          return res.json({ msg: "no realizaste acctualizacion" });
+        } else {
+          return res.json({ msg: "actualizacion exitosa" });
+        }
       }
-    });
-    console.log('***********',authorUpDte)
+    );
+    console.log("***********", authorUpDte);
     return res.json(authorUpDte);
   } catch (error) {
     console.log("FALLO EL UPDATE", error);
@@ -105,13 +109,11 @@ router.put("/update/:id", async (req, res) => {
 });
 
 //
-//   "name": 
-//   "surname": 
-//   "birth": 
-//   "country": 
-//   "picture": 
+//   "name":
+//   "surname":
+//   "birth":
+//   "country":
+//   "picture":
 //   "biography":
-
-
 
 module.exports = router;
