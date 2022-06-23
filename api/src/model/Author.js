@@ -18,7 +18,8 @@ const authorSchema = new Schema({
   },
   picture: {
     type: String,
-    required: true,
+    default: 'https://st.depositphotos.com/1898481/3660/i/600/depositphotos_36608939-stock-photo-unknown-person.jpg',
+    
   },
   biography: {
     type: String,
@@ -32,4 +33,4 @@ const authorSchema = new Schema({
   ],
 });
 
-module.exports = model("Author", authorSchema);
+module.exports = model("Authors", authorSchema);
