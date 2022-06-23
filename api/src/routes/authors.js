@@ -5,7 +5,8 @@ const Books = require("../model/Books");
 
 router.get("/", async (req, res) => {
   try {
-    const author = await Author.find({}).populate("books");
+    const author = await Author.find({}).populate('books',{title:1, _id:0});
+
     if (!author) throw new Error("No author found");
     res.status(200).json(author);
   } catch (err) {
@@ -23,7 +24,7 @@ router.get("/search/:name", async function (req, res) {
       }).populate("books");
       res.status(200).json(authorNameFilter);
     } else {
-      const author = await Author.find({}).populate("books");
+      const author = await Author.find({}).populate('books',{title:1, _id:0});
       if (!author) throw new Error("No authors found");
       res.status(200).json(author);
     }
@@ -36,7 +37,7 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     if (id.length !== 24) throw new Error("The id have 24 characters");
-    const author = await Author.findById(id);
+    const author = await Author.findById(id).populate('books',{title:1, _id:0});
     if (!author) throw new Error("No author found");
     res.status(200).json(author);
   } catch (err) {
@@ -85,5 +86,33 @@ router.post("/addAuthor", async (req, res) => {
     res.status(404).send(err.message);
   }
 });
+router.put("/update/:id", async (req, res) => {
+  const data = req.body;
+  const { id } = req.params;
+
+  try {
+    const authorUpDte = await Author.findByIdAndUpdate({ _id: id }, data, () => {
+      if (!data) {
+        return res.json({ msg: "no realizaste acctualizacion" });
+      } else {
+        return res.json({ msg: "actualizacion exitosa" });
+      }
+    });
+    
+    return res.json(authorUpDte);
+  } catch (error) {
+    console.log("FALLO EL UPDATE", error);
+  }
+});
+
+//
+//   "name": 
+//   "surname": 
+//   "birth": 
+//   "country": 
+//   "picture": 
+//   "biography":
+
+
 
 module.exports = router;

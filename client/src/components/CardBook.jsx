@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Card({title,cover,price,rating}){
+export default function CardBook({title,cover,price,rating}){
     return(
         <div>
             <img src={cover} alt="Not Found ):" width='150x'/>
