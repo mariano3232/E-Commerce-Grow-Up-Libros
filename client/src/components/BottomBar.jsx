@@ -4,7 +4,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function BottomBar() {
+
+  const [input, setInput] = useState('');
+  const dispatch = useDispatch();
+
+  const handleChange = (e) => {
+    setInput(e.target.value);
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(`Gracias ${input}. Suscripción exitosa a nuestro newsletters.`);
+    setInput('');
+  }
+
   const instagram = "https://img.icons8.com/nolan/64/instagram-new.png";
+
   return (
     <div>
       <div className="box">
@@ -30,7 +45,10 @@ export default function BottomBar() {
           </a>
         </li>
         {/* <li><a href='https://es-la.facebook.com/'><img src='https://www.kindpng.com/picc/m/243-2433115_computer-icons-facebook-messenger-facebook-icon-hd-png.png' width={30}></img></a></li> */}
-        <h5>NewsLetter</h5>
+        <div>
+          <input type="text" placeholder='mail' value={input} onChange={(e) => handleChange(e)}/>
+          <button type='submit' onClick={(e) => handleSubmit(e)}>Suscribirse</button>
+        </div>
         <h5>Dirección: Av Belgrano 444, Mendoza, Argentina</h5>
       </div>
     </div>

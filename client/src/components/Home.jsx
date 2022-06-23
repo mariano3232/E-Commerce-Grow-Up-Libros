@@ -77,7 +77,6 @@ return(
         <Link to="/shop">
             <button>Compras</button>
         </Link>
-        <SideBar/>
 
         <p onClick={handleClick}>Refrescar</p>
 
@@ -136,8 +135,6 @@ return(
           ) : (
             <h5>No se encontro el libro</h5>
           )}
-
-        <BottomBar />
 
        </div>
 
