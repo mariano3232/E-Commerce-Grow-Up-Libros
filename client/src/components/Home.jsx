@@ -75,7 +75,18 @@ export default function Home() {
 
       <p onClick={handleClick}>Refrescar</p>
 
-      <Carousel />
+
+return(
+       <div >
+        <Link to="/admin">
+            <button>Administrador</button>
+        </Link>
+        <Link to="/shop">
+            <button>Compras</button>
+        </Link>
+        <p onClick={handleClick}>Refrescar</p>
+        <Carousel />
+
 
       <div>
         <Paginado
@@ -134,6 +145,5 @@ export default function Home() {
           )}
         </div>
       </div>
-    </div>
   );
 }

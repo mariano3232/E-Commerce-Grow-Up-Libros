@@ -16,12 +16,13 @@ const SearchBar = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(getBookTitle(input));
+        setInput('');
     }
 
     return (
         <div>
 
-            <input type="text" placeholder='Título' onChange={(e) => handleChange(e)}/>
+            <input type="text" placeholder='Título' value={input} onChange={(e) => handleChange(e)}/>
             <button type='submit' onClick={(e) => handleSubmit(e)}>Buscar</button>
       
         </div>

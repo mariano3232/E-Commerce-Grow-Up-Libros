@@ -13,7 +13,22 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 
 export default function BottomBar() {
+
+  const [input, setInput] = useState('');
+  const dispatch = useDispatch();
+
+  const handleChange = (e) => {
+    setInput(e.target.value);
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(`Gracias ${input}. Suscripción exitosa a nuestro newsletters.`);
+    setInput('');
+  }
+
   const instagram = "https://img.icons8.com/nolan/64/instagram-new.png";
+
   return (
     <div className={styles.container}>
       <div className={styles.container2}>
@@ -35,6 +50,15 @@ export default function BottomBar() {
             <span>Medios de Pago:</span>
           </li>
 
+
+          <Link to="/faq">
+            <h5>FAQ's</h5>
+          </Link>
+            <h5>Medios de Pago:</h5>
+         <img
+          src="https://play-lh.googleusercontent.com/4hN-UTy-2_Ma1Ouye5FpN2Issj73Oms62hokLp5OZR6zdt2yzkEpGSpK0v47RK8Oc8Q"
+          width="50px"
+        ></img>
           <li className={styles.networks}>
             <ShareIcon />
             <span>Redes Sociales:</span>
@@ -45,8 +69,10 @@ export default function BottomBar() {
               <FacebookIcon />
             </a>
           </li>
-          {/* <li><a href='https://es-la.facebook.com/'><img src='https://www.kindpng.com/picc/m/243-2433115_computer-icons-facebook-messenger-facebook-icon-hd-png.png' width={30}></img></a></li> */}
-
+        <div>
+          <input type="text" placeholder='mail' value={input} onChange={(e) => handleChange(e)}/>
+          <button type='submit' onClick={(e) => handleSubmit(e)}>Suscribirse</button>
+        </div>
           <li className={styles.info}>
             <DraftsIcon />
             <span>NewsLetter</span>
