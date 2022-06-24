@@ -1,8 +1,8 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBookDetails } from "../actions";
+import { getBookDetails ,getBookGenre } from "../actions";
 import { Link } from "react-router-dom";
 import styles from '../Styles/bookDetails.module.css'
 
@@ -10,18 +10,21 @@ export default function BookDetails() {
 
   const id = useParams().id;
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(getBookDetails(id));
   }, [dispatch]);
 
-
-//   const handleClick = (e) => {
-//     e.preventDefault();
-//     dispatch(getBookGenre(e.target.value));
-// }
+  function handleClick(e){
+   
+    dispatch(getBookGenre(e))
+    navigate('/home')
+  }
+ 
 
   const book = useSelector(state=>state.bookDetails);
+  //console.log(book)
 
   return (
     <div className={styles.container}>
@@ -32,18 +35,18 @@ export default function BookDetails() {
 
           <h1>{book.title}</h1>
 
-        <Link to={'/author/' + book.authors._id}>
+        {/* <Link to={'/author/' + book.authors._id}>
               <h2 className={styles.title}>{book.authors?.name} {book.authors?.surname} </h2>
-        </Link>
+        </Link> */}
 
          <span>generos :</span>
 
          {book?.genres?.map((e) => {
-            return 
-            
-               <span key={e.genre}>{e.genre}, </span>;
-            
-            
+            return(
+              
+            <button onClick={()=>handleClick(e.genre)}>{e.genre}</button>
+             
+            )          
          })}
 
          <p>{book.review}</p>
