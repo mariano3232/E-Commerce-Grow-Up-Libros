@@ -23,7 +23,7 @@ export default function BottomBar() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Gracias ${input}. Suscripción exitosa a nuestro newsletters.`);
+    alert(`Gracias ${input} Suscripción exitosa a nuestro newsletters.`);
     setInput('');
   }
 
@@ -52,11 +52,6 @@ export default function BottomBar() {
             <span>Medios de Pago:</span>
           </li>
 
-
-          <Link to="/faq">
-            <h5>FAQ's</h5>
-          </Link>
-            <h5>Medios de Pago:</h5>
          <img
           src="https://play-lh.googleusercontent.com/4hN-UTy-2_Ma1Ouye5FpN2Issj73Oms62hokLp5OZR6zdt2yzkEpGSpK0v47RK8Oc8Q"
           width="50px"

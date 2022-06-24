@@ -2,7 +2,7 @@ const initialState = {
   books: [],
   booksCopy: [],
   booksTop: [],
-  bookDetails: {}, 
+  bookDetails: [], 
   authors: [],
   authorDetails: [],
   

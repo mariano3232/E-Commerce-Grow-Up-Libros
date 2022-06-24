@@ -22,13 +22,13 @@ export default function BookDetails() {
       </Link>
       <img src={book.cover} alt="Not Found ):" width="300px" />
       <h3>Autor: {book.author}</h3>
-      <h4>Rating: {book.rating}</h4>
+      {/* <h4>Rating: {book.rating}</h4> */}
       <p>editorial : {book.editorial}</p>
       <span>generos :</span>
 
-      {book?.genres?.map((e) => {
+      {/* {book?.genres?.map((e) => {
         return <span key={e}>{e}, </span>;
-      })}
+      })} */}
       <p>Paginas : {book.pages}</p>
       <p>Precio : {book.price}$</p>
       <p>Año : {book.year}</p>

@@ -9,9 +9,7 @@ import CardAuthor from './CardAuthor';
 const Author = () => {
 
     const dispatch = useDispatch();
-    const authors = useSelector(state => state.authors);
-    console.log('author en author:',authors)
-    
+    const authors = useSelector(state => state.authors);    
     
      useEffect(() => {
         dispatch(getAuthors());
