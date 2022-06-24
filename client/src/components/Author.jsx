@@ -10,12 +10,8 @@ const Author = () => {
 
     const dispatch = useDispatch();
     const authors = useSelector(state => state.authors);
-    //console.log('author en author:',authors)
     
     
-    //  useEffect(() => {
-    //     dispatch(getAuthors());
-    //   }, [dispatch]);
 
     return (
         <div>

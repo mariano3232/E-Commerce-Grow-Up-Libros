@@ -62,7 +62,7 @@ export default function Delete(){
                             <li>
                                 {author.name} {author.surname}
                                 <button onClick ={e=> handleDeleteAuthor(e)}>x</button>
-                            </li>
+                          </li>
                         )
                     })
                     :'loading' 
