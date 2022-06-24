@@ -27,9 +27,7 @@ export default function BottomBar() {
     setInput('');
   }
 
-  const instagram = "https://img.icons8.com/nolan/64/instagram-new.png";
 
-  
 
   return (
     <div className={styles.container}>
@@ -57,16 +55,22 @@ export default function BottomBar() {
           src="https://play-lh.googleusercontent.com/4hN-UTy-2_Ma1Ouye5FpN2Issj73Oms62hokLp5OZR6zdt2yzkEpGSpK0v47RK8Oc8Q"
           width="50px"
         ></img>
-          <li className={styles.networks}>
+
+         
+          { <li className={styles.networks}>
             <ShareIcon />
             <span>Redes Sociales:</span>
-            <a href="https://www.instagram.com/">
+            <a href="https://www.instagram.com/"
+            target="_blank"
+            rel="noreferrer noopener">
               <InstagramIcon />
             </a>
-            <a href="https://www.facebook.com/">
+            <a href="https://www.facebook.com/"
+            target="_blank"
+            rel="noreferrer noopener">
               <FacebookIcon />
             </a>
-          </li>
+          </li> }
         <div>
           <input type="text" placeholder='mail' value={input} onChange={(e) => handleChange(e)}/>
           <button type='submit' onClick={(e) => handleSubmit(e)}>Suscribirse</button>

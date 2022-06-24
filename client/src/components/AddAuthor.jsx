@@ -22,7 +22,7 @@ export default function AddAuthor(){
     const [post,setPost] = useState({ 
         name:'',
         surname:'',
-        date:'',
+        birth:'',
         country:'',
         biography:'',  
         picture:''
@@ -55,8 +55,8 @@ export default function AddAuthor(){
         } else if(!post.name.match(/^[A-Z]/)){
             errors.surname='First letter must be a capital letter'}
        
-        if (!post.date) {
-            errors.date = 'Please insert a date'
+        if (!post.birth) {
+            errors.birth = 'Please insert a date'
         }
         if (!post.country) {
             errors.country = 'Please insert a country'
@@ -85,7 +85,7 @@ export default function AddAuthor(){
             setPost({
                 name:'',
                 surname:'',
-                date:'',
+                birth:'',
                 country:'',
                 biography:'',  
                 picture:''
@@ -134,12 +134,12 @@ export default function AddAuthor(){
                     <label >Fecha de nacimiento:</label>
                     <input                    
                     type='date' 
-                    value= {post.date} 
-                    name= 'date'
+                    value= {post.birth} 
+                    name= 'birth'
                     max="2022-12-12"
                     onChange={(e)=>handleChange(e)}
                     />
-                    {errors.date && (
+                    {errors.birth && (
                         <p className={style.error}>{errors.date}</p>
                     )}
                 </div>

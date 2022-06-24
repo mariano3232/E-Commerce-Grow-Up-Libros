@@ -42,9 +42,9 @@ export default function Home() {
     currentBooks = allBooks.slice(firstBook, lastBook);
   }, [allBooks]);
 
-  useEffect(() => {
-    dispatch(getBooks("Asc"));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getBooks("Asc"));
+  // }, [dispatch]);
 
   function handleSort(e) {
     setOrder(e.target.value);
