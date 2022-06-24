@@ -11,6 +11,7 @@ import Carousel from "./carousel";
 import styles from "../Styles/Home.module.css";
 import Shop from "./Shop";
 import { Admin } from "./Admin";
+import OrderBooks from "./OrderBooks";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -22,9 +23,9 @@ export default function Home() {
     dispatch(getBooks());
   };
 
-  const [order, setOrder] = useState("Asc");
+  /* const [order, setOrder] = useState("Asc"); */
   /* const [rating, setRating] = useState(""); */
-  const [price, setPrice] = useState("");
+  /* const [price, setPrice] = useState(""); */
 
   const [currentPage, setCurrentPage] = useState(1);
   const [bookPerPage] = useState(9);
@@ -42,15 +43,15 @@ export default function Home() {
     currentBooks = allBooks.slice(firstBook, lastBook);
   }, [allBooks]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     dispatch(getBooks("Asc"));
-  }, [dispatch]);
+  }, [dispatch]); */
 
-  function handleSort(e) {
+  /* function handleSort(e) {
     setOrder(e.target.value);
     dispatch(getBooks(e.target.value));
     setCurrentPage(1);
-  }
+  } */
 
   /* function handleRating(e) {
     setRating(e.target.value);
@@ -58,11 +59,11 @@ export default function Home() {
     setCurrentPage(1);
   } */
 
-  function handlePrice(e) {
+  /* function handlePrice(e) {
     setPrice(e.target.value);
     dispatch(getBooks(order, e.target.value));
     setCurrentPage(1);
-  }
+  } */
 
   // return (
   //   <div>
@@ -85,7 +86,7 @@ export default function Home() {
       <Link to="/shop">
         <button>Compras</button>
       </Link>
-      <p onClick={handleClick}>Refrescar</p>
+      <p onClick={handleClick}>Ver todos los Libros</p>
       <Carousel />
 
       <div>
@@ -96,10 +97,13 @@ export default function Home() {
           page={currentPage}
         />
 
-        <div className={styles.ubiOptions}>
+        <OrderBooks/>
+
+        {/* <div className={styles.ubiOptions}>
           <p className={styles.p}>
             Ordenar Por:
-            <select className={styles.options} onChange={(e) => handleSort(e)}>
+            <select className={styles.options} onChange={(e) => handleSort(e)} defaultValue="default">
+              <option value="default" disabled>Orden alfabético</option>
               <option className={styles.options} value="Asc">
                 Nombre Ascendente
               </option>
@@ -107,11 +111,15 @@ export default function Home() {
                 Nombre Descendente
               </option>
             </select>
-            {/* <select onChange={(e) => handleRating(e)}>
+
+            <select onChange={(e) => handleRating(e)}>
               <option value="Asc">Higher Rating</option>
               <option value="desc">Lower Rating</option>
-            </select> */}
-            <select className={styles.options} onChange={(e) => handlePrice(e)}>
+            </select> 
+            
+
+            <select className={styles.options} onChange={(e) => handlePrice(e)} defaultValue="default">
+              <option value="default" disabled>Orden por precio</option>
               <option className={styles.options} value="Asc">
                 Precio mas Bajo
               </option>
@@ -120,7 +128,7 @@ export default function Home() {
               </option>
             </select>
           </p>
-        </div>
+        </div> */}
 
         <SideBar />
         <div className={styles.card}>

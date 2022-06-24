@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBookDetails } from "../actions";
+import { clearPageBookDetails, getBookDetails } from "../actions";
 import { Link } from "react-router-dom";
 import styles from '../Styles/bookDetails.module.css'
 
@@ -13,6 +13,12 @@ export default function BookDetails() {
 
   useEffect(() => {
     dispatch(getBookDetails(id));
+  }, [dispatch]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearPageBookDetails());
+    }
   }, [dispatch]);
 
 
