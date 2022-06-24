@@ -85,8 +85,9 @@ router.post("/addAuthor", async (req, res) => {
       picture,
       biography,
     });
-    await newAuthor.save();
-    res.status(200).json(newAuthor);
+     const authorSave = await newAuthor.save();
+
+    res.status(200).json(authorSave);
   } catch (err) {
     res.status(404).send(err.message);
   }
