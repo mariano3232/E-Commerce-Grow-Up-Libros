@@ -2,13 +2,15 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { putBook } from "../actions";
+import { Navigate } from "react-router-dom";
 
 
 export default function putBookId(){
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const id = useParams().id
 
@@ -60,7 +62,8 @@ export default function putBookId(){
 function handleSubmit(e) {
         e.preventDefault();
             dispatch(putBook(post,id))
-            alert('¡Libro Modificado!')                 
+            alert('¡Libro Modificado!')  
+            navigate("/put");               
     };
 
 

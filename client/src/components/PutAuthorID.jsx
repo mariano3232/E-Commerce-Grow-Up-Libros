@@ -1,6 +1,6 @@
 
     import React, { useState , useEffect } from 'react';
-    import { Link, useParams} from 'react-router-dom';
+    import { Link, useNavigate, useParams} from 'react-router-dom';
     //import { postBook } from '../actions/index';
     import { useDispatch , useSelector } from 'react-redux';
     import { postAuthor } from '../actions/index';
@@ -10,6 +10,7 @@
     
     export default function putAuthorID(){
 
+        const navigate = useNavigate()
         const dispatch = useDispatch()
         const id = useParams().id
        // console.log('soy id:',id)
@@ -54,7 +55,8 @@
     function handleSubmit(e) {
                     e.preventDefault();
                         dispatch(putAuthor(post,id))
-                        alert('¡Autor Modificado!')                 
+                        alert('¡Autor Modificado!')  
+                        navigate("/put");                  
                 };
 
         
