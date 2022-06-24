@@ -1,11 +1,16 @@
 .container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   margin: 30px;
   width: 200px;
   font-weight: bold;
   height: 500px;
+  color: wheat;
+}
+
+.img {
+  border-radius: 10px;
 }
 
 .info {

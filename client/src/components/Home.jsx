@@ -78,7 +78,7 @@ export default function Home() {
   //    <p onClick={handleClick}>Refrescar</p>
 
   return (
-    <div>
+    <div className={styles.home}>
       <Link to="/admin">
         <button>Administrador</button>
       </Link>
@@ -144,6 +144,12 @@ export default function Home() {
             <h5>No se encontro el libro</h5>
           )}
         </div>
+        <Paginado
+          bookPerPage={bookPerPage}
+          books1={allBooks.length}
+          paginado={paginado}
+          page={currentPage}
+        />
       </div>
     </div>
   );
