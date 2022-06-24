@@ -100,6 +100,15 @@ export function clearPageAuthorDetails () {
     
 }
 
+export function clearPageBookDetails () {
+
+  return {
+    type: 'CLEAR_PAGE_BOOK_DETAILS',
+      
+  }
+  
+}
+
 export function postBook (payload){
     return async function (dispatch){
        const json = await axios.post('https://ecommercehenryx.herokuapp.com/books/addBook',payload);

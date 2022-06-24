@@ -2,17 +2,19 @@
 import React from 'react';
 import SearchBar from './SearchBar';
 import style from '../Styles/nav.module.css';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {getBookGenre} from '../actions';
 
 const NavBar = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSelectGenre = (e) => {
         e.preventDefault();
         dispatch(getBookGenre(e.target.value));
+        navigate('/home/');
     }
 
     const genres = ['Salud', 'Deportes', 'Biografia', 'Nutricion', 'Filosofia', 'Ensayo', 'Desarrollo Personal',

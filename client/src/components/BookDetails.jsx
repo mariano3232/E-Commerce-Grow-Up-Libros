@@ -2,7 +2,8 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBookDetails ,getBookGenre } from "../actions";
+import { getBookDetails ,getBookGenre, clearPageBookDetails } from "../actions";
+//import { clearPageBookDetails, getBookDetails } from "../actions";
 import { Link } from "react-router-dom";
 import styles from '../Styles/bookDetails.module.css'
 
@@ -22,6 +23,12 @@ export default function BookDetails() {
     navigate('/home')
   }
  
+  useEffect(() => {
+    return () => {
+      dispatch(clearPageBookDetails());
+    }
+  }, [dispatch]);
+
 
   const book = useSelector(state=>state.bookDetails);
   //console.log(book)
