@@ -16,19 +16,38 @@ export default function BookDetails() {
   }, [dispatch]);
 
 
+//   const handleClick = (e) => {
+//     e.preventDefault();
+//     dispatch(getBookGenre(e.target.value));
+// }
+
   const book = useSelector(state=>state.bookDetails);
 
   return (
     <div className={styles.container}>
+
       <img src={book.cover} alt="Not Found ):" className={styles.img} />
       
       <div className={styles.info}>
-         <h2 className={styles.title}>{book.authors?.name} {book.authors?.surname} - {book.title}</h2>
+
+          <h1>{book.title}</h1>
+
+        <Link to={'/author/' + book.authors._id}>
+              <h2 className={styles.title}>{book.authors?.name} {book.authors?.surname} </h2>
+        </Link>
+
          <span>generos :</span>
+
          {book?.genres?.map((e) => {
-            return <span key={e.genre}>{e.genre}, </span>;
+            return 
+            
+               <span key={e.genre}>{e.genre}, </span>;
+            
+            
          })}
+
          <p>{book.review}</p>
+
       </div>
 
       <div className={styles.buy}>
