@@ -155,7 +155,7 @@ router.post("/addBook", async function (req, res) {
     name: authors.name,
     surname: authors.surname,
   });
-  console.log('//////////',authorDb)
+  
 
   try {
     if (!authorDb) throw new Error("Author not found");
@@ -184,7 +184,7 @@ router.post("/addBook", async function (req, res) {
       });
     authorDb[0].books.push(saveBook[0]._id);
       await authorDb[0].save()
-    console.log(authorDb[0].books)
+    
 
     return res.json(saveBook);
   } catch (err) {
