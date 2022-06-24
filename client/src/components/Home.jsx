@@ -8,6 +8,7 @@ import BottomBar from "./BottomBar";
 import Paginado from "./Paginado";
 import CardBook from "./CardBook";
 import Carousel from "./carousel";
+import styles from "../Styles/Home.module.css";
 import Shop from "./Shop";
 import { Admin } from "./Admin";
 
@@ -26,7 +27,7 @@ export default function Home() {
   const [price, setPrice] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [bookPerPage] = useState(10);
+  const [bookPerPage] = useState(9);
   var lastBook = currentPage * bookPerPage;
   var firstBook = lastBook - bookPerPage;
   var currentBooks = allBooks.slice(firstBook, lastBook);
@@ -63,6 +64,19 @@ export default function Home() {
     setCurrentPage(1);
   }
 
+  // return (
+  //   <div>
+  //     <Link to="/admin">
+  //       <button>Administrador</button>
+  //     </Link>
+  //     <Link to="/shop">
+  //       <button>Compras</button>
+  //     </Link>
+
+  //     <p onClick={handleClick}>Refrescar</p>
+
+  //    <p onClick={handleClick}>Refrescar</p>
+
   return (
     <div>
       <Link to="/admin">
@@ -71,12 +85,7 @@ export default function Home() {
       <Link to="/shop">
         <button>Compras</button>
       </Link>
-      <SideBar />
-
       <p onClick={handleClick}>Refrescar</p>
-
-      <SideBar />
-
       <Carousel />
 
       <div>
@@ -87,45 +96,54 @@ export default function Home() {
           page={currentPage}
         />
 
-        <div>
-          <p>
+        <div className={styles.ubiOptions}>
+          <p className={styles.p}>
             Ordenar Por:
-            <select onChange={(e) => handleSort(e)}>
-              <option value="Asc">Nombre Ascendente</option>
-              <option value="desc">Nombre Descendente</option>
+            <select className={styles.options} onChange={(e) => handleSort(e)}>
+              <option className={styles.options} value="Asc">
+                Nombre Ascendente
+              </option>
+              <option className={styles.options} value="desc">
+                Nombre Descendente
+              </option>
             </select>
             {/* <select onChange={(e) => handleRating(e)}>
               <option value="Asc">Higher Rating</option>
               <option value="desc">Lower Rating</option>
             </select> */}
-            <select onChange={(e) => handlePrice(e)}>
-              <option value="Asc">Precio mas Bajo</option>
-              <option value="desc">Precio mas Alto</option>
+            <select className={styles.options} onChange={(e) => handlePrice(e)}>
+              <option className={styles.options} value="Asc">
+                Precio mas Bajo
+              </option>
+              <option className={styles.options} value="desc">
+                Precio mas Alto
+              </option>
             </select>
           </p>
         </div>
 
-        {currentBooks.length ? (
-          currentBooks.map((book, index) => {
-            return (
-              <div key={index}>
-                <Link to={"/book/" + book._id}>
-                  <CardBook
-                    title={book.title}
-                    cover={book.cover}
-                    price={book.price}
-                    rating={book.rating}
-                    id={book._id}
-                  />
-                </Link>
-              </div>
-            );
-          })
-        ) : (
-          <h5>No se encontro el libro</h5>
-        )}
-
-        <BottomBar />
+        <SideBar />
+        <div className={styles.card}>
+          {currentBooks.length ? (
+            currentBooks.map((book, index) => {
+              return (
+                <div key={index}>
+                  <Link className={styles.link} to={"/book/" + book._id}>
+                    <CardBook
+                      title={book.title}
+                      cover={book.cover}
+                      price={book.price}
+                      rating={book.rating}
+                      id={book._id}
+                    />
+                  </Link>
+                </div>
+              );
+            })
+          ) : (
+            <h5>No se encontro el libro</h5>
+          )}
+        </div>
       </div>
     </div>
   );

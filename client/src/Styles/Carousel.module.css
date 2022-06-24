@@ -1,41 +1,40 @@
-.container{
-    padding: 20px;
-    position: relative;
-    display:flex;
-    align-content: center;
-    flex: row;
-    margin: 15px;
-    background-color: rgba(128, 128, 128, 0.431);
-    height: 34em;
-    width: 50em;
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  background-color: rgba(128, 128, 128, 0.431);
+  height: 35rem;
+  width: 65rem;
 }
-.img{
-    position: absolute;
-    left:15em;
-    border-radius: 6px;
-    align-content: center;
-    opacity:0;
-    height: 30em;
-    transition:1s;   
+
+.all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.loaded{
-    position: absolute;
-    left:15em;
-    border-radius: 6px;
-    align-content: center;
-    opacity:1;
-    height: 30em;
-    transition:1s;  
+
+.img {
+  left: 15rem;
+  border-radius: 6px;
+  align-content: center;
+  opacity: 0;
+  height: 30rem;
+  width: 20rem;
+  transition: 1s;
 }
-.button1{
-    position: absolute;
-    height: 30px;
-    left:8em;
-    top:13em;
+.loaded {
+  left: 15rem;
+  border-radius: 6px;
+  align-content: center;
+  opacity: 1;
+  height: 30rem;
+  width: 20rem;
+  transition: 1s;
 }
-.button2{
-    position: absolute;
-    height: 30px;
-    left:24em;
-    top:13em;
+.buttons {
+  align-items: center;
+  margin: 20px;
+  height: 30px;
 }

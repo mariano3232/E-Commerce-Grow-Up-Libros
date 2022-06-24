@@ -1,27 +1,58 @@
-
 .container {
-    background-color: rgb(16, 16, 131);
+    position:fixed;
+    top:20px;
+    z-index:100;
+    width: 100%;
+    height: 80px;
+    background-color:blanchedalmond;
     display: flex;
-    margin: 0px;
-    justify-content: center;
+    flex:row;
 }
 
 .logo {
-    margin: 15px 15px 15px;
+    position: absolute;
+    margin:15px;
+    font-size:150%;
+    float:left;
 }
 
 .inicio {
-    margin: 15px 15px 15px;
+    position: absolute;
+    left:200px ;
+    margin-top: 20px;
+    font-size: larger;
 }
 
 .select {
-    margin: 15px 15px 15px;
+    position: absolute;
+    height: 2rem;
+    width: 9rem;
+    left:500px ;
+    top:20px;
+    background-color:rgb(184, 162, 129);
 }
 
 .autor {
-    margin: 15px 15px 15px;
+    position: absolute;
+    left:260px ;
+    font-size: larger;
+}
+.administrador{
+    position: absolute;
+    left:350px ;
+    font-size: larger;
 }
 
 .button {
-    margin: 15px 15px 15px;
+    position: absolute;
+    right: 20px;
+    margin:15px;
+    margin-top: 20px;
+    height: 2rem;
+    width: 9rem;
+    background-color:rgb(184, 162, 129);
+    transition: 1s;
+}
+.button:hover{
+    background-color: white;
 }

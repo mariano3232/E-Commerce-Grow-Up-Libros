@@ -3,7 +3,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getAuthorDetails } from '../actions';
+import { clearPageAuthorDetails, getAuthorDetails } from '../actions';
 import { Link } from 'react-router-dom';
 import style from '../Styles/authorDetails.module.css';
 
@@ -14,13 +14,16 @@ const AuthorDetails = () => {
     const books = useSelector(state =>state.books)
     
     const {id} = useParams();
-    
    
     useEffect(() => {
         dispatch(getAuthorDetails(id));
     }, [dispatch]);
     
-      
+    useEffect(() => {
+        return () => {
+            dispatch(clearPageAuthorDetails());
+        }
+    }, [dispatch]);
 
     return (
         <div>

@@ -5,8 +5,10 @@ const Books = require("../model/Books");
 
 router.get("/", async (req, res) => {
   try {
-    const author = await Author.find({}).populate('books',{title:1, _id:0});
-
+    const author = await Author.find({}).populate("books", {
+      title: 1,
+      _id: 1,
+    });
     if (!author) throw new Error("No author found");
     res.status(200).json(author);
   } catch (err) {
@@ -21,10 +23,10 @@ router.get("/search/:name", async function (req, res) {
     if (name) {
       const authorNameFilter = await Author.find({
         name: { $regex: name },
-      }).populate("books");
+      }).populate("books", { title: 1 });
       res.status(200).json(authorNameFilter);
     } else {
-      const author = await Author.find({}).populate('books',{title:1, _id:0});
+      const author = await Author.find({}).populate("books");
       if (!author) throw new Error("No authors found");
       res.status(200).json(author);
     }
@@ -37,7 +39,10 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     if (id.length !== 24) throw new Error("The id have 24 characters");
-    const author = await Author.findById(id).populate('books',{title:1, _id:0});
+    const author = await Author.findById(id).populate("books", {
+      title: 1,
+      _id: 1,
+    });
     if (!author) throw new Error("No author found");
     res.status(200).json(author);
   } catch (err) {
@@ -91,28 +96,66 @@ router.put("/update/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const authorUpDte = await Author.findByIdAndUpdate({ _id: id }, data, () => {
-      if (!data) {
-        return res.json({ msg: "no realizaste acctualizacion" });
-      } else {
-        return res.json({ msg: "actualizacion exitosa" });
+    const authorUpDte = await Author.findByIdAndUpdate(
+      { _id: id },
+      data,
+      () => {
+        if (!data) {
+          return res.json({ msg: "no realizaste acctualizacion" });
+        } else {
+          return res.json({ msg: "actualizacion exitosa" });
+        }
       }
-    });
-    
+    );
+
     return res.json(authorUpDte);
   } catch (error) {
     console.log("FALLO EL UPDATE", error);
   }
 });
 
+router.delete("/deleteAuthor/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const Autor = await Author.findOne({_id: id}).populate("books"); 
+    const books = await Books.find({authors: Autor}).populate({
+      path: "genres",
+      select: "genre",
+    }).populate({ path: "authors", select: "name", select: { _id: 0 } });
+    
+    const deleteBooks = await Books.deleteMany({authors: Autor}).populate({
+      path: "genres",
+      select: "genre",
+    }).populate({ path: "authors", select: "name", select: { _id: 0 } });
+    
+    const deleteAutor = await Author.deleteOne({_id: id}).populate("books");
+    
+
+
+    if(!books){
+      res.send('No hay libros de este autor')
+    } else {
+      res.json(deleteBooks).send('Libros del autor borrados')
+    }
+      
+    if(!Autor){
+      res.send('No existe el autor')
+    } else {
+      res.json(deleteAutor).send('Autor borrado')
+    }
+
+  } catch {
+    res.status(404);
+    res.send({ error: "ESE AUTOR NO EXISTE" });
+  }
+});
+
 //
-//   "name": 
-//   "surname": 
-//   "birth": 
-//   "country": 
-//   "picture": 
+//   "name":
+//   "surname":
+//   "birth":
+//   "country":
+//   "picture":
 //   "biography":
-
-
 
 module.exports = router;

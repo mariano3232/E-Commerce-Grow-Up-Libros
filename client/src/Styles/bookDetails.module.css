@@ -1,0 +1,65 @@
+.container{
+    margin-top: 7rem;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    min-width: 50rem;
+}
+.space{
+    width: 100%;
+    height: 1rem;
+}
+.img{
+    float:left;
+    width: 200px;
+    height: 350px;
+    margin: 30px;
+}
+.info{
+    background-color:azure;
+    width: 50%;
+}
+.title{
+    /* margin-left: 20rem;
+    margin-top: 6rem; */
+    color: brown;
+}
+
+.details{
+    /* position: absolute;
+    bottom: 8rem;
+    left:2rem; */
+    display: flex;
+    border-radius: 5px;
+    width:60%;
+    height: 4rem;
+    border:1px solid grey
+}
+.detail{
+    margin-left:4rem;
+}
+.price{
+    color: orangered;
+    margin:5em
+}
+.buy{
+    position: relative;
+    height: fit-content;
+    align-content: center;
+    border:1px solid grey;
+    width: 15rem;
+}    
+.button{
+    float: inline-end;
+    background-color: blanchedalmond;
+    width: 15rem;
+    border-radius: 7px;
+    border: 1px solid black;
+}
+.comments{
+    display: flex;
+    flex-direction:column;
+    border: 2px solid black;
+    width: 100%;
+}
+
