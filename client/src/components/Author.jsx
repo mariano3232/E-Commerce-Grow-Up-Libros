@@ -10,6 +10,15 @@ const Author = () => {
 
     const dispatch = useDispatch();
     const authors = useSelector(state => state.authors);    
+    const orderedAuthors = authors.sort(function (a, b) {
+        if (a.name.toLowerCase() > b.name.toLowerCase()) {
+          return 1;
+        }
+        if (b.name.toLowerCase() > a.name.toLowerCase()) {
+          return -1;
+        }
+        return 0;
+      })
     
 
     return (
@@ -17,7 +26,7 @@ const Author = () => {
          
             <ol>
                 {
-                    authors?.map(e => (
+                    orderedAuthors?.map(e => (
                         <Link to={'/author/' + e._id}>
                             
                             <CardAuthor name={e.name} surname={e.surname} picture={e.picture}/>
