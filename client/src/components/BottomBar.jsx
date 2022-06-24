@@ -33,7 +33,8 @@ export default function BottomBar() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.container2}>
+      
+       <div className={styles.container2}>
         <ul>
           <li className={styles.about}>
             <InfoIcon />
@@ -79,7 +80,7 @@ export default function BottomBar() {
             <span>Dirección: Av Belgrano 444, Mendoza, Argentina</span>
           </li>
         </ul>
-      </div>
+      </div> 
     </div>
   );
 }

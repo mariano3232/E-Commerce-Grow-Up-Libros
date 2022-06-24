@@ -12,12 +12,6 @@ export default function AddBook() {
    const genres = ['Salud', 'Deportes', 'Biografia', 'Nutricion', 'Filosofia', 'Ensayo', 'Desarrollo Personal',
     'Economia', 'Espiritualidad', 'Historia', 'Negocios', 'Psicologia', 'Neurociencia'];
 
-  function handleAuthorName(e) {
-    setPost({
-      ...post,
-      authors: { ...post.authors, [e.target.name]: e.target.value },
-    });
-  }
 
   const [post, setPost] = useState({
     title: "",
@@ -33,6 +27,92 @@ export default function AddBook() {
     review: "",
   });
 
+  const [errors,setErrors] = useState({
+    title: "",
+    cover: "",
+    rating: "",
+    year: "",
+    pages: "",
+    editorial: "",
+    price: "",
+    authorsName:"",
+    authorsSurname:"",
+    genres: "",
+    stock: "",
+    review: "",
+  })
+
+  function validate(post) {
+            let errors = {};
+            let nameRegex=/^[a-zA-Z0-9 _]*$/g
+            let titleRegex=/^[a-zA-Z _]*$/g
+            if (!post.title) {errors.title = 'Ingresar titulo (!)'}
+
+            if(!post.title.match(/^[a-zA-Z0-9 _]*$/g)){errors.title='El titulo no puede contener simbolos'};
+
+            if(post.title.length>50){errors.title='El titulo es demasiado largo'}
+    
+            if (!post.authors.name) {errors.authorsName= 'Ingresar nombre del autor '}
+
+            if(post.authors?.name?.length>50){errors.authorsName='El nombre es demasiado largo'}
+
+            if(!post.authors.name.match(/^[a-zA-Z]*$/g)){errors.authorsName='El nombre solo puede contener letras'};
+    
+            if (!post.authors.surname) {errors.authorsSurname= 'Ingresar apellido del autor'}
+
+            if(post.authors.surname.length>50){errors.authorsSurname='El apellido es demasiado largo'}
+            
+            if(!post.authors.surname.match(/^[a-zA-Z]*$/g)){errors.authorsSurname='El apellido solo puede contener letras'};
+    
+            if (!post.editorial) {errors.editorial = 'Ingresar editorial'}
+
+            if (post.editorial.length>50){errors.editorial='Nombre de editorial demasiado largo'}
+
+            if(!post.editorial.match(/^[a-zA-Z]*$/g)){errors.editorial='Solo puede contener letras'};
+    
+            if (!post.cover) {errors.cover = 'Ingresar URL de la portada'}
+
+            if (post.editorial.length>50){errors.editorial='Nombre de editorial demasiado largo'}
+    
+            if (!post.rating) {errors.rating = 'Ingresar el rating!'};
+
+            if ((post.rating < 0 || post.rating > 10)||!(post.rating.match((/^[0-9]*$/g)))){errors.rating='Debe ser un numero entre 0 y 10'}
+
+            if (!post.year) {errors.year = 'Ingresar año'};
+
+            if (post.year && !(post.year.match((/^[0-9]*$/g)))){errors.year='Debe ser un numero'}
+    
+            if (!post.pages) {errors.pages = 'Ingresar cantidad de paginas'};
+
+            if (post.pages>3031){errors.pages='La novela mas larga del mundo tiene 3.031 páginas'}
+
+            if (post.pages && !(post.pages.match((/^[0-9]*$/g)))){errors.pages='Debe ser un numero'}
+    
+            if (!post.price) {errors.price = 'Ingresar precio'};
+
+            if (post.price>99999999999){errors.price='Muy caro'}
+
+            if (post.price && !(post.price.match((/^[0-9]*$/g)))){errors.price='Debe ser un numero'}
+    
+            if (!post.stock) {errors.stock = 'Ingresar stock'};
+
+            if (post.stock>999999999){errors.stock='El numero es demasiado grande'}
+
+            if (post.stock && !(post.stock.match((/^[0-9]*$/g)))){errors.stock='Debe ser un numero'}
+    
+            if (!post.review) {errors.review = 'Ingresar una reseña/descripcion del libro'};
+
+            if (post.review.length>10000){errors.review='Alcanzaste el limite de characteres'}
+    
+            if (!post.genres.length) { errors.genres = 'Ingresar al menos un genero'};
+
+      return errors;      
+  }
+  
+  useEffect(()=>{
+    setErrors(validate(post))
+  },[post])
+
   function handleChange(e) {
     setPost({
       ...post,
@@ -40,12 +120,19 @@ export default function AddBook() {
     });
   }
 
-  function handleGenres(e) {
+  function handleGenres(e){
     setPost({
-      ...post,
-      genres: [e.target.value],
-    });
+        ...post,
+        genres:[...post.genres,e.target.value]
+    })
   }
+
+  function handleGenreDelete(genre){
+    setPost({
+        ...post,
+        genres: post.genres.filter(e=>e!==genre)
+    })
+}
 
   function handleAuthorName(e) {
     setPost({
@@ -54,12 +141,17 @@ export default function AddBook() {
     });
   }
 
+  const [failedSubmit,setFailedSubmit]=useState(false)
+
   function handleSubmit(e) {
     e.preventDefault();
-
-    dispatch(postBook(post));
+    if (errors){
+      setFailedSubmit(true);
+      return alert('Error, revisar formulario!')
+    }
+    // dispatch(postBook(post));
     console.log("soy Post:", post);
-    alert("¡Book Added!");
+    alert("¡Libro añadido!");
     setPost({
       title: "",
       cover: "",
@@ -88,9 +180,9 @@ export default function AddBook() {
             name="title"
             onChange={(e) => handleChange(e)}
           />
-          {/* {errors.title && (
-                    <p className={style.error}>{errors.title}</p>
-                )} */}
+          {
+            ((errors.title && failedSubmit)||!(errors.title?.split(' ').includes('Ingresar')))?<p className={style.error}>{errors.title}</p>:null
+          }
         </div>
 
         <div>
@@ -101,9 +193,9 @@ export default function AddBook() {
             name="name"
             onChange={(e) => handleAuthorName(e)}
           />
-          {/* {errors.author && (
-                    <p className={style.error}>{errors.author}</p>
-                )} */}
+          {
+            ((errors.authorsName && failedSubmit)||!(errors.authorsName?.split(' ').includes('Ingresar')))?<p className={style.error}>{errors.authorsName}</p>:null
+          }
         </div>
 
         <div>
@@ -114,9 +206,9 @@ export default function AddBook() {
             name="surname"
             onChange={(e) => handleAuthorName(e)}
           />
-          {/* {errors.author && (
-                    <p className={style.error}>{errors.author}</p>
-                )} */}
+          {
+            ((errors.authorsSurname && failedSubmit)||!(errors.authorsSurname?.split(' ').includes('Ingresar')))?<p className={style.error}>{errors.authorsSurname}</p>:null
+          }
         </div>
 
         
@@ -128,9 +220,9 @@ export default function AddBook() {
             name="editorial"
             onChange={(e) => handleChange(e)}
           />
-          {/* {errors.editorial && (
-                    <p className={style.error}>{errors.editorial}</p>
-                )} */}
+          {
+            ((errors.editorial && failedSubmit)||!(errors.editorial?.split(' ').includes('Ingresar')))?<p className={style.error}>{errors.editorial}</p>:null
+          }
         </div>
 
         <div>
@@ -141,9 +233,9 @@ export default function AddBook() {
             name="cover"
             onChange={(e) => handleChange(e)}
           />
-          {/* {errors.cover && (
-                    <p className={style.error}>{errors.cover}</p>
-                )} */}
+          {
+            ((errors.cover && failedSubmit)||!(errors.cover?.split(' ').includes('Ingresar')))?<p className={style.error}>{errors.cover}</p>:null
+          }
         </div>
 
         <div>
@@ -156,9 +248,9 @@ export default function AddBook() {
             name="rating"
             onChange={(e) => handleChange(e)}
           />
-          {/* {errors.rating && (
-                    <p className={style.error}>{errors.rating}</p>
-                )} */}
+          {
+            ((errors.rating && failedSubmit)||!(errors.rating?.split(' ').includes('Ingresar')))?<p className={style.error}>{errors.rating}</p>:null
+          }
         </div>
 
         <div>
@@ -169,9 +261,9 @@ export default function AddBook() {
             name="year"
             onChange={(e) => handleChange(e)}
           />
-          {/* {errors.year && (
-                    <p className={style.error}>{errors.year}</p>
-                )} */}
+          {
+            ((errors.year && failedSubmit)||!(errors.year?.split(' ').includes('Ingresar')))?<p className={style.error}>{errors.year}</p>:null
+          }
         </div>
 
         <div>
@@ -182,9 +274,9 @@ export default function AddBook() {
             name="pages"
             onChange={(e) => handleChange(e)}
           />
-          {/* {errors.pages && (
-                    <p className={style.error}>{errors.pages}</p>
-                )} */}
+          {
+            ((errors.pages && failedSubmit)||!(errors.pages?.split(' ').includes('Ingresar')))?<p className={style.error}>{errors.pages}</p>:null
+          }
         </div>
 
         <div>
@@ -195,9 +287,9 @@ export default function AddBook() {
             name="price"
             onChange={(e) => handleChange(e)}
           />
-          {/* {errors.price && (
-                    <p className={style.error}>{errors.price}</p>
-                )} */}
+          {
+            ((errors.price && failedSubmit)||!(errors.price?.split(' ').includes('Ingresar')))?<p className={style.error}>{errors.price}</p>:null
+          }
         </div>
 
         <div>
@@ -208,9 +300,9 @@ export default function AddBook() {
             name="stock"
             onChange={(e) => handleChange(e)}
           />
-          {/* {errors.stock && (
-                    <p className={style.error}>{errors.stock}</p>
-                )} */}
+          {
+            ((errors.stock && failedSubmit)||!(errors.stock?.split(' ').includes('Ingresar')))?<p className={style.error}>{errors.stock}</p>:null
+          }
         </div>
 
         <div>
@@ -220,34 +312,26 @@ export default function AddBook() {
             name="review"
             onChange={(e) => handleChange(e)}
           />
-          {/* {errors.review && (
-                    <p className={style.error}>{errors.review}</p>
-                )} */}
+          {
+            ((errors.review && failedSubmit)||!(errors.review?.split(' ').includes('Ingresar')))?<p className={style.error}>{errors.review}</p>:null
+          }
         </div>
 
-        {/* <div>
-          <label>Generos</label>
-          <input
-            value={post.genres}
-            name="genres"
-            onChange={(e) => handleGenres(e)}
-          />
-          {/* {errors.genre && (
-                    <p className={style.genre}>{errors.genre}</p>
-                )} */}
+
     
 
         <select onChange={e => handleGenres(e)} defaultValue='default'>
                 <option value="default" disabled >Genres</option>
                     {
                         genres && genres.map(genre => (
-                            <option value={genre}>{genre}</option>
-                                ))
+                            <option key={genre} value={genre}>{genre}</option>
+                          )
+                        )
                     }
-            </select>
-                    {/* {errors.genres && (
-                        <p className={style.error}>{errors.genres}</p>
-                    )} */}
+        </select>
+          {
+            ((errors.genres && failedSubmit)||!(errors.genres?.split(' ').includes('Ingresar')))?<p className={style.error}>{errors.genres}</p>:null
+          } 
                     {post.genres.map(genre =>
                         <div key={genre}>
                             <p>{genre}</p>
@@ -256,6 +340,7 @@ export default function AddBook() {
                     )}
 
         <button type="submit">Agregar Libro</button>
+
       </form>
 
       <Link to="/admin">
@@ -264,361 +349,3 @@ export default function AddBook() {
     </div>
   );
 }
-
-
-
-///////POST CON ERRORES
-// }
-
-// // export default function AddBook(){
-
-// //     const dispatch = useDispatch();
-
-// //     const allBooks = useSelector((state)=>state.books);
-
-// //     // const genres = ['Salud', 'Deportes', 'Biografia', 'Nutricion', 'Filosofia', 'Ensayo', 'Desarrollo Personal',
-// //     // 'Economia', 'Espiritualidad', 'Historia', 'Negocios', 'Psicologia', 'Neurociencia'];
-
-// //     // const [errors,setErrors] = useState({});
-
-// //     const [post,setPost] = useState({
-// //         title:'',
-// //         cover:'',
-// //         rating:'',
-// //         year:'',
-// //         pages:'',
-// //         editorial:'',
-// //         price:'',
-// //         author:'',
-// //         genres:[],
-// //         stock:'',
-// //         review:'',
-// //     })
-
-// //     function handleChange(e){
-// //         setPost({
-// //             ...post,
-// //             [e.target.name] : e.target.value
-// //         })
-// //     }
-
-// //     function handleSubmit(e) {
-// //         e.preventDefault();
-// //         if (Object.values(errors).length > 0) alert("Please fill in all the fields")
-// //         else {
-// //             dispatch(postBook(post))
-// //             console.log('soy Post:',post)
-// //             alert('¡Book Added!')
-// //             setPost({
-// //                 title:'',
-// //                 cover:'',
-// //                 rating:'',
-// //                 year:'',
-// //                 pages:'',
-// //                 editorial:'',
-// //                 price:'',
-// //                 author:'',
-// //                 genres:[],
-// //                 stock:'',
-// //                 review:'',
-// //             })
-// //     };
-
-// //     // function handleSelectGenres(e){
-// //     //     setPost({
-// //     //         ...post,
-// //     //         genres: [...post.genres,e.target.value]
-// //     //     })
-// //     //     setErrors(validate({
-// //     //         ...post,
-// //     //         genres: [...post.genres,e.target.value]
-// //     //     }));
-// //     // }
-
-// //     // function handleSteps(e) {
-// //     //     setPost({
-// //     //         ...post,
-// //     //         review: [e.target.value]
-// //     //     });
-// //     //     setErrors(validate({
-// //     //         ...post,
-// //     //         review: e.target.value
-// //     //     }));
-// //     // }
-
-// //     // function handleGenreDelete(diet){
-// //     //     setPost({
-// //     //         ...post,
-// //     //         genres: post.genres.filter(e=>e!==diet)
-// //     //     })
-// //     //     setErrors(validate({
-// //     //         ...post,
-// //     //         genres: [...post.genres]
-// //     //     }));
-// //     // }
-
-// //     // function validate(post) {
-// //     //     let errors = {};
-// //     //     if (!post.title) {
-// //     //         errors.title = 'Please insert a title'
-// //     //     } else if(!post.title[0].match(/^[A-Z]/)){
-// //     //         errors.title='First letter must be a capital letter'};
-
-// //     //     if (!post.author) {
-// //     //         errors.author= 'Add auhtor name'
-// //     //     }
-// //     //     // }else if(!post.authros.name[0].match(/^[A-Z]/)){
-// //     //     //     errors.authors='First letter must be a capital letter'};
-
-// //     //     // if (!post.authors.surname) {
-// //     //     //     errors.authors= 'Add auhtor surname'
-// //     //     // }else if(!post.authros.surname[0].match(/^[A-Z]/)){
-// //     //     //     errors.authors='First letter must be a capital letter'};
-
-// //     //      if (!post.editorial) {
-// //     //         errors.editorial = 'Please add an editorial'
-// //     //     }else if(!post.editorial[0].match(/^[A-Z]/)){
-// //     //         errors.editorial='First letter must be a capital letter'};
-
-// //     //     if (!post.cover) {
-// //     //         errors.cover = 'Please insert an url related to the cover'
-// //     //     }
-
-// //     //     if (!post.rating || post.rating < 0 || post.rating > 10) {
-// //     //                 errors.rating = 'Value must be between 0 and 10'
-// //     //             };
-
-// //     //     if (!post.year) {
-// //     //         errors.year = 'Please insert a year, must be a number'
-// //     //     };
-
-// //     //     if (!post.pages) {
-// //     //         errors.pages = 'Please insert the book`s pages, must be a number'
-// //     //     };
-
-// //     //     if (!post.price) {
-// //     //         errors.price = 'Please insert the price, must be a number'
-// //     //     };
-
-// //     //     if (!post.stock) {
-// //     //         errors.stock = 'Please insert the stock, must be a number'
-// //     //     };
-
-// //     //     if (!post.review) {
-// //     //         errors.review = 'Please write a review'
-// //     //     };
-
-// //     //     if (!post.genres.length) {
-// //     //         errors.genres = 'Please add some genres'
-// //     //     };
-
-// //     //     // return errors;
-// //     // }
-
-// //     function handleSubmit(e) {
-// //         e.preventDefault();
-// //         if (Object.values(errors).length > 0) alert("Please fill in all the fields")
-// //         else {
-// //             dispatch(postBook(post))
-// //             console.log('soy Post:',post)
-// //             alert('¡Book Added!')
-// //             setPost({
-// //                 title:'',
-// //                 cover:'',
-// //                 rating:'',
-// //                 year:'',
-// //                 pages:'',
-// //                 editorial:'',
-// //                 price:'',
-// //                 author:'',
-// //                 genres:[],
-// //                 stock:'',
-// //                 review:'',
-// //             })
-// //     };
-
-// //     return(
-// //         <div >
-
-// //             <h1>Add Book</h1>
-// //             <h2>Fill in all the fields</h2>
-// //             <form onSubmit={(e)=>handleSubmit(e)}>
-// //                 <div>
-// //                     <label >Titulo:</label>
-// //                     <input
-// //                     type='text'
-// //                     value= {post.title}
-// //                     name= 'title'
-// //                     onChange={(e)=>handleChange(e)}
-// //                     />
-// //                     {/* {errors.title && (
-// //                         <p className={style.error}>{errors.title}</p>
-// //                     )} */}
-// //                 </div>
-
-// //                 <div>
-// //                     <label >Nombre de Autor:</label>
-// //                     <input
-// //                     type='text'
-// //                     value= {post.author}
-// //                     name= 'author'
-// //                     onChange={(e)=>handleChange(e)}
-// //                     />
-// //                     {/* {errors.author && (
-// //                         <p className={style.error}>{errors.author}</p>
-// //                     )} */}
-// //                 </div>
-
-// //                 {/* <div>
-// //                     <label >Apellido de Autor:</label>
-// //                     <input
-// //                     type='text'
-// //                     value= {post.authors.surname}
-// //                     name= 'authors'
-// //                     onChange={(e)=>handleChange(e)}
-// //                     />
-// //                     {errors.authors && (
-// //                         <p className={style.error}>{errors.authors}</p>
-// //                     )}
-// //                 </div> */}
-
-// //                 <div>
-// //                     <label >Editorial:</label>
-// //                     <input
-// //                     type='text'
-// //                     value= {post.editorial}
-// //                     name= 'editorial'
-// //                     onChange={(e)=>handleChange(e)}
-// //                     />
-// //                     {/* {errors.editorial && (
-// //                         <p className={style.error}>{errors.editorial}</p>
-// //                     )} */}
-// //                 </div>
-
-// //                 <div>
-// //                     <label >Imagen:</label>
-// //                     <input
-// //                     type='text'
-// //                     value= {post.cover}
-// //                     name= 'cover'
-// //                     onChange={(e)=>handleChange(e)}
-// //                     />
-// //                     {/* {errors.cover && (
-// //                         <p className={style.error}>{errors.cover}</p>
-// //                     )} */}
-// //                 </div>
-
-// //                 <div>
-// //                     <label>Rating:</label>
-// //                     <input
-// //                     type='number' min='0' max='10'
-// //                     value= {post.rating}
-// //                     name= 'rating'
-// //                     onChange={(e)=>handleChange(e)}
-// //                     />
-// //                      {/* {errors.rating && (
-// //                         <p className={style.error}>{errors.rating}</p>
-// //                     )} */}
-// //                 </div>
-
-// //                 <div>
-// //                     <label>Año:</label>
-// //                     <input
-// //                     type='number'
-// //                     value= {post.year}
-// //                     name= 'year'
-// //                     onChange={(e)=>handleChange(e)}
-// //                     />
-// //                      {/* {errors.year && (
-// //                         <p className={style.error}>{errors.year}</p>
-// //                     )} */}
-// //                 </div>
-
-// //                 <div>
-// //                     <label>Cantidad de paginas:</label>
-// //                     <input
-// //                     type='number'
-// //                     value= {post.pages}
-// //                     name= 'pages'
-// //                     onChange={(e)=>handleChange(e)}
-// //                     />
-// //                      {/* {errors.pages && (
-// //                         <p className={style.error}>{errors.pages}</p>
-// //                     )} */}
-// //                 </div>
-
-// //                 <div>
-// //                     <label>Precio:</label>
-// //                     <input
-// //                     type='number'
-// //                     value= {post.price}
-// //                     name= 'price'
-// //                     onChange={(e)=>handleChange(e)}
-// //                     />
-// //                      {/* {errors.price && (
-// //                         <p className={style.error}>{errors.price}</p>
-// //                     )} */}
-// //                 </div>
-
-// //                 <div>
-// //                     <label>Stock:</label>
-// //                     <input
-// //                     type='number'
-// //                     value= {post.stock}
-// //                     name= 'stock'
-// //                     onChange={(e)=>handleChange(e)}
-// //                     />
-// //                      {/* {errors.stock && (
-// //                         <p className={style.error}>{errors.stock}</p>
-// //                     )} */}
-// //                 </div>
-
-// //                 <div>
-// //                     <label>Reseña</label>
-// //                     <textarea
-// //                     value= {post.review}
-// //                     name= 'review'
-// //                     onChange={(e)=>handleSteps(e)}
-// //                     />
-// //                      {/* {errors.review && (
-// //                         <p className={style.error}>{errors.review}</p>
-// //                     )} */}
-// //                 </div>
-
-// //                 <div>
-// //                     <label>Generos</label>
-// //                     <input
-// //                     value= {post.genre}
-// //                     name= 'review'
-// //                     onChange={(e)=>handleSteps(e)}
-// //                     />
-// //                      {/* {errors.genre && (
-// //                         <p className={style.genre}>{errors.genre}</p>
-// //                     )} */}
-// //                 </div>
-
-// //                 {/* <select onChange={e => handleSelectGenres(e)} defaultValue='default'>
-// //                     <option value="default" disabled >Genres</option>
-// //                         {
-// //                             genres && genres.map(genre => (
-// //                                 <option value={genre}>{genre}</option>
-// //                                     ))
-// //                         }
-// //                 </select>
-// //                         {errors.genres && (
-// //                             <p className={style.error}>{errors.genres}</p>
-// //                         )}
-// //                         {post.genres.map(genre =>
-// //                             <div key={genre}>
-// //                                 <p>{genre}</p>
-// //                                 <button onClick={() => handleGenreDelete(genre)}>X</button>
-// //                             </div>
-// //                         )} */}
-
-// //                 <button type='submit'>Agregar Libro</button>
-
-// //             </form>
-
-// //         </div>
-// //     )
-// ///

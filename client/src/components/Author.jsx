@@ -11,9 +11,9 @@ const Author = () => {
     const dispatch = useDispatch();
     const authors = useSelector(state => state.authors);    
     
-     useEffect(() => {
-        dispatch(getAuthors());
-      }, [dispatch]);
+    //  useEffect(() => {
+    //     dispatch(getAuthors());
+    //   }, [dispatch]);
 
     return (
         <div>
