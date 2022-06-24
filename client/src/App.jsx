@@ -126,7 +126,7 @@ function App() {
           }
         />
 
-          <Route
+          {/* <Route
           path="/addbook"
           element={
             <ProtectedRoute
@@ -138,7 +138,7 @@ function App() {
               <AddBook />          
             </ProtectedRoute>
           }
-        />
+        /> */}
 
           <Route
           path="/delete"
@@ -155,7 +155,7 @@ function App() {
         />
 
         {/* <Route exact path='/add' element={<Add/>} /> */}
-        {/* <Route exact path='/addbook' element={<AddBook/>} />      */}
+        <Route exact path='/addbook' element={<AddBook/>} />     
         {/* <Route exact path='/addauthor' element={<AddAuthor/>} />  */}
 
       </Routes>
