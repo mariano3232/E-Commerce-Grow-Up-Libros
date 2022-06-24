@@ -2,12 +2,30 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 50px;
-  width: 150px;
+  margin: 30px;
+  width: 200px;
   font-weight: bold;
-  height: 400px;
+  height: 500px;
+  color: wheat;
+}
+
+.img {
+  border-radius: 10px;
 }
 
 .info {
   color: orangered;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.ubiInfo {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }

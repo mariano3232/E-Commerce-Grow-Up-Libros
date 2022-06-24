@@ -24,10 +24,12 @@ export default function SideBar() {
               return (
                 <Link className={styles.link} to={"/book/" + e.id}>
                   <div className={styles.card}>
-                    <h5>#{i + 1}</h5>
+                    <h3>#{i + 1}</h3>
                     <img src={e.cover} className={styles.img}></img>
-                    <h3>{e.title}</h3>
-                    <h3 className={styles.price}>{e.price}$</h3>
+                    <div>
+                      <h3>{e.title}</h3>
+                      <h3 className={styles.price}>{e.price}$</h3>
+                    </div>
                   </div>
                 </Link>
               );
