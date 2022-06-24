@@ -1,34 +1,42 @@
 .container {
-  background-color: rgba(128, 128, 128, 0.427);
+  background-color: #aa784683;
   border-radius: 8px;
-  width: 15rem;
+  width: 20rem;
   height: auto;
   float: right;
   margin-right: 80px;
+  color: wheat;
 }
 .title {
-  background-color: rgba(33, 30, 30, 0.447);
+  background-color: #73400dbb;
   height: 3rem;
-  width: 15rem;
+  width: 20rem;
   align-items: center;
 }
+
 .card {
+  display: flex;
   padding-left: 3%;
   height: 8%;
-  width: 60%;
+  width: 90%;
   min-width: 100px;
   transition: 500ms;
+  margin-bottom: 20px;
+  color: wheat;
   /* border: 2px solid black; */
 }
+
 .card:hover {
   transform: translateY(-5px);
 }
+
 .img {
   width: 100px;
   height: 150px;
   border: 1px solid black;
-  border-radius: 2px;
+  border-radius: 5px;
 }
+
 .price {
   color: orangered;
 }

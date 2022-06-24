@@ -1,3 +1,9 @@
+.home {
+  background-image: url("https://images8.alphacoders.com/370/thumb-1920-370799.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .ubiOptions {
   display: flex;
   align-items: center;
@@ -6,15 +12,19 @@
 
 .p {
   font-weight: bold;
+  color: wheat;
 }
 
 .options {
-  width: 140px;
+  width: 160px;
   height: 25px;
-  background-color: rgba(128, 128, 128, 0.427);
+  background-color: #73400d;
+  border: none;
   font-weight: bold;
   margin-left: 10px;
   margin-bottom: 10px;
+  color: wheat;
+  box-shadow: 3px 3px 3px #73400d96;
 }
 
 .card {
