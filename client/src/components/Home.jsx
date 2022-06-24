@@ -27,7 +27,7 @@ export default function Home() {
   const [price, setPrice] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [bookPerPage] = useState(10);
+  const [bookPerPage] = useState(9);
   var lastBook = currentPage * bookPerPage;
   var firstBook = lastBook - bookPerPage;
   var currentBooks = allBooks.slice(firstBook, lastBook);
@@ -75,18 +75,18 @@ export default function Home() {
 
   //     <p onClick={handleClick}>Refrescar</p>
 
+  //    <p onClick={handleClick}>Refrescar</p>
 
-return(
-       <div >
-        <Link to="/admin">
-            <button>Administrador</button>
-        </Link>
-        <Link to="/shop">
-            <button>Compras</button>
-        </Link>
-        <p onClick={handleClick}>Refrescar</p>
-        <Carousel />
-
+  return (
+    <div className={styles.home}>
+      <Link to="/admin">
+        <button>Administrador</button>
+      </Link>
+      <Link to="/shop">
+        <button>Compras</button>
+      </Link>
+      <p onClick={handleClick}>Refrescar</p>
+      <Carousel />
 
       <div>
         <Paginado
@@ -144,7 +144,13 @@ return(
             <h5>No se encontro el libro</h5>
           )}
         </div>
+        <Paginado
+          bookPerPage={bookPerPage}
+          books1={allBooks.length}
+          paginado={paginado}
+          page={currentPage}
+        />
       </div>
-    </div>  
+    </div>
   );
 }

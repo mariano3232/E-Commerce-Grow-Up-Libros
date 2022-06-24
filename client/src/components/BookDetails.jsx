@@ -15,6 +15,7 @@ export default function BookDetails() {
     dispatch(getBookDetails(id));
   }, [dispatch]);
 
+
   const book = useSelector(state=>state.bookDetails);
 
   return (
@@ -22,10 +23,10 @@ export default function BookDetails() {
       <img src={book.cover} alt="Not Found ):" className={styles.img} />
       
       <div className={styles.info}>
-         <h2 className={styles.title}>(Autor) - {book.title}</h2>
+         <h2 className={styles.title}>{book.authors?.name} {book.authors?.surname} - {book.title}</h2>
          <span>generos :</span>
          {book?.genres?.map((e) => {
-            return <span key={e}>{e}, </span>;
+            return <span key={e.genre}>{e.genre}, </span>;
          })}
          <p>{book.review}</p>
       </div>
@@ -53,6 +54,7 @@ export default function BookDetails() {
         <textarea cols="30" rows="10" placeholder="Comenta!"  className={styles.comment}></textarea>
         <button>Post</button>
       </div>  
+
     </div>
   );
 }
