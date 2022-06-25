@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { putBook } from "../actions";
+import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 
 
@@ -168,6 +169,10 @@ function handleSubmit(e) {
 
           <button type="submit">Modificar Libro</button>
         </form>
+
+        <Link to="/admin">
+                <button>Administrador</button>
+            </Link>
   
       </div>
         

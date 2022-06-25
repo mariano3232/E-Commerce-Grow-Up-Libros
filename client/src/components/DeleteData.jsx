@@ -3,6 +3,7 @@ import React from "react";
 import { deleteBook , deleteAuthor } from "../actions";
 import { useDispatch , useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 
@@ -73,9 +74,13 @@ export default function Delete(){
                     }
             </div>
 
+       
+
+            <Link to="/admin">
+            <button>Administrador</button>
+            </Link>
+
         </div>
-
-
 
     )
 }
