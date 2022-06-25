@@ -33,6 +33,10 @@ export default function PutAuthor(){
                 })
 
             }
+
+                <Link to="/admin">
+                <button>Administrador</button>
+            </Link>
         </div>
     )
 }

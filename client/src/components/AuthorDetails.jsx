@@ -7,12 +7,16 @@ import { clearPageAuthorDetails, getAuthorDetails } from '../actions';
 import { Link } from 'react-router-dom';
 import style from '../Styles/authorDetails.module.css';
 import { animateScroll as scroll} from "react-scroll";
+import { useState } from 'react';
+import CarrouselBookEnAuthor from './CarrouselBooksEnAuthor';
 
 const AuthorDetails = () => {
 
     const dispatch = useDispatch();
     const authorDetails = useSelector(state => state.authorDetails);
     const books = useSelector(state =>state.books)
+    const authorBooks = authorDetails.books
+    
     
     const {id} = useParams();
    
@@ -26,6 +30,8 @@ const AuthorDetails = () => {
             dispatch(clearPageAuthorDetails());
         }
     }, [dispatch]);
+    
+   
 
     return (
         <div>
@@ -47,15 +53,24 @@ const AuthorDetails = () => {
             </div>
 
             <div>
-                Libros:
+                {/* <h5>DEJO CODIGO SIN CARRUSEL POR LAS DUDAS(GUILLE)</h5> */}
+                {/* Libros:
                     {
-                        authorDetails.books?.map(e => 
-                            <Link to={'/book/' + e._id}>
-                                <li>{e.title}</li>
+                        authorBooks?.map(book => 
+                            <Link to={'/book/' + book._id}>
+                                <li>
+                                   <h4>{book.title}</h4>
+                                   <img src={book.cover}></img>
+                                </li>
                             </Link>
                             
                         )    
-                    }
+                    } */}
+
+
+                    { authorBooks?
+                    <CarrouselBookEnAuthor booksEscritor={authorBooks}/>
+                    :'N'}
             </div>
       
         </div>

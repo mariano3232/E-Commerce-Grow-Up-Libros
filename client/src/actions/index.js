@@ -114,6 +114,7 @@ export function postBook (payload){
        const json = await axios.post('https://ecommercehenryx.herokuapp.com/books/addBook',payload);
         return dispatch({
             type:'POST_BOOK',
+            payload: payload
           })
     }
 }
@@ -124,6 +125,7 @@ export function postAuthor (payload){
        const json = await axios.post('https://ecommercehenryx.herokuapp.com/authors/addAuthor',payload);
         return dispatch({
             type:'POST_AUTHOR',
+            payload: payload
           })
     }
   };

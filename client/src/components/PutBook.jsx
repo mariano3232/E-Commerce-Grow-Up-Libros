@@ -33,6 +33,10 @@ export default function PutBook(){
                 })
 
             }
+
+            <Link to="/admin">
+                <button>Administrador</button>
+            </Link>
         </div>
     )
 }
