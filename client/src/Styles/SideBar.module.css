@@ -6,7 +6,7 @@
   width: 10%em;
   height: auto;
   float: right;
-  margin-right: 80px;
+  margin-right: 2%;
   backdrop-filter:blur(500px);
   box-shadow: 0 5px 25px grey;
 }
