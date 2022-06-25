@@ -23,6 +23,7 @@ import AddBook from "./components/AddBook";
 import AddAuthor from "./components/AddAuthor";
 import BottomBar from "./components/BottomBar";
 import { Admin } from "./components/Admin";
+import UserPerfil from "./components/UserPerfil";
 import DeleteData from "./components/DeleteData";
 import Put from "./components/Put";
 import PutAuthor from "./components/PutAuthor";
@@ -101,18 +102,29 @@ function App() {
               </ProtectedRoute>
             }
           />
+        <Route
+          path="/user"
+          element={
+            <ProtectedRoute
+              redirectPath="/home"
+              isAllowed={!!user && user.roles.includes("user")}
+            >
+              <UserPerfil />
+            </ProtectedRoute>
+          }
+        />
 
-          <Route
-            path="/add"
-            element={
-              <ProtectedRoute
-                redirectPath="/home"
-                isAllowed={!!user && user.roles.includes("admin")}
-              >
-                <Add />
-              </ProtectedRoute>
-            }
-          />
+        <Route
+          path="/add"
+          element={
+            <ProtectedRoute
+              redirectPath="/home"
+              isAllowed={!!user && user.roles.includes("admin")}
+            >
+              <Add />
+            </ProtectedRoute>
+          }
+        />
 
           <Route
             path="/addauthor"
