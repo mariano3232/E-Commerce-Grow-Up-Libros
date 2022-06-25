@@ -132,6 +132,10 @@
                     <button type='submit'>Modificar Autor</button>
                       
                 </form>
+
+                <Link to="/admin">
+                <button>Administrador</button>
+            </Link>
             </div>
         )
     }
