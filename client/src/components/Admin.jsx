@@ -28,6 +28,11 @@ export function Admin(){
                 
                 
                 <button>Ver Ventas</button>
+
+            <Link to="/stock">
+                <button>Ver Stock</button>
+            </Link>
+
             
             
         </div>

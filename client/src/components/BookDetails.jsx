@@ -33,8 +33,9 @@ export default function BookDetails() {
 
 
   const book = useSelector(state=>state.bookDetails);
-  //console.log(book)
-
+  const author = book.authors
+  console.log('autor',author)
+  console.log('///////',book.authors)
   return (
     <div className={styles.container}>
 
@@ -43,11 +44,11 @@ export default function BookDetails() {
       <div className={styles.info}>
 
           <h1>{book.title}</h1>
-
-        {/* <Link to={'/author/' + book.authors._id}>
-              <h2 className={styles.title}>{book.authors?.name} {book.authors?.surname} </h2>
-        </Link> */}
-
+        {author?
+        <Link to={`/author/${author._id}`}>
+              <h2 className={styles.title} key={author?.name}>{author?.name} {author?.surname} </h2>
+        </Link>
+          : 'Desconocido'}
          <span>generos :</span>
 
          {book?.genres?.map((e) => {
