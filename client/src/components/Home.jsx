@@ -29,7 +29,7 @@ export default function Home() {
   /* const [price, setPrice] = useState(""); */
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [bookPerPage] = useState(9);
+  const [bookPerPage] = useState(8);
   var lastBook = currentPage * bookPerPage;
   var firstBook = lastBook - bookPerPage;
   var currentBooks = allBooks.slice(firstBook, lastBook);
