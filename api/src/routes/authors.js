@@ -94,7 +94,7 @@ router.post("/addAuthor", async (req, res) => {
     res.status(404).send(err.message);
   }
 });
-router.put("/update/:id", async (req, res) => {
+router.post("/update/:id", async (req, res) => {
   const data = req.body;
   const { id } = req.params;
 

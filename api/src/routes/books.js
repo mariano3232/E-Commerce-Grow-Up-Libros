@@ -121,7 +121,7 @@ router.get("/:id", async function (req, res) {
   const { id } = req.params;
   try {
     if (id.length !== 24) throw new Error("The id have 24 characters");
-    const book = await Books.findById(id);
+    const book = await Books.findById(id).populate(["authors", "genres"]);
     if (book === null) throw new Error("Book not found");
     res.status(200).json(book);
   } catch (err) {
@@ -143,6 +143,7 @@ router.post("/addBook", async function (req, res) {
     genres,
     review,
   } = req.body;
+
   const arrayGenres = await genres.map(async (e) => {
     const getGenre = await Genres.find({ genre: e }, { genre: 1 });
     return getGenre;
@@ -192,7 +193,7 @@ router.post("/addBook", async function (req, res) {
   }
 });
 
-router.put("/update/:id", async (req, res) => {
+router.post("/update/:id", async (req, res) => {
   const { id } = req.params;
   const data = req.body;
 
