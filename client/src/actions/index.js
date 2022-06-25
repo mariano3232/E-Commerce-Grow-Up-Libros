@@ -100,6 +100,15 @@ export function clearPageAuthorDetails () {
     
 }
 
+export function clearPageBookDetails () {
+
+  return {
+    type: 'CLEAR_PAGE_BOOK_DETAILS',
+      
+  }
+  
+}
+
 export function postBook (payload){
     return async function (dispatch){
        const json = await axios.post('https://ecommercehenryx.herokuapp.com/books/addBook',payload);
@@ -128,17 +137,14 @@ export function postAuthor (payload){
     }
   };
 
-
-
-
-  export function deleteAuthor(id){
+  export function deleteAuthor (id){
     return async function (dispatch){
-        await axios.delete()
+       const json = await axios.delete(`http://ecommercehenryx.herokuapp.com/authors/deleteAuthor/${id}`);
         return dispatch({
-            type:'DELETE_AUTHOR'
-        })
+            type:'DELETE_AUTHOR',
+          })
     }
-  }
+  };
 
 
   export function putAuthor (payload,id){

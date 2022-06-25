@@ -2,12 +2,14 @@ import React from "react";
 
 import { deleteBook , deleteAuthor } from "../actions";
 import { useDispatch , useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 
 
 export default function Delete(){
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const allBooks = useSelector(state => state.books)
     const allAuthors = useSelector ( state => state.authors)
@@ -24,15 +26,17 @@ export default function Delete(){
 
 
     function handleDeleteBook(id){
-        console.log('id:',id)
+        
         dispatch(deleteBook(id))
-        alert("Successfully Deleted")
+        alert("Libro Eliminado")
+        navigate("/admin");   
     };
 
-    function handleDeleteAuthor(){
-        e.preventDefault(e)
-        dispatch(deleteAuthor(author._id))
-        alert("Successfully Deleted")
+    function handleDeleteAuthor(id){
+        
+        dispatch(deleteAuthor(id))
+        alert("Escritor Eliminado")
+        navigate("/admin"); 
     };
 
     return(
@@ -61,7 +65,7 @@ export default function Delete(){
                         return(
                             <li>
                                 {author.name} {author.surname}
-                                <button onClick ={e=> handleDeleteAuthor(e)}>x</button>
+                                <button onClick ={()=> handleDeleteAuthor(author._id)}>x</button>
                             </li>
                         )
                     })

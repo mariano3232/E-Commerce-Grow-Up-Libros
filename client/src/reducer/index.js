@@ -159,6 +159,13 @@ function rootReducer(state = initialState, action) {
           ...state,
           authorDetails: {}
         }
+
+      case 'CLEAR_PAGE_BOOK_DETAILS':
+
+        return{
+          ...state,
+          bookDetails: {}
+        }
       
     default:
       return state;

@@ -2,12 +2,14 @@
 import React from 'react';
 import {useState} from 'react';
 import {useDispatch} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 import {getBookTitle} from '../actions';
 import styles from '../Styles/searchBar.module.css'
 const SearchBar = () => {
 
     const [input, setInput] = useState('');
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setInput(e.target.value);
@@ -16,6 +18,7 @@ const SearchBar = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(getBookTitle(input));
+        navigate('/home/');
         setInput('');
     }
 

@@ -156,6 +156,7 @@ router.post("/addBook", async function (req, res) {
     name: authors.name,
     surname: authors.surname,
   });
+  
 
   try {
     if (!authorDb) throw new Error("Author not found");
@@ -172,9 +173,7 @@ router.post("/addBook", async function (req, res) {
       genres: genreId,
       review,
     });
-
     await newBook.save();
-
     const saveBook = await Books.find({ title: title })
       .populate({
         path: "genres",
@@ -184,6 +183,9 @@ router.post("/addBook", async function (req, res) {
         path: "authors",
         select: { name: 1, _id: 0, surname: 1, biography: 1 },
       });
+    authorDb[0].books.push(saveBook[0]._id);
+      await authorDb[0].save()
+    
 
     return res.json(saveBook);
   } catch (err) {
@@ -212,12 +214,12 @@ router.delete("/deleteBook/:id", async (req, res) => {
   const { id } = req.params;
   try {
     await Books.deleteOne({ _id: id })
-    .populate({
-      path: "genres",
-      select: "genre",
-    })
-    .populate({ path: "authors", select: "name", select: { _id: 0 } });
-    
+      .populate({
+        path: "genres",
+        select: "genre",
+      })
+      .populate({ path: "authors", select: "name", select: { _id: 0 } });
+
     res.status(204).send();
   } catch {
     res.status(404);

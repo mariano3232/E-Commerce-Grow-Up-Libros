@@ -145,11 +145,11 @@ export default function AddBook() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (errors){
-      setFailedSubmit(true);
-      return alert('Error, revisar formulario!')
-    }
-    // dispatch(postBook(post));
+    // if (errors){
+    //   // setFailedSubmit(false);
+    //   return alert('Error, revisar formulario!')
+    // }
+    dispatch(postBook(post));
     console.log("soy Post:", post);
     alert("¡Libro añadido!");
     setPost({
