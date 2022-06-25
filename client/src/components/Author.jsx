@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {getAuthors} from '../actions';
 import CardAuthor from './CardAuthor';
+import { animateScroll as scroll} from "react-scroll";
 
 const Author = () => {
 
@@ -18,8 +19,11 @@ const Author = () => {
           return -1;
         }
         return 0;
-      })
+    })
     
+    useEffect(() => {
+        scroll.scrollToTop();
+    }, []);
 
     return (
         <div>
