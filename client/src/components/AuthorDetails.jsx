@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { clearPageAuthorDetails, getAuthorDetails } from '../actions';
 import { Link } from 'react-router-dom';
 import style from '../Styles/authorDetails.module.css';
+import { animateScroll as scroll} from "react-scroll";
 
 const AuthorDetails = () => {
 
@@ -17,6 +18,7 @@ const AuthorDetails = () => {
    
     useEffect(() => {
         dispatch(getAuthorDetails(id));
+        scroll.scrollToTop();
     }, [dispatch]);
     
     useEffect(() => {
@@ -30,22 +32,30 @@ const AuthorDetails = () => {
 
             <Link to='/author'><p>Volver</p></Link>
             <div>
-                <span>{authorDetails.name} </span>
+                <span>Autor: {authorDetails.name} </span>
                 <span>{authorDetails.surname}</span>
             </div>
             <div className={style.imageContainer}>
                 <img className={style.image} src={authorDetails.picture} alt="buscando img"/>
             </div>
             <div>
-                <h4>{authorDetails.country}</h4>
-                <p>{authorDetails.birth}</p>
+                <h4>País: {authorDetails.country}</h4>
+                <p>Fecha de nacimiento: {authorDetails.birth}</p>
             </div>
             <div>
-                <p>{authorDetails.biography}</p>
+                <p>Biografiía: {authorDetails.biography}</p>
             </div>
 
             <div>
-                <p>{authorDetails.books}</p>
+                Libros:
+                    {
+                        authorDetails.books?.map(e => 
+                            <Link to={'/book/' + e._id}>
+                                <li>{e.title}</li>
+                            </Link>
+                            
+                        )    
+                    }
             </div>
       
         </div>

@@ -2,7 +2,7 @@ const initialState = {
   books: [],
   booksCopy: [],
   booksTop: [],
-  bookDetails: {}, 
+  bookDetails: [], 
   authors: [],
   authorDetails: [],
   
@@ -158,6 +158,13 @@ function rootReducer(state = initialState, action) {
         return{
           ...state,
           authorDetails: {}
+        }
+
+      case 'CLEAR_PAGE_BOOK_DETAILS':
+
+        return{
+          ...state,
+          bookDetails: {}
         }
       
     default:

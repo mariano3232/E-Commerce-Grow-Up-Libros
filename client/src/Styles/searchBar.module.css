@@ -1,24 +1,18 @@
-.container{
-    position: absolute;
-    right:250px;
-    top:20px;
-}
+
 .input{
-    height: 25px;
-    border-radius: 20px;
-    background-color:rgb(204, 191, 172);
-    transition: 500ms;
-}
-.input:focus{
-    background-color: white;
+    color:white;
+    font-size: 18px;
+    margin:3px;
+    position:relative;
+    opacity: 0.9;
 }
 .button{
-    font-size: small;
-    height: 30px;
-    background-color:rgb(204, 191, 172);
-    border-radius:20px;
+    font-size: 17px;
+    background-color:white;
+    height: 26px;
+    border:0;
     transition: 500ms;
 }
 .button:hover{
-    background-color: white;
+    background-color: #77C9D4;
 }

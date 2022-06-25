@@ -2,12 +2,47 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 50px;
-  width: 150px;
+  justify-content: center;
+  margin: 30px;
+  width: 200px;
   font-weight: bold;
-  height: 400px;
+  height: 500px;
+}
+
+h2 {
+  color: #77c9d4;
+  height: 3rem;
+  font-size: 1.2rem;
+}
+
+.img {
+  border-radius: 10px;
 }
 
 .info {
-  color: orangered;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.containerRating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.ratingIcon {
+  color: #ffd43b;
+}
+.rating {
+  color: #343a40;
+}
+.price {
+  font-size: 1.4rem;
+  color: #02ad99;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
 }

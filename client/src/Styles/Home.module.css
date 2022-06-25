@@ -1,3 +1,15 @@
+.color {
+  height: 100%;
+  background: linear-gradient(
+    rgba(60, 157, 218, 0.92) 0%,
+    rgba(58, 53, 208, 0.92) 100%
+  );
+}
+
+.home {
+  background: url("../imgs/Landing.jpg");
+}
+
 .ubiOptions {
   display: flex;
   align-items: center;
@@ -6,15 +18,18 @@
 
 .p {
   font-weight: bold;
+  color: white;
 }
 
 .options {
-  width: 140px;
+  width: 160px;
   height: 25px;
-  background-color: rgba(128, 128, 128, 0.427);
+  background-color: #77c9d4;
+  border: none;
   font-weight: bold;
   margin-left: 10px;
   margin-bottom: 10px;
+  color: black;
 }
 
 .card {

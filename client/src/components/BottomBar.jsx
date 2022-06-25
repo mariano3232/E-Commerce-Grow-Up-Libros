@@ -3,14 +3,14 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styles from "../Styles/BottomBar.module.css";
-// import InfoIcon from "@mui/icons-material/Info";
-// import LiveHelpIcon from "@mui/icons-material/LiveHelp";
-// import PaymentIcon from "@mui/icons-material/Payment";
-// import ShareIcon from "@mui/icons-material/Share";
-// import DraftsIcon from "@mui/icons-material/Drafts";
-// import LocationOnIcon from "@mui/icons-material/LocationOn";
-// import InstagramIcon from "@mui/icons-material/Instagram";
-// import FacebookIcon from "@mui/icons-material/Facebook";
+import InfoIcon from "@mui/icons-material/Info";
+import LiveHelpIcon from "@mui/icons-material/LiveHelp";
+import PaymentIcon from "@mui/icons-material/Payment";
+import ShareIcon from "@mui/icons-material/Share";
+import DraftsIcon from "@mui/icons-material/Drafts";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import FacebookIcon from "@mui/icons-material/Facebook";
 
 export default function BottomBar() {
 
@@ -23,18 +23,16 @@ export default function BottomBar() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Gracias ${input}. Suscripción exitosa a nuestro newsletters.`);
+    alert(`Gracias ${input} Suscripción exitosa a nuestro newsletters.`);
     setInput('');
   }
 
-  const instagram = "https://img.icons8.com/nolan/64/instagram-new.png";
 
-  
 
   return (
     <div className={styles.container}>
-      BOTTOM BAR
-      {/* <div className={styles.container2}>
+      
+       <div className={styles.container2}>
         <ul>
           <li className={styles.about}>
             <InfoIcon />
@@ -53,25 +51,26 @@ export default function BottomBar() {
             <span>Medios de Pago:</span>
           </li>
 
-
-          <Link to="/faq">
-            <h5>FAQ's</h5>
-          </Link>
-            <h5>Medios de Pago:</h5>
          <img
           src="https://play-lh.googleusercontent.com/4hN-UTy-2_Ma1Ouye5FpN2Issj73Oms62hokLp5OZR6zdt2yzkEpGSpK0v47RK8Oc8Q"
           width="50px"
         ></img>
-          <li className={styles.networks}>
+
+         
+          { <li className={styles.networks}>
             <ShareIcon />
             <span>Redes Sociales:</span>
-            <a href="https://www.instagram.com/">
+            <a href="https://www.instagram.com/"
+            target="_blank"
+            rel="noreferrer noopener">
               <InstagramIcon />
             </a>
-            <a href="https://www.facebook.com/">
+            <a href="https://www.facebook.com/"
+            target="_blank"
+            rel="noreferrer noopener">
               <FacebookIcon />
             </a>
-          </li>
+          </li> }
         <div>
           <input type="text" placeholder='mail' value={input} onChange={(e) => handleChange(e)}/>
           <button type='submit' onClick={(e) => handleSubmit(e)}>Suscribirse</button>
@@ -85,7 +84,7 @@ export default function BottomBar() {
             <span>Dirección: Av Belgrano 444, Mendoza, Argentina</span>
           </li>
         </ul>
-      </div> */}
+      </div> 
     </div>
   );
 }

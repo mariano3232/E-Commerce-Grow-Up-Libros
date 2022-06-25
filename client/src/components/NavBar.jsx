@@ -2,17 +2,19 @@
 import React from 'react';
 import SearchBar from './SearchBar';
 import style from '../Styles/nav.module.css';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {getBookGenre} from '../actions';
 
 const NavBar = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSelectGenre = (e) => {
         e.preventDefault();
         dispatch(getBookGenre(e.target.value));
+        navigate('/home/');
     }
 
     const genres = ['Salud', 'Deportes', 'Biografia', 'Nutricion', 'Filosofia', 'Ensayo', 'Desarrollo Personal',
@@ -22,9 +24,12 @@ const NavBar = () => {
         <div className={style.container}>
             
             <h3 className={style.logo}>PG-11 Books</h3>
-            <Link to="/admin"><p className={style.administrador}>Administrador</p></Link>
-            <Link to='/home'><p className={style.inicio}>Inicio</p></Link>
+            <Link to="/admin" className={style.Link}><p className={style.navItem}>Administrador</p></Link>
+            <Link to='/home' className={style.Link}><p className={style.navItem}>Inicio</p></Link>
 
+            <div>
+               <Link to='/author' className={style.Link}><p className={style.navItem}>Autores</p></Link> 
+            </div>
             <div>
                 <select defaultValue="default" onChange={(e) => handleSelectGenre(e)}  className={style.select}>Generos
                     <option value="default" disabled>Generos</option>
@@ -36,13 +41,14 @@ const NavBar = () => {
                 </select>    
             </div>
 
-            <div className={style.autor}>
-               <Link to='/author'><p>Autores</p></Link> 
-            </div>
-
             <SearchBar/>
 
-            <button className={style.button}>Login</button>
+            <div className={style.toggle}>
+                <div className={style.bar}></div>
+            </div>
+
+            <Link to='/user'><h3 className={style.navItem}>Login</h3></Link>
+           
       
         </div>
     )
