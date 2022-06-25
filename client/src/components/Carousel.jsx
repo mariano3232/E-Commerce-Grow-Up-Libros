@@ -56,9 +56,9 @@ export default function Carousel() {
             }}
           />
         </Link>
-        <div className={styles.buttons}>
-          <button onClick={previus}>{"<"}</button>
-          <button onClick={next}>{">"}</button>
+        <div>
+          <button onClick={previus} className={styles.buttons}>{"<"}</button>
+          <button onClick={next} className={styles.buttons}>{">"}</button>
         </div>
       </div>
     </div>

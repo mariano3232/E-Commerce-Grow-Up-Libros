@@ -6,6 +6,7 @@ import { getBookDetails ,getBookGenre, clearPageBookDetails } from "../actions";
 //import { clearPageBookDetails, getBookDetails } from "../actions";
 import { Link } from "react-router-dom";
 import styles from '../Styles/bookDetails.module.css'
+import { animateScroll as scroll} from "react-scroll";
 
 export default function BookDetails() {
 
@@ -15,6 +16,7 @@ export default function BookDetails() {
 
   useEffect(() => {
     dispatch(getBookDetails(id));
+    scroll.scrollToTop();
   }, [dispatch]);
 
   function handleClick(e){

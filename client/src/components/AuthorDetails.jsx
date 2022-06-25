@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { clearPageAuthorDetails, getAuthorDetails } from '../actions';
 import { Link } from 'react-router-dom';
 import style from '../Styles/authorDetails.module.css';
+import { animateScroll as scroll} from "react-scroll";
 
 const AuthorDetails = () => {
 
@@ -17,6 +18,7 @@ const AuthorDetails = () => {
    
     useEffect(() => {
         dispatch(getAuthorDetails(id));
+        scroll.scrollToTop();
     }, [dispatch]);
     
     useEffect(() => {
