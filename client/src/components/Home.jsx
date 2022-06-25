@@ -14,7 +14,6 @@ import { Admin } from "./Admin";
 import OrderBooks from "./OrderBooks";
 import { animateScroll as scroll } from "react-scroll";
 
-
 export default function Home() {
   const dispatch = useDispatch();
 
@@ -30,7 +29,7 @@ export default function Home() {
   /* const [price, setPrice] = useState(""); */
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [bookPerPage] = useState(9);
+  const [bookPerPage] = useState(8);
   var lastBook = currentPage * bookPerPage;
   var firstBook = lastBook - bookPerPage;
   var currentBooks = allBooks.slice(firstBook, lastBook);
@@ -86,26 +85,27 @@ export default function Home() {
 
   return (
     <div className={styles.home}>
-      <Link to="/admin">
-        <button>Administrador</button>
-      </Link>
-      <Link to="/shop">
-        <button>Compras</button>
-      </Link>
-      <p onClick={handleClick}>Ver todos los Libros</p>
-      <Carousel />
+      <div className={styles.color}>
+        <Link to="/admin">
+          <button>Administrador</button>
+        </Link>
+        <Link to="/shop">
+          <button>Compras</button>
+        </Link>
+        <p onClick={handleClick}>Ver todos los Libros</p>
+        <Carousel />
 
-      <div>
-        <Paginado
-          bookPerPage={bookPerPage}
-          books1={allBooks.length}
-          paginado={paginado}
-          page={currentPage}
-        />
+        <div>
+          <Paginado
+            bookPerPage={bookPerPage}
+            books1={allBooks.length}
+            paginado={paginado}
+            page={currentPage}
+          />
 
-        <OrderBooks/>
+          <OrderBooks />
 
-        {/* <div className={styles.ubiOptions}>
+          {/* <div className={styles.ubiOptions}>
           <p className={styles.p}>
             Ordenar Por:
             <select className={styles.options} onChange={(e) => handleSort(e)} defaultValue="default">
@@ -136,34 +136,35 @@ export default function Home() {
           </p>
         </div> */}
 
-        <SideBar />
-        <div className={styles.card}>
-          {currentBooks.length ? (
-            currentBooks.map((book, index) => {
-              return (
-                <div key={index}>
-                  <Link className={styles.link} to={"/book/" + book._id}>
-                    <CardBook
-                      title={book.title}
-                      cover={book.cover}
-                      price={book.price}
-                      rating={book.rating}
-                      id={book._id}
-                    />
-                  </Link>
-                </div>
-              );
-            })
-          ) : (
-            <h5>No se encontro el libro</h5>
-          )}
+          <SideBar />
+          <div className={styles.card}>
+            {currentBooks.length ? (
+              currentBooks.map((book, index) => {
+                return (
+                  <div key={index}>
+                    <Link className={styles.link} to={"/book/" + book._id}>
+                      <CardBook
+                        title={book.title}
+                        cover={book.cover}
+                        price={book.price}
+                        rating={book.rating}
+                        id={book._id}
+                      />
+                    </Link>
+                  </div>
+                );
+              })
+            ) : (
+              <h5>No se encontro el libro</h5>
+            )}
+          </div>
+          <Paginado
+            bookPerPage={bookPerPage}
+            books1={allBooks.length}
+            paginado={paginado}
+            page={currentPage}
+          />
         </div>
-        <Paginado
-          bookPerPage={bookPerPage}
-          books1={allBooks.length}
-          paginado={paginado}
-          page={currentPage}
-        />
       </div>
     </div>
   );

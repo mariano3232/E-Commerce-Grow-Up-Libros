@@ -103,29 +103,29 @@ function App() {
               </ProtectedRoute>
             }
           />
-        <Route
-          path="/user"
-          element={
-            <ProtectedRoute
-              redirectPath="/home"
-              isAllowed={!!user && user.roles.includes("user")}
-            >
-              <UserPerfil />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/user"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAllowed={!!user && user.roles.includes("user")}
+              >
+                <UserPerfil />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/add"
-          element={
-            <ProtectedRoute
-              redirectPath="/home"
-              isAllowed={!!user && user.roles.includes("admin")}
-            >
-              <Add />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/add"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAllowed={!!user && user.roles.includes("admin")}
+              >
+                <Add />
+              </ProtectedRoute>
+            }
+          />
 
           <Route
             path="/addauthor"
