@@ -12,7 +12,8 @@ import styles from "../Styles/Home.module.css";
 import Shop from "./Shop";
 import { Admin } from "./Admin";
 import OrderBooks from "./OrderBooks";
-import { animateScroll as scroll} from "react-scroll";
+import { animateScroll as scroll } from "react-scroll";
+
 
 export default function Home() {
   const dispatch = useDispatch();

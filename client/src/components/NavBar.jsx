@@ -44,7 +44,7 @@ const NavBar = () => {
 
             <SearchBar/>
 
-            <button className={style.button}>Login</button>
+            <Link to='/user'><button className={style.button}>Login</button></Link>
       
         </div>
     )

@@ -23,6 +23,7 @@ import AddBook from "./components/AddBook";
 import AddAuthor from "./components/AddAuthor";
 import BottomBar from "./components/BottomBar";
 import { Admin } from "./components/Admin";
+import UserPerfil from "./components/UserPerfil";
 import DeleteData from "./components/DeleteData";
 import Put from "./components/Put";
 import PutAuthor from "./components/PutAuthor";
@@ -98,6 +99,18 @@ function App() {
               isAllowed={!!user && user.roles.includes("admin")}
             >
               <Admin />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/user"
+          element={
+            <ProtectedRoute
+              redirectPath="/home"
+              isAllowed={!!user && user.roles.includes("user")}
+            >
+              <UserPerfil />
             </ProtectedRoute>
           }
         />
