@@ -36,16 +36,18 @@
 .navItem:hover{
   text-decoration:none;
 }
-.navItem::before{
+.navItem::after{
   content:"";
   background: white;
   height: 3px;
   width: 0;
   position:absolute;
+  left:0;
   bottom:0;
   transition:0.3s;
 }
-.navItem:hover::before{
+.navItem:hover::after{
   width: 100%;
 }
+
 
