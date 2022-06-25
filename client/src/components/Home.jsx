@@ -12,6 +12,7 @@ import styles from "../Styles/Home.module.css";
 import Shop from "./Shop";
 import { Admin } from "./Admin";
 import OrderBooks from "./OrderBooks";
+import { animateScroll as scroll} from "react-scroll";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -35,6 +36,10 @@ export default function Home() {
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  useEffect(() => {
+    scroll.scrollToTop();
+  }, []);
 
   useEffect(() => {
     setCurrentPage(1);
