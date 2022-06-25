@@ -47,7 +47,8 @@ const NavBar = () => {
                 <div className={style.bar}></div>
             </div>
 
-            <h3 className={style.navItem}>Login</h3>
+            <Link to='/user'><h3 className={style.navItem}>Login</h3></Link>
+           
       
         </div>
     )
