@@ -2,11 +2,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   margin: 30px;
   width: 200px;
   font-weight: bold;
   height: 500px;
-  color: wheat;
+}
+
+h2 {
+  color: #343a40;
+  height: 3rem;
+  font-size: 1.2rem;
 }
 
 .img {
@@ -14,7 +20,24 @@
 }
 
 .info {
-  color: orangered;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.containerRating {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.ratingIcon {
+  color: #ffd43b;
+}
+.rating {
+  color: #343a40;
+}
+.price {
+  font-size: 1.4rem;
+  color: #02ad99
 }
 
 .block {
@@ -24,8 +47,4 @@
   width: 100%;
 }
 
-.ubiInfo {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
+

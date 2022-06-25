@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../Styles/CardBook.module.css";
-
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 export default function CardBook({ title, cover, price, rating }) {
   return (
     <div className={styles.container}>
@@ -13,9 +13,12 @@ export default function CardBook({ title, cover, price, rating }) {
       />
       <div className={styles.block}>
         <h2>{title}</h2>
-        <div className={styles.ubiInfo}>
-          <p className={styles.info}>{rating}</p>
-          <p className={styles.info}>{price}$</p>
+        <div className={styles.info}>
+          <div className={styles.containerRating}>
+            <AutoAwesomeIcon className={styles.ratingIcon} />
+            <p className={styles.rating}>{rating}</p>
+          </div>
+          <p className={styles.price}>{price}$</p>
         </div>
       </div>
     </div>
