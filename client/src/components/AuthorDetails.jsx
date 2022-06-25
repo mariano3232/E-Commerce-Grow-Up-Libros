@@ -6,12 +6,14 @@ import { useParams } from 'react-router-dom';
 import { clearPageAuthorDetails, getAuthorDetails } from '../actions';
 import { Link } from 'react-router-dom';
 import style from '../Styles/authorDetails.module.css';
+import { useState } from 'react';
 
 const AuthorDetails = () => {
 
     const dispatch = useDispatch();
     const authorDetails = useSelector(state => state.authorDetails);
     const books = useSelector(state =>state.books)
+    console.log('////////:',authorDetails.book)
     
     const {id} = useParams();
    
@@ -24,6 +26,43 @@ const AuthorDetails = () => {
             dispatch(clearPageAuthorDetails());
         }
     }, [dispatch]);
+
+    // const [currentIndex, setCurrentIndex] = useState(0);
+    // const [currentBook, setcurrentBook] = useState(authorDetails.books.title[0]);
+    // const [loaded, setLoaded] = useState(false);
+
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //       next();
+    //     }, 5000);
+    //     return () => clearInterval(interval);
+    //   });
+
+    //   const previus = () => {
+    //     setLoaded(false);
+    //     setTimeout(() => {
+    //       if (currentIndex !== 0) {
+    //         setCurrentIndex(currentIndex - 1);
+    //         setcurrentBook(authorDetails.books[currentIndex - 1]);
+    //       } else {
+    //         setCurrentIndex(authorDetails.books - 1);
+    //         setcurrentBook(authorDetails.books[authorDetails.books.length - 1]);
+    //       }
+    //     }, 500);
+    //   };
+
+    //   const next = () => {
+    //     setLoaded(false);
+    //     setTimeout(() => {
+    //       if (currentIndex !== lastBooks.length - 1) {
+    //         setCurrentIndex(currentIndex + 1);
+    //         setcurrentBook(authorDetails.books[currentIndex + 1]);
+    //       } else {
+    //         setCurrentIndex(0);
+    //         setcurrentBook(authorDetails.books[0]);
+    //       }
+    //     }, 500);
+    //   };
 
     return (
         <div>
@@ -49,7 +88,12 @@ const AuthorDetails = () => {
                     {
                         authorDetails.books?.map(e => 
                             <Link to={'/book/' + e._id}>
-                                <li>{e.title}</li>
+                                <li>
+                                   {/* <h4 onLoad={
+                                    ()=>{setLoaded(true)}
+                                   }>{e.title}</h4> */}
+                                   <h4>{e.title}</h4>
+                                </li>
                             </Link>
                             
                         )    
