@@ -15,6 +15,16 @@ export default function Delete(){
     const allBooks = useSelector(state => state.books)
     const allAuthors = useSelector ( state => state.authors)
 
+    const orderedBooks = allBooks.sort(function (a, b) {
+        if (a.title.toLowerCase() > b.title.toLowerCase()) {
+          return 1;
+        }
+        if (b.title.toLowerCase() > a.title.toLowerCase()) {
+          return -1;
+        }
+        return 0;
+      })
+
     const orderedAuthors = allAuthors.sort(function (a, b) {
         if (a.name.toLowerCase() > b.name.toLowerCase()) {
           return 1;
@@ -45,8 +55,8 @@ export default function Delete(){
             <div>
                 <h5>Libros</h5>
 
-                    {allBooks.length?
-                    allBooks.map(book => {
+                    {orderedBooks.length?
+                    orderedBooks.map(book => {
                         return(
                             <li>
                                 {book.title}

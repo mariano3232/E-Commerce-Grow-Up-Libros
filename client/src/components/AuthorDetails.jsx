@@ -8,13 +8,15 @@ import { Link } from 'react-router-dom';
 import style from '../Styles/authorDetails.module.css';
 import { animateScroll as scroll} from "react-scroll";
 import { useState } from 'react';
+import CarrouselBookEnAuthor from './CarrouselBooksEnAuthor';
 
 const AuthorDetails = () => {
 
     const dispatch = useDispatch();
     const authorDetails = useSelector(state => state.authorDetails);
     const books = useSelector(state =>state.books)
-    console.log('////////:',authorDetails.book)
+    const authorBooks = authorDetails.books
+    
     
     const {id} = useParams();
    
@@ -28,43 +30,8 @@ const AuthorDetails = () => {
             dispatch(clearPageAuthorDetails());
         }
     }, [dispatch]);
-
-    // const [currentIndex, setCurrentIndex] = useState(0);
-    // const [currentBook, setcurrentBook] = useState(authorDetails.books.title[0]);
-    // const [loaded, setLoaded] = useState(false);
-
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //       next();
-    //     }, 5000);
-    //     return () => clearInterval(interval);
-    //   });
-
-    //   const previus = () => {
-    //     setLoaded(false);
-    //     setTimeout(() => {
-    //       if (currentIndex !== 0) {
-    //         setCurrentIndex(currentIndex - 1);
-    //         setcurrentBook(authorDetails.books[currentIndex - 1]);
-    //       } else {
-    //         setCurrentIndex(authorDetails.books - 1);
-    //         setcurrentBook(authorDetails.books[authorDetails.books.length - 1]);
-    //       }
-    //     }, 500);
-    //   };
-
-    //   const next = () => {
-    //     setLoaded(false);
-    //     setTimeout(() => {
-    //       if (currentIndex !== lastBooks.length - 1) {
-    //         setCurrentIndex(currentIndex + 1);
-    //         setcurrentBook(authorDetails.books[currentIndex + 1]);
-    //       } else {
-    //         setCurrentIndex(0);
-    //         setcurrentBook(authorDetails.books[0]);
-    //       }
-    //     }, 500);
-    //   };
+    
+   
 
     return (
         <div>
@@ -86,20 +53,24 @@ const AuthorDetails = () => {
             </div>
 
             <div>
-                Libros:
+                {/* <h5>DEJO CODIGO SIN CARRUSEL POR LAS DUDAS(GUILLE)</h5> */}
+                {/* Libros:
                     {
-                        authorDetails.books?.map(e => 
-                            <Link to={'/book/' + e._id}>
+                        authorBooks?.map(book => 
+                            <Link to={'/book/' + book._id}>
                                 <li>
-                                   {/* <h4 onLoad={
-                                    ()=>{setLoaded(true)}
-                                   }>{e.title}</h4> */}
-                                   <h4>{e.title}</h4>
+                                   <h4>{book.title}</h4>
+                                   <img src={book.cover}></img>
                                 </li>
                             </Link>
                             
                         )    
-                    }
+                    } */}
+
+
+                    { authorBooks?
+                    <CarrouselBookEnAuthor booksEscritor={authorBooks}/>
+                    :'N'}
             </div>
       
         </div>
