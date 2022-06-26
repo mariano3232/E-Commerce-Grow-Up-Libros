@@ -41,8 +41,8 @@
 .details{
     display: flex;
     position:relative;
-    left:4rem;
-    bottom:6rem;
+    /* left:4rem;
+    bottom:6rem; */
     border-radius: 5px;
     width:60%;
     height: 4rem;

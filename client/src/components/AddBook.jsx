@@ -102,7 +102,7 @@ export default function AddBook() {
     
             if (!post.review) {errors.review = 'Ingresar una reseña/descripcion del libro'};
 
-            if (post.review.length>10000){errors.review='Alcanzaste el limite de characteres'}
+            if (post.review.length>10000){errors.review='Alcanzaste el limite de caracteres'}
     
             if (!post.genres.length) { errors.genres = 'Ingresar al menos un genero'};
 
@@ -146,7 +146,7 @@ export default function AddBook() {
   function handleSubmit(e) {
     e.preventDefault();
     if (Object.values(errors).length > 0){
-     setFailedSubmit(false);
+     setFailedSubmit(true);
       return alert('Error, revisar formulario!')
     }else{
     dispatch(postBook(post));
