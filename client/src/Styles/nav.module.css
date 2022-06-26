@@ -1,51 +1,50 @@
 .container {
   position: fixed;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  top:0px;
+  top: 0px;
   z-index: 100;
-  width: 100%;
+  width: 100vw;
   height: 60px;
-  background: -webkit-linear-gradient(70deg,#77C9D4,#015249);
+  background: -webkit-linear-gradient(70deg, #77c9d4, #015249);
 }
 
 .logo {
   margin: 15px;
   font-weight: 700;
   font-size: 30px;
-  color:#015249;
+  color: #015249;
 }
-.Link{
+.Link {
   text-decoration: none;
 }
-.navItem{
-  color:white;
+.navItem {
+  color: white;
   font-size: 23px;
-  margin:15px;
-  position:relative;
+  margin: 15px;
+  position: relative;
   opacity: 0.9;
 }
-.select{
+.select {
   color: white;
-  background-color:#086c60ab;
+  background-color: #086c60ab;
   font-size: 23px;
-  margin:15px;
-  position:relative;
+  margin: 15px;
+  position: relative;
 }
-.navItem:hover{
-  text-decoration:none;
+.navItem:hover {
+  text-decoration: none;
 }
-.navItem::before{
-  content:"";
+.navItem::before {
+  content: "";
   background: white;
   height: 3px;
   width: 0;
-  position:absolute;
-  bottom:0;
-  transition:0.3s;
+  position: absolute;
+  bottom: 0;
+  transition: 0.3s;
 }
-.navItem:hover::before{
+.navItem:hover::before {
   width: 100%;
 }
-

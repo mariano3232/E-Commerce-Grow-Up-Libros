@@ -6,11 +6,12 @@
   padding: 20px;
   /* background: #57BC90; */
   /* linear-gradient(left,#77C9D4,#57BC90); */
-  background: -webkit-linear-gradient(70deg,#77C9D4,#015249);
+  background: -webkit-linear-gradient(70deg, #77c9d4, #015249);
   height: 35rem;
   width: 70%;
-  min-width:20rem;
+  min-width: 20rem;
   border-radius: 10px;
+  box-shadow: 5px 5px 20px black;
 }
 
 .all {
@@ -36,7 +37,7 @@
   height: 30rem;
   width: 100%;
   transition: 1s;
-  border:5 px solid #015249
+  border: 5 px solid #015249;
 }
 .buttons {
   margin: 1rem;
@@ -46,9 +47,9 @@
   border-radius: 2px;
   color: #fff;
   background-color: #015249;
-  transition:500ms;
+  transition: 500ms;
   border: 0;
 }
-.buttons:hover{
-  background-color: #77C9D4;
+.buttons:hover {
+  background-color: #77c9d4;
 }
