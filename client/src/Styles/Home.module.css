@@ -1,13 +1,16 @@
 .color {
   height: 100%;
   background: linear-gradient(
-    rgba(60, 157, 218, 0.92) 0%,
-    rgba(58, 53, 208, 0.92) 100%
+    298.8deg,
+    rgba(204, 214, 38, 0.85) -59.75%,
+    rgba(27, 163, 168, 0.85) 26.91%,
+    rgba(55, 61, 81, 0.85) 98.72%
   );
 }
 
 .home {
   background: url("../imgs/Landing.jpg");
+  width: 100vw;
 }
 
 .ubiOptions {
@@ -30,6 +33,10 @@
   margin-left: 10px;
   margin-bottom: 10px;
   color: black;
+}
+
+.options:hover {
+  cursor: pointer;
 }
 
 .card {

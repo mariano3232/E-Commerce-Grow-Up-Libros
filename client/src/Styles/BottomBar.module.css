@@ -1,24 +1,31 @@
 .container {
-  display: flex;
-  margin-left: 50px;
+  background: -webkit-linear-gradient(80deg, #77c9d4, #015249);
+  width: 100vw;
+  height: 250px;
 }
 
 .container2 {
   display: flex;
+  padding-top: 50px;
+  width: 100vw;
+  justify-content: space-around;
 }
 
 .payments {
-  margin-left: 100px;
+  display: flex;
+  align-items: center;
 }
 
 .networks {
-  margin-left: 100px;
+  display: flex;
 }
 
 .info {
-  margin-left: 100px;
+  display: flex;
+  flex-direction: column;
 }
 
-ul {
-  list-style: none;
+.Link {
+  text-decoration: none;
+  color: black;
 }
