@@ -15,8 +15,6 @@ export default function AddAuthor(){
 
     const allAuthors = useSelector((state)=>state.author);
 
-
-
     const [errors,setErrors] = useState({});
 
     const [post,setPost] = useState({ 
@@ -28,16 +26,16 @@ export default function AddAuthor(){
         picture:''
     })
 
+    useEffect(()=>{
+        setErrors(validate(post))
+      },[post])
 
     function handleChange(e){     
         setPost({                           
             ...post, 
             [e.target.name] : e.target.value     
         })
-        setErrors(validate({
-            ...post,                          
-            [e.target.name] : e.target.value
-        }))     
+        console.log('post :',post)
     }
 
    
@@ -45,43 +43,35 @@ export default function AddAuthor(){
 
     function validate(post) {
         let errors = {};
-        if (!post.name) {
-            errors.name = 'Please insert a name' 
-        } else if(!post.name.match(/^[A-Z]/)){
-            errors.name='First letter must be a capital letter'}
-
-        if (!post.surname) {
-            errors.surname = 'Please insert a surname'
-        } else if(!post.name.match(/^[A-Z]/)){
-            errors.surname='First letter must be a capital letter'}
-       
-        if (!post.birth) {
-            errors.birth = 'Please insert a date'
-        }
-        if (!post.country) {
-            errors.country = 'Please insert a country'
-        }else if(!post.country.match(/^[A-Z]/)){
-            errors.country='First letter must be a capital letter'}
-
-        if (!post.picture) {
-            errors.picture = 'Insert an url'
-        }
-        if (!post.biography) {
-            errors.biography = 'Add a biography'
-        }
+        let date_regex = /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/
+        if (!post.name) {errors.name ='Ingresar nombre del autor'}
+        if(!post.name.match(/^[a-zA-Z]*$/g)){errors.name='El nombre solo puede contener letras'};
+        if (!post.surname) {errors.surname = 'Ingresar apellido'}
+        if(!post.surname.match(/^[a-zA-Z]*$/g)){errors.surname='El apellido solo puede contener letras'};
+        if (!post.birth) {errors.birth = 'Ingresar fecha de nacimiento'}
+        if (post.birth && !(post.birth.match(date_regex))){errors.birth='Debe ser una fecha valida'}
+        if (!post.country) {errors.country = 'Ingresar un pais'}
+        if(!post.country.match(/^[a-zA-Z]*$/g)){errors.country='Solo puede contener letras'};
+        if (!post.picture) {errors.picture = 'Ingresar url'}
+        if (!post.biography) {errors.biography = 'Ingresar biografia del autor'}
+        if (post.biography.length>10000){errors.biography='Pasaste el limite de caracteres'}
+        
         return errors;
     }
 
 
 
-
+    const [failedSubmit,setFailedSubmit]=useState(false)
 
     function handleSubmit(e) {
         e.preventDefault();
-        if (Object.values(errors).length > 0) alert("Please fill in all the fields")
-        else {
+        if (Object.values(errors).length > 0){
+            setFailedSubmit(true)
+            return alert("Error! revisar formulario");
+        }
+        {
             dispatch(postAuthor(post))
-            alert('¡Author Added!')
+            alert('Autor agregado!')
             setPost({
                 name:'',
                 surname:'',
@@ -101,7 +91,7 @@ export default function AddAuthor(){
            
             <h1>Add Author</h1>
 
-            <h2>Fill in all the fields</h2>
+            <h2>Llenar todos los campos</h2>
 
             <form onSubmit={(e)=>handleSubmit(e)}>
                 <div>
@@ -112,9 +102,9 @@ export default function AddAuthor(){
                     name= 'name'
                     onChange={(e)=>handleChange(e)}
                     />
-                    {errors.name && (
-                        <p className={style.error}>{errors.name}</p>
-                    )}
+                    {
+                        ((errors.name && failedSubmit)||!(errors.name?.split(' ').includes('Ingresar')))?<p className={style.error}>{errors.name}</p>:null
+                    }
                 </div>
 
                 <div>
@@ -125,9 +115,9 @@ export default function AddAuthor(){
                     name= 'surname'
                     onChange={(e)=>handleChange(e)}
                     />
-                    {errors.surname && (
-                        <p className={style.error}>{errors.surname}</p>
-                    )}
+                    {
+                        ((errors.surname && failedSubmit)||!(errors.surname?.split(' ').includes('Ingresar')))?<p className={style.error}>{errors.surname}</p>:null
+                    }
                 </div>
 
                 <div>
@@ -139,9 +129,9 @@ export default function AddAuthor(){
                     max="2022-12-12"
                     onChange={(e)=>handleChange(e)}
                     />
-                    {errors.birth && (
-                        <p className={style.error}>{errors.date}</p>
-                    )}
+                    {
+                        ((errors.birth && failedSubmit)||!(errors.birth?.split(' ').includes('Ingresar')))?<p className={style.error}>{errors.birth}</p>:null
+                    }
                 </div>
 
                 <div>
@@ -152,9 +142,9 @@ export default function AddAuthor(){
                     name= 'country'
                     onChange={(e)=>handleChange(e)}
                     />
-                    {errors.country && (
-                        <p className={style.error}>{errors.country}</p>
-                    )}
+                    {
+                        ((errors.country && failedSubmit)||!(errors.country?.split(' ').includes('Ingresar')))?<p className={style.error}>{errors.country}</p>:null
+                    }
                 </div>
 
                 <div>
@@ -165,9 +155,9 @@ export default function AddAuthor(){
                     name= 'biography'
                     onChange={(e)=>handleChange(e)}
                     />
-                    {errors.biography && (
-                        <p className={style.error}>{errors.biography}</p>
-                    )}
+                    {
+                        ((errors.biography && failedSubmit)||!(errors.biography?.split(' ').includes('Ingresar')))?<p className={style.error}>{errors.biography}</p>:null
+                    }
                 </div>
 
                 <div>
@@ -178,9 +168,9 @@ export default function AddAuthor(){
                     name= 'picture'
                     onChange={(e)=>handleChange(e)}
                     />
-                    {errors.picture && (
-                        <p className={style.error}>{errors.picture}</p>
-                    )}
+                    {
+                        ((errors.picture && failedSubmit)||!(errors.picture?.split(' ').includes('Ingresar')))?<p className={style.error}>{errors.picture}</p>:null
+                    }
                 </div>
 
                 
