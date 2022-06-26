@@ -32,6 +32,7 @@ import PutAuthorID from "./components/PutAuthorID";
 import PutBookID from "./components/PutBookID";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Shop from "./components/Shop";
+import Stock from "./components/Stock";
 
 function App() {
   const dispatch = useDispatch();
@@ -221,7 +222,19 @@ function App() {
               </ProtectedRoute>
             }
           />
-
+          
+          <Route
+            path="/stock"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAllowed={!!user && user.roles.includes("admin")}
+              >
+                <Stock />
+              </ProtectedRoute>
+            }
+          />
+          
           {/* <Route exact path='/add' element={<Add/>} /> */}
           <Route exact path="/addbook" element={<AddBook />} />
           {/* <Route exact path='/addauthor' element={<AddAuthor/>} />  */}

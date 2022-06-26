@@ -138,6 +138,7 @@ function rootReducer(state = initialState, action) {
           }
       
       case 'POST_BOOK':
+        console.log('reducr book:',action.payload)
 
         return({
             ...state,
@@ -146,11 +147,12 @@ function rootReducer(state = initialState, action) {
         })
     
       case 'POST_AUTHOR':
-
+          const escritor = action.payload
+          console.log('REDUCER:',escritor)
           return({
             ...state,
-            authors:[...state.books,action.payload],
-            //booksCopy:[...state.booksCopy,action.payload]                        
+            authors:[...state.authors,action.payload],
+                               
       })
 
       case 'CLEAR_PAGE_AUTHOR_DETAILS':

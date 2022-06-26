@@ -145,10 +145,10 @@ export default function AddBook() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // if (errors){
-    //   // setFailedSubmit(false);
-    //   return alert('Error, revisar formulario!')
-    // }
+    if (Object.values(errors).length > 0){
+     setFailedSubmit(false);
+      return alert('Error, revisar formulario!')
+    }else{
     dispatch(postBook(post));
     console.log("soy Post:", post);
     alert("¡Libro añadido!");
@@ -165,7 +165,7 @@ export default function AddBook() {
       stock: "",
       review: "",
     });
-  }
+  }}
 
   return (
     <div>

@@ -33,8 +33,9 @@ export default function BookDetails() {
 
 
   const book = useSelector(state=>state.bookDetails);
-  //console.log(book)
-
+  const author = book.authors
+  console.log('autor',author)
+  console.log('///////',book.authors)
   return (
     <div className={styles.container}>
 
@@ -42,18 +43,19 @@ export default function BookDetails() {
       
       <div className={styles.info}>
 
-          <h1>{book.title}</h1>
+          <h1 className={styles.title}>{book.title}</h1>
 
         {/* <Link to={'/author/' + book.authors._id}>
               <h2 className={styles.title}>{book.authors?.name} {book.authors?.surname} </h2>
         </Link> */}
+
 
          <span>generos :</span>
 
          {book?.genres?.map((e) => {
             return(
               
-            <button onClick={()=>handleClick(e.genre)}>{e.genre}</button>
+            <button onClick={()=>handleClick(e.genre)} className={styles.genres}>{e.genre}</button>
              
             )          
          })}
@@ -64,7 +66,7 @@ export default function BookDetails() {
 
       <div className={styles.buy}>
         <h3 className={styles.price}>{book.price}$</h3>
-        <h4>Stock:?</h4>
+        <h4>Stock:{book.stock}</h4>
         <button className={styles.button}>Añadir al carrito</button>
         <button className={styles.button}>Añadir a lista de desesados</button>
       </div>
@@ -82,7 +84,7 @@ export default function BookDetails() {
         <label>Da tu puntuacion!</label>
         <input type="number" placeholder="Puntuacion..." className={styles.rating} />
         <button>Ok</button>
-        <textarea cols="30" rows="10" placeholder="Comenta!"  className={styles.comment}></textarea>
+        <textarea cols="80" rows="4" placeholder="Comenta!"  className={styles.comment}></textarea>
         <button>Post</button>
       </div>  
 
