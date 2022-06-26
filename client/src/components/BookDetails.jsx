@@ -34,8 +34,8 @@ export default function BookDetails() {
 
   const book = useSelector(state=>state.bookDetails);
   const author = book.authors
-  console.log('autor',author)
-  console.log('///////',book.authors)
+  // console.log('autor',author)
+  // console.log('///////',book.authors)
   return (
     <div className={styles.container}>
 
@@ -44,13 +44,15 @@ export default function BookDetails() {
       <div className={styles.info}>
 
           <h1 className={styles.title}>{book.title}</h1>
+        
+        {author?
+        <Link to={'/author/' + author._id}>
+              <h2 className={styles.title}>{author?.name} {author?.surname} </h2>
+        </Link>
+        :'N'
+        }
 
-        {/* <Link to={'/author/' + book.authors._id}>
-              <h2 className={styles.title}>{book.authors?.name} {book.authors?.surname} </h2>
-        </Link> */}
-
-
-         <span>generos :</span>
+         <span>Generos :</span>
 
          {book?.genres?.map((e) => {
             return(
@@ -75,7 +77,7 @@ export default function BookDetails() {
       <h4>Detalles del producto</h4>
         <p className={styles.detail}>Paginas : {book.pages}</p>
         <p className={styles.detail}>Año : {book.year}</p>
-        <p className={styles.detail}>editorial : {book.editorial}</p>
+        <p className={styles.detail}>Editorial : {book.editorial}</p>
       </div>
 
       <div className={styles.space}/>
