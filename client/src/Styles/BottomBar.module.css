@@ -1,7 +1,9 @@
 .container {
+  position: absolute;
   background: -webkit-linear-gradient(80deg, #77c9d4, #015249);
   width: 100vw;
   height: 250px;
+  bottom: 0;
 }
 
 .container2 {
