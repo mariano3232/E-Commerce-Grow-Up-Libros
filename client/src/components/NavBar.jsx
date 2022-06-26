@@ -5,6 +5,7 @@ import style from '../Styles/nav.module.css';
 import {Link, useNavigate} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {getBookGenre} from '../actions';
+import {scroller} from "react-scroll";
 
 const NavBar = () => {
 
@@ -15,6 +16,7 @@ const NavBar = () => {
         e.preventDefault();
         dispatch(getBookGenre(e.target.value));
         navigate('/home/');
+        scroller.scrollTo("gaston");
     }
 
     const genres = ['Salud', 'Deportes', 'Biografia', 'Nutricion', 'Filosofia', 'Ensayo', 'Desarrollo Personal',

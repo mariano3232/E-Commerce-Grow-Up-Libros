@@ -2,8 +2,13 @@ import React from 'react';
 import { useState , useEffect } from 'react';
 import { useDispatch , useSelector } from 'react-redux';
 import { Link }  from 'react-router-dom';
+import { animateScroll as scroll } from "react-scroll";
 
 export default function FAQ(){
+
+    useEffect(() => {
+        scroll.scrollToTop();
+    }, []);
 
     return(
 
@@ -11,7 +16,7 @@ export default function FAQ(){
             <h5>Preguntas frecuentes</h5>
             <p><strong>Acerca de LibrosPG11</strong></p>
             <p>
-                ¿Qué beneficios tengo por ser miembro de LiBooks?
+                ¿Qué beneficios tengo por ser miembro de LibrosPG11?
             </p>
             <p>
                 Por ser miembro de LibrosPG11 vas a poder reseñar y puntuar libros, y marcar 
@@ -19,7 +24,7 @@ export default function FAQ(){
                 Además, completando tu perfil vas a poder ver tus libros comprados y todo 
                 relacionadas con tus gustos e intereses.
             </p>
-            <p>¿Cómo hago para ser miembro de LiBooks?</p>
+            <p>¿Cómo hago para ser miembro de LibrosPG11?</p>
             <p>
                 ¡Es muy simple! Registrándote ya sos miembro de LibrosPG11. Sólo vas a necesitar ingresar 
                 tu nombre y apellido, tu mail y una clave. ¡Registrarse es totalmente gratuito!

@@ -5,6 +5,8 @@ import {useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import {getBookTitle} from '../actions';
 import styles from '../Styles/searchBar.module.css'
+import {scroller} from "react-scroll";
+
 const SearchBar = () => {
 
     const [input, setInput] = useState('');
@@ -19,6 +21,7 @@ const SearchBar = () => {
         e.preventDefault();
         dispatch(getBookTitle(input));
         navigate('/home/');
+        scroller.scrollTo("gaston");
         setInput('');
     }
 
