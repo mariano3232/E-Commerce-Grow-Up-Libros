@@ -9,6 +9,9 @@ import PaymentIcon from "@mui/icons-material/Payment";
 import ShareIcon from "@mui/icons-material/Share";
 import DraftsIcon from "@mui/icons-material/Drafts";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import mercado from "../imgs/mercadoPago.webp";
+import facebook from "../imgs/facebook.png";
+import instagram from "../imgs/instagram.png";
 
 export default function BottomBar() {
   const [input, setInput] = useState("");
@@ -46,10 +49,7 @@ export default function BottomBar() {
             <PaymentIcon />
             <span>Medios de Pago:</span>
 
-            <img
-              src="https://play-lh.googleusercontent.com/4hN-UTy-2_Ma1Ouye5FpN2Issj73Oms62hokLp5OZR6zdt2yzkEpGSpK0v47RK8Oc8Q"
-              width="50px"
-            ></img>
+            <img src={mercado} width="100px"></img>
           </div>
         </div>
         <div>
@@ -60,35 +60,44 @@ export default function BottomBar() {
               href="https://www.instagram.com/"
               target="_blank"
               rel="noreferrer noopener"
-            ></a>
+            >
+              <img src={instagram} width="35px" height="35px" />
+            </a>
+
             <a
               href="https://www.facebook.com/"
               target="_blank"
               rel="noreferrer noopener"
-            ></a>
+            >
+              <img src={facebook} width="35px" height="35px" />
+            </a>
           </div>
         </div>
         <div>
-          <input
-            type="text"
-            placeholder="mail"
-            value={input}
-            onChange={(e) => handleChange(e)}
-          />
-          <button type="submit" onClick={(e) => handleSubmit(e)}>
-            Suscribirse
-          </button>
-        </div>
-        <div>
-          <div className={styles.info}>
-            <DraftsIcon />
-            <span>NewsLetter</span>
-          </div>
-
           <div>
-            <LocationOnIcon />
-            <span>Dirección: Av Belgrano 444, Mendoza, Argentina</span>
+            <div className={styles.info}>
+              <DraftsIcon />
+              <span>NewsLetter</span>
+            </div>
+            <input
+              className={styles.input}
+              type="text"
+              placeholder="mail"
+              value={input}
+              onChange={(e) => handleChange(e)}
+            />
+            <button
+              className={styles.btn}
+              type="submit"
+              onClick={(e) => handleSubmit(e)}
+            >
+              Suscribirse
+            </button>
           </div>
+        </div>
+        <div>
+          <LocationOnIcon />
+          <span>Dirección: Av Belgrano 444, Mendoza, Argentina</span>
         </div>
       </div>
     </div>

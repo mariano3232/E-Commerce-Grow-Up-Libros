@@ -20,11 +20,27 @@
 
 .networks {
   display: flex;
+  align-items: center;
 }
 
 .info {
   display: flex;
-  flex-direction: column;
+}
+
+.input {
+  height: 25%;
+}
+
+.btn {
+  border: none;
+  font-size: large;
+  margin-left: 5px;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: #77c9d4;
+  transition: 0.5s;
 }
 
 .Link {
