@@ -12,7 +12,7 @@ import styles from "../Styles/Home.module.css";
 import Shop from "./Shop";
 import { Admin } from "./Admin";
 import OrderBooks from "./OrderBooks";
-import { animateScroll as scroll } from "react-scroll";
+import { animateScroll as scroll, Element } from "react-scroll";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -102,9 +102,9 @@ export default function Home() {
             paginado={paginado}
             page={currentPage}
           />
-
-          <OrderBooks />
-
+          <Element name='gaston'>
+            <OrderBooks />
+          </Element>
           {/* <div className={styles.ubiOptions}>
           <p className={styles.p}>
             Ordenar Por:
@@ -143,6 +143,7 @@ export default function Home() {
                 return (
                   <div key={index}>
                     <Link className={styles.link} to={"/book/" + book._id}>
+                      
                       <CardBook
                         title={book.title}
                         cover={book.cover}
@@ -150,6 +151,7 @@ export default function Home() {
                         rating={book.rating}
                         id={book._id}
                       />
+                      
                     </Link>
                   </div>
                 );
