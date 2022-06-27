@@ -6,12 +6,18 @@ import {Link, useNavigate} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {getBookGenre, getBooks} from '../actions';
 import {scroller} from "react-scroll";
+import LogInButton from './LogIn';
+import LogOutButton from './LogOut';
+import { useAuth0 } from '@auth0/auth0-react';
+
 
 const NavBar = () => {
 
     const [state, setState] = useState('default');
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { isAuthenticated } = useAuth0()
+
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -63,6 +69,12 @@ const NavBar = () => {
 
             <Link to='/user'  className={style.Link}><h3 className={style.navItem}>Mi cuenta</h3></Link>
            
+            {/* <Link to='/user'><h3 className={style.navItem}>Login</h3></Link> */}
+
+            {isAuthenticated 
+                ?<LogOutButton/>
+                :<LogInButton/>
+            }
         </div>
     )
 }
