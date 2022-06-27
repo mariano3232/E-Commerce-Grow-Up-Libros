@@ -2,7 +2,6 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getBooks } from '../actions'
 import SideBar from './SideBar'
 import BottomBar from './BottomBar'
 import Paginado from './Paginado'
@@ -13,6 +12,7 @@ import Shop from './Shop'
 import { Admin } from './Admin'
 import OrderBooks from './OrderBooks'
 import { animateScroll as scroll, Element } from 'react-scroll'
+import { getBooks, orderByName , orderByPrice } from '../actions';
 
 export default function Home() {
   const dispatch = useDispatch()
@@ -43,127 +43,192 @@ export default function Home() {
     currentBooks = allBooks.slice(firstBook, lastBook)
   }, [allBooks])
 
-  // useEffect(() => {
-  //   dispatch(getBooks("Asc"));
-  // }, [dispatch]);
+  const [order,setOrder] = useState(true)
 
-  /* function handleSort(e) {
-    setOrder(e.target.value);
-    dispatch(getBooks(e.target.value));
-    setCurrentPage(1);
-  } */
+  function handleOrderByName(e) {
+     console.log('HHHHH')
+     // e.preventDefault()
+     dispatch(orderByName(e.target.value))
+     //setCurrentPage(1)
+     setOrder(`Ordenado ${e.target.value}`)
+ };
+ 
+ function handleOrderByPrice(e) {
+     //e.preventDefault()
+     dispatch(orderByPrice(e.target.value))
+    //setCurrentPage(1)
+     setOrder(`Ordenado ${e.target.value}`)
+ };
 
-  /* function handleRating(e) {
-    setRating(e.target.value);
-    dispatch(getBooks(order, e.target.value));
-    setCurrentPage(1);
-  } */
+  
 
-  /* function handlePrice(e) {
-    setPrice(e.target.value);
-    dispatch(getBooks(order, e.target.value));
-    setCurrentPage(1);
-  } */
+return (
+  <div className={styles.home}>
+    <div className={styles.color}>
 
-  // return (
-  //   <div>
-  //     <Link to="/admin">
-  //       <button>Administrador</button>
-  //     </Link>
-  //     <Link to="/shop">
-  //       <button>Compras</button>
-  //     </Link>
+      <Link to='/admin'>
+        <button>Administrador</button>
+      </Link>
 
-  //     <p onClick={handleClick}>Refrescar</p>
+      <Link to='/shop'>
+        <button>Compras</button>
+      </Link>
 
-  //    <p onClick={handleClick}>Refrescar</p>
+      <Carousel />
 
-  return (
-    <div className={styles.home}>
-      <div className={styles.color}>
-        <Link to='/admin'>
-          <button>Administrador</button>
-        </Link>
-        <Link to='/shop'>
-          <button>Compras</button>
-        </Link>
-        
-        <Carousel />
-
-        <div>
-          <Element name='gaston'>
-          <Paginado
+      <div>
+        <Element name='gaston'>
+        <Paginado
             bookPerPage={bookPerPage}
-            books1={allBooks.length}
-            paginado={paginado}
+           books1={allBooks.length}
+           paginado={paginado}
             page={currentPage}
-          />
-          </Element>
+        />
 
-          <OrderBooks />
-          
-          {/* <div className={styles.ubiOptions}>
-          <p className={styles.p}>
-            Ordenar Por:
-            <select className={styles.options} onChange={(e) => handleSort(e)} defaultValue="default">
-              <option value="default" disabled>Orden alfabético</option>
-              <option className={styles.options} value="Asc">
-                Nombre Ascendente
-              </option>
-              <option className={styles.options} value="desc">
-                Nombre Descendente
-              </option>
+        
+            {/* <OrderBooks /> */}
+        </Element>
+
+        <div className={styles.ubiOptions}>
+          <p className={styles.p}>Ordenar Por:
+
+            <select className={styles.options} onChange={e=>handleOrderByName(e)} defaultValue='default'>
+                <option value="default" disabled >Orden alfabético</option>
+                <option className={styles.options} value="Asc">Nombre Ascendente</option>                     <option className={styles.options} value="desc">Nombre Descendente</option>
             </select>
-
-            <select onChange={(e) => handleRating(e)}>
-              <option value="Asc">Higher Rating</option>
-              <option value="desc">Lower Rating</option>
-            </select> 
-            
-
-            <select className={styles.options} onChange={(e) => handlePrice(e)} defaultValue="default">
-              <option value="default" disabled>Orden por precio</option>
-              <option className={styles.options} value="Asc">
-                Precio mas Bajo
-              </option>
-              <option className={styles.options} value="desc">
-                Precio mas Alto
-              </option>
+           
+            <select className={styles.options} onChange={e=>handleOrderByPrice(e)} defaultValue='default'>
+                <option  value="default" disabled >Orden por precio</option>
+                <option className={styles.options} value="desc">Precio mas Bajo</option>
+                <option className={styles.options} value="Asc">Precio mas Alto</option>
             </select>
           </p>
-        </div> */}
-          <div className={styles.sideBar_containerCard}>
-            <div className={styles.card}>
-              {currentBooks.length ? (
-                currentBooks.map((book, index) => {
-                  return (
-                    <div key={index}>
-                      <Link className={styles.link} to={'/book/' + book._id}>
-                        <CardBook
-                          title={book.title}
-                          cover={book.cover}
-                          price={book.price}
-                          rating={book.rating}
-                          id={book._id}
-                        />
-                      </Link>
-                    </div>
-                  )
-                })
-              ) : (
-                <h5>No se encontro el libro</h5>
-              )}
-            </div>
-            <SideBar />
-          </div>
-          <Paginado
-            bookPerPage={bookPerPage}
-            books1={allBooks.length}
-            paginado={paginado}
-            page={currentPage}
-          />
         </div>
+
+       
+        <div className={styles.sideBar_containerCard}>
+        <div className={styles.card}>
+             {currentBooks.length ? (
+               currentBooks.map((book, index) => {
+                 return (
+                   <div key={index}>
+                     <Link className={styles.link} to={'/book/' + book._id}>
+                       <CardBook
+                         title={book.title}
+                         cover={book.cover}
+                         price={book.price}
+                         rating={book.rating}
+                         id={book._id}
+                       />
+                     </Link>
+                   </div>
+                 )
+               })
+             ) : (
+               <h5>No se encontro el libro</h5>             
+          )}
+        </div>
+
+        <SideBar/>
+        </div>
+        
+
+        <Paginado
+            bookPerPage={bookPerPage}
+           books1={allBooks.length}
+           paginado={paginado}
+            page={currentPage}
+        />
       </div>
+
     </div>
-  )
+
+  </div>
+)
 }
+
+// }
+//   return (
+//     <div>
+//     <div className={styles.home}>
+//       <div className={styles.color}>
+
+//         <Link to='/admin'>
+//           <button>Administrador</button>
+//         </Link>
+
+//         <Link to='/shop'>
+//           <button>Compras</button>
+//         </Link>
+
+//         <Carousel />
+
+//         <div>
+//         <Paginado
+//             bookPerPage={bookPerPage}
+//             books1={allBooks.length}
+//             paginado={paginado}
+//             page={currentPage}
+//           />
+
+//           <Element name='gaston'>
+//             {/* <OrderBooks /> */}
+//           </Element>
+
+//           <div className={styles.ubiOptions}>
+//             <p className={styles.p}>Ordenar Por:
+
+//             <select className={styles.options} onChange={e=>handleOrderByName(e)} defaultValue='default'>
+//                     <option value="default" disabled >Orden alfabético</option>
+//                     <option className={styles.options} value="Asc">Nombre Ascendente</option>
+//                     <option className={styles.options} value="desc">Nombre Descendente</option>
+//                 </select>
+           
+//                 <select className={styles.options} onChange={e=>handleOrderByPrice(e)} defaultValue='default'>
+//                     <option  value="default" disabled >Orden por precio</option>
+//                     <option className={styles.options} value="desc">Precio mas Bajo</option>
+//                     <option className={styles.options} value="Asc">Precio mas Alto</option>
+//                 </select>
+//                 </p>
+//            </div>
+
+//            <SideBar />
+          
+//            <div className={styles.card}>
+//             {currentBooks.length ? (
+//               currentBooks.map((book, index) => {
+//                 return (
+//                   <div key={index}>
+//                     <Link className={styles.link} to={'/book/' + book._id}>
+//                       <CardBook
+//                         title={book.title}
+//                         cover={book.cover}
+//                         price={book.price}
+//                         rating={book.rating}
+//                         id={book._id}
+//                       />
+//                     </Link>
+//                   </div>
+//                 )
+//               })
+//             ) : (
+//               <h5>No se encontro el libro</h5>
+//             )}
+
+//         <Paginado
+//             bookPerPage={bookPerPage}
+//             books1={allBooks.length}
+//             paginado={paginado}
+//             page={currentPage}
+//           />
+
+
+
+//         </div>
+
+
+//       </div>
+//     </div>
+//     </div>
+//    )
+//   }

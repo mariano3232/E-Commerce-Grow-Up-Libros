@@ -61,7 +61,7 @@ const NavBar = () => {
                 <div className={style.bar}></div>
             </div>
 
-            <Link to='/user'><h3 className={style.navItem}>Mi cuenta</h3></Link>
+            <Link to='/user'  className={style.Link}><h3 className={style.navItem}>Mi cuenta</h3></Link>
            
         </div>
     )
