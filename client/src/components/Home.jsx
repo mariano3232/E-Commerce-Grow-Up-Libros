@@ -44,6 +44,7 @@ export default function Home() {
   }, [allBooks])
 
   const [order,setOrder] = useState(true)
+
   function handleOrderByName(e) {
      console.log('HHHHH')
      // e.preventDefault()
@@ -61,22 +62,10 @@ export default function Home() {
 
   
 
-  // return (
-  //   <div>
-  //     <Link to="/admin">
-  //       <button>Administrador</button>
-  //     </Link>
-  //     <Link to="/shop">
-  //       <button>Compras</button>
-  //     </Link>
-
-  //     <p onClick={handleClick}>Refrescar</p>
-
-  //    <p onClick={handleClick}>Refrescar</p>
-
 return (
   <div className={styles.home}>
     <div className={styles.color}>
+
       <Link to='/admin'>
         <button>Administrador</button>
       </Link>
@@ -88,6 +77,7 @@ return (
       <Carousel />
 
       <div>
+        <Element name='gaston'>
         <Paginado
             bookPerPage={bookPerPage}
            books1={allBooks.length}
@@ -95,7 +85,7 @@ return (
             page={currentPage}
         />
 
-        <Element name='gaston'>
+        
             {/* <OrderBooks /> */}
         </Element>
 
@@ -115,10 +105,10 @@ return (
           </p>
         </div>
 
-        <SideBar/>
-
+       
+        <div className={styles.sideBar_containerCard}>
         <div className={styles.card}>
-//             {currentBooks.length ? (
+             {currentBooks.length ? (
                currentBooks.map((book, index) => {
                  return (
                    <div key={index}>
@@ -138,6 +128,10 @@ return (
                <h5>No se encontro el libro</h5>             
           )}
         </div>
+
+        <SideBar/>
+        </div>
+        
 
         <Paginado
             bookPerPage={bookPerPage}

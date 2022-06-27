@@ -77,6 +77,7 @@ const AuthorDetails = () => {
                         ? <CarrouselBookEnAuthor booksEscritor={authorBooks}/>
                         : (authorBooks && authorBooks.length  
                             ? authorBooks.map(book => 
+                                <div>
                                 <Link to={'/book/' + book._id}>
                                     <li>
                                     <h4>{book.title}</h4>
@@ -87,7 +88,9 @@ const AuthorDetails = () => {
                                         height="300">
                                     </img>
                                     </li>
-                                </Link>)
+                                </Link>
+                                <button>Comprar</button>
+                                </div>)
                             :'N'
                             )
                     }
