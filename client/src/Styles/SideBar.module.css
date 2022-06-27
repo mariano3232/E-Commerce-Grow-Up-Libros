@@ -5,9 +5,8 @@
   border-radius: 8px;
   width: 17%;
   height: auto;
-  float: right;
   margin-right: 2%;
-  backdrop-filter:blur(500px);
+  backdrop-filter: blur(500px);
   box-shadow: 0 5px 25px grey;
 }
 .title {
