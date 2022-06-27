@@ -134,28 +134,29 @@ export default function Home() {
             </select>
           </p>
         </div> */}
-
-          <SideBar />
-          <div className={styles.card}>
-            {currentBooks.length ? (
-              currentBooks.map((book, index) => {
-                return (
-                  <div key={index}>
-                    <Link className={styles.link} to={'/book/' + book._id}>
-                      <CardBook
-                        title={book.title}
-                        cover={book.cover}
-                        price={book.price}
-                        rating={book.rating}
-                        id={book._id}
-                      />
-                    </Link>
-                  </div>
-                )
-              })
-            ) : (
-              <h5>No se encontro el libro</h5>
-            )}
+          <div className={styles.sideBar_containerCard}>
+            <div className={styles.card}>
+              {currentBooks.length ? (
+                currentBooks.map((book, index) => {
+                  return (
+                    <div key={index}>
+                      <Link className={styles.link} to={'/book/' + book._id}>
+                        <CardBook
+                          title={book.title}
+                          cover={book.cover}
+                          price={book.price}
+                          rating={book.rating}
+                          id={book._id}
+                        />
+                      </Link>
+                    </div>
+                  )
+                })
+              ) : (
+                <h5>No se encontro el libro</h5>
+              )}
+            </div>
+            <SideBar />
           </div>
           <Paginado
             bookPerPage={bookPerPage}
