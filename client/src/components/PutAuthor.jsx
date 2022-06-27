@@ -32,8 +32,8 @@ export default function PutAuthor() {
           )
         })}
       </div>
-      <Link to='/admin'>
-        <button>Administrador</button>
+      <Link to='/put'>
+        <button className={style.btnAdmin}>↼ Back</button>
       </Link>
     </div>
   )
