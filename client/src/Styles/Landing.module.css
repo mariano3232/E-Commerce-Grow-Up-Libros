@@ -40,3 +40,7 @@
   height: 80%;
   border: 1px black solid;
 }
+
+.btn:hover {
+  cursor: pointer;
+}
