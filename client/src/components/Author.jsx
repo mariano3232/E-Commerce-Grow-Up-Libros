@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import {getAuthors} from '../actions';
 import CardAuthor from './CardAuthor';
 import { animateScroll as scroll} from "react-scroll";
+import styles from '../Styles/author.module.css'
 
 const Author = () => {
 
@@ -26,12 +27,12 @@ const Author = () => {
     }, []);
 
     return (
-        <div>
+        <div className={styles.authors}>
          
-            <ol>
+            <ol className={styles.container}>
                 {
                     orderedAuthors?.map(e => (
-                        <Link to={'/author/' + e._id}>
+                        <Link to={'/author/' + e._id} className={styles.Link}>
                             
                             <CardAuthor name={e.name} surname={e.surname} picture={e.picture}/>
                         
