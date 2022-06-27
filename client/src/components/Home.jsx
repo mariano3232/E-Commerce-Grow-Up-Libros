@@ -1,52 +1,52 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { getBooks } from "../actions";
-import SideBar from "./SideBar";
-import BottomBar from "./BottomBar";
-import Paginado from "./Paginado";
-import CardBook from "./CardBook";
-import Carousel from "./carousel";
-import styles from "../Styles/Home.module.css";
-import Shop from "./Shop";
-import { Admin } from "./Admin";
-import OrderBooks from "./OrderBooks";
-import { animateScroll as scroll, Element } from "react-scroll";
+import React from 'react'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { getBooks } from '../actions'
+import SideBar from './SideBar'
+import BottomBar from './BottomBar'
+import Paginado from './Paginado'
+import CardBook from './CardBook'
+import Carousel from './carousel'
+import styles from '../Styles/Home.module.css'
+import Shop from './Shop'
+import { Admin } from './Admin'
+import OrderBooks from './OrderBooks'
+import { animateScroll as scroll, Element } from 'react-scroll'
 
 export default function Home() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const allBooks = useSelector((state) => state.books);
+  const allBooks = useSelector((state) => state.books)
 
   const handleClick = (e) => {
-    e.preventDefault();
-    dispatch(getBooks());
-  };
+    e.preventDefault()
+    dispatch(getBooks())
+  }
 
   /* const [order, setOrder] = useState("Asc"); */
   /* const [rating, setRating] = useState(""); */
   /* const [price, setPrice] = useState(""); */
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [bookPerPage] = useState(8);
-  var lastBook = currentPage * bookPerPage;
-  var firstBook = lastBook - bookPerPage;
-  var currentBooks = allBooks.slice(firstBook, lastBook);
+  const [currentPage, setCurrentPage] = useState(1)
+  const [bookPerPage] = useState(8)
+  var lastBook = currentPage * bookPerPage
+  var firstBook = lastBook - bookPerPage
+  var currentBooks = allBooks.slice(firstBook, lastBook)
   const paginado = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+    setCurrentPage(pageNumber)
+  }
 
   useEffect(() => {
-    scroll.scrollToTop();
-  }, []);
+    scroll.scrollToTop()
+  }, [])
 
   useEffect(() => {
-    setCurrentPage(1);
-    lastBook = currentPage * bookPerPage;
-    firstBook = lastBook - bookPerPage;
-    currentBooks = allBooks.slice(firstBook, lastBook);
-  }, [allBooks]);
+    setCurrentPage(1)
+    lastBook = currentPage * bookPerPage
+    firstBook = lastBook - bookPerPage
+    currentBooks = allBooks.slice(firstBook, lastBook)
+  }, [allBooks])
 
   // useEffect(() => {
   //   dispatch(getBooks("Asc"));
@@ -86,13 +86,12 @@ export default function Home() {
   return (
     <div className={styles.home}>
       <div className={styles.color}>
-        <Link to="/admin">
+        <Link to='/admin'>
           <button>Administrador</button>
         </Link>
-        <Link to="/shop">
+        <Link to='/shop'>
           <button>Compras</button>
         </Link>
-        <p onClick={handleClick}>Ver todos los Libros</p>
         <Carousel />
 
         <div>
@@ -142,8 +141,7 @@ export default function Home() {
               currentBooks.map((book, index) => {
                 return (
                   <div key={index}>
-                    <Link className={styles.link} to={"/book/" + book._id}>
-                      
+                    <Link className={styles.link} to={'/book/' + book._id}>
                       <CardBook
                         title={book.title}
                         cover={book.cover}
@@ -151,10 +149,9 @@ export default function Home() {
                         rating={book.rating}
                         id={book._id}
                       />
-                      
                     </Link>
                   </div>
-                );
+                )
               })
             ) : (
               <h5>No se encontro el libro</h5>
@@ -169,5 +166,5 @@ export default function Home() {
         </div>
       </div>
     </div>
-  );
+  )
 }
