@@ -220,9 +220,9 @@ export default function AddBook() {
   const [failedSubmit, setFailedSubmit] = useState(false)
 
   function handleSubmit(e) {
-    e.preventDefault()
-    if (Object.values(errors).length > 0) {
-      setFailedSubmit(false)
+    e.preventDefault();
+    if (Object.values(errors).length > 0){
+     setFailedSubmit(true);
       return alert('Error, revisar formulario!')
     } else {
       dispatch(postBook(post))
