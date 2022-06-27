@@ -41,6 +41,10 @@
   padding-bottom: 50px;
 }
 
+.libro {
+  margin-left: 2%;
+}
+
 .btn {
   font-size: large;
 }
@@ -54,4 +58,19 @@
 .btnUbi {
   padding-top: 2%;
   padding-left: 2%;
+}
+
+.btnImg:hover {
+  cursor: pointer;
+  background-color: #77c9d4;
+  transition: 0.5s;
+}
+
+.Link {
+  text-decoration: none;
+  color: black;
+}
+
+li {
+  list-style: none;
 }

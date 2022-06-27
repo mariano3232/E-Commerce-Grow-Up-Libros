@@ -7,8 +7,8 @@ export default function SideBar() {
   const allBooks = useSelector((state) => state.booksTop);
 
   const orderBooksByRating = allBooks.sort((a, b) => {
-    if (a.price > b.price) return 1;
-    if (b.price > a.price) return -1;
+    if (a.rating > b.rating) return 1;
+    if (b.rating > a.rating) return -1;
     return 0;
   });
 
@@ -20,15 +20,15 @@ export default function SideBar() {
         <h3 className={styles.title}>Top 5 Rating</h3>
         {top5Rating.length ? (
           <div className={styles.top}>
-            {top5Rating.map((e, i) => {
+            {top5Rating.map((book, i) => {
               return (
-                <Link className={styles.link} to={"/book/" + e.id}>
+                <Link className={styles.link} to={"/book/" + book._id}>
                   <div className={styles.card}>
                     <h3>#{i + 1}</h3>
-                    <img src={e.cover} className={styles.img}></img>
+                    <img src={book.cover} className={styles.img}></img>
                     <div>
-                      <h3>{e.title}</h3>
-                      <h3 className={styles.price}>{e.price}$</h3>
+                      <h3>{book.title}</h3>
+                      <h3 className={styles.price}>{book.price}$</h3>
                     </div>
                   </div>
                 </Link>

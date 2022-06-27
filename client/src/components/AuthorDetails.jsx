@@ -8,6 +8,7 @@ import style from "../Styles/authorDetails.module.css";
 import { animateScroll as scroll } from "react-scroll";
 import { useState } from "react";
 import CarrouselBookEnAuthor from "./CarrouselBooksEnAuthor";
+import styles from "../Styles/DashboardAdmin.module.css";
 
 const AuthorDetails = () => {
   const dispatch = useDispatch();
@@ -74,8 +75,26 @@ const AuthorDetails = () => {
                         )    
                     } */}
 
-        {authorBooks ? (
+        {authorBooks && authorBooks.length > 1 ? (
           <CarrouselBookEnAuthor booksEscritor={authorBooks} />
+        ) : authorBooks && authorBooks.length ? (
+          authorBooks.map((book) => (
+            <div className={style.libro}>
+              <Link className={style.Link} to={"/book/" + book._id}>
+                <li>
+                  <h3>{book.title}</h3>
+                  <img
+                    className={styles.img}
+                    src={book.cover}
+                    alt="Not Found ):"
+                    width="200x"
+                    height="300"
+                  ></img>
+                </li>
+              </Link>
+              <button className={style.btnImg}>Comprar</button>
+            </div>
+          ))
         ) : (
           "N"
         )}
