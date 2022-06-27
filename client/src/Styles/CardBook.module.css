@@ -10,8 +10,8 @@
 }
 
 h2 {
-  color: #77c9d4;
-  height: 3rem;
+  color: white;
+  height: 2rem;
   font-size: 1.2rem;
 }
 
@@ -37,7 +37,7 @@ h2 {
 }
 .price {
   font-size: 1.4rem;
-  color: #02ad99;
+  color: white;
 }
 
 .block {
