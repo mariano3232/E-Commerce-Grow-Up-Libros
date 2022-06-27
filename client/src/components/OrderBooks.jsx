@@ -18,11 +18,11 @@ const OrderBooks = () => {
         /* setCurrentPage(1); */
     }
     
-    /* function handleRating(e) {
-        setRating(e.target.value);
-        dispatch(getBooks(order, e.target.value));
-        setCurrentPage(1);
-    } */
+    //  function handleRating(e) {
+    //     setRating(e.target.value);
+    //     dispatch(getBooks(order, e.target.value));
+    //     setCurrentPage(1);
+    // } 
     
     function handlePrice(e) {
         setPrice(e.target.value);
