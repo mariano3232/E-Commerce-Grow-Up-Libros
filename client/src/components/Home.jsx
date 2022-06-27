@@ -13,9 +13,14 @@ import Shop from "./Shop";
 import { Admin } from "./Admin";
 import OrderBooks from "./OrderBooks";
 import { animateScroll as scroll } from "react-scroll";
+import Profile from "./Profile";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Home() {
   const dispatch = useDispatch();
+
+  const { isAuthenticated } = useAuth0()
+
 
   const allBooks = useSelector((state) => state.books);
 
@@ -164,6 +169,11 @@ export default function Home() {
             paginado={paginado}
             page={currentPage}
           />
+          {isAuthenticated
+          ?<Profile/>
+          :''
+          }
+          
         </div>
       </div>
     </div>

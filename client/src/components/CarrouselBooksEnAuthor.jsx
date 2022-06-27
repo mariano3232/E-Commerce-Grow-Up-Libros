@@ -45,6 +45,7 @@ export default function CarrouselBookEnAuthor({booksEscritor}) {
     }, 500);
   };
   return (
+    
     <div className={styles.all}>
       <div className={styles.container}>
       <Link to={"/book/" + currentBook?._id}>
@@ -64,5 +65,6 @@ export default function CarrouselBookEnAuthor({booksEscritor}) {
         </div>
       </div>
     </div>
+        
   );
 }

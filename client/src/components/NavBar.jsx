@@ -5,11 +5,17 @@ import style from '../Styles/nav.module.css';
 import {Link, useNavigate} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {getBookGenre} from '../actions';
+import LogInButton from './LogIn';
+import LogOutButton from './LogOut';
+import { useAuth0 } from '@auth0/auth0-react';
+
 
 const NavBar = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { isAuthenticated } = useAuth0()
+
 
     const handleSelectGenre = (e) => {
         e.preventDefault();
@@ -47,9 +53,12 @@ const NavBar = () => {
                 <div className={style.bar}></div>
             </div>
 
-            <Link to='/user'><h3 className={style.navItem}>Login</h3></Link>
-           
-      
+            {/* <Link to='/user'><h3 className={style.navItem}>Login</h3></Link> */}
+
+            {isAuthenticated 
+                ?<LogOutButton/>
+                :<LogInButton/>
+            }
         </div>
     )
 }

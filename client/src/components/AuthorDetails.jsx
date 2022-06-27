@@ -16,6 +16,7 @@ const AuthorDetails = () => {
     const authorDetails = useSelector(state => state.authorDetails);
     const books = useSelector(state =>state.books)
     const authorBooks = authorDetails.books
+    console.log('////////',authorBooks)
     
     
     const {id} = useParams();
@@ -68,9 +69,10 @@ const AuthorDetails = () => {
                     } */}
 
 
-                    { authorBooks?
+                    { authorBooks?                                         
                     <CarrouselBookEnAuthor booksEscritor={authorBooks}/>
-                    :'N'}
+                    : 'N'                  
+                }
             </div>
       
         </div>
