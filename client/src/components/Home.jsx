@@ -2,7 +2,6 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getBooks } from '../actions'
 import SideBar from './SideBar'
 import BottomBar from './BottomBar'
 import Paginado from './Paginado'
@@ -13,6 +12,7 @@ import Shop from './Shop'
 import { Admin } from './Admin'
 import OrderBooks from './OrderBooks'
 import { animateScroll as scroll, Element } from 'react-scroll'
+import { getBooks, orderByName , orderByPrice } from '../actions';
 
 export default function Home() {
   const dispatch = useDispatch()
@@ -48,27 +48,23 @@ export default function Home() {
     currentBooks = allBooks.slice(firstBook, lastBook)
   }, [allBooks])
 
-  // useEffect(() => {
-  //   dispatch(getBooks("Asc"));
-  // }, [dispatch]);
+  const [order,setOrder] = useState(true)
+  function handleOrderByName(e) {
+     console.log('HHHHH')
+     // e.preventDefault()
+     dispatch(orderByName(e.target.value))
+     //setCurrentPage(1)
+     setOrder(`Ordenado ${e.target.value}`)
+ };
+ 
+ function handleOrderByPrice(e) {
+     //e.preventDefault()
+     dispatch(orderByPrice(e.target.value))
+    //setCurrentPage(1)
+     setOrder(`Ordenado ${e.target.value}`)
+ };
 
-  /* function handleSort(e) {
-    setOrder(e.target.value);
-    dispatch(getBooks(e.target.value));
-    setCurrentPage(1);
-  } */
-
-  /* function handleRating(e) {
-    setRating(e.target.value);
-    dispatch(getBooks(order, e.target.value));
-    setCurrentPage(1);
-  } */
-
-  /* function handlePrice(e) {
-    setPrice(e.target.value);
-    dispatch(getBooks(order, e.target.value));
-    setCurrentPage(1);
-  } */
+  
 
   // return (
   //   <div>
@@ -102,38 +98,25 @@ export default function Home() {
             page={currentPage}
           />
           <Element name='gaston'>
-            <OrderBooks />
+            {/* <OrderBooks /> */}
           </Element>
-          {/* <div className={styles.ubiOptions}>
-          <p className={styles.p}>
-            Ordenar Por:
-            <select className={styles.options} onChange={(e) => handleSort(e)} defaultValue="default">
-              <option value="default" disabled>Orden alfabético</option>
-              <option className={styles.options} value="Asc">
-                Nombre Ascendente
-              </option>
-              <option className={styles.options} value="desc">
-                Nombre Descendente
-              </option>
-            </select>
+          <div className={styles.ubiOptions}>
+            <p className={styles.p}>Ordenar Por:
 
-            <select onChange={(e) => handleRating(e)}>
-              <option value="Asc">Higher Rating</option>
-              <option value="desc">Lower Rating</option>
-            </select> 
-            
-
-            <select className={styles.options} onChange={(e) => handlePrice(e)} defaultValue="default">
-              <option value="default" disabled>Orden por precio</option>
-              <option className={styles.options} value="Asc">
-                Precio mas Bajo
-              </option>
-              <option className={styles.options} value="desc">
-                Precio mas Alto
-              </option>
-            </select>
-          </p>
-        </div> */}
+            <select className={styles.options} onChange={e=>handleOrderByName(e)} defaultValue='default'>
+                    <option value="default" disabled >Orden alfabético</option>
+                    <option className={styles.options} value="Asc">Nombre Ascendente</option>
+                    <option className={styles.options} value="desc">Nombre Descendente</option>
+                </select>
+           
+                <select className={styles.options} onChange={e=>handleOrderByPrice(e)} defaultValue='default'>
+                    <option  value="default" disabled >Orden por precio</option>
+                    <option className={styles.options} value="desc">Precio mas Bajo</option>
+                    <option className={styles.options} value="Asc">Precio mas Alto</option>
+                </select>
+                </p>
+           </div>
+          
 
           <SideBar />
           <div className={styles.card}>
