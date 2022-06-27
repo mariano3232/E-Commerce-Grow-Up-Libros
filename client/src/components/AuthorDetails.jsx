@@ -9,6 +9,7 @@ import style from '../Styles/authorDetails.module.css';
 import { animateScroll as scroll} from "react-scroll";
 import { useState } from 'react';
 import CarrouselBookEnAuthor from './CarrouselBooksEnAuthor';
+import styles from '../Styles/DashboardAdmin.module.css'
 
 const AuthorDetails = () => {
 
@@ -42,7 +43,11 @@ const AuthorDetails = () => {
                 <span>{authorDetails.surname}</span>
             </div>
             <div className={style.imageContainer}>
-                <img className={style.image} src={authorDetails.picture} alt="buscando img"/>
+                <img className={style.image} src={authorDetails.picture} 
+                alt="buscando img" 
+                width="350x"
+                height="400"/>
+                
             </div>
             <div>
                 <h4>País: {authorDetails.country}</h4>
@@ -75,7 +80,12 @@ const AuthorDetails = () => {
                                 <Link to={'/book/' + book._id}>
                                     <li>
                                     <h4>{book.title}</h4>
-                                    <img src={book.cover}></img>
+                                    <img className={styles.img}
+                                        src={book.cover}
+                                        alt="Not Found ):"
+                                        width="200x"
+                                        height="300">
+                                    </img>
                                     </li>
                                 </Link>)
                             :'N'

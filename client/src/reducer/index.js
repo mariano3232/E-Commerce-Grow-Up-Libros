@@ -138,7 +138,7 @@ function rootReducer(state = initialState, action) {
           }
       
       case 'POST_BOOK':
-        console.log('reducr book:',action.payload)
+        console.log('reducer book:',action.payload)
 
         return({
             ...state,
