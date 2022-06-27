@@ -1,3 +1,6 @@
+.titleForm {
+  margin-bottom: 0.5rem;
+}
 .form {
   display: flex;
   flex-direction: column;
@@ -14,11 +17,6 @@
   padding: 3rem;
   border-radius: 10px;
 }
-
-.titleForm {
-  margin-bottom: 0.5rem;
-}
-
 .containerForm div {
   width: 100%;
   display: flex;
@@ -40,14 +38,16 @@
 .containerForm input:focus {
   outline: none;
 }
-
+.containerForm input[type='date'] {
+  padding: 0.3rem 0.5rem;
+  width: 93.5%;
+}
 .containerForm textarea {
   font-size: 0.8rem;
   padding: 0.3rem 0.5rem;
   border-radius: 10px;
   border: none;
 }
-
 .containerForm textarea:focus {
   outline: none;
 }
@@ -61,7 +61,6 @@
   padding: 0;
   margin-top: 1rem;
 }
-
 .btn::before {
   content: '';
   background: white;
@@ -74,7 +73,6 @@
 .btn:hover::before {
   width: 90%;
 }
-
 .btn::after {
   content: '';
   background: white;
@@ -88,7 +86,6 @@
 .btn:hover::after {
   width: 100%;
 }
-
 .btnAdmin {
   margin-top: 2rem;
   text-decoration: none;
@@ -100,39 +97,4 @@
   border-radius: 10px;
   border: none;
   cursor: pointer;
-}
-
-.select {
-  color: white;
-  background-color: #086c60ab;
-  font-size: 23px;
-  margin: 15px;
-  position: relative;
-}
-
-.containerForm .selectItems {
-  width: 100%;
-  flex-direction: row;
-  gap: 0;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.selectGenre {
-  margin: 0;
-  font-size: 1.2rem;
-}
-.selectButtonDelete {
-  background-color: transparent;
-  color: white;
-  border: none;
-  font-size: 1.2rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.error {
-  font-family: sans-serif;
-  color: #ba150a;
-  font-size: 14px;
 }

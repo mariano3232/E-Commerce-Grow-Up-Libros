@@ -1,38 +1,24 @@
-import React from 'react';
-import { getBooks } from '../actions';
-import CardBook from './CardBook';
-import SideBar from './SideBar';
-import BottomBar from './BottomBar'
-import { Routes, Route, Link, Navigate } from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import style from '../Styles/Put.module.css'
+export default function Put() {
+  return (
+    <div className={style.put}>
+      <div className={style.containerPut}>
+        <div className={style.actionsButtons}>
+          <Link to='/putauthor'>
+            <button className={style.btn}>Modificar Autor</button>
+          </Link>
 
-export default function Put(){
+          <Link to='/putbook'>
+            <button className={style.btn}>Modificar Libro</button>
+          </Link>
+        </div>
 
-    // const allBooks = useSelector( state => state.books)
-    // const allAuthors = useSelector( state => state.authors)
-   
-return(
-    <div>
-        <h2>
-    Administrador (Protected: authenticated user with role 'admin' required)
-        </h2>
-
-         <Link to="/putauthor">
-        <button>Modificar Autor</button>
+        <Link to='/admin'>
+          <button className={`${style.btn} ${style.btnAdmin}`}>↼ Back</button>
         </Link>
-        
-        <Link to="/putbook">
-        <button>Modificar Libro</button>
-        </Link>
-
-        <Link to="/admin">
-                <button>Administrador</button>
-            </Link>
-        
+      </div>
     </div>
-
-    
-
-    
-)
+  )
 }
