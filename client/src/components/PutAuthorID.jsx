@@ -121,7 +121,7 @@ export default function putAuthorID() {
         </button>
       </form>
 
-      <Link to='/putbook'>
+      <Link to='/putauthor'>
         <button className={style.btnAdmin}>↼ Back</button>
       </Link>
     </div>
