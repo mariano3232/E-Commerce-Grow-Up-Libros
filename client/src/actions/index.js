@@ -13,22 +13,32 @@ import axios from "axios";
     } 
 }*/
 
-export const getBooks = (title, price) => async (dispatch) => {
-  try {
-    var json = await axios.get("https://ecommercehenryx.herokuapp.com/books");
-    dispatch({
-      title: title,
-      price: price,
-      type: "GET_BOOKS",
-      payload: json.data,
-    });
-  } catch (error) {
-    dispatch({
-      type: "ERROR_MESSAGE",
-      payload: error,
-    });
-  }
-};
+// export const getBooks = (title, price) => async (dispatch) => {
+//   try {
+//     var json = await axios.get("https://ecommercehenryx.herokuapp.com/books");
+//     dispatch({
+//       title: title,
+//       price: price,
+//       type: "GET_BOOKS",
+//       payload: json.data,
+//     });
+//   } catch (error) {
+//     dispatch({
+//       type: "ERROR_MESSAGE",
+//       payload: error,
+//     });
+//   }
+// };
+
+export function getBooks(){
+  return async function (dispatch){
+  var json = await axios.get("https://ecommercehenryx.herokuapp.com/books");
+      return dispatch({
+          type:"GET_BOOKS",
+          payload: json.data
+      })
+  }    
+}
 
 export function getBookDetails(id){
 
@@ -170,6 +180,7 @@ export function postAuthor (payload){
 
 
   export function orderByPrice(payload){
+    console.log('////pay:',payload)
     return{
         type: 'ORDER_BY_PRICE',
         payload: payload

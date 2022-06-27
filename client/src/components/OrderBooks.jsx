@@ -16,14 +16,17 @@ const OrderBooks = () => {
     /* const [rating, setRating] = useState(""); */
 
     function handleOrderByName(e) {
+        console.log('HHHHH')
+        // e.preventDefault()
         dispatch(orderByName(e.target.value))
-        setCurrentPage(1)
+        //setCurrentPage(1)
         setOrder(`Ordenado ${e.target.value}`)
     };
 
     function handleOrderByPrice(e) {
+        //e.preventDefault()
         dispatch(orderByPrice(e.target.value))
-       setCurrentPage(1)
+       //setCurrentPage(1)
         setOrder(`Ordenado ${e.target.value}`)
     };
 
@@ -49,8 +52,21 @@ const OrderBooks = () => {
     return (
         <div className={styles.ubiOptions}>
             <p className={styles.p}>Ordenar Por:
+
+            <select className={styles.options} onChange={e=>handleOrderByName(e)} defaultValue='default'>
+                    <option value="default" disabled >Orden alfabético</option>
+                    <option className={styles.options} value="Asc">Nombre Ascendente</option>
+                    <option className={styles.options} value="desc">Nombre Descendente</option>
+                </select>
+           
+                <select className={styles.options} onChange={e=>handleOrderByPrice(e)} defaultValue='default'>
+                    <option  value="default" disabled >Orden por precio</option>
+                    <option className={styles.options} value="desc">Precio mas Bajo</option>
+                    <option className={styles.options} value="Asc">Precio mas Alto</option>
+                </select>
+
                 
-                <select className={styles.options} onChange={(e) => handleOrderByName(e)} defaultValue="default">
+                {/*<select className={styles.options} onChange={e => handleOrderByName(e)} defaultValue="default">
                     <option value="default" disabled>
                         Orden alfabético
                     </option>
@@ -61,13 +77,14 @@ const OrderBooks = () => {
                         Nombre Descendente
                     </option>
                 </select>
+              
 
                 {/* <select onChange={(e) => handleRating(e)}>
                 <option value="Asc">Higher Rating</option>
                 <option value="desc">Lower Rating</option>
                 </select> */}
 
-                <select className={styles.options} onChange={(e) => handleOrderByPrice(e)} defaultValue="default">
+                {/* <select className={styles.options} onChange={e => handleOrderByPrice(e)} defaultValue="default">
                     <option value="default" disabled>
                         Orden por precio
                     </option>
@@ -77,7 +94,7 @@ const OrderBooks = () => {
                     <option className={styles.options} value="desc">
                         Precio mas Alto
                     </option>
-                </select>
+                </select>*/} 
             </p>
         </div>
     )

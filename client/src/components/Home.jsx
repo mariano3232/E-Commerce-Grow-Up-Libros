@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getBooks } from "../actions";
+import { getBooks , orderByName , orderByPrice } from "../actions";
 import SideBar from "./SideBar";
 import BottomBar from "./BottomBar";
 import Paginado from "./Paginado";
@@ -23,6 +23,7 @@ export default function Home() {
 
 
   const allBooks = useSelector((state) => state.books);
+  const [order,setOrder] = useState(true);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -52,6 +53,21 @@ export default function Home() {
     firstBook = lastBook - bookPerPage;
     currentBooks = allBooks.slice(firstBook, lastBook);
   }, [allBooks]);
+
+  function handleOrderByName(e) {
+    console.log('HHHHH')
+    // e.preventDefault()
+    dispatch(orderByName(e.target.value))
+    setCurrentPage(1)
+    setOrder(`Ordenado ${e.target.value}`)
+};
+
+  function handleOrderByPrice(e) {
+    //e.preventDefault()
+    dispatch(orderByPrice(e.target.value))
+   setCurrentPage(1)
+    setOrder(`Ordenado ${e.target.value}`)
+};
 
   // useEffect(() => {
   //   dispatch(getBooks("Asc"));
@@ -107,8 +123,25 @@ export default function Home() {
             paginado={paginado}
             page={currentPage}
           />
+           <div className={styles.ubiOptions}>
+            <p className={styles.p}>Ordenar Por:
 
-          <OrderBooks />
+                <select className={styles.options} onChange={e=>handleOrderByName(e)} defaultValue='default'>
+                    <option value="default" disabled >Orden alfabético</option>
+                    <option className={styles.options} value="Asc">Nombre Ascendente</option>
+                    <option className={styles.options} value="desc">Nombre Descendente</option>
+                </select>
+           
+                <select className={styles.options} onChange={e=>handleOrderByPrice(e)} defaultValue='default'>
+                    <option  value="default" disabled >Orden por precio</option>
+                    <option className={styles.options} value="desc">Precio mas Bajo</option>
+                    <option className={styles.options} value="Asc">Precio mas Alto</option>
+                </select>
+              </p>
+            </div>
+
+
+          {/* <OrderBooks /> */}
 
           {/* <div className={styles.ubiOptions}>
           <p className={styles.p}>

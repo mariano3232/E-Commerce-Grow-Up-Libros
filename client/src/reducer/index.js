@@ -17,7 +17,8 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         books: action.payload,
-        booksCopy: action.payload
+        booksCopy: action.payload,
+        booksTop: action.payload
     }   
 
 
@@ -194,15 +195,15 @@ function rootReducer(state = initialState, action) {
           };
 
           case 'ORDER_BY_PRICE':
-          let booksOrderByPrice = action.payload === 'Asc' ?
+          let booksOrderByPrice = action.payload === 'desc' ?
           state.books.sort((a,b)=>{
-              if (a.title > b.title)return 1;               
-              if(b.title > a.title)return -1;
+              if (a.price > b.price)return 1;               
+              if(b.price > a.price)return -1;
               return 0
           }) :
           state.books.sort((a,b)=>{
-              if(a.title>b.title)return -1;
-              if(b.title>a.title)return 1;
+              if(a.price>b.price)return -1;
+              if(b.price>a.price)return 1;
               return 0
           })
           return {
