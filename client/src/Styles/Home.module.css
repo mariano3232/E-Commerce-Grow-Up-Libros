@@ -13,6 +13,10 @@
   width: 100%;
 }
 
+.sideBar_containerCard {
+  display: flex;
+  justify-content: space-between;
+}
 .ubiOptions {
   display: flex;
   align-items: center;
