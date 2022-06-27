@@ -169,7 +169,19 @@ export function postAuthor (payload){
   };
 
 
+  export function orderByPrice(payload){
+    return{
+        type: 'ORDER_BY_PRICE',
+        payload: payload
+    }
+}
 
+export function orderByName(payload){
+  return{
+      type: 'ORDER_BY_NAME',
+      payload: payload
+  }
+}
 
 
 
