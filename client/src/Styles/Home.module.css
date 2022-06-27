@@ -9,8 +9,8 @@
 }
 
 .home {
-  background: url("../imgs/Landing.jpg");
-  width: 100vw;
+  background: url('../imgs/Landing.jpg');
+  width: 100%;
 }
 
 .ubiOptions {
