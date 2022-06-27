@@ -19,11 +19,6 @@ export default function Home() {
 
   const allBooks = useSelector((state) => state.books)
 
-  const handleClick = (e) => {
-    e.preventDefault()
-    dispatch(getBooks())
-  }
-
   /* const [order, setOrder] = useState("Asc"); */
   /* const [rating, setRating] = useState(""); */
   /* const [price, setPrice] = useState(""); */
@@ -92,18 +87,21 @@ export default function Home() {
         <Link to='/shop'>
           <button>Compras</button>
         </Link>
+        
         <Carousel />
 
         <div>
+          <Element name='gaston'>
           <Paginado
             bookPerPage={bookPerPage}
             books1={allBooks.length}
             paginado={paginado}
             page={currentPage}
           />
-          <Element name='gaston'>
-            <OrderBooks />
           </Element>
+
+          <OrderBooks />
+          
           {/* <div className={styles.ubiOptions}>
           <p className={styles.p}>
             Ordenar Por:
