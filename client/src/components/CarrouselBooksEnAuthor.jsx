@@ -4,11 +4,9 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "../Styles/Carousel.module.css";
+import style from "../Styles/CarrouselBooks.module.css";
 
-export default function CarrouselBookEnAuthor({booksEscritor}) {
-  
- 
-  
+export default function CarrouselBookEnAuthor({ booksEscritor }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentBook, setcurrentBook] = useState(booksEscritor[0]);
   const [loaded, setLoaded] = useState(false);
@@ -47,7 +45,7 @@ export default function CarrouselBookEnAuthor({booksEscritor}) {
   return (
     <div className={styles.all}>
       <div className={styles.container}>
-      <Link to={"/book/" + currentBook?._id}>
+        <Link to={"/book/" + currentBook?._id}>
           <img
             src={currentBook?.cover}
             alt="Cover"
@@ -56,11 +54,15 @@ export default function CarrouselBookEnAuthor({booksEscritor}) {
               setLoaded(true);
             }}
           />
-          <button>Comprar</button>
+          <button className={style.btn}>Comprar</button>
         </Link>
         <div>
-          <button onClick={previus} className={styles.buttons}>{"<"}</button>
-          <button onClick={next} className={styles.buttons}>{">"}</button>
+          <button onClick={previus} className={styles.buttons}>
+            {"<"}
+          </button>
+          <button onClick={next} className={styles.buttons}>
+            {">"}
+          </button>
         </div>
       </div>
     </div>
