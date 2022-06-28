@@ -99,10 +99,10 @@ return (
            paginado={paginado}
             page={currentPage}
         />
-
+        </Element>
         
             {/* <OrderBooks /> */}
-        </Element>
+        
 
         <div className={styles.ubiOptions}>
           <p className={styles.p}>Ordenar Por:
