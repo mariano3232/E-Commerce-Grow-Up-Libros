@@ -4,20 +4,22 @@ import {Link} from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch } from 'react-redux';
 import { postUser } from '../actions';
+import { useSelector } from 'react-redux';
 
 const UserPerfil = () => {
 
     const dispatch = useDispatch()
 
-    const{ user , isAuthenticated , isLoading} = useAuth0()
+    const { user , isAuthenticated , isLoading } = useAuth0()
+
+    const usuarios= useSelector( state => state.users)
+    console.log('//usuarios:',usuarios)
+
+    const usuario = usuarios.filter(u=>u.email === user.email)
+    console.log('((((usu:',usuario)
 
 
-    function handleClick(e){
-        console.log('USSSERR')
-        
-        dispatch(postUser((user)))
-    }
-
+    
     if(isLoading){
         return <div>Cargando...</div>
     }
@@ -38,7 +40,7 @@ const UserPerfil = () => {
                 <p>Email: {user.email}</p>
             </div>
         )}
-        <button onClick={()=>handleClick()}>USEEEERS</button>
+       
 
             <span>
                 <Link to='/user/datos'>

@@ -257,9 +257,11 @@ export function postUser (payload){
 
 export function getUsers (){
   return async function (dispatch){
-     const json = await axios.post();
+     const json = await axios.get('https://ecommercehenryx.herokuapp.com/users');
+     console.log('///users:',json.data)
       return dispatch({
           type:'GET_USERS',
+          payload: json.data
         })
   }
 };
