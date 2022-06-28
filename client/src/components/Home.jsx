@@ -15,15 +15,20 @@ import { animateScroll as scroll, Element } from 'react-scroll'
 import { getBooks, orderByName , orderByPrice , postUser } from '../actions';
 import Profile from "./Profile";
 import { useAuth0 } from "@auth0/auth0-react";
+import { unstable_renderSubtreeIntoContainer } from 'react-dom'
+import AdminPro from './AdminPro'
 
 export default function Home() {
   const dispatch = useDispatch()
 
   const {user, isAuthenticated } = useAuth0()
-  console.log('userENHOME:',user)
+  //console.log('userENHOME:',user)
 
 
   const allBooks = useSelector((state) => state.books);
+
+  const usuario = useSelector((state)=>state.userLogged)
+  console.log('usuarioHome',usuario)
   
 
   const handleClick = (e) => {
@@ -73,10 +78,22 @@ export default function Home() {
  };
 
 
+  {useEffect(()=>{if(user){
+    dispatch(postUser(user))}
+  },[user])}
+
+
 
 return (
   <div className={styles.home}>
     <div className={styles.color}>
+
+      { usuario.length === 1 && usuario[0].isSuperAdmin
+      ? 
+      <Link to='/adminpro'>
+      <button>AdminPro</button>
+     </Link>
+      :''}
 
       <Link to='/admin'>
         <button>Administrador</button>

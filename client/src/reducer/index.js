@@ -8,6 +8,7 @@ const initialState = {
   authorsAdmin:[],
   authorDetails: [],
   users:[],
+  userLogged:[]
 };
 
 
@@ -294,7 +295,14 @@ case 'ORDER_BY_NAME':
     return {
       ...state,
       users: action.payload,
-  }  
+  }  ;
+
+  case "POST_USER":
+    //console.log('reducerPost:',action.payload)
+    return {
+      ...state,
+      userLogged: [ action.payload ]
+    }
 
 
     default:
