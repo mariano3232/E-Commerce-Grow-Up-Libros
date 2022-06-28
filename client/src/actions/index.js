@@ -13,22 +13,32 @@ import axios from "axios";
     } 
 }*/
 
-export const getBooks = (title, price) => async (dispatch) => {
-  try {
-    var json = await axios.get("https://ecommercehenryx.herokuapp.com/books");
-    dispatch({
-      title: title,
-      price: price,
-      type: "GET_BOOKS",
-      payload: json.data,
-    });
-  } catch (error) {
-    dispatch({
-      type: "ERROR_MESSAGE",
-      payload: error,
-    });
-  }
-};
+// export const getBooks = (title, price) => async (dispatch) => {
+//   try {
+//     var json = await axios.get("https://ecommercehenryx.herokuapp.com/books");
+//     dispatch({
+//       title: title,
+//       price: price,
+//       type: "GET_BOOKS",
+//       payload: json.data,
+//     });
+//   } catch (error) {
+//     dispatch({
+//       type: "ERROR_MESSAGE",
+//       payload: error,
+//     });
+//   }
+// };
+
+export function getBooks(){
+  return async function (dispatch){
+  var json = await axios.get("https://ecommercehenryx.herokuapp.com/books");
+      return dispatch({
+          type:"GET_BOOKS",
+          payload: json.data
+      })
+  }    
+}
 
 export function getBookDetails(id){
 
@@ -184,8 +194,18 @@ export function orderByName(payload){
 }
 
 
+export function postUser (payload){
+  return async function (dispatch){
+     const json = await axios.post('https://ecommercehenryx.herokuapp.com/users/addUser',payload);
+      return dispatch({
+          type:'POST_AUTHOR',
+        })
+  }
+};
 
 
+
+  
 
 
 
