@@ -33,7 +33,7 @@ const UserPerfil = () => {
                 <div>
                     {/* {JSON.stringify(user)} */}
 
-                    <h5>{user.name}</h5>
+                    <h5>{user.nickname}</h5>
                     
                 </div>
             )}

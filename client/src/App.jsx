@@ -39,6 +39,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import DeleteAuthor from "./components/DeleteAuthor";
 import DeleteBook from "./components/DeleteBook";
 import UserDatos from "./components/UserDatos";
+import UserSuscripcion from "./components/UserSuscripcion";
 
 
 
@@ -289,6 +290,18 @@ function App() {
                 isAuthenticated={isAuthenticated}
               >
                 <UserDatos />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/user/suscripcion"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAuthenticated={isAuthenticated}
+              >
+                <UserSuscripcion />
               </ProtectedRoute>
             }
           />
