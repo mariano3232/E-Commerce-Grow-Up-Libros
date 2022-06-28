@@ -5,7 +5,6 @@ const initialState = {
   bookDetails: [], 
   authors: [],
   authorDetails: [],
-  
 };
 
 
