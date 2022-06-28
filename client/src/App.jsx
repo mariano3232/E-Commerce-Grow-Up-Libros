@@ -36,6 +36,8 @@ import Stock from "./components/Stock";
 import LogInButton from "./components/LogIn";
 import LogOutButton from "./components/LogOut";
 import { useAuth0 } from "@auth0/auth0-react";
+import DeleteAuthor from "./components/DeleteAuthor";
+import DeleteBook from "./components/DeleteBook";
 
 
 
@@ -108,7 +110,8 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={!!users && users.roles.includes("admin")}
+                // isAllowed={!!users && users.roles.includes("admin")}
+                isAuthenticated={isAuthenticated}
               >
                 <Admin />
               </ProtectedRoute>
@@ -132,7 +135,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={!!users && users.roles.includes("admin")}
+                isAuthenticated={isAuthenticated}
               >
                 <Add />
               </ProtectedRoute>
@@ -144,7 +147,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={!!users && users.roles.includes("admin")}
+                isAuthenticated={isAuthenticated}
               >
                 <AddAuthor />
               </ProtectedRoute>
@@ -168,9 +171,33 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={!!users && users.roles.includes("admin")}
+                isAuthenticated={isAuthenticated}
               >
                 <DeleteData />
+              </ProtectedRoute>
+            }
+          />
+
+            <Route
+            path="/deleteauthor"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAuthenticated={isAuthenticated}
+              >
+                <DeleteAuthor />
+              </ProtectedRoute>
+            }
+          />
+
+            <Route
+            path="/deletebook"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAuthenticated={isAuthenticated}
+              >
+                <DeleteBook />
               </ProtectedRoute>
             }
           />
@@ -180,7 +207,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={!!users && users.roles.includes("admin")}
+                isAuthenticated={isAuthenticated}
               >
                 <Put />
               </ProtectedRoute>
@@ -192,7 +219,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={!!users && users.roles.includes("admin")}
+                isAuthenticated={isAuthenticated}
               >
                 <PutBook />
               </ProtectedRoute>
@@ -204,7 +231,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={!!users && users.roles.includes("admin")}
+                isAuthenticated={isAuthenticated}
               >
                 <PutAuthor />
               </ProtectedRoute>
@@ -216,7 +243,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={!!users && users.roles.includes("admin")}
+                isAuthenticated={isAuthenticated}
               >
                 <PutAuthorID />
               </ProtectedRoute>
@@ -228,7 +255,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={!!users && users.roles.includes("admin")}
+                isAuthenticated={isAuthenticated}
               >
                 <PutBookID />
               </ProtectedRoute>
@@ -240,7 +267,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={!!users && users.roles.includes("admin")}
+                isAuthenticated={isAuthenticated}
               >
                 <Stock />
               </ProtectedRoute>

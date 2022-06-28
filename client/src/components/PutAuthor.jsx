@@ -1,24 +1,57 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import style from '../Styles/PutAuthor.module.css'
+import { orderByNameAdminAuthor } from '../actions'
+import SearchBarAdminAuthor from './SearchBarAdminAuthor'
+import AdminRefresh from './AdminRefresh'
+
+
+
 export default function PutAuthor() {
-  const allAuthors = useSelector((state) => state.authors)
-  const orderedAuthors = allAuthors.sort(function (a, b) {
-    if (a.name.toLowerCase() > b.name.toLowerCase()) {
-      return 1
-    }
-    if (b.name.toLowerCase() > a.name.toLowerCase()) {
-      return -1
-    }
-    return 0
-  })
+  
+
+  
+  const allAuthors = useSelector((state) => state.authorsAdmin)
+
+  const[ order , setOrder ] = useState( true )
+
+  const dispatch = useDispatch()
+
+  // const orderedAuthors = allAuthors.sort(function (a, b) {
+  //   if (a.name.toLowerCase() > b.name.toLowerCase()) {
+  //     return 1
+  //   }
+  //   if (b.name.toLowerCase() > a.name.toLowerCase()) {
+  //     return -1
+  //   }
+  //   return 0
+  // })
+
+  function handleOrderByName(e) {
+    console.log('HHHHH')
+    // e.preventDefault()
+    dispatch(orderByNameAdminAuthor(e.target.value))
+    setOrder(`Ordenado ${e.target.value}`)
+};
 
   return (
     <div className={style.containerPutList}>
+
+      <SearchBarAdminAuthor/>
+      
+      <AdminRefresh/>
+
+      <div>
+           <select onChange={e=>handleOrderByName(e)} defaultValue='default'>
+                <option value="default" disabled >Orden alfabético</option>
+                <option  value="Asc">Nombre Ascendente</option>                     
+                <option  value="desc">Nombre Descendente</option>
+            </select>
+      </div>
       <h1>Autores</h1>
       <div className={style.grid}>
-        {orderedAuthors.map((author) => {
+        {allAuthors.map((author) => {
           return (
             <div className={style.cardItem}>
               <h5>
