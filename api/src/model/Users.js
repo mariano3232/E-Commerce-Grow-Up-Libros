@@ -1,39 +1,61 @@
-import { Schema, model } from "mongoose";
-import bcrypt from "bcryptjs";
-const userSchema = new Schema(
-  {
-    username: {
-      type: String,
-      unique: true,
-    },
-    email: {
-      type: String,
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    roles: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Role",
-      },
-    ],
+import { Schema, model } from 'mongoose'
+const userSchema = new Schema({
+  nickname: {
+    type: String,
+    unique: true,
+    required: true,
   },
-  {
-    timestamps: true,
-    versionKey: false,
-  }
-);
+  name: {
+    type: String,
+  },
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  picture: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: String,
+  },
+  address: {
+    type: String,
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+  isBanned: {
+    type: Boolean,
+    default: false,
+  },
+  comments: {
+    type: [''],
+  },
+  isSuperAdmin: {
+    type: Boolean,
+    default: false,
+  },
+  readBooks: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Books',
+    },
+  ],
+  favouritesBooks: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Books',
+    },
+  ],
+  buyBooks: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Books',
+    },
+  ],
+})
 
-userSchema.statics.encryptPassword = async (password) => {
-  console.log("Encrypt Password");
-  const salt = await bcrypt.genSalt(10);
-  return await bcrypt.hash(password, salt);
-};
-userSchema.statics.comparePassword = async (password, receivePassword) => {
-  return await bcrypt.compare(password, receivePassword);
-};
-
-export default model("User", userSchema);
+export default model('User', userSchema)
