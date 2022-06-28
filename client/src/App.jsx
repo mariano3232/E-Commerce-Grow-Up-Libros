@@ -38,6 +38,7 @@ import LogOutButton from "./components/LogOut";
 import { useAuth0 } from "@auth0/auth0-react";
 import DeleteAuthor from "./components/DeleteAuthor";
 import DeleteBook from "./components/DeleteBook";
+import UserDatos from "./components/UserDatos";
 
 
 
@@ -276,6 +277,18 @@ function App() {
                 isAuthenticated={isAuthenticated}
               >
                 <Stock />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/user/datos"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAuthenticated={isAuthenticated}
+              >
+                <UserDatos />
               </ProtectedRoute>
             }
           />
