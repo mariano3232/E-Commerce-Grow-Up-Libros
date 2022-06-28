@@ -40,6 +40,26 @@ export function getBooks(){
   }    
 }
 
+export function getBooksAdmin(){
+  return async function (dispatch){
+  var json = await axios.get("https://ecommercehenryx.herokuapp.com/books");
+      return dispatch({
+          type:"GET_BOOKS_ADMIN",
+          payload: json.data
+      })
+  }    
+}
+
+export function getAuthorsAdmin(){
+  return async function (dispatch){
+  var json = await axios.get('https://ecommercehenryx.herokuapp.com/authors');
+      return dispatch({
+          type:"GET_AUTHORS_ADMIN",
+          payload: json.data
+      })
+  }    
+}
+
 export function getBookDetails(id){
 
     return async function (dispatch){
@@ -59,6 +79,24 @@ export function getBookTitle (payload) {
         payload: payload
     }
     
+}
+
+export function getBookTitleAdmin (payload) {
+
+  return {
+      type: 'GET_BOOK_TITLE_ADMIN',
+      payload: payload
+  }
+  
+}
+
+export function getAuthorNameAdmin (payload) {
+
+  return {
+      type: 'GET_AUTHOR_NAME_ADMIN',
+      payload: payload
+  }
+  
 }
 
 export function getBookGenre (value) {
@@ -195,7 +233,14 @@ export function orderByName(payload){
 
 export function orderByNameAdminAuthor(payload){
   return{
-      type: 'ORDER_BY_NAME',
+      type: 'ORDER_BY_NAME_ADMIN_AUTHOR',
+      payload: payload
+  }
+}
+
+export function orderByNameAdminBooks(payload){
+  return{
+      type: 'ORDER_BY_NAME_ADMIN_BOOKS',
       payload: payload
   }
 }

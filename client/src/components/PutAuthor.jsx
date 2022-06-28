@@ -1,13 +1,22 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import style from '../Styles/PutAuthor.module.css'
+import { orderByNameAdminAuthor } from '../actions'
+import SearchBarAdminAuthor from './SearchBarAdminAuthor'
+import AdminRefresh from './AdminRefresh'
+
+
+
 export default function PutAuthor() {
+  
 
   
   const allAuthors = useSelector((state) => state.authorsAdmin)
 
   const[ order , setOrder ] = useState( true )
+
+  const dispatch = useDispatch()
 
   // const orderedAuthors = allAuthors.sort(function (a, b) {
   //   if (a.name.toLowerCase() > b.name.toLowerCase()) {
@@ -23,12 +32,15 @@ export default function PutAuthor() {
     console.log('HHHHH')
     // e.preventDefault()
     dispatch(orderByNameAdminAuthor(e.target.value))
-    setCurrentPage(1)
     setOrder(`Ordenado ${e.target.value}`)
 };
 
   return (
     <div className={style.containerPutList}>
+
+      <SearchBarAdminAuthor/>
+      
+      <AdminRefresh/>
 
       <div>
            <select onChange={e=>handleOrderByName(e)} defaultValue='default'>

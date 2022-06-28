@@ -24,6 +24,20 @@ function rootReducer(state = initialState, action) {
       booksAdmin: action.payload
   }   
 
+  case "GET_BOOKS_ADMIN":
+    return {
+      ...state,
+      booksCopy: action.payload,
+      booksAdmin: action.payload
+  } 
+
+  case "GET_AUTHORS_ADMIN":
+    return {
+      ...state,
+     
+      authorsAdmin: action.payload
+  } 
+
       
     // case "GET_BOOKS":
       
@@ -116,6 +130,26 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 books: title
             };
+
+            case 'GET_BOOK_TITLE_ADMIN':
+
+            const titleCopyAdmin = state.booksCopy;
+            const titleAdmin  = titleCopyAdmin.filter(e => e.title.toLowerCase().includes(action.payload.toLowerCase()));
+
+            return {
+                ...state,
+                booksAdmin: titleAdmin
+            };
+
+            case 'GET_AUTHOR_NAME_ADMIN':
+
+              const nameCopyAdmin = state.authorsAdmin;
+              const nameAdmin  = nameCopyAdmin.filter(e => e.name.toLowerCase().includes(action.payload.toLowerCase()));
+  
+              return {
+                  ...state,
+                  authorsAdmin: nameAdmin
+              };
       
       
     case "GET_BOOK_DETAILS":
@@ -218,6 +252,42 @@ case 'ORDER_BY_NAME':
       books: booksOrderByPrice
   };
       
+
+  case 'ORDER_BY_NAME_ADMIN_AUTHOR':
+  let authorsAdminOrderByName = action.payload === 'Asc' ?
+  state.authorsAdmin.sort((a,b)=>{
+      if (a.name > b.name)return 1;               
+      if(b.name > a.name)return -1;
+      return 0
+  }) :
+  state.authorsAdmin.sort((a,b)=>{
+      if(a.name>b.name)return -1;
+      if(b.name>a.name)return 1;
+      return 0
+  })
+  return {
+      ...state,
+      authorsAdmin: authorsAdminOrderByName
+  };
+
+  case 'ORDER_BY_NAME_ADMIN_BOOKS':
+  let booksAdminByOrderName = action.payload === 'Asc' ?
+  state.booksAdmin.sort((a,b)=>{
+      if (a.title > b.title)return 1;               
+      if(b.title > a.title)return -1;
+      return 0
+  }) :
+  state.booksAdmin.sort((a,b)=>{
+      if(a.title>b.title)return -1;
+      if(b.title>a.title)return 1;
+      return 0
+  })
+  return {
+      ...state,
+      books: booksAdminByOrderName
+  };
+
+
     default:
       return state;
   }
