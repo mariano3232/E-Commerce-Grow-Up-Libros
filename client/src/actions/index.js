@@ -193,6 +193,13 @@ export function orderByName(payload){
   }
 }
 
+export function orderByNameAdminAuthor(payload){
+  return{
+      type: 'ORDER_BY_NAME',
+      payload: payload
+  }
+}
+
 
 export function postUser (payload){
   return async function (dispatch){

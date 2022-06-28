@@ -2,8 +2,10 @@ const initialState = {
   books: [],
   booksCopy: [],
   booksTop: [],
+  booksAdmin:[],
   bookDetails: [], 
   authors: [],
+  authorsAdmin:[],
   authorDetails: [],
   
 };
@@ -18,7 +20,8 @@ function rootReducer(state = initialState, action) {
       ...state,
       books: action.payload,
       booksCopy: action.payload,
-      booksTop: action.payload
+      booksTop: action.payload,
+      booksAdmin: action.payload
   }   
 
       
@@ -135,7 +138,8 @@ function rootReducer(state = initialState, action) {
 
       return {
         ...state,
-        authors: action.payload
+        authors: action.payload,
+        authorsAdmin: action.payload
      }
 
      
