@@ -41,6 +41,10 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  isPremiun: {
+    type: Boolean,
+    default: false,
+  },
   readBooks: [
     {
       type: Schema.Types.ObjectId,
