@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose'
+const { Schema, model } = require('mongoose')
 const userSchema = new Schema({
   nickname: {
     type: String,
@@ -31,9 +31,12 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  comments: {
-    type: [''],
-  },
+  comments: [
+    {
+      type: Schema.Types.String,
+      ref: 'Books',
+    },
+  ],
   isSuperAdmin: {
     type: Boolean,
     default: false,
@@ -58,4 +61,4 @@ const userSchema = new Schema({
   ],
 })
 
-export default model('User', userSchema)
+module.exports = model('Users', userSchema)
