@@ -12,12 +12,23 @@ import Shop from './Shop'
 import { Admin } from './Admin'
 import OrderBooks from './OrderBooks'
 import { animateScroll as scroll, Element } from 'react-scroll'
-import { getBooks, orderByName , orderByPrice } from '../actions';
+import { getBooks, orderByName , orderByPrice , postUser } from '../actions';
+import Profile from "./Profile";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Home() {
   const dispatch = useDispatch()
 
-  const allBooks = useSelector((state) => state.books)
+  const {user, isAuthenticated } = useAuth0()
+
+
+  const allBooks = useSelector((state) => state.books);
+  
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    dispatch(getBooks());
+  };
 
   /* const [order, setOrder] = useState("Asc"); */
   /* const [rating, setRating] = useState(""); */
@@ -49,17 +60,21 @@ export default function Home() {
      console.log('HHHHH')
      // e.preventDefault()
      dispatch(orderByName(e.target.value))
-     //setCurrentPage(1)
+     setCurrentPage(1)
      setOrder(`Ordenado ${e.target.value}`)
  };
  
  function handleOrderByPrice(e) {
      //e.preventDefault()
      dispatch(orderByPrice(e.target.value))
-    //setCurrentPage(1)
+    setCurrentPage(1)
      setOrder(`Ordenado ${e.target.value}`)
  };
 
+
+//  useEffect(() => {
+//   dispatch(postUser(user));
+// }, [dispatch]);
   
 
 return (

@@ -8,14 +8,17 @@ import {
   Outlet,
 } from 'react-router-dom';
 
+
 export default function ProtectedRoute ({
-  isAllowed,
+  isAuthenticated,
   redirectPath = '/home',
   children
-}) {
+})
+
+{
 
 
-  if (!isAllowed) {
+  if (!isAuthenticated) {
     return <Navigate to={redirectPath} replace />;
   }
 
