@@ -255,6 +255,15 @@ export function postUser (payload){
   }
 };
 
+export function getUsers (){
+  return async function (dispatch){
+     const json = await axios.post();
+      return dispatch({
+          type:'GET_USERS',
+        })
+  }
+};
+
 
 
   

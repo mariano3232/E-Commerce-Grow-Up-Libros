@@ -7,6 +7,7 @@ const initialState = {
   authors: [],
   authorsAdmin:[],
   authorDetails: [],
+  users:[]
   
 };
 
