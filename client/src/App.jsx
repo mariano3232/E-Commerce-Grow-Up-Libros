@@ -39,6 +39,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 import DeleteAuthor from "./components/DeleteAuthor";
 import DeleteBook from "./components/DeleteBook";
 import AdminPro from "./components/AdminPro";
+import UserDatos from "./components/UserDatos";
+import UserSuscripcion from "./components/UserSuscripcion";
+import ShoopingCart from "./components/ShoppingCart";
+
 
 
 
@@ -112,6 +116,7 @@ function App() {
           <Route exact path="/author" element={<Author />} />
           <Route exact path="/book/:id" element={<BookDetails />} />
           <Route exact path="/author/:id" element={<AuthorDetails />} />
+          <Route exact path="/cart" element={<ShoopingCart />} />
 
           <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
             <Route path="/shop" element={<Shop />} />
@@ -299,6 +304,30 @@ function App() {
                 isAllowed={usuario.length===1 && usuario[0].isAdmin===true && usuario[0].isSuperAdmin === true}
               >
                 <Stock />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/user/datos"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAuthenticated={isAuthenticated}
+              >
+                <UserDatos />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/user/suscripcion"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAuthenticated={isAuthenticated}
+              >
+                <UserSuscripcion />
               </ProtectedRoute>
             }
           />
