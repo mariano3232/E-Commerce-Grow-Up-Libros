@@ -77,7 +77,7 @@ export default function Home() {
 return (
   <div className={styles.home}>
     <div className={styles.color}>
-
+    <Link to='/cart'><button className={styles.cart}>Ir al Carrito</button></Link>
       <Link to='/admin'>
         <button>Administrador</button>
       </Link>

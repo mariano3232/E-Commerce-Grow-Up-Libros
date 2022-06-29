@@ -38,6 +38,7 @@ import LogOutButton from "./components/LogOut";
 import { useAuth0 } from "@auth0/auth0-react";
 import DeleteAuthor from "./components/DeleteAuthor";
 import DeleteBook from "./components/DeleteBook";
+import ShoopingCart from "./components/ShoppingCart";
 
 
 
@@ -102,6 +103,7 @@ function App() {
           <Route exact path="/author" element={<Author />} />
           <Route exact path="/book/:id" element={<BookDetails />} />
           <Route exact path="/author/:id" element={<AuthorDetails />} />
+          <Route exact path="/cart" element={<ShoopingCart />} />
 
           <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
             <Route path="/shop" element={<Shop />} />

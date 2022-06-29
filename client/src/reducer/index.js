@@ -8,6 +8,8 @@ const initialState = {
   authorsAdmin:[],
   authorDetails: [],
   users:[],
+  cart:[],
+  render:[],
 };
 
 
@@ -295,7 +297,66 @@ case 'ORDER_BY_NAME':
       ...state,
       users: action.payload,
   }  
+  case 'ADD_TO_CART':
+    
+    let newCart=state.cart;
+    let repeats=false;
+    let index=''
+    newCart.map((e,i)=>{
+      if (e._id===action.payload._id){
+        repeats=true
+        index=i
+      }
+    })
+    if (repeats){
+      console.log('Repetido')
+      newCart[index].amount++
+    }
+    else{
+      newCart.push(action.payload)
+      newCart[newCart.length-1].amount=1
+      console.log('No repetido')
+    }
+    return{
+      ...state,
+      cart:newCart,
+      render:Math.random()
+    }
+  
+  case 'REMOVE_ONE_FROM_CART':
+    let newCart2=state.cart;
+    let index2='';
+    newCart2.map((e,i)=>{
+      if (e._id===action.payload){
+        index2=i;
+      }
+    })
+    if (newCart2[index2].amount===1){
+      newCart2.splice(index2,1)
+    }
+    else {
+      newCart2[index2].amount--
+    }
+    return{
+      ...state,
+      cart:newCart2,
+      render:Math.random()
+    }
 
+  case 'REMOVE_ALL_FROM_CART':
+    let newCart3=state.cart;
+    console.log('id :',action.payload)
+    newCart3=newCart3.filter(e=>e._id!==action.payload)
+    return{
+      ...state,
+      cart:newCart3
+    }
+
+  case 'CLEAR_CART':
+    return{
+      ...state,
+      cart:[]
+    }  
 
     default:
       return state;
