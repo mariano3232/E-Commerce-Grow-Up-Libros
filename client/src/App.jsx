@@ -41,6 +41,7 @@ import AdminPro from "./components/AdminPro";
 import UserDatos from "./components/UserDatos";
 import UserSuscripcion from "./components/UserSuscripcion";
 import ShoopingCart from "./components/ShoppingCart";
+import UserFav from "./components/UserFav";
 
 
 
@@ -125,6 +126,18 @@ function App() {
             <Route path="/user" element={<UserPerfil />} />
           </Route> 
 
+          <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
+            <Route path="/user/datos" element={<UserDatos />} />
+          </Route>
+
+          <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
+            <Route path="/user/suscripcion" element={<UserSuscripcion />} />
+          </Route>
+
+          <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
+            <Route path="/user/deseados" element={<UserFav />} />
+          </Route>
+
           <Route
             path="/admin"
             element={
@@ -137,19 +150,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/user"
-            element={
-              <ProtectedRoute
-                redirectPath="/home"
-                // isAllowed={!!user && user.roles.includes("user")}
-                isAuthenticated={usuario.length===1 && usuario[0].isAdmin===true && usuario[0].isSuperAdmin === true}
-              >
-                <UserPerfil />
-              </ProtectedRoute>
-            }
-          />
-
 
             <Route
             path="/adminpro"
@@ -303,30 +303,6 @@ function App() {
                 isAllowed={usuario.length===1 && usuario[0].isAdmin===true && usuario[0].isSuperAdmin === true}
               >
                 <Stock />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/user/datos"
-            element={
-              <ProtectedRoute
-                redirectPath="/home"
-                isAuthenticated={usuario.length===1}
-              >
-                <UserDatos />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/user/suscripcion"
-            element={
-              <ProtectedRoute
-                redirectPath="/home"
-                isAuthenticated={usuario.length===1}
-              >
-                <UserSuscripcion />
               </ProtectedRoute>
             }
           />
