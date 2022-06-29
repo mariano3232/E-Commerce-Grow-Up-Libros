@@ -266,6 +266,42 @@ export function getUsers (){
   }
 };
 
+export function addToCart(id){
+  console.log('id en action :',id)
+  return async (dispatch)=>{
+    const book=await axios.get('https://ecommercehenryx.herokuapp.com/books/'+id)
+    console.log('book en action :',book)
+    return dispatch({
+      type:'ADD_TO_CART',
+      payload:book.data
+    })
+  }
+}
+export function removeOneFromCart(id){
+  return (dispatch)=>{
+    return dispatch({
+      type:'REMOVE_ONE_FROM_CART',
+      payload:id
+    })
+  }
+}
+export function removeAllFromCart(id){
+  return (dispatch)=>{
+    return dispatch({
+      type:'REMOVE_ALL_FROM_CART',
+      payload:id
+    })
+  }
+}
+export function clearCart(){
+  return (dispatch)=>{
+    return dispatch({
+      type:'CLEAR_CART',
+      payload:'nada'
+    })
+  }
+}
+
 
 
   

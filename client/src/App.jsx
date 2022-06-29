@@ -40,6 +40,8 @@ import DeleteAuthor from "./components/DeleteAuthor";
 import DeleteBook from "./components/DeleteBook";
 import UserDatos from "./components/UserDatos";
 import UserSuscripcion from "./components/UserSuscripcion";
+import ShoopingCart from "./components/ShoppingCart";
+
 
 
 
@@ -104,6 +106,7 @@ function App() {
           <Route exact path="/author" element={<Author />} />
           <Route exact path="/book/:id" element={<BookDetails />} />
           <Route exact path="/author/:id" element={<AuthorDetails />} />
+          <Route exact path="/cart" element={<ShoopingCart />} />
 
           <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
             <Route path="/shop" element={<Shop />} />
