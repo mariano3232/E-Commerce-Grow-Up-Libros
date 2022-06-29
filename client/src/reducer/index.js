@@ -5,9 +5,11 @@ const initialState = {
   booksAdmin:[],
   bookDetails: [], 
   authors: [],
+  authorsCopy: [],
   authorsAdmin:[],
   authorDetails: [],
   users:[],
+  usersCpoy:[],
   userLogged:[],
   cart:[],
   render:[],
@@ -43,33 +45,43 @@ function rootReducer(state = initialState, action) {
     
    case 'GET_BOOK_TITLE':
 
-            const titleCopy = state.booksCopy;
-            const title = titleCopy.filter(e => e.title.toLowerCase().includes(action.payload.toLowerCase()));
+    const titleCopy = state.booksCopy;
+    const title = titleCopy.filter(e => e.title.toLowerCase().includes(action.payload.toLowerCase()));
 
-            return {
-                ...state,
-                books: title
-            };
+    return {
+      ...state,
+      books: title
+    };
 
-            case 'GET_BOOK_TITLE_ADMIN':
+  case 'GET_BOOK_TITLE_ADMIN':
 
-            const titleCopyAdmin = state.booksCopy;
-            const titleAdmin  = titleCopyAdmin.filter(e => e.title.toLowerCase().includes(action.payload.toLowerCase()));
+    const titleCopyAdmin = state.booksCopy;
+    const titleAdmin  = titleCopyAdmin.filter(e => e.title.toLowerCase().includes(action.payload.toLowerCase()));
 
-            return {
-                ...state,
-                booksAdmin: titleAdmin
-            };
+    return {
+      ...state,
+      booksAdmin: titleAdmin
+    };
 
-            case 'GET_AUTHOR_NAME_ADMIN':
+  case 'GET_AUTHOR_NAME_ADMIN':
 
-              const nameCopyAdmin = state.authorsAdmin;
-              const nameAdmin  = nameCopyAdmin.filter(e => e.name.toLowerCase().includes(action.payload.toLowerCase()));
+    const nameCopyAdmin = state.authorsCopy;
+    const nameAdmin  = nameCopyAdmin.filter(e => e.name.toLowerCase().includes(action.payload.toLowerCase()));
   
-              return {
-                  ...state,
-                  authorsAdmin: nameAdmin
-              };
+    return {
+      ...state,
+      authorsAdmin: nameAdmin
+    };
+
+  case 'GET_AUTHOR_NAME':
+
+    const nameCopy = state.authorsCopy;
+    const name = nameCopy.filter(e => e.name.toLowerCase().includes(action.payload.toLowerCase()));
+    
+    return {
+      ...state,
+      authors: name
+    };
       
       
     case "GET_BOOK_DETAILS":
@@ -93,6 +105,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         authors: action.payload,
+        authorsCopy: action.payload,
         authorsAdmin: action.payload
      }
 
@@ -214,6 +227,7 @@ case 'ORDER_BY_NAME':
     return {
       ...state,
       users: action.payload,
+      usersCpoy: action.payload
   }  ;
 
   case "POST_USER":

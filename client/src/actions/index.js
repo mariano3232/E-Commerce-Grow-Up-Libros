@@ -1,34 +1,6 @@
 import axios from "axios";
 
 
-/*export function getBooks () {
-
-    return async function (dispatch) {
-        const json = await axios.get('https://ecommercehenryx.herokuapp.com/books');
-    
-        return dispatch({
-            type:'GET_BOOKS',
-            payload: json.data
-        })
-    } 
-}*/
-
-// export const getBooks = (title, price) => async (dispatch) => {
-//   try {
-//     var json = await axios.get("https://ecommercehenryx.herokuapp.com/books");
-//     dispatch({
-//       title: title,
-//       price: price,
-//       type: "GET_BOOKS",
-//       payload: json.data,
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: "ERROR_MESSAGE",
-//       payload: error,
-//     });
-//   }
-// };
 
 export function getBooks(){
   return async function (dispatch){
@@ -94,6 +66,15 @@ export function getAuthorNameAdmin (payload) {
 
   return {
       type: 'GET_AUTHOR_NAME_ADMIN',
+      payload: payload
+  }
+  
+}
+
+export function getAuthorName (payload) {
+
+  return {
+      type: 'GET_AUTHOR_NAME',
       payload: payload
   }
   
