@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { orderByNameAdminBooks } from '../actions'
-import SearchBarAdmin from './SearchBarAdmin'
 import AdminRefreshBooks from './AdminRefreshBooks'
+import AdminSearchBarBooks from './AdminSearchBarBooks'
 
 export default function DeleteBook() {
   const dispatch = useDispatch()
@@ -36,7 +36,11 @@ export default function DeleteBook() {
   //   return 0
   // })
 
-  
+  function handleShowHideBook(id) {
+    dispatch(showHideBook(id))
+    alert('Modificado')
+    navigate('/admin')
+  }
 
   function handleDeleteBook(id) {
     dispatch(deleteBook(id))
@@ -51,7 +55,12 @@ export default function DeleteBook() {
   return (
     <div className={style.containerDelete}>
 
-      <SearchBarAdmin/>
+
+      <Link to='/delete'>
+        <button className={style.btnAdmin}>↼ Back</button>
+      </Link>
+
+      <AdminSearchBarBooks/>
       
       <AdminRefreshBooks/>
 
@@ -73,6 +82,13 @@ export default function DeleteBook() {
                   <li className={style.cardItem}>
                     <img src={book.cover} alt='' />
                     {book.title}
+
+                    <button onClick={()=> handleShowHideBook(book._id)}>
+                      {book.isHidden === true
+                      ?'MOSTRAR'
+                      :'OCULTAR'}
+                    </button>
+
                     <button onClick={() => handleDeleteBook(book._id)}>
                       x
                     </button>
@@ -84,7 +100,7 @@ export default function DeleteBook() {
       </div>
 
       
-      <Link to='/admin'>
+      <Link to='/delete'>
         <button className={style.btnAdmin}>↼ Back</button>
       </Link>
     </div>

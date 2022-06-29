@@ -9,7 +9,7 @@
 }
 .cart{
   position:fixed;
-  top: 5rem;
+  top: 10rem;
   right: 4rem;
   border-radius: 50px;
   z-index: 2;

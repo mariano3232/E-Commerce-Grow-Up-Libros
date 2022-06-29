@@ -217,11 +217,31 @@ case 'ORDER_BY_NAME':
   })
   return {
       ...state,
-      books: booksAdminByOrderName
+      booksAdmin: booksAdminByOrderName
 
 
       
   };
+
+  case 'ORDER_BY_STOCK_ADMIN_BOOKS':
+    let booksAdminOrderByStock = action.payload === 'Asc' ?
+    state.booksAdmin.sort((a,b)=>{
+        if (a.stock > b.stock)return 1;               
+        if(b.stock > a.stock)return -1;
+        return 0
+    }) :
+    state.booksAdmin.sort((a,b)=>{
+        if(a.stock>b.stock)return -1;
+        if(b.stock>a.stock)return 1;
+        return 0
+    })
+    return {
+        ...state,
+        booksAdmin: booksAdminOrderByStock
+  
+  
+        
+    };
 
   case "GET_USERS":
     return {
