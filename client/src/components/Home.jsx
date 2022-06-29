@@ -16,6 +16,7 @@ import Profile from "./Profile";
 import { useAuth0 } from "@auth0/auth0-react";
 import { unstable_renderSubtreeIntoContainer } from 'react-dom'
 import AdminPro from './AdminPro'
+import NavBarAdmin from "./NavBarAdmin";
 
 export default function Home() {
   const dispatch = useDispatch()
@@ -28,7 +29,7 @@ export default function Home() {
   const allBooks = useSelector((state) => state.books);
 
   const usuario = useSelector((state)=>state.userLogged)
-  console.log('usuarioHome',usuario)
+  //console.log('usuarioHome',usuario)
   
 
   const handleClick = (e) => {
@@ -61,7 +62,7 @@ export default function Home() {
 
   function handleOrderByName(e) {
 
-     console.log('HHHHH')
+     //console.log('HHHHH')
      // e.preventDefault()
      dispatch(orderByName(e.target.value))
      setCurrentPage(1)
@@ -78,6 +79,7 @@ export default function Home() {
 
   {useEffect(()=>{if(user){
     dispatch(postUser(user))}
+    console.log('HOOOOMEEEE')
   },[user])}
 
 
@@ -86,19 +88,32 @@ return (
   <div className={styles.home}>
     <div className={styles.color}>
 
-      { usuario.length === 1 && usuario[0].isSuperAdmin
+      {/* { usuario.length === 1 && usuario[0].isSuperAdmin
       ? 
       <Link to='/adminpro'>
       <button>AdminPro</button>
      </Link>
       :''}
+      
+      
+    { usuario.length === 1 && usuario[0].isAdmin
+      ? 
+      <Link to='/admin'>
+        <button>Administrador</button>
+      </Link>
+    :''} */}
+
+    {/* { usuario.length === 1 && usuario[0].isAdmin
+      ? 
+      <NavBarAdmin/>
+    :''}  */}
+
+
 
     <Link to='/cart'><button className={styles.cart}>Ir al Carrito</button></Link>
 
 
-      <Link to='/admin'>
-        <button>Administrador</button>
-      </Link>
+    
 
    
       <Carousel />

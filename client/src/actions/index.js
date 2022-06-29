@@ -168,11 +168,29 @@ export function postAuthor (payload){
     }
   };
 
+  export function showHideBook (id){
+    return async function (dispatch){
+       const json = await axios.delete(`${id}`);
+        return dispatch({
+            type:'SHOW_HIDE_BOOK',
+          })
+    }
+  };
+
   export function deleteAuthor (id){
     return async function (dispatch){
        const json = await axios.delete(`http://ecommercehenryx.herokuapp.com/authors/deleteAuthor/${id}`);
         return dispatch({
             type:'DELETE_AUTHOR',
+          })
+    }
+  };
+
+  export function showHideAuthor (id){
+    return async function (dispatch){
+       const json = await axios.delete(`${id}`);
+        return dispatch({
+            type:'SHOW_HIDE_AUTHOR',
           })
     }
   };
@@ -222,6 +240,13 @@ export function orderByNameAdminAuthor(payload){
 export function orderByNameAdminBooks(payload){
   return{
       type: 'ORDER_BY_NAME_ADMIN_BOOKS',
+      payload: payload
+  }
+}
+
+export function orderByStockAdminBooks(payload){
+  return{
+      type: 'ORDER_BY_STOCK_ADMIN_BOOKS',
       payload: payload
   }
 }

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import style from '../Styles/PutAuthor.module.css'
 import { orderByNameAdminAuthor } from '../actions'
-import SearchBarAdminAuthor from './SearchBarAdminAuthor'
+import AdminSearchBarAuthor from './AdminSearchBarAuthor'
 import AdminRefreshAuthor from './AdminRefreshAuthor'
 
 
@@ -38,7 +38,11 @@ export default function PutAuthor() {
   return (
     <div className={style.containerPutList}>
 
-      <SearchBarAdminAuthor/>
+      <Link to='/put'>
+        <button className={style.btnAdmin}>↼ Back</button>
+      </Link>
+
+      <AdminSearchBarAuthor/>
       
       <AdminRefreshAuthor/>
 
