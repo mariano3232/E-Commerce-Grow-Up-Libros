@@ -64,7 +64,7 @@ const AuthorDetails = () => {
           <p>Fecha de nacimiento: {authorDetails.birth}</p>
         </div>
         <div className={style.bio}>
-          <p>Biografiía: {authorDetails.biography}</p>
+          <p>Biografía: {authorDetails.biography}</p>
         </div>
       </div>
       <div className={style.carrusel}>
