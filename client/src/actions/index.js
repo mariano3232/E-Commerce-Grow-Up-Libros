@@ -1,34 +1,6 @@
 import axios from "axios";
 
 
-/*export function getBooks () {
-
-    return async function (dispatch) {
-        const json = await axios.get('https://ecommercehenryx.herokuapp.com/books');
-    
-        return dispatch({
-            type:'GET_BOOKS',
-            payload: json.data
-        })
-    } 
-}*/
-
-// export const getBooks = (title, price) => async (dispatch) => {
-//   try {
-//     var json = await axios.get("https://ecommercehenryx.herokuapp.com/books");
-//     dispatch({
-//       title: title,
-//       price: price,
-//       type: "GET_BOOKS",
-//       payload: json.data,
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: "ERROR_MESSAGE",
-//       payload: error,
-//     });
-//   }
-// };
 
 export function getBooks(){
   return async function (dispatch){
@@ -94,6 +66,15 @@ export function getAuthorNameAdmin (payload) {
 
   return {
       type: 'GET_AUTHOR_NAME_ADMIN',
+      payload: payload
+  }
+  
+}
+
+export function getAuthorName (payload) {
+
+  return {
+      type: 'GET_AUTHOR_NAME',
       payload: payload
   }
   
@@ -250,7 +231,8 @@ export function postUser (payload){
   return async function (dispatch){
      const json = await axios.post('https://ecommercehenryx.herokuapp.com/users/addUser',payload);
       return dispatch({
-          type:'POST_AUTHOR',
+          type:'POST_USER',
+          payload: json.data
         })
   }
 };
@@ -258,7 +240,7 @@ export function postUser (payload){
 export function getUsers (){
   return async function (dispatch){
      const json = await axios.get('https://ecommercehenryx.herokuapp.com/users');
-     console.log('///users:',json.data)
+     //console.log('///users:',json.data)
       return dispatch({
           type:'GET_USERS',
           payload: json.data
@@ -303,6 +285,28 @@ export function clearCart(){
 }
 
 
+
+export function setToAdmin (id){
+  return async function (dispatch){
+     const json = await axios.post('https://ecommercehenryx.herokuapp.com/users/toggleAdmin/'+id);
+     //console.log('///users:',json.data)
+      return dispatch({
+          type:'SET_TO_ADMIN',
+          
+        })
+  }
+};
+
+export function setToUser (){
+  return async function (dispatch){
+     const json = await axios.put('https://ecommercehenryx.herokuapp.com/users/setAdmin/:id');
+     //console.log('///users:',json.data)
+      return dispatch({
+          type:'SET_TO_USER',
+          
+        })
+  }
+};
 
   
 
