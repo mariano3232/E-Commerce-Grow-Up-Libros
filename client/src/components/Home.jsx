@@ -56,12 +56,90 @@ export default function Home() {
   const [order, setOrder] = useState(true);
 
   function handleOrderByName(e) {
-    console.log("HHHHH");
-    // e.preventDefault()
-    dispatch(orderByName(e.target.value));
-    setCurrentPage(1);
-    setOrder(`Ordenado ${e.target.value}`);
-  }
+
+     console.log('HHHHH')
+     // e.preventDefault()
+     dispatch(orderByName(e.target.value))
+     setCurrentPage(1)
+     setOrder(`Ordenado ${e.target.value}`)
+ };
+ 
+ function handleOrderByPrice(e) {
+     //e.preventDefault()
+     dispatch(orderByPrice(e.target.value))
+    setCurrentPage(1)
+     setOrder(`Ordenado ${e.target.value}`)
+ };
+
+ 
+
+return (
+  <div className={styles.home}>
+    <div className={styles.color}>
+    <Link to='/cart'><button className={styles.cart}>Ir al Carrito</button></Link>
+      <Link to='/admin'>
+        <button>Administrador</button>
+      </Link>
+
+      <Link to='/shop'>
+        <button>Compras</button>
+      </Link>
+
+      <Carousel />
+
+      <div>
+        <Element name='gaston'>
+        <Paginado
+            bookPerPage={bookPerPage}
+           books1={allBooks.length}
+           paginado={paginado}
+            page={currentPage}
+        />
+
+        
+            {/* <OrderBooks /> */}
+        </Element>
+
+        <div className={styles.ubiOptions}>
+          <p className={styles.p}>Ordenar Por:
+
+            <select className={styles.options} onChange={e=>handleOrderByName(e)} defaultValue='default'>
+                <option value="default" disabled >Orden alfabético</option>
+                <option className={styles.options} value="Asc">Nombre Ascendente</option>                     <option className={styles.options} value="desc">Nombre Descendente</option>
+            </select>
+           
+            <select className={styles.options} onChange={e=>handleOrderByPrice(e)} defaultValue='default'>
+                <option  value="default" disabled >Orden por precio</option>
+                <option className={styles.options} value="desc">Precio mas Bajo</option>
+                <option className={styles.options} value="Asc">Precio mas Alto</option>
+            </select>
+          </p>
+        </div>
+
+       
+        <div className={styles.sideBar_containerCard}>
+        <div className={styles.card}>
+             {currentBooks.length ? (
+               currentBooks.map((book, index) => {
+                 return (
+                   <div key={index}>
+                     <Link className={styles.link} to={'/book/' + book._id}>
+                       <CardBook
+                         title={book.title}
+                         cover={book.cover}
+                         price={book.price}
+                         rating={book.rating}
+                         id={book._id}
+                       />
+                     </Link>
+                   </div>
+                 )
+               })
+             ) : (
+               <h5>No se encontro el libro</h5>             
+          )}
+        </div>
+
 
   function handleOrderByPrice(e) {
     //e.preventDefault()
