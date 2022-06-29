@@ -66,7 +66,8 @@ function rootReducer(state = initialState, action) {
   case 'GET_AUTHOR_NAME_ADMIN':
 
     const nameCopyAdmin = state.authorsCopy;
-    const nameAdmin  = nameCopyAdmin.filter(e => e.name.toLowerCase().includes(action.payload.toLowerCase()));
+    const nameAdmin  = nameCopyAdmin.filter(e => e.name.toLowerCase().includes(action.payload.toLowerCase())
+                                          || e.surname.toLowerCase().includes(action.payload.toLowerCase()))
   
     return {
       ...state,
@@ -76,7 +77,8 @@ function rootReducer(state = initialState, action) {
   case 'GET_AUTHOR_NAME':
 
     const nameCopy = state.authorsCopy;
-    const name = nameCopy.filter(e => e.name.toLowerCase().includes(action.payload.toLowerCase()));
+    const name = nameCopy.filter(e => e.name.toLowerCase().includes(action.payload.toLowerCase())
+                                || e.surname.toLowerCase().includes(action.payload.toLowerCase()));
     
     return {
       ...state,

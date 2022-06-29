@@ -311,10 +311,12 @@ export function clearCart(){
 
 
 
-export function setToAdmin (id){
+export function setToAdmin (payload){
   return async function (dispatch){
-     const json = await axios.post('https://ecommercehenryx.herokuapp.com/users/toggleAdmin/'+id);
-     //console.log('///users:',json.data)
+    console.log('///fsafsa:',payload)
+    
+     const json = await axios.post('https://ecommercehenryx.herokuapp.com/users/toggleAdmin',payload);
+     console.log('///usersPPP:',json.data)
       return dispatch({
           type:'SET_TO_ADMIN',
           
@@ -322,16 +324,7 @@ export function setToAdmin (id){
   }
 };
 
-export function setToUser (){
-  return async function (dispatch){
-     const json = await axios.put('https://ecommercehenryx.herokuapp.com/users/setAdmin/:id');
-     //console.log('///users:',json.data)
-      return dispatch({
-          type:'SET_TO_USER',
-          
-        })
-  }
-};
+
 
   
 
