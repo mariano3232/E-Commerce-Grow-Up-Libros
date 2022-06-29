@@ -8,7 +8,6 @@ import Paginado from "./Paginado";
 import CardBook from "./CardBook";
 import Carousel from "./carousel";
 import styles from "../Styles/Home.module.css";
-import Shop from "./Shop";
 import { Admin } from "./Admin";
 import OrderBooks from "./OrderBooks";
 import { animateScroll as scroll, Element } from "react-scroll";
@@ -101,10 +100,7 @@ return (
         <button>Administrador</button>
       </Link>
 
-      <Link to='/shop'>
-        <button>Compras</button>
-      </Link>
-
+   
       <Carousel />
 
       <div>

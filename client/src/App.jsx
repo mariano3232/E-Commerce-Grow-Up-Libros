@@ -31,7 +31,6 @@ import PutBook from "./components/PutBook";
 import PutAuthorID from "./components/PutAuthorID";
 import PutBookID from "./components/PutBookID";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Shop from "./components/Shop";
 import Stock from "./components/Stock";
 import LogInButton from "./components/LogIn";
 import LogOutButton from "./components/LogOut";
@@ -116,10 +115,10 @@ function App() {
           <Route exact path="/author" element={<Author />} />
           <Route exact path="/book/:id" element={<BookDetails />} />
           <Route exact path="/author/:id" element={<AuthorDetails />} />
-          <Route exact path="/cart" element={<ShoopingCart />} />
+          
 
           <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
-            <Route path="/shop" element={<Shop />} />
+            <Route path="/cart" element={<ShoopingCart />} />
           </Route>
 
           <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
@@ -313,7 +312,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAuthenticated={isAuthenticated}
+                isAuthenticated={usuario.length===1}
               >
                 <UserDatos />
               </ProtectedRoute>
@@ -325,7 +324,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAuthenticated={isAuthenticated}
+                isAuthenticated={usuario.length===1}
               >
                 <UserSuscripcion />
               </ProtectedRoute>

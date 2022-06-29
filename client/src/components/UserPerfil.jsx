@@ -38,7 +38,6 @@ const UserPerfil = () => {
                 </div>
             )}
 
-            <button onClick={()=>handleClick()}>USEEEERS</button>
 
             <span>
                 <Link to='/user/datos'>
