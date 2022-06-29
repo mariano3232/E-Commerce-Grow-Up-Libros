@@ -18,7 +18,7 @@
   background-color: #77c9d4;
 }
 .home {
-  background: url('../imgs/Landing.jpg');
+  background: url("../imgs/Landing.jpg");
   width: 100%;
 }
 
@@ -26,10 +26,18 @@
   display: flex;
   justify-content: space-between;
 }
-.ubiOptions {
+
+.content {
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+  margin-top: 5%;
+}
+
+.ubiOptions {
+  margin-right: 10%;
+  margin-left: 10%;
 }
 
 .p {
