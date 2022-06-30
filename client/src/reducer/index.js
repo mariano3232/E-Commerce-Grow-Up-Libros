@@ -331,6 +331,13 @@ case 'ORDER_BY_NAME':
       userLogged: [action.payload]
     })
 
+    case 'POST_USER_DATA':
+    
+      return({
+        ...state,
+        
+      })
+
     default:
       return state;
   }

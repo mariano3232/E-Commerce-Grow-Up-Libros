@@ -32,12 +32,6 @@ export default function Home() {
   //console.log('usuarioHome',usuario)
   
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    dispatch(getBooks());
-  };
-
-
   const [currentPage, setCurrentPage] = useState(1);
   const [bookPerPage] = useState(8);
   var lastBook = currentPage * bookPerPage;

@@ -355,7 +355,15 @@ export function deleteBookFav (payload, id){
   }
 };
 
-  
+export function postUserData (id, payload){
+  return async function (dispatch){
+     const json = await axios.post(`https://ecommercehenryx.herokuapp.com/users/updateUser/${id}`, payload);
+     console.log('soyjson.dataction', json.data);
+      return dispatch({
+        type:'POST_USER_DATA',
+      })
+  }
+};
 
 
 

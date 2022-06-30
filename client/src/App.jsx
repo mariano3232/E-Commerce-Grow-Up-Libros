@@ -45,7 +45,7 @@ import AdminUsers from "./components/AdminUsers";
 import AdminOrders from "./components/AdminOrders";
 import AdminCarousel from "./components/AdminCarousel";
 import NavBarAdmin from "./components/NavBarAdmin";
-//import StockTable from "./components/StockTable";
+import StockTable from "./components/StockTable";
 import UserFav from "./components/UserFav";
 
 
@@ -315,7 +315,7 @@ function App() {
             }
           />
 
-            {/* <Route
+          <Route
             path="/stocktable"
             element={
               <ProtectedRoute
@@ -325,7 +325,7 @@ function App() {
                 <StockTable />
               </ProtectedRoute>
             }
-          /> */}
+          />
 
 
             <Route
