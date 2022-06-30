@@ -23,6 +23,7 @@ export default function Home() {
 
   const {user, isAuthenticated } = useAuth0()
   //console.log('userENHOME:',user)
+  console.log('DEVELOPMEEEEENT')
 
  
 
