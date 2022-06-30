@@ -7,7 +7,7 @@ import {
   Navigate,
   Outlet,
 } from "react-router-dom";
-import { getBooks, getAuthors , getUsers } from "./actions";
+import { getBooks, getAuthors, getUsers } from "./actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import NavBar from "./components/NavBar";
@@ -47,20 +47,15 @@ import AdminCarousel from "./components/AdminCarousel";
 import NavBarAdmin from "./components/NavBarAdmin";
 import StockTable from "./components/StockTable";
 import AdminUsers2 from "./components/AdminUsers2";
-import CreateAdmin from "./components/CreateAdmin"
+import CreateAdmin from "./components/CreateAdmin";
 import UserFav from "./components/UserFav";
-
-
-
 
 function App() {
   const dispatch = useDispatch();
 
   //const{ user, isAuthenticated , isLoading} = useAuth0()
-  
-  
-  // const usuario = usuarios.filter(u=>u.email === user.email)
 
+  // const usuario = usuarios.filter(u=>u.email === user.email)
 
   // const [users, setUsers] = useState(null);
 
@@ -89,23 +84,17 @@ function App() {
     dispatch(getAuthors());
   }, [dispatch]);
 
-
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
 
-
-  const usuario = useSelector( state => state.userLogged);
-
+  const usuario = useSelector((state) => state.userLogged);
 
   return (
     <BrowserRouter>
       <NavBar />
-      { usuario.length === 1 && usuario[0].isAdmin
-      ? 
-      <NavBarAdmin/>
-    :''} 
-      
+      {usuario.length === 1 && usuario[0].isAdmin ? <NavBarAdmin /> : ""}
+
       <div className="main-without-nav">
         {/* {users ? (
           <button onClick={handleLogoutAdmin}>Sign Out Admin</button>
@@ -126,25 +115,24 @@ function App() {
           <Route exact path="/author" element={<Author />} />
           <Route exact path="/book/:id" element={<BookDetails />} />
           <Route exact path="/author/:id" element={<AuthorDetails />} />
-          
 
-          <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
+          <Route element={<ProtectedRoute isAllowed={usuario.length === 1} />}>
             <Route path="/cart" element={<ShoopingCart />} />
           </Route>
 
-          <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
+          <Route element={<ProtectedRoute isAllowed={usuario.length === 1} />}>
             <Route path="/user" element={<UserPerfil />} />
-          </Route> 
+          </Route>
 
-          <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
+          <Route element={<ProtectedRoute isAllowed={usuario.length === 1} />}>
             <Route path="/user/datos" element={<UserDatos />} />
           </Route>
 
-          <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
+          <Route element={<ProtectedRoute isAllowed={usuario.length === 1} />}>
             <Route path="/user/suscripcion" element={<UserSuscripcion />} />
           </Route>
 
-          <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
+          <Route element={<ProtectedRoute isAllowed={usuario.length === 1} />}>
             <Route path="/user/deseados" element={<UserFav />} />
           </Route>
 
@@ -153,34 +141,37 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true && usuario[0].isSuperAdmin === true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <Admin />
               </ProtectedRoute>
             }
           />
-         
 
-            <Route
+          <Route
             path="/adminpro"
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1  && usuario[0].isSuperAdmin === true}
+                isAllowed={
+                  usuario.length === 1 && usuario[0].isSuperAdmin === true
+                }
               >
                 <AdminPro />
               </ProtectedRoute>
             }
           />
 
-            <Route
+          <Route
             path="/createadmin"
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1  && usuario[0].isSuperAdmin === true}
+                isAllowed={
+                  usuario.length === 1 && usuario[0].isSuperAdmin === true
+                }
               >
-                <CreateAdmin/>
+                <CreateAdmin />
               </ProtectedRoute>
             }
           />
@@ -190,7 +181,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <Add />
               </ProtectedRoute>
@@ -202,7 +193,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <AddAuthor />
               </ProtectedRoute>
@@ -210,47 +201,47 @@ function App() {
           />
 
           <Route
-          path="/addbook"
-          element={
-            <ProtectedRoute
-              redirectPath="/home"
-              isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
-            >
-              <AddBook />
-            </ProtectedRoute>
-          }
-        />
+            path="/addbook"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+              >
+                <AddBook />
+              </ProtectedRoute>
+            }
+          />
 
           <Route
             path="/delete"
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <DeleteData />
               </ProtectedRoute>
             }
           />
 
-            <Route
+          <Route
             path="/deleteauthor"
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <DeleteAuthor />
               </ProtectedRoute>
             }
           />
 
-            <Route
+          <Route
             path="/deletebook"
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <DeleteBook />
               </ProtectedRoute>
@@ -262,7 +253,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <Put />
               </ProtectedRoute>
@@ -274,7 +265,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <PutBook />
               </ProtectedRoute>
@@ -286,7 +277,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <PutAuthor />
               </ProtectedRoute>
@@ -298,7 +289,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <PutAuthorID />
               </ProtectedRoute>
@@ -310,19 +301,19 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <PutBookID />
               </ProtectedRoute>
             }
           />
-          
+
           <Route
             path="/stock"
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <Stock />
               </ProtectedRoute>
@@ -334,28 +325,27 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <StockTable />
               </ProtectedRoute>
             }
           />
 
-
-            <Route
+          <Route
             path="/adminorders"
             element={
               <ProtectedRoute
                 redirectPath="/home"
                 // isAllowed={!!users && users.roles.includes("admin")}
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <AdminOrders />
               </ProtectedRoute>
             }
           />
 
-            {/* <Route
+          {/* <Route
             path="/adminusers"
             element={
               <ProtectedRoute
@@ -374,7 +364,7 @@ function App() {
               <ProtectedRoute
                 redirectPath="/home"
                 // isAllowed={!!users && users.roles.includes("admin")}
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <AdminUsers2 />
               </ProtectedRoute>
@@ -387,14 +377,13 @@ function App() {
               <ProtectedRoute
                 redirectPath="/home"
                 // isAllowed={!!users && users.roles.includes("admin")}
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <AdminCarousel />
               </ProtectedRoute>
             }
           />
 
-          
           {/* <Route
             path="/user/suscripcion"
             element={
@@ -406,7 +395,6 @@ function App() {
               </ProtectedRoute>
             }
           /> */}
-          
         </Routes>
       </div>
       <BottomBar />
