@@ -41,7 +41,7 @@ import AdminPro from "./components/AdminPro";
 import UserDatos from "./components/UserDatos";
 import UserSuscripcion from "./components/UserSuscripcion";
 import ShoopingCart from "./components/ShoppingCart";
-import AdminUsers from "./components/AdminUsers";
+//import AdminUsers from "./components/AdminUsers";
 import AdminOrders from "./components/AdminOrders";
 import AdminCarousel from "./components/AdminCarousel";
 import NavBarAdmin from "./components/NavBarAdmin";
@@ -354,7 +354,7 @@ function App() {
             }
           />
 
-            <Route
+            {/* <Route
             path="/adminusers"
             element={
               <ProtectedRoute
@@ -365,7 +365,7 @@ function App() {
                 <AdminUsers />
               </ProtectedRoute>
             }
-          />
+          /> */}
 
           <Route
             path="/adminusers2"

@@ -9,7 +9,7 @@ export default function AdminProSet(props) {
   const setChanged = props.setChanged;
   const changed = props.changed;
   //console.log("changed es: ", changed);
-  const userIds = [];
+  var userIds = [];
 
   function toogleAdmin(e, users) {
     users.forEach(usuario => {

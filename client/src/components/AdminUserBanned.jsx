@@ -6,7 +6,7 @@ import { setUserBanned ,getUsers } from "../actions";
 export default function AdminUserBanned({users , setChanged , changed}) {
   const dispatch = useDispatch();
 
-  const userIds = [];
+  var userIds = [];
 
   function toogleAdmin(e, users) {
     users.map(usuario => {

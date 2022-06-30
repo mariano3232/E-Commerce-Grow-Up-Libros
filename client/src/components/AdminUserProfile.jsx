@@ -5,7 +5,7 @@ import { setUserPlan ,getUsers } from "../actions";
 export default function AdminUserProfile({users , setChanged , changed}) {
   const dispatch = useDispatch();
 
-  const userIds = [];
+  var userIds = [];
 
   function toogleAdmin(e, users) {
     users.map(usuario => {
