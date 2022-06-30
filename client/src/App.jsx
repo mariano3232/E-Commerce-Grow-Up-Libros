@@ -48,6 +48,7 @@ import NavBarAdmin from "./components/NavBarAdmin";
 import StockTable from "./components/StockTable";
 import AdminUsers2 from "./components/AdminUsers2";
 import CreateAdmin from "./components/CreateAdmin"
+import UserFav from "./components/UserFav";
 
 
 
@@ -94,9 +95,7 @@ function App() {
   }, [dispatch]);
 
 
-  const usuario = useSelector( state => state.userLogged)//[{}]
-  console.log('usuarioAPP:',usuario)
-  console.log('soyLEGNTH-APP:',usuario.length)
+  const usuario = useSelector( state => state.userLogged);
 
 
   return (
@@ -139,14 +138,15 @@ function App() {
 
           <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
             <Route path="/user/datos" element={<UserDatos />} />
-          </Route> 
+          </Route>
 
           <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
             <Route path="/user/suscripcion" element={<UserSuscripcion />} />
-          </Route> 
+          </Route>
 
-
-          
+          <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
+            <Route path="/user/deseados" element={<UserFav />} />
+          </Route>
 
           <Route
             path="/admin"
@@ -160,6 +160,7 @@ function App() {
             }
           />
          
+
             <Route
             path="/adminpro"
             element={
@@ -328,7 +329,7 @@ function App() {
             }
           />
 
-            <Route
+          <Route
             path="/stocktable"
             element={
               <ProtectedRoute
@@ -394,7 +395,7 @@ function App() {
           />
 
           
-          <Route
+          {/* <Route
             path="/user/suscripcion"
             element={
               <ProtectedRoute
@@ -404,7 +405,7 @@ function App() {
                 <UserSuscripcion />
               </ProtectedRoute>
             }
-          />
+          /> */}
           
         </Routes>
       </div>

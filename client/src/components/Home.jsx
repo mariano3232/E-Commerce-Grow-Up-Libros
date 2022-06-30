@@ -32,12 +32,6 @@ export default function Home() {
   //console.log('usuarioHome',usuario)
   
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    dispatch(getBooks());
-  };
-
-
   const [currentPage, setCurrentPage] = useState(1);
   const [bookPerPage] = useState(8);
   var lastBook = currentPage * bookPerPage;
@@ -125,10 +119,7 @@ return (
            books1={allBooks.length}
            paginado={paginado}
             page={currentPage}
-        />
-
-        
-        
+        />      
         </Element>
 
         <div className={styles.ubiOptions}>
@@ -154,7 +145,7 @@ return (
                currentBooks.map((book, index) => {
                  return (
                    <div key={index}>
-                     <Link className={styles.link} to={'/book/' + book._id}>
+                     <div className={styles.link} > 
                        <CardBook
                          title={book.title}
                          cover={book.cover}
@@ -162,7 +153,7 @@ return (
                          rating={book.rating}
                          id={book._id}
                        />
-                     </Link>
+                     </div>
                    </div>
                  )
                })

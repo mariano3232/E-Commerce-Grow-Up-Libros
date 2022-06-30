@@ -1,16 +1,48 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import {Link} from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
+import { useDispatch, useSelector } from 'react-redux';
 
 const UserDatos = () => {
 
+    const allUsers = useSelector(state => state.users);
+    const logged = useSelector(state => state.userLogged);
+    const userId = allUsers.filter((u) => u._id === logged[0]._id);
+    const dispatch = useDispatch();
     const {user} = useAuth0();
+    const [input, setInput] = useState({
+        name: '',
+        lastaName: '',
+        birthday: '',
+        country: '',
+        dni: '',
+    });
+
+    const handleChange = (e) => {
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value
+        });
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const id = logged[0]._id;
+        dispatch(postUserData(id, input));
+        setInput({
+            name: '',
+            lastaName: '',
+            birthday: '',
+            country: '',
+            dni: '',
+        });
+    }
 
     return (
         <div>
             <Link to='/user'><p>Volver</p></Link>
-            <form>
+            <form onSubmit={(e) => handleSubmit(e)}>
                 <fieldset>
                     <legend>Datos personales</legend>
 
@@ -21,20 +53,25 @@ const UserDatos = () => {
                     <input type="text" id='email' value={user.email}/>
 
                     <label htmlFor="name">Nombre</label>
-                    <input type="text" id='name'/>
+                    <input type="text" id='name' onChange={(e) => handleChange(e)} value={input.name}/>
 
                     <label htmlFor="lastName">Apellido</label>
-                    <input type="text" id='lastName'/>
+                    <input type="text" id='lastName' />
 
-                    <label htmlFor="age">Años</label>
-                    <input type="number" id='age'/>
+                    <label htmlFor="birthday">Fecha de Nacimiento</label>
+                    <input type="date" id='birthday'/>
 
                     <label htmlFor="country">Nacionalidad</label>
                     <input type="text" id='country'/>
 
-                    <button>Actualizar</button>
-                </fieldset>
+                    <label htmlFor="dni">Nº de Documento</label>
+                    <input type="text" id='dni'/>
 
+                    <button type='submit'>Actualizar</button>
+                </fieldset>
+            </form>
+
+            <form>
                 <fieldset>
                     <legend>Suscripciones</legend>
 
@@ -54,7 +91,6 @@ const UserDatos = () => {
                     <label htmlFor="premium">NO</label>
                     <input type="radio" name="premium" value='No' checked/>
                 </fieldset>
-
             </form>
         </div>
     )
