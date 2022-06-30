@@ -26,6 +26,8 @@ const UserDatos = () => {
         });
     }
 
+    console.log('soy el Dios Luisito');
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const id = logged[0]._id;
