@@ -8,13 +8,15 @@ export default function DeleteData() {
     <div className={style.put}>
       <div className={style.containerPut}>
         <div className={style.actionsButtons}>
+
+          <h3 >Borrar/Ocultar:</h3>
           
           <Link to='/deleteauthor'>
-            <button className={style.btn}>Borrar Autor</button>
+            <button className={style.btn}>Autor</button>
           </Link>
 
           <Link to='/deletebook'>
-            <button className={style.btn}>Borrar Libro</button>
+            <button className={style.btn}>Libro</button>
           </Link>
         </div>
 

@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { orderByNameAdminAuthor } from '../actions'
 import AdminSearchBarAuthor from './AdminSearchBarAuthor'
 import AdminRefreshAuthor from './AdminRefreshAuthor'
+import { showAuthor , hideAuthor} from '../actions'
 
 
 export default function DeleteAuthor() {
@@ -39,11 +40,11 @@ export default function DeleteAuthor() {
 //   })
 
 
-function handleShowHideAuthor(id) {
-  dispatch(showHideAuthor(id))
-  alert('Modificado')
-  navigate('/admin')
-}
+// function handleShowHideAuthor(id) {
+//   dispatch(showHideAuthor(id))
+//   alert('Modificado')
+//   navigate('/admin')
+// }
 
  
   function handleDeleteAuthor(id) {
@@ -52,7 +53,18 @@ function handleShowHideAuthor(id) {
     navigate('/admin')
   }
 
-  console.log(allAuthors)
+  function ShowAuthor(id) {
+    console.log('SHOW:',id)
+    dispatch(showAuthor(id))
+    alert('Modificado')
+    navigate('/admin')
+  }
+
+  function HideAuthor(id) {
+    dispatch(hideAuthor(id))
+    alert('Modificado')
+    navigate('/admin')
+  }
 
 
   return (
@@ -87,12 +99,17 @@ function handleShowHideAuthor(id) {
                   <li className={style.cardItem}>
                     <img src={author.picture} alt='' />
                     {author.name} {author.surname}
-                    <button onClick={()=> handleShowHideAuthor(author._id)}>
+
+                    {author.isHidden === true?
+                    <button onClick={()=> ShowAuthor(author._id)}>Mostrar</button>
+                    :<button onClick={()=> HideAuthor(author._id)}>Ocultar</button>}
+                   
+                    {/* <button onClick={()=> handleShowHideAuthor(author._id)}>
                       {author.isHidden === true
                       ?'MOSTRAR'
                       :'OCULTAR'}
                     </button>
-    
+                    */}
                     <button onClick={() => handleDeleteAuthor(author._id)}>
                       x
                     </button>

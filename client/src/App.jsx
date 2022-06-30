@@ -46,6 +46,8 @@ import AdminOrders from "./components/AdminOrders";
 import AdminCarousel from "./components/AdminCarousel";
 import NavBarAdmin from "./components/NavBarAdmin";
 import StockTable from "./components/StockTable";
+import AdminUsers2 from "./components/AdminUsers2";
+import CreateAdmin from "./components/CreateAdmin"
 
 
 
@@ -166,6 +168,18 @@ function App() {
                 isAllowed={usuario.length===1  && usuario[0].isSuperAdmin === true}
               >
                 <AdminPro />
+              </ProtectedRoute>
+            }
+          />
+
+            <Route
+            path="/createadmin"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAllowed={usuario.length===1  && usuario[0].isSuperAdmin === true}
+              >
+                <CreateAdmin/>
               </ProtectedRoute>
             }
           />
@@ -349,6 +363,19 @@ function App() {
                 isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
               >
                 <AdminUsers />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/adminusers2"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                // isAllowed={!!users && users.roles.includes("admin")}
+                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+              >
+                <AdminUsers2 />
               </ProtectedRoute>
             }
           />

@@ -168,14 +168,46 @@ export function postAuthor (payload){
     }
   };
 
-  export function showHideBook (id){
+  export function showBook (id){
+    console.log('Show en action:',id)
     return async function (dispatch){
-       const json = await axios.delete(`${id}`);
-        return dispatch({
-            type:'SHOW_HIDE_BOOK',
+       const json = await axios.delete(`https://ecommercehenryx.herokuapp.com/books/showBook/${id}`);
+       console.log(json.data)
+       return dispatch({
+            type:'SHOW_BOOK',
           })
     }
   };
+
+  export function hideBook (id){
+    return async function (dispatch){
+       const json = await axios.delete(`https://ecommercehenryx.herokuapp.com/books/disableBook/${id}`);
+        return dispatch({
+            type:'HIDE_BOOK',
+          })
+    }
+  };
+
+  export function showAuthor(id){
+    console.log('Show en action:',id)
+    return async function (dispatch){
+       const json = await axios.delete(`https://ecommercehenryx.herokuapp.com/authors/showAuthor/${id}`);
+       console.log(json.data)
+       return dispatch({
+            type:'SHOW_AUTHOR',
+          })
+    }
+  };
+
+  export function hideAuthor (id){
+    return async function (dispatch){
+       const json = await axios.delete(`https://ecommercehenryx.herokuapp.com/authors/hideAuthor/${id}`);
+        return dispatch({
+            type:'HIDE_AUTHOR',
+          })
+    }
+  };
+
 
   export function deleteAuthor (id){
     return async function (dispatch){
@@ -312,17 +344,35 @@ export function clearCart(){
 
 
 export function setToAdmin (payload){
-  return async function (dispatch){
-    console.log('///fsafsa:',payload)
-    
+  return async function (dispatch){   
      const json = await axios.post('https://ecommercehenryx.herokuapp.com/users/toggleAdmin',payload);
-     console.log('///usersPPP:',json.data)
       return dispatch({
           type:'SET_TO_ADMIN',
           
         })
   }
 };
+
+export function setUserBanned (payload){
+  return async function (dispatch){    
+     const json = await axios.post('ruta para banear',payload);
+      return dispatch({
+          type:'SET_USER_BANNED',
+          
+        })
+  }
+};
+
+export function setUserPlan (payload){
+  return async function (dispatch){    
+     const json = await axios.post('ruta para banear',payload);
+      return dispatch({
+          type:'SET_USER_PLAN',
+          
+        })
+  }
+};
+
 
 
 

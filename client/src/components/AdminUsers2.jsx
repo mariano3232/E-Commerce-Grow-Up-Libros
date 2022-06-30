@@ -1,17 +1,23 @@
-
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { postUser, getUsers, setToAdmin } from "../actions";
-import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AdminProSet from "./AdminProSet";
+import AdminUserChangePlan from "./AdminUserChangePlan";
+import AdminUserBanned from "./AdminUserBanned";
 import AdminUserProfile from "./AdminUserProfile";
 
+
+
+// import SetAdminUser from "./SetAdminUser";
+// import BannAdminUser from "./BannUser";
+// import ForcePasswordResetButton from "./ForcePSWreset";
 
 // {id: userId, changes:{isAdmin:true}}
 
 
 
-export default function CreateAdmin(props) {
+export default function AdminUsers2(props) {
 
   const dispatch = useDispatch(); 
   
@@ -23,19 +29,16 @@ export default function CreateAdmin(props) {
 
  
   
-
-
-
   function selectUser(e) {
     const userId = e.target.value;
    
     if (!e.target.checked) {
-      let seleccionados = uSelected.filter(usuario => usuario._id !== userId);
-      setSeleccionados(seleccionados);
+      const seleccion = seleccionados.filter(usuario => usuario._id !== userId);
+      setSeleccionados(seleccion);
     } else {
-    const uCheck = usuarios.find(usuario => usuario._id === userId);
+    const usuarioCheck = usuarios.find(usuario => usuario._id === userId);
 
-      setSeleccionados([...seleccionados, uCheck]);
+      setSeleccionados([...seleccionados, usuarioCheck]);
     }
 }
   
@@ -58,7 +61,15 @@ export default function CreateAdmin(props) {
       <div >
         <div id="tableleft">
            <div >
-            <AdminProSet
+            <AdminUserChangePlan
+              users={seleccionados}
+              changed={changed}
+              setChanged={setChanged}
+            />
+          </div> 
+
+          <div >
+            <AdminUserBanned
               users={seleccionados}
               changed={changed}
               setChanged={setChanged}
@@ -81,6 +92,8 @@ export default function CreateAdmin(props) {
               <th>Email</th>
               <th>Usuario</th>
              
+              <th>Plan</th>
+              <th>Estado</th>
               <th>Administrador</th>
               <th>check</th>
             </tr>
@@ -91,18 +104,30 @@ export default function CreateAdmin(props) {
              
              <tr key={usuario.id}>
                 <td>{usuario.email}</td>
+
                 <td>{usuario.name}</td>
+
+                <td>{usuario.isPremium
+                ?'Premium'
+                :'Standar'}</td>
+
+                <td>{usuario.isBanned
+                ?'Bloqeuado'
+                :'Activo'}</td>
+                
                 
                 <td>{usuario.isAdmin ? "Si" : "No"}</td>
                 <td>
-                  {usuario.isSuperAdmin != "isSuperAdmin"?
+
+                  
                   <input
                   className="checkbox"
                     type="checkbox"
                     value={usuario._id}
                     onChange={(e) => selectUser(e)}
                     defaultChecked={false}
-                  ></input> : null}
+                  ></input> 
+
                 </td>
               </tr>
             ))}

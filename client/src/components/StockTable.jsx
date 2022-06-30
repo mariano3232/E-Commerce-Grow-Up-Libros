@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import { useState } from "react";
 import AdminSearchBarBooks from './AdminSearchBarBooks'
 import AdminRefreshBooks from "./AdminRefreshBooks";
+import { Link } from "react-router-dom";
+
 
 
 export default function StockTable(){
@@ -85,16 +87,16 @@ export default function StockTable(){
 
     return(
         <div>
+            <Link to='/stock'>
+                <button>Formato Cartas</button>
+            </Link>
+
+            <div>
+            <Link to='/stock'>
+            <button>Formato Cartas</button>
+            </Link>
             <AdminSearchBarBooks/>
             <AdminRefreshBooks/>
-            {/* <input
-            type='text'
-            placeholder="Buscar"
-            name='busqueda'
-            value={stockT.busqueda}
-            onChange={onChange}
-            /> */}
-
             <DataTable
             columns={columnas}
             data={tabla}
@@ -103,7 +105,13 @@ export default function StockTable(){
             paginationComponentOptions={paginacionOpciones}
             fixedHeader
             fixedHeaderScrollHeight="600px"/>
+            
+            </div>
+
+            
         </div>
+
+
     )
 }
 

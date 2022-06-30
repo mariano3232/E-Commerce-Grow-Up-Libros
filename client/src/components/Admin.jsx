@@ -1,7 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styles from '../Styles/DashboardAdmin.module.css'
+
+
 export function Admin() {
+
   return (
     <div className={styles.admin}>
       <div className={styles.containerAdmin}>
@@ -10,7 +13,7 @@ export function Admin() {
         </Link>
 
         <Link to='/delete'>
-          <button className={styles.btn}>Borrar Data</button>
+          <button className={styles.btn}>Borrar/Ocultar Data</button>
         </Link>
 
         <Link to='/put'>
@@ -23,6 +26,10 @@ export function Admin() {
 
         <Link to='/adminusers'>
           <button className={styles.btn}>Usuarios</button>
+        </Link>
+
+        <Link to='/adminusers2'>
+          <button className={styles.btn}>Usuarios2</button>
         </Link>
 
         <Link to='/adminorders'>

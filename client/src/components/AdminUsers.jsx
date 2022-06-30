@@ -12,6 +12,19 @@ export default function StockTable(){
 
     const usuarios= useSelector(state=>state.users)
 
+    const [select,setSelection]=useState([])
+
+    console.log(select)
+
+    function onSelectionChange(){
+        cosole.log('//""',select)
+    }
+
+    
+    
+   
+    
+
     
     
 
@@ -79,7 +92,12 @@ console.log('SSSSSSSS:',DataGrid.SelectedItems )
             rowsPerPageOptions={[5]}
            // paginationComponentOptions={paginacionOpciones}
             fixedHeader
-            fixedHeaderScrollHeight="600px"/>
+            fixedHeaderScrollHeight="600px"
+             /*onSelectionChange={
+                (newSelection) => {
+                    setSelection(newSelection.rows)}}*/
+           
+            />
             </Box>
         </div>
     )

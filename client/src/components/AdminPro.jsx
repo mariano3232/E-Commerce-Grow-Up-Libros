@@ -1,6 +1,8 @@
 import React from "react";
 import CreateAdmin from "./CreateAdmin";
 import { useSelector } from "react-redux";
+import styles from '../Styles/DashboardAdmin.module.css'
+import { Link } from "react-router-dom";
 
 
 export default function AdminPro(){
@@ -9,13 +11,19 @@ export default function AdminPro(){
    // console.log('//AdminProU',usuarios)
 
     return(
-        <div>
+        <div className={styles.admin}>
+      <div className={styles.containerAdmin}>
 
-        <h5>AdminPro</h5>
+        <Link to='/adminproprofile'>
+          <button className={styles.btn}>Mi Perfil</button>
+        </Link>
 
-            <CreateAdmin/>
-            
 
-        </div>
+         <Link to='/createadmin'>
+          <button className={styles.btn}>Permisos de Administrador</button>
+         </Link>
+        
+      </div>
+    </div>
     )
 }

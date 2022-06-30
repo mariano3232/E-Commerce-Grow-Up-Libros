@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { orderByNameAdminBooks } from '../actions'
 import AdminRefreshBooks from './AdminRefreshBooks'
 import AdminSearchBarBooks from './AdminSearchBarBooks'
+import { showBook , hideBook } from '../actions'
 
 export default function DeleteBook() {
   const dispatch = useDispatch()
@@ -18,8 +19,6 @@ export default function DeleteBook() {
   const[ order , setOrder ] = useState( true )
 
   function handleOrderByName(e) {
-    console.log('HHHHH')
-    // e.preventDefault()
     dispatch(orderByNameAdminBooks(e.target.value))
     setOrder(`Ordenado ${e.target.value}`)
 };
@@ -36,15 +35,28 @@ export default function DeleteBook() {
   //   return 0
   // })
 
-  function handleShowHideBook(id) {
-    dispatch(showHideBook(id))
-    alert('Modificado')
-    navigate('/admin')
-  }
+  // function handleShowHideBook(id) {
+  //   dispatch(showHideBook(id))
+  //   alert('Modificado')
+  //   navigate('/admin')
+  // }
 
   function handleDeleteBook(id) {
     dispatch(deleteBook(id))
     alert('Libro Eliminado')
+    navigate('/admin')
+  }
+
+  function ShowBook(id) {
+    console.log('SHOW:',id)
+    dispatch(showBook(id))
+    alert('Modificado')
+    navigate('/admin')
+  }
+
+  function HideBook(id) {
+    dispatch(hideBook(id))
+    alert('Modificado')
     navigate('/admin')
   }
 
@@ -83,11 +95,11 @@ export default function DeleteBook() {
                     <img src={book.cover} alt='' />
                     {book.title}
 
-                    <button onClick={()=> handleShowHideBook(book._id)}>
-                      {book.isHidden === true
-                      ?'MOSTRAR'
-                      :'OCULTAR'}
-                    </button>
+                    {book.isHidden === true?
+                    <button onClick={()=> ShowBook(book._id)}>Mostrar</button>
+                    :<button onClick={()=> HideBook(book._id)}>Ocultar</button>}
+
+                   
 
                     <button onClick={() => handleDeleteBook(book._id)}>
                       x
