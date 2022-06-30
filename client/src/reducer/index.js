@@ -13,6 +13,7 @@ const initialState = {
   userLogged: [],
   cart: [],
   render: [],
+  carousel:[],
 };
 
 function rootReducer(state = initialState, action) {
@@ -303,6 +304,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         cart: [],
       };
+      
 
     case "ADD_FAV":
       return {
@@ -331,8 +333,14 @@ function rootReducer(state = initialState, action) {
             return book;
           }
         }),
-      };
-
+      }
+    case "ADD_BOOK_CAROUSEL":
+      return{
+        ...state,
+        carousel:[...state.carousel,action.payload].flat()
+      }    
+      
+    
     default:
       return state;
   }
