@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose')
 
 const genreSchema = new Schema({
   genre: {
@@ -8,9 +8,9 @@ const genreSchema = new Schema({
   books: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Books",
+      ref: 'Books',
     },
   ],
-});
+})
 
-module.exports = model("Genre", genreSchema);
+module.exports = model('Genre', genreSchema)
