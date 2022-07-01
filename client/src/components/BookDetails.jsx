@@ -73,7 +73,12 @@ export default function BookDetails() {
 
       <div className={styles.buy}>
         <h3 className={styles.price}>{book.price}$</h3>
-        <h4>Stock:{book.stock}</h4>
+        <h4>Stock:{book.stock>3?'Disponible'
+        :(book.stock===3?'¡Quedan 3!':(
+          book.stock===2?'¡Quedan 2!':(
+          book.stock===1?'¡Ultimo disponible!':
+          'No hay Stock')
+        ))}</h4>
         <button className={styles.button} onClick={e=>handleAddToCart(e)}>Añadir al carrito</button>
         <button className={styles.button}>Añadir a lista de desesados</button>
       </div>

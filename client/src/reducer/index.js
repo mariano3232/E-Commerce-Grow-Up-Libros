@@ -186,6 +186,24 @@ function rootReducer(state = initialState, action) {
         books: booksOrderByPrice,
       };
 
+      case "ORDER_BY_NAME_AUTHOR":
+        let authorsOrderByName =
+          action.payload === "Asc"
+            ? state.authors.sort((a, b) => {
+                if (a.name > b.name) return 1;
+                if (b.name > a.name) return -1;
+                return 0;
+              })
+            : state.authors.sort((a, b) => {
+                if (a.name > b.name) return -1;
+                if (b.name > a.name) return 1;
+                return 0;
+              });
+        return {
+          ...state,
+          authors: authorsOrderByName,
+        };
+
     case "ORDER_BY_NAME_ADMIN_AUTHOR":
       let authorsAdminOrderByName =
         action.payload === "Asc"
@@ -253,6 +271,24 @@ function rootReducer(state = initialState, action) {
         ...state,
         userLogged: [action.payload],
       };
+
+
+      case "GET_USER_NAME":
+        const nameUCopy = state.users;
+        const nameU = nameUCopy.filter(
+          (e) =>
+            e.name.toLowerCase().includes(action.payload.toLowerCase()) ||
+            e.nickname.toLowerCase().includes(action.payload.toLowerCase()) ||
+            e.email.toLowerCase().includes(action.payload.toLowerCase())
+        );
+  
+        return {
+          ...state,
+          users: nameU,
+        };
+
+
+
     case "ADD_TO_CART":
       let newCart = state.cart;
       let repeats = false;

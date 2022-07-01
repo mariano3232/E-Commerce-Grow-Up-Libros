@@ -217,7 +217,8 @@ export function getAuthorNameAdmin(payload) {
   export function putBook (payload,id){
     return async function (dispatch){
        const json = await axios.post(`http://ecommercehenryx.herokuapp.com/books/update/${id}`,payload);
-        return dispatch({
+       console.log('stockM:',json.data)
+       return dispatch({
             type:'PUT_BOOK',
           })
     }
@@ -236,6 +237,7 @@ export function postBook(payload) {
       "https://ecommercehenryx.herokuapp.com/books/addBook",
       payload
     );
+    console.log('libroAction:',json.data)
     return dispatch({
       type: "POST_BOOK",
       payload: payload,
@@ -249,6 +251,7 @@ export function postAuthor(payload) {
       "https://ecommercehenryx.herokuapp.com/authors/addAuthor",
       payload
     );
+    console.log('autorAction:',json.data)
     return dispatch({
       type: "POST_AUTHOR",
       payload: payload,
@@ -272,6 +275,13 @@ export function postAuthor(payload) {
 export function orderByName(payload) {
   return {
     type: "ORDER_BY_NAME",
+    payload: payload,
+  };
+}
+
+export function orderByNameAuthor(payload) {
+  return {
+    type: "ORDER_BY_NAME_AUTHOR",
     payload: payload,
   };
 }
@@ -339,6 +349,13 @@ export function postUserData(id, payload) {
   };
 }
 
+export function getUserName(payload) {
+  return {
+    type: "GET_USER_NAME",
+    payload: payload,
+  };
+}
+
 
 //COMPRAS
 
@@ -381,12 +398,24 @@ export function clearCart() {
 }
 
 
-//ADMIN PRO
+//ADMIN PRO y SuperAdmin
 
 export function setToAdmin(payload) {
   return async function (dispatch) {
     const json = await axios.post(
       "https://ecommercehenryx.herokuapp.com/users/toggleAdmin",
+      payload
+    );
+    return dispatch({
+      type: "SET_TO_ADMIN",
+    });
+  };
+}
+
+export function setToSuperAdmin(payload) {
+  return async function (dispatch) {
+    const json = await axios.post(
+      "https://ecommercehenryx.herokuapp.com/users/toggleSuperAdmin",
       payload
     );
     return dispatch({

@@ -53,6 +53,7 @@ import { AdminProProfile } from "./components/AdminPro/AdminProProfile";
 import AdminUserProfile from "./components/AdminUserProfile";
 import ProtectedRouteBan from "./components/ProtectedRouteBan";
 import Banned from "./components/Banned";
+import UserNavBar from "./components/UserNavBar";
 
 function App() {
   const dispatch = useDispatch();
@@ -78,11 +79,14 @@ function App() {
     <BrowserRouter>
       <NavBar />
       {usuario.length === 1 && usuario[0].isAdmin ? <NavBarAdmin /> : ""}
+      {usuario.length === 1 ? <UserNavBar /> : ""}
 
       <div className="main-without-nav">
        
         <Routes>
           <Route exact path="/" element={<Landing />} />
+          
+          <Route element={<ProtectedRouteBan isAllowed={ usuario.length===0 || usuario[0].isBanned===false }/> }>
            
             <Route path="/home" element={<Home />} />
             <Route exact path="/aboutus" element={<AboutUs />} />
@@ -90,10 +94,20 @@ function App() {
             <Route exact path="/author" element={<Author />} />
             <Route exact path="/book/:id" element={<BookDetails />} />
             <Route exact path="/author/:id" element={<AuthorDetails />} />
-         
-           <Route element={<ProtectedRoute isAllowed={usuario.length === 1 && usuario[0].isBanned === true} />}>
-            <Route path="/banned" element={<Banned />} />
+            
           </Route>
+        
+          <Route
+            path="/banned"
+            element={
+              <ProtectedRoute
+               redirectPath="/"
+                isAllowed={usuario.length === 1 && usuario[0].isBanned === true}
+              >
+                <Banned />
+              </ProtectedRoute>
+            }
+          />
 
           
 

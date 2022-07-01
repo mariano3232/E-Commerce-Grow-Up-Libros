@@ -7,6 +7,9 @@ import { putBook } from '../actions'
 import { Link } from 'react-router-dom'
 import { Navigate } from 'react-router-dom'
 import style from '../Styles/PutBookID.module.css'
+import { getBooks } from '../actions'
+
+
 export default function putBookId() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -55,6 +58,9 @@ export default function putBookId() {
     e.preventDefault()
     dispatch(putBook(post, id))
     alert('¡Libro Modificado!')
+    setTimeout(function(){
+      dispatch(getBooks())
+    }, 1000);
     navigate('/put')
   }
 
