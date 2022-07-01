@@ -395,11 +395,11 @@ export function setToAdmin(payload) {
   };
 }
 
-//USUARIO: MODIFICAR ESTADO Y PLAN  
+//USUARIO: MODIFICAR ESTADO Y PLAN  'https://ecommercehenryx.herokuapp.com/users/togglePremium'
 
 export function setUserBanned(payload) {
   return async function (dispatch) {
-    const json = await axios.post("ruta para banear", payload);
+    const json = await axios.post('https://ecommercehenryx.herokuapp.com/users/toggleBanned', payload);
     return dispatch({
       type: "SET_USER_BANNED",
     });
@@ -408,7 +408,7 @@ export function setUserBanned(payload) {
 
 export function setUserPlan(payload) {
   return async function (dispatch) {
-    const json = await axios.post("ruta para banear", payload);
+    const json = await axios.post('https://ecommercehenryx.herokuapp.com/users/togglePremium', payload);
     return dispatch({
       type: "SET_USER_PLAN",
     });

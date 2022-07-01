@@ -15,8 +15,8 @@ const UserPerfil = () => {
     const usuarios= useSelector( state => state.users)
     console.log('//usuarios:',usuarios)
 
-    const usuario = usuarios.filter(u=>u.email === user.email)
-    console.log('((((usu:',usuario)
+   const usuario = usuarios.filter(u=>u.email === user.email)
+    
 
 
     
