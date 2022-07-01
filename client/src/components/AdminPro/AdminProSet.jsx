@@ -13,16 +13,13 @@ export default function AdminProSet(props) {
 
   function toogleAdmin(e, users) {
     users.forEach(usuario => {
-      userIds.push(  usuario._id );
-   dispatch(setToAdmin(userIds))
+    userIds.push(  usuario._id );
    
     });
-    
-        
-   
-    
-    
-    dispatch(getUsers())
+     dispatch(setToAdmin(userIds))
+     setTimeout(function(){
+      dispatch(getUsers())
+    }, 1000);
     setChanged(!changed);
    // console.log("changed AHORA ES es: ", changed);
     userIds = [];
@@ -31,7 +28,7 @@ export default function AdminProSet(props) {
   return (
     <div>
       <button onClick={(e) => toogleAdmin(e, users)}>
-       Permisos de Administrador
+       Otorgar/Quitar Permiso de Administrador
       </button>
     </div>
   );
