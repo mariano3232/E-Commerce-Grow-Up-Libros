@@ -226,34 +226,49 @@ router.delete('/deleteBook/:id', async (req, res) => {
   }
 })
 
-/* router.post('/updateRating/:idBook/:rating/:userId', async (req, res) => {
-  let { idBook, rating, userId } = req.params
-
-  const book = await Books.findById(idBook)
-  if (!book) return res.status(404).send('Book not found')
-  const user = await Users.findById(userId)
-  if (!user) return res.status(404).send('Usuario no encontrado')
-  book.ratingUsers.push(rating)
-  book.rating = (book.rating + Number(rating)) / book.ratingUsers.length
-  const updateBook = await book.save()
-  book.ratingBooks.push(idBook)
-  const updateUser = await user.save()
-  updateBook && updateUser
-    ? res.status(200).json(updateBook, updateUser)
-    : res.status(404).send('Error al grabar rating')
-})
-
-router.get('/getRating/', async (req, res) => {
+router.post('/updateRating/:idBook/:rating/:userId', async (req, res) => {
   try {
-    const book = await Books.find({ rating: 1 })
+    let { idBook, rating, userId } = req.params
+    const book = await Books.findById(idBook)
     console.log(book)
-    if (book.length === 0) throw new Error('no hay books')
+    if (!book) return res.status(404).send('Book not found')
+    const user = await Users.findById(userId)
+    console.log(user)
+    if (!user) return res.status(404).send('Usuario no encontrado')
 
-    res.send(rating)
+    console.log('Antes del push a ratingUsers', book.ratingUsers.length)
+
+    book.ratingUsers.push({ rating, user: user._id })
+    user.ratingBooks.push(book._id)
+
+    console.log('Despues del push a ratingUsers', book.ratingUsers.length)
+
+    book.rating = (book.rating + Number(rating)) / book.ratingUsers.length
+
+    const userUpdate = await user.save()
+    const bookUpdate = await book.save()
+
+    res.json({
+      user: userUpdate,
+      book: bookUpdate,
+    })
   } catch (error) {
     res.send(error.message)
   }
-}) */
+})
+
+router.get('/rating/getRating', async (req, res) => {
+  try {
+    const book = await Books.find()
+    if (book.length === 0) throw new Error('no hay books')
+    const arrayRating = book.map((b) => {
+      return { book: b.title, rating: b.rating }
+    })
+    res.send(arrayRating)
+  } catch (error) {
+    res.send(error.message)
+  }
+})
 
 router.post('/hideBook/:id', async (req, res) => {
   const { id } = req.params
