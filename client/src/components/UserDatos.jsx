@@ -1,8 +1,9 @@
 
-import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
-import { useAuth0 } from "@auth0/auth0-react";
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {getUsers, postUserData} from '../actions';
+import UserDatosPerfil from './UserDatosPerfil';
 
 const UserDatos = () => {
 
@@ -10,13 +11,16 @@ const UserDatos = () => {
     const logged = useSelector(state => state.userLogged);
     const userId = allUsers.filter((u) => u._id === logged[0]._id);
     const dispatch = useDispatch();
-    const {user} = useAuth0();
+    const navigate = useNavigate();
+    const [state, setState] = useState('');
     const [input, setInput] = useState({
         name: '',
-        lastaName: '',
+        surname: '',
         birthday: '',
         country: '',
         dni: '',
+        phone: '', 
+        address: '',
     });
 
     const handleChange = (e) => {
@@ -26,21 +30,24 @@ const UserDatos = () => {
         });
     }
 
-    console.log('soy el Dios Luisito');
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const id = logged[0]._id;
         dispatch(postUserData(id, input));
-        setInput({
-            name: '',
-            lastaName: '',
-            birthday: '',
-            country: '',
-            dni: '',
-        });
+        alert('Datos personales actualizado');
+        navigate('/user');
     }
 
+    const handleClick = () => {
+        setState('ok');
+    }
+
+    useEffect(() => {
+        return () => {
+            dispatch(getUsers());
+        };
+    }, [dispatch]);
+ 
     return (
         <div>
             <Link to='/user'><p>Volver</p></Link>
@@ -49,25 +56,31 @@ const UserDatos = () => {
                     <legend>Datos personales</legend>
 
                     <label htmlFor="nickname">Usuario</label>
-                    <input type="text" id='nickname' value={user.nickname}/>
+                    <input type="text" name='nickname' value={userId[0].nickname} readOnly/>
 
                     <label htmlFor="email">Email</label>
-                    <input type="text" id='email' value={user.email}/>
+                    <input type="text" name='email' value={userId[0].email} readOnly/>
 
                     <label htmlFor="name">Nombre</label>
-                    <input type="text" id='name' onChange={(e) => handleChange(e)} value={input.name}/>
+                    <input type="text" name='name' onChange={(e) => handleChange(e)} value={input.name}/>
 
-                    <label htmlFor="lastName">Apellido</label>
-                    <input type="text" id='lastName' />
+                    <label htmlFor="surname">Apellido</label>
+                    <input type="text" name='surname' onChange={(e) => handleChange(e)} value={input.surname}/>
 
                     <label htmlFor="birthday">Fecha de Nacimiento</label>
-                    <input type="date" id='birthday'/>
+                    <input type="date" name='birthday'onChange={(e) => handleChange(e)} value={input.birthday}/>
 
                     <label htmlFor="country">Nacionalidad</label>
-                    <input type="text" id='country'/>
+                    <input type="text" name='country' onChange={(e) => handleChange(e)} value={input.country}/>
 
                     <label htmlFor="dni">Nº de Documento</label>
-                    <input type="text" id='dni'/>
+                    <input type="text" name='dni' onChange={(e) => handleChange(e)} value={input.dni}/>
+
+                    <label htmlFor="phone">Tel</label>
+                    <input type="text" name='phone' onChange={(e) => handleChange(e)} value={input.phone}/>
+
+                    <label htmlFor="address">Direccion</label>
+                    <input type="text" name='address' onChange={(e) => handleChange(e)} value={input.address}/>
 
                     <button type='submit'>Actualizar</button>
                 </fieldset>
@@ -94,6 +107,24 @@ const UserDatos = () => {
                     <input type="radio" name="premium" value='No' checked/>
                 </fieldset>
             </form>
+
+            <button onClick={handleClick}>Ver mis datos</button>
+
+            {
+                state==='ok'?
+                <UserDatosPerfil 
+                    name={userId[0].name}
+                    surname={userId[0].surname}
+                    email={userId[0].email}
+                    dni={userId[0].dni}
+                    nickname={userId[0].nickname}
+                    birthday={userId[0].birthday}
+                    country={userId[0].country}
+                    phone={userId[0].phone}
+                    address={userId[0].address}
+                 />: <p>El camino al exito está en la lectura de libros inspiradores. 'Luis Chacon'</p>
+            }
+           
         </div>
     )
 }
