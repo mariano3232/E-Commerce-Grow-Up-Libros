@@ -5,7 +5,9 @@ import { useSelector, useDispatch } from "react-redux";
 import AdminProSet from "./AdminProSet";
 import { getUsers , postUser , setToAdmin } from "../../actions";
 import {Link} from 'react-router-dom';
-import AdminUserProfile from "../AdminUserProfile";
+import SuperAdminProSet from "./SuperAdminProSet";
+import AdminSearchBarUser from "../AdminSearchBarUser";
+import AdminRefreshUsers from "../AdminRefreshUser";
 
 
 // {id: userId, changes:{isAdmin:true}}
@@ -67,7 +69,17 @@ useEffect(() => {
 
         <div id="tableleft">
           <div>
+            <AdminRefreshUsers/>
+            <AdminSearchBarUser/>
             <AdminProSet
+              users={seleccionados}
+              changed={changed}
+              setChanged={setChanged}
+            />
+          </div> 
+
+          <div>
+            <SuperAdminProSet
               users={seleccionados}
               changed={changed}
               setChanged={setChanged}
@@ -82,6 +94,7 @@ useEffect(() => {
               <th>Usuario</th>
              
               <th>Administrador</th>
+              <th>Pro</th>
               <th>check</th>
             </tr>
           </thead>
@@ -96,6 +109,7 @@ useEffect(() => {
                 <td>{usuario.name}</td>
                 
                 <td>{usuario.isAdmin ? "Si" : "No"}</td>
+                <td>{usuario.isSuperAdmin ? "Si" : "No"}</td>
                 <td>
                   {usuario.isSuperAdmin != "isSuperAdmin"?
                   <input

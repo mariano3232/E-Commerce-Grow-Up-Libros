@@ -7,6 +7,8 @@ import AdminUserChangePlan from "./AdminUserChangePlan";
 import AdminUserBanned from "./AdminUserBanned";
 import AdminUserProfile from "./AdminUserProfile";
 import { Link } from "react-router-dom";
+import AdminSearchBarUser from "./AdminSearchBarUser";
+import AdminRefreshUsers from "./AdminRefreshUser";
 
 
 
@@ -72,6 +74,12 @@ useEffect(() => {
       <div >
         <div id="tableleft">
            <div >
+
+            <AdminRefreshUsers/>
+
+
+            <AdminSearchBarUser/>
+
             <AdminUserChangePlan
               users={seleccionados}
               changed={changed}
