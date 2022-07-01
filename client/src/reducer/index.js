@@ -334,11 +334,16 @@ function rootReducer(state = initialState, action) {
           }
         }),
       }
-    case "ADD_BOOK_CAROUSEL":
+    case "ADD_TO_CAROUSEL":
       return{
         ...state,
         carousel:[...state.carousel,action.payload].flat()
-      }    
+      }
+    case "ADD_CUSTOM_CAROUSEL":
+      return{
+        ...state,
+        carousel:[...state.carousel,action.payload].flat()
+      }  
       
     
     default:

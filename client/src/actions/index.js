@@ -439,7 +439,7 @@ export function addBookCarousel(book){
   console.log('action :',book)
   return (dispatch)=>{
     dispatch({
-      type:'ADD_BOOK_CAROUSEL',
+      type:'ADD_TO_CAROUSEL',
       payload:book,
     })
   }
