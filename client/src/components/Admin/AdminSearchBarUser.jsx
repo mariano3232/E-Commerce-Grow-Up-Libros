@@ -3,17 +3,17 @@ import React from 'react';
 import {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
-import {getBookTitleAdmin} from '../actions';
-import styles from '../Styles/searchBar.module.css'
+import {getBookTitleAdmin} from '../../actions';
+import styles from '../../Styles/searchBar.module.css'
 import {scroller} from "react-scroll";
-import { getAuthorNameAdmin } from '../actions';
+import { getUserName } from '../../actions';
 
 
-const AdminSearchBarAuthor = () => {
+const AdminSearchBarUser = () => {
 
     const [input, setInput] = useState('');
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    
 
     const handleChange = (e) => {
         setInput(e.target.value);
@@ -21,7 +21,7 @@ const AdminSearchBarAuthor = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(getAuthorNameAdmin(input));
+        dispatch(getUserName(input));
         scroller.scrollTo("gaston");
         setInput('');
     }
@@ -36,4 +36,4 @@ const AdminSearchBarAuthor = () => {
     )
 }
 
-export default AdminSearchBarAuthor;
+export default AdminSearchBarUser;

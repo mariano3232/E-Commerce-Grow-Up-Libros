@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { getAuthorsAdmin } from "../actions";
+import { getAuthorsAdmin } from "../../actions";
 import { Link } from "react-router-dom";
 
 

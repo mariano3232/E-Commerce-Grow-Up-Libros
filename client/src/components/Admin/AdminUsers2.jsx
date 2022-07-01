@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { postUser, getUsers, setToAdmin } from "../actions";
+import { postUser, getUsers, setToAdmin } from "../../actions";
 import { useSelector, useDispatch } from "react-redux";
-import AdminProSet from "./AdminPro/AdminProSet";
+import AdminProSet from "../AdminPro/AdminProSet";
 import AdminUserChangePlan from "./AdminUserChangePlan";
 import AdminUserBanned from "./AdminUserBanned";
 import AdminUserProfile from "./AdminUserProfile";
 import { Link } from "react-router-dom";
 import AdminSearchBarUser from "./AdminSearchBarUser";
 import AdminRefreshUsers from "./AdminRefreshUser";
+import styles from "../../Styles/createAdmin.module.css"
 
 
 
@@ -97,9 +98,9 @@ useEffect(() => {
 
          
         </div>
-
-        <table id="tableright">
-          <thead class="thead-warning">
+        <div className={styles.container}>
+        <table className={styles.table}>
+          <thead >
             <tr>
               <th>Email</th>
               <th>Usuario</th>
@@ -147,6 +148,7 @@ useEffect(() => {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   ) : (

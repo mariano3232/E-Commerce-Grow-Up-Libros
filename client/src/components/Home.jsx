@@ -3,20 +3,17 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import SideBar from "./SideBar";
-import BottomBar from "./BottomBar";
 import Paginado from "./Paginado";
 import CardBook from "./CardBook";
 import Carousel from "./Carousel";
 import styles from "../Styles/Home.module.css";
-import { Admin } from "./Admin";
-import OrderBooks from "./OrderBooks";
 import { animateScroll as scroll, Element } from "react-scroll";
 import { getBooks, orderByName, orderByPrice, postUser } from "../actions";
 import Profile from "./Profile";
 import { useAuth0 } from "@auth0/auth0-react";
-import { unstable_renderSubtreeIntoContainer } from 'react-dom'
-import AdminPro from "./AdminPro/AdminPro";
-import NavBarAdmin from "./NavBarAdmin";
+//import { unstable_renderSubtreeIntoContainer } from 'react-dom'
+
+
 
 export default function Home() {
   const dispatch = useDispatch()

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { postBook } from '../actions/index'
+import { postBook } from '../../actions/index'
 import { useDispatch, useSelector } from 'react-redux'
-import style from '../Styles/addBook.module.css'
+import style from '../../Styles/addBook.module.css'
 
 export default function AddBook() {
   const dispatch = useDispatch()

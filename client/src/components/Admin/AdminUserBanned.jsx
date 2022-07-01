@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setUserBanned ,getUsers } from "../actions";
+import { setUserBanned ,getUsers } from "../../actions";
 
 
 

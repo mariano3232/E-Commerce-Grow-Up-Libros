@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 //import { postBook } from '../actions/index';
 import { useDispatch, useSelector } from 'react-redux'
-import { postAuthor } from '../actions/index'
-import style from '../Styles/addAuthor.module.css'
+import { getAuthors, postAuthor } from '../../actions/index'
+import style from '../../Styles/addAuthor.module.css'
 
 export default function AddAuthor() {
   const dispatch = useDispatch()
@@ -30,7 +30,6 @@ export default function AddAuthor() {
       ...post,
       [e.target.name]: e.target.value,
     })
-    console.log('post :', post)
   }
 
   function validate(post) {
@@ -92,6 +91,9 @@ export default function AddAuthor() {
         biography: '',
         picture: '',
       })
+      setTimeout(function(){
+        dispatch(getAuthors())
+      }, 5000);
     }
   }
 

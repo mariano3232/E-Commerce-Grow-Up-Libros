@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import style from '../Styles/Put.module.css'
+import style from '../../Styles/Put.module.css'
 export default function Put() {
   return (
     <div className={style.put}>
