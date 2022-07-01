@@ -15,7 +15,7 @@ import { getBooks, orderByName, orderByPrice, postUser } from "../actions";
 import Profile from "./Profile";
 import { useAuth0 } from "@auth0/auth0-react";
 import { unstable_renderSubtreeIntoContainer } from 'react-dom'
-import AdminPro from './AdminPro'
+import AdminPro from "./AdminPro/AdminPro";
 import NavBarAdmin from "./NavBarAdmin";
 
 export default function Home() {
@@ -30,7 +30,7 @@ export default function Home() {
   const allBooks = useSelector((state) => state.books);
 
   const usuario = useSelector((state)=>state.userLogged)
-  //console.log('usuarioHome',usuario)
+  console.log('usuarioHome',usuario)
   
 
   const [currentPage, setCurrentPage] = useState(1);

@@ -1,6 +1,6 @@
 import React from 'react'
 import style from '../Styles/DeleteData.module.css'
-import { deleteBook, deleteAuthor } from '../actions'
+import { deleteBook, deleteAuthor, getBooks } from '../actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
@@ -50,14 +50,16 @@ export default function DeleteBook() {
   function ShowBook(id) {
     console.log('SHOW:',id)
     dispatch(showBook(id))
-    alert('Modificado')
-    navigate('/admin')
+    dispatch(getBooks())
+   //alert('Modificado')
+   // navigate('/admin')
   }
 
   function HideBook(id) {
     dispatch(hideBook(id))
-    alert('Modificado')
-    navigate('/admin')
+    dispatch(getBooks())
+   // alert('Modificado')
+  //  navigate('/admin')
   }
 
   

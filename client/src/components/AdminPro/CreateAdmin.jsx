@@ -1,10 +1,10 @@
 
 import { useNavigate } from "react-router-dom";
-import { postUser, getUsers, setToAdmin } from "../actions";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AdminProSet from "./AdminProSet";
-import AdminUserProfile from "./AdminUserProfile";
+import AdminUserProfile from "../AdminUserProfile";
+import { getUsers , postUser , setToAdmin } from "../../actions";
 
 
 // {id: userId, changes:{isAdmin:true}}
