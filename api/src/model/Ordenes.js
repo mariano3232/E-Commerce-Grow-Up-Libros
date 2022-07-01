@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const orderSchema= new Schema({
     status:{
-        type: Enumerator('Created', 'processing', 'cancelled', 'complete'),        
+        type: Enumerator('Created', 'processing', 'canceled', 'complete'),        
     },
     payment_id:{
         type:Number
