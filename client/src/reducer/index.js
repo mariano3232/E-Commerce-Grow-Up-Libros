@@ -24,6 +24,7 @@ function rootReducer(state = initialState, action) {
       const showBooks = action.payload.filter( book => book.isHidden===false)
       return {
         ...state,
+        books: showBooks,
        
         booksCopy: showBooks,
         booksTop: showBooks,
