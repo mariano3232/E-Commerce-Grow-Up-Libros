@@ -372,7 +372,8 @@ export function setUserBanned(payload) {
 
 export function setUserPlan(payload) {
   return async function (dispatch) {
-    const json = await axios.post("ruta para banear", payload);
+    const json = await axios.post("https://ecommercehenryx.herokuapp.com/users/togglePremium", payload);
+    console.log('gas', json.data);
     return dispatch({
       type: "SET_USER_PLAN",
     });
