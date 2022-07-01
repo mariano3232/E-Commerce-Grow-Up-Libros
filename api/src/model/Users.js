@@ -83,6 +83,7 @@ const userSchema = new Schema({
   ],
   isSubscribeNewsLetter: {
     type: Boolean,
+    default: false,
   },
 })
 
