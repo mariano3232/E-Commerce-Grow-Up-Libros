@@ -39,14 +39,14 @@ export default function AdminUsers2(props) {
        let seleccion = seleccionados.filter(usuario => usuario._id !== userId);
        console.log('seleccion:',seleccion)
       setSeleccionados(seleccion);
-    } 
+    } else {
     
     
     let usuarioCheck = usuarios.find(usuario => usuario._id === userId);
     console.log('usuarioCheck:',usuarioCheck)
 
       setSeleccionados([...seleccionados, usuarioCheck]);
-      
+      }
     
 }
   
