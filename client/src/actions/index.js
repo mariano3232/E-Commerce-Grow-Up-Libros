@@ -434,3 +434,13 @@ export const putRating = (idBook, rating, userId) => async (dispatch) => {
     });
   }
 };
+
+export function addBookCarousel(book){
+  console.log('action :',book)
+  return (dispatch)=>{
+    dispatch({
+      type:'ADD_TO_CAROUSEL',
+      payload:book,
+    })
+  }
+}
