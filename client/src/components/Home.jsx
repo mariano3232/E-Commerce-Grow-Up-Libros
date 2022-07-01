@@ -6,7 +6,7 @@ import SideBar from "./SideBar";
 import BottomBar from "./BottomBar";
 import Paginado from "./Paginado";
 import CardBook from "./CardBook";
-import Carousel from "./carousel";
+import Carousel from "./Carousel";
 import styles from "../Styles/Home.module.css";
 import { Admin } from "./Admin";
 import OrderBooks from "./OrderBooks";

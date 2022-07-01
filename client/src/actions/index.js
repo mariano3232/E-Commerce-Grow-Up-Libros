@@ -463,11 +463,3 @@ export const putRating = (idBook, rating, userId) => async (dispatch) => {
   }
 };
 
-
-//---
-
-
-
-
-
-
