@@ -1,13 +1,17 @@
 import React from "react";
+import styles from '../Styles/banned.module.css'
+
 
 
 export default function Banned(){
 
 
     return(
-        <div>
+        <div className={styles.container}>
 
-            <h1>ACCESO DENEGADO!!!!</h1>
+            <h1 className={styles.titulo}>ACCESO DENEGADO!!!!</h1>
+            <h3>Su cuenta ha sido bloqueada</h3>
+            <h4>Contactate con e-books-commerce-G11@gmail.com</h4>
 
         </div>
     )
