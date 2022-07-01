@@ -221,7 +221,7 @@ router.post('/deleteDesiredBooks/:idBook/:idUser', async (req, res) => {
   }
 })
 
-router.post('/isSuscribeNewsletter', async (req, res) => {
+router.post('/toggleNewsletter', async (req, res) => {
   const userIds = req.body
   try {
     if (userIds) {
