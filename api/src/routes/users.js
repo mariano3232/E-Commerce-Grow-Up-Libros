@@ -221,4 +221,41 @@ router.post('/deleteDesiredBooks/:idBook/:idUser', async (req, res) => {
   }
 })
 
+router.post('/isSuscribeNewsletter', async (req, res) => {
+  const userIds = req.body
+  try {
+    if (userIds) {
+      userIds.forEach(async (id) => {
+        const user = await Users.findById(id)
+
+        if (!user) throw new Error('The user not exists')
+        if (user.isSubscribeNewsLetter) {
+          user.isSubscribeNewsLetter = false
+          await user.save()
+        } else {
+          user.isSubscribeNewsLetter = true
+          await user.save()
+        }
+      })
+
+      res.json('Usuarios actualizados!')
+    } else {
+      const user = await Users.findById(id)
+      if (!user) throw new Error('The user not exists')
+
+      if (user.isSubscribeNewsLetter) {
+        user.isSubscribeNewsLetter = false
+        await user.save()
+        return res.send('The user now is not subscribe a newsletter')
+      } else {
+        user.isSubscribeNewsLetter = true
+        await user.save()
+        return res.send('The user is now subscribe a newsletter')
+      }
+    }
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
 module.exports = router
