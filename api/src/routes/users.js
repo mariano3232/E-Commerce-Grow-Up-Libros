@@ -18,6 +18,22 @@ router.get('/', async (req, res) => {
   }
 })
 
+router.get('/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    const userId = await Users.findById(id).populate([
+      'readBooks',
+      'favouritesBooks',
+      'buyBooks',
+      'ratingBooks',
+    ])
+    if (userId) throw new Error('User not found')
+    res.json(userId)
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
 router.post('/addUser', async (req, res) => {
   const { nickname, name, email, picture, phone, address } = req.body
   try {
