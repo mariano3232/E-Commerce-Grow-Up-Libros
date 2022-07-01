@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+/* const { Schema, model } = require("mongoose");
 
 const orderSchema= new Schema({
     status:{
@@ -15,4 +15,4 @@ const orderSchema= new Schema({
         type:Number,
         default:0
     }
-})
+}) */

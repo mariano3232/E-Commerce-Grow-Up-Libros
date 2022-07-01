@@ -230,9 +230,9 @@ router.post('/updateRating/:idBook/:rating/:userId', async (req, res) => {
   let { idBook, rating, userId } = req.params
 
   const book = await Books.findById(idBook)
-  if (!book) res.status(404).send('Book not found')
+  if (!book) return res.status(404).send('Book not found')
   const user = await Users.findById(userId)
-  if (!user) res.status(404).send('Usuario no encontrado')
+  if (!user) return res.status(404).send('Usuario no encontrado')
   book.ratingUsers.push(rating)
   book.rating = (book.rating + Number(rating)) / book.ratingUsers.length
   const updateBook = await book.save()
@@ -243,13 +243,13 @@ router.post('/updateRating/:idBook/:rating/:userId', async (req, res) => {
     : res.status(404).send('Error al grabar rating')
 })
 
-router.get('/getRating/:bookId', async (req, res) => {
-  const { bookId } = req.params
+router.get('/getRating/', async (req, res) => {
   try {
-    const book = await Books.findById(bookId)
-    if (book.rating === 0) return res.send(0)
-    const rating = book.rating
-    res.json(rating)
+    const book = await Books.find({ rating: 1 })
+    console.log(book)
+    if (book.length === 0) throw new Error('no hay books')
+
+    res.send(rating)
   } catch (error) {
     res.send(error.message)
   }

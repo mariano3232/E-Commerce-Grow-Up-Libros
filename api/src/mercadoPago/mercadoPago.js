@@ -1,4 +1,4 @@
-const { Router } = require("express");
+/* const { Router } = require("express");
 const router = Router();
 
 // SDK de Mercado Pago
@@ -55,4 +55,4 @@ router.post("/orden", (req, res) => {
     });
 });
 
-module.exports = router;
+module.exports = router; */
