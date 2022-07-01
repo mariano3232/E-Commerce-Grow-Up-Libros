@@ -464,3 +464,14 @@ export const putRating = (idBook, rating, userId) => async (dispatch) => {
   }
 };
 
+//CARRUSEL
+
+export function addBookCarousel(payload, id) {
+  return async function (dispatch) {
+    
+
+    return dispatch({
+      type: "TEST_TEST",
+    });
+  };
+}
