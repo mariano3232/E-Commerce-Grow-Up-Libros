@@ -89,9 +89,9 @@ useEffect(() => {
           <tbody>
             {usuarios.map((usuario) => (
              
-             <tr key={usuario.id}>
+             <tr key={usuario._id}>
                 <td>
-                  <Link to='/adminuserprofile'>{usuario.email}</Link>
+                  <Link to={`/adminuserprofile/${usuario._id}`}>{usuario.email}</Link>
                 </td>
                 <td>{usuario.name}</td>
                 

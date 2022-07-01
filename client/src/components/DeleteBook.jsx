@@ -48,16 +48,18 @@ export default function DeleteBook() {
   }
 
   function ShowBook(id) {
-    console.log('SHOW:',id)
     dispatch(showBook(id))
-    dispatch(getBooks())
+    setTimeout(function(){
+    dispatch(getBooks()),500})
    //alert('Modificado')
    // navigate('/admin')
   }
 
   function HideBook(id) {
     dispatch(hideBook(id))
-    dispatch(getBooks())
+    setTimeout(function(){
+      dispatch(getBooks()),500})
+    
    // alert('Modificado')
   //  navigate('/admin')
   }
