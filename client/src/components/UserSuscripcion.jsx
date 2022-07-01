@@ -17,6 +17,8 @@ const UserSuscripcion = () => {
             <button>Anual</button>
 
             <CardPremium/>
+
+            <br />
         
         </div>
     )
