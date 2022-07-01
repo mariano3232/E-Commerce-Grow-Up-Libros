@@ -11,6 +11,6 @@ router.use('/books', books)
 router.use('/authors', authors)
 router.use('/genres', genres)
 router.use('/users', user)
-/* router.use('/mercadopago', mercadopago)
- */
+router.use('/mercadopago', mercadopago)
+
 module.exports = router

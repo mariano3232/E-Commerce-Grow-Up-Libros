@@ -226,7 +226,7 @@ router.delete('/deleteBook/:id', async (req, res) => {
   }
 })
 
-router.post('/updateRating/:idBook/:rating/:userId', async (req, res) => {
+/* router.post('/updateRating/:idBook/:rating/:userId', async (req, res) => {
   let { idBook, rating, userId } = req.params
 
   const book = await Books.findById(idBook)
@@ -253,7 +253,7 @@ router.get('/getRating/', async (req, res) => {
   } catch (error) {
     res.send(error.message)
   }
-})
+}) */
 
 router.post('/hideBook/:id', async (req, res) => {
   const { id } = req.params
