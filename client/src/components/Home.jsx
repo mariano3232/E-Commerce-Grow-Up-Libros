@@ -83,25 +83,6 @@ return (
   <div className={styles.home}>
     <div className={styles.color}>
 
-      {/* { usuario.length === 1 && usuario[0].isSuperAdmin
-      ? 
-      <Link to='/adminpro'>
-      <button>AdminPro</button>
-     </Link>
-      :''}
-      
-      
-    { usuario.length === 1 && usuario[0].isAdmin
-      ? 
-      <Link to='/admin'>
-        <button>Administrador</button>
-      </Link>
-    :''} */}
-
-    {/* { usuario.length === 1 && usuario[0].isAdmin
-      ? 
-      <NavBarAdmin/>
-    :''}  */}
 
 
 
@@ -114,15 +95,7 @@ return (
       <Carousel />
 
       <div>
-        <Element name='gaston'>
-        <Paginado
-            bookPerPage={bookPerPage}
-           books1={allBooks.length}
-           paginado={paginado}
-            page={currentPage}
-        />      
-        </Element>
-
+       
         <div className={styles.ubiOptions}>
           <p className={styles.p}>Ordenar Por:
 
@@ -138,6 +111,16 @@ return (
             </select>
           </p>
         </div>
+        
+         <Element name='gaston'>
+        <Paginado
+            bookPerPage={bookPerPage}
+           books1={allBooks.length}
+           paginado={paginado}
+            page={currentPage}
+        />      
+        </Element>
+
 
        
         <div className={styles.sideBar_containerCard}>
