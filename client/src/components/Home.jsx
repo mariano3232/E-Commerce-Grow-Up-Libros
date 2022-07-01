@@ -30,7 +30,7 @@ export default function Home() {
   const allBooks = useSelector((state) => state.books);
 
   const usuario = useSelector((state)=>state.userLogged)
-  //console.log('usuarioHome',usuario)
+  console.log('usuarioHome',usuario)
   
 
   const [currentPage, setCurrentPage] = useState(1);

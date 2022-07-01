@@ -12,9 +12,9 @@ export default function AdminUserBanned({users , setChanged , changed}) {
     users.map(usuario => {
       userIds.push(  usuario._id );
     });
-    setTimeout(function(){
+    
         dispatch(setUserBanned(userIds))
-    }, 5000);
+    
     
     
     dispatch(getUsers())

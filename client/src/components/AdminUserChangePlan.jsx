@@ -11,9 +11,9 @@ export default function AdminUserChangePlan({users , setChanged , changed}) {
     users.map(usuario => {
       userIds.push(  usuario._id );
     });
-    setTimeout(function(){
+    
         dispatch(setUserPlan(userIds))
-    }, 5000);
+  
     
     
     dispatch(getUsers())

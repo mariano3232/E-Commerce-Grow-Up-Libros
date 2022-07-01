@@ -9,15 +9,17 @@ export default function AdminProSet(props) {
   const setChanged = props.setChanged;
   const changed = props.changed;
   //console.log("changed es: ", changed);
-  var userIds = [];
+ var userIds = [];
 
   function toogleAdmin(e, users) {
     users.forEach(usuario => {
       userIds.push(  usuario._id );
+   dispatch(setToAdmin(userIds))
+   
     });
-    setTimeout(function(){
-        dispatch(setToAdmin(userIds))
-    }, 5000);
+    
+        
+   
     
     
     dispatch(getUsers())
