@@ -22,15 +22,14 @@ export default function Home() {
   const dispatch = useDispatch()
 
   const {user, isAuthenticated } = useAuth0()
-  //console.log('userENHOME:',user)
-  console.log('DEVELOPMEEEEENT')
+ 
 
  
 
   const allBooks = useSelector((state) => state.books);
 
   const usuario = useSelector((state)=>state.userLogged)
-  console.log('usuarioHome',usuario)
+  
   
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -74,7 +73,7 @@ export default function Home() {
 
   {useEffect(()=>{if(user){
     dispatch(postUser(user))}
-    console.log('HOOOOMEEEE')
+
   },[user])}
 
 

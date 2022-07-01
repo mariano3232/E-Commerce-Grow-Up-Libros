@@ -50,14 +50,17 @@ export default function DeleteAuthor() {
   function ShowAuthor(id) {
     console.log('SHOW:',id)
     dispatch(showAuthor(id))
-    dispatch(getAuthors())
+    
     alert('Modificado')
+    setTimeout(function(){
+      dispatch(getAuthors()),500})
    // navigate('/admin')
   }
 
   function HideAuthor(id) {
     dispatch(hideAuthor(id))
-    dispatch(getAuthors())
+    setTimeout(function(){
+      dispatch(getAuthors()),500})
     alert('Modificado')
     //navigate('/admin')
   }

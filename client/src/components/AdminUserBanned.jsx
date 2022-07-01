@@ -18,7 +18,7 @@ export default function AdminUserBanned({users , setChanged , changed}) {
     
         setTimeout(function(){
           dispatch(getUsers())
-        }, 1000);
+        }, 500);
     setChanged(!changed);
     userIds = [];
   }

@@ -170,7 +170,7 @@ function App() {
           />
           
           <Route
-            path="/adminuserprofile"
+            path="/adminuserprofile/:id"
             element={
               <ProtectedRoute
                 redirectPath="/home"

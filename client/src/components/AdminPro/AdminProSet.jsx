@@ -19,7 +19,7 @@ export default function AdminProSet(props) {
      dispatch(setToAdmin(userIds))
      setTimeout(function(){
       dispatch(getUsers())
-    }, 1000);
+    }, 500);
     setChanged(!changed);
    // console.log("changed AHORA ES es: ", changed);
     userIds = [];

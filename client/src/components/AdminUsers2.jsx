@@ -87,21 +87,7 @@ useEffect(() => {
             />
           </div> 
 
-          <div >
-          <Link to='/adminuserprofile'  
-              users={seleccionados}
-              changed={changed}
-              setChanged={setChanged}>
-            <button>Ver Perfil</button>
-            <AdminUserProfile
-              users={seleccionados}
-              changed={changed}
-              setChanged={setChanged}
-            />
-          </Link>
-            
-          </div> 
-      
+         
         </div>
 
         <table id="tableright">
@@ -121,7 +107,9 @@ useEffect(() => {
             {usuarios.map((usuario) => (
              
              <tr key={usuario.id}>
-                <td>{usuario.email}</td>
+                 <td>
+                  <Link to={`/adminuserprofile/${usuario._id}`}>{usuario.email}</Link>
+                </td>
 
                 <td>{usuario.name}</td>
 
