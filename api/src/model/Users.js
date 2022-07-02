@@ -8,6 +8,18 @@ const userSchema = new Schema({
   name: {
     type: String,
   },
+  surname: {
+    type: String,
+  },
+  birthday: {
+    type: String,
+  },
+  dni: {
+    type: String,
+  },
+  country: {
+    type: String,
+  },
   email: {
     type: String,
     unique: true,
@@ -63,6 +75,16 @@ const userSchema = new Schema({
       ref: 'Books',
     },
   ],
+  ratingBooks: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Books',
+    },
+  ],
+  isSubscribeNewsLetter: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 module.exports = model('Users', userSchema)

@@ -1,14 +1,17 @@
 
+
 const { Router } = require("express");
 const router = Router();
 
+
 // SDK de Mercado Pago
-const mercadopago = require("mercadopago");
+const mercadopago = require('mercadopago')
 
 const vendedor =
   "TEST-47481287450311-070117-c9509224bf9d5811d4f272d8236f85ea-1152954796";
 
 mercadopago.configure({
+
   access_token: `${vendedor}`,
 });
 
@@ -75,3 +78,4 @@ router.post("/orden", async (req, res) => {
 // }
 
 module.exports = router;
+

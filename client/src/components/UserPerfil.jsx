@@ -1,24 +1,17 @@
 
 import React from 'react';
 import {Link} from 'react-router-dom';
-import { useAuth0 } from "@auth0/auth0-react";
-import { useDispatch } from 'react-redux';
-import { postUser } from '../actions';
-import { useSelector } from 'react-redux';
+import {useAuth0} from "@auth0/auth0-react";
+import {useDispatch} from 'react-redux';
+import {postUser} from '../actions';
+import {useSelector} from 'react-redux';
 
 const UserPerfil = () => {
 
-    const dispatch = useDispatch()
-
-    const { user , isAuthenticated , isLoading } = useAuth0()
-
-    const usuarios= useSelector( state => state.users)
-    console.log('//usuarios:',usuarios)
-
-    const usuario = usuarios.filter(u=>u.email === user.email)
-    console.log('((((usu:',usuario)
-
-
+    const dispatch = useDispatch();
+    const {user , isAuthenticated , isLoading} = useAuth0();
+    const usuarios= useSelector( state => state.users);
+    const usuario = usuarios.filter(u=>u.email === user.email);
     
     if(isLoading){
         return <div>Cargando...</div>
@@ -31,13 +24,11 @@ const UserPerfil = () => {
             {isAuthenticated && (
        
                 <div>
-                    {/* {JSON.stringify(user)} */}
-
+        
                     <h5>{user.nickname}</h5>
                     
                 </div>
             )}
-
 
             <span>
                 <Link to='/user/datos'>
@@ -47,6 +38,10 @@ const UserPerfil = () => {
                 <Link to='/user/suscripcion'>
                     <h5>Mi plan de suscripcion</h5>
                 </Link>
+
+                <Link to='/user/deseados'>
+                    <h5>Mis libros deseados</h5>
+                </Link>
                 
                 <Link to='/user/lectura'>
                     <h5>Mi plan de lectura</h5>
@@ -54,10 +49,6 @@ const UserPerfil = () => {
 
                 <Link to='/user/compras'>
                     <h5>Mis compras</h5>
-                </Link>
-
-                <Link to='/user/deseados'>
-                    <h5>Mis libros deseados</h5>
                 </Link>
             </span> 
         </div>

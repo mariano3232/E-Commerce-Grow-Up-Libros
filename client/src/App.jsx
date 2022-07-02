@@ -7,7 +7,7 @@ import {
   Navigate,
   Outlet,
 } from "react-router-dom";
-import { getBooks, getAuthors , getUsers } from "./actions";
+import { getBooks, getAuthors, getUsers } from "./actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import NavBar from "./components/NavBar";
@@ -18,68 +18,48 @@ import Landing from "./components/Landing";
 import Author from "./components/Author";
 import BookDetails from "./components/BookDetails";
 import AuthorDetails from "./components/AuthorDetails";
-import Add from "./components/Add";
-import AddBook from "./components/AddBook";
-import AddAuthor from "./components/AddAuthor";
+import Add from "./components/Admin/Add";
+import AddBook from "./components/Admin/AddBook";
+import AddAuthor from "./components/Admin/AddAuthor";
 import BottomBar from "./components/BottomBar";
-import { Admin } from "./components/Admin";
+import { Admin } from "./components/Admin/Admin";
 import UserPerfil from "./components/UserPerfil";
-import DeleteData from "./components/DeleteData";
-import Put from "./components/Put";
-import PutAuthor from "./components/PutAuthor";
-import PutBook from "./components/PutBook";
-import PutAuthorID from "./components/PutAuthorID";
-import PutBookID from "./components/PutBookID";
+import DeleteData from "./components/Admin/DeleteData";
+import Put from "./components/Admin/Put";
+import PutAuthor from "./components/Admin/PutAuthor";
+import PutBook from "./components/Admin/PutBook";
+import PutAuthorID from "./components/Admin/PutAuthorID";
+import putBookId from "./components/Admin/PutBookID"; 
 import ProtectedRoute from "./components/ProtectedRoute";
-import Stock from "./components/Stock";
+import Stock from "./components/Admin/Stock";
 import LogInButton from "./components/LogIn";
 import LogOutButton from "./components/LogOut";
 import { useAuth0 } from "@auth0/auth0-react";
-import DeleteAuthor from "./components/DeleteAuthor";
-import DeleteBook from "./components/DeleteBook";
-import AdminPro from "./components/AdminPro";
+import DeleteAuthor from "./components/Admin/DeleteAuthor";
+import DeleteBook from "./components/Admin/DeleteBook";
+import AdminPro from "./components/AdminPro/AdminPro";
 import UserDatos from "./components/UserDatos";
 import UserSuscripcion from "./components/UserSuscripcion";
 import ShoopingCart from "./components/ShoppingCart";
 //import AdminUsers from "./components/AdminUsers";
 import AdminOrders from "./components/AdminOrders";
 import AdminCarousel from "./components/AdminCarousel";
-import NavBarAdmin from "./components/NavBarAdmin";
-import StockTable from "./components/StockTable";
-import AdminUsers2 from "./components/AdminUsers2";
-import CreateAdmin from "./components/CreateAdmin"
+import NavBarAdmin from "./components/Admin/NavBarAdmin";
+import StockTable from "./components/Admin/StockTable";
+import AdminUsers2 from "./components/Admin/AdminUsers2";
+import CreateAdmin from "./components/AdminPro/CreateAdmin";
 import UserFav from "./components/UserFav";
-
-
-
+import { AdminProProfile } from "./components/AdminPro/AdminProProfile";
+import AdminUserProfile from "./components/Admin/AdminUserProfile";
+import ProtectedRouteBan from "./components/ProtectedRouteBan";
+import Banned from "./components/Admin/Banned";
+import UserNavBar from "./components/UserNavBar";
+import UserPlanLectura from "./components/UserPlanLectura";
 
 function App() {
   const dispatch = useDispatch();
 
-  //const{ user, isAuthenticated , isLoading} = useAuth0()
-  
-  
-  // const usuario = usuarios.filter(u=>u.email === user.email)
-
-
-  // const [users, setUsers] = useState(null);
-
-  // const handleLoginAdmin = () =>
-  //   setUsers({
-  //     id: "1",
-  //     name: "guille",
-  //     roles: ["admin"],
-  //   });
-
-  // const handleLogoutAdmin = () => setUsers(null);
-
-  // const handleLoginUser = () =>
-  //   setUsers({
-  //     id: "1",
-  //     name: "guille",
-  //     roles: ["user"],
-  //   });
-  // const handleLogoutUser = () => setUsers(null);
+ 
 
   useEffect(() => {
     dispatch(getBooks());
@@ -89,63 +69,71 @@ function App() {
     dispatch(getAuthors());
   }, [dispatch]);
 
-
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
 
-
-  const usuario = useSelector( state => state.userLogged);
-
+  const usuario = useSelector((state) => state.userLogged);
+  console.log('appp:',usuario)
 
   return (
     <BrowserRouter>
       <NavBar />
-      { usuario.length === 1 && usuario[0].isAdmin
-      ? 
-      <NavBarAdmin/>
-    :''} 
-      
-      <div className="main-without-nav">
-        {/* {users ? (
-          <button onClick={handleLogoutAdmin}>Sign Out Admin</button>
-        ) : (
-          <button onClick={handleLoginAdmin}>Sign In Admin</button>
-        )}
+      {usuario.length === 1 && usuario[0].isAdmin ? <NavBarAdmin /> : ""}
+      {usuario.length === 1 ? <UserNavBar /> : ""}
 
-        {users ? (
-          <button onClick={handleLogoutUser}>Sign Out User</button>
-        ) : (
-          <button onClick={handleLoginUser}>Sign In User</button>
-        )} */}
+      <div className="main-without-nav">
+       
         <Routes>
           <Route exact path="/" element={<Landing />} />
-          <Route path="home" element={<Home />} />
-          <Route exact path="/aboutus" element={<AboutUs />} />
-          <Route exact path="/faq" element={<FAQ />} />
-          <Route exact path="/author" element={<Author />} />
-          <Route exact path="/book/:id" element={<BookDetails />} />
-          <Route exact path="/author/:id" element={<AuthorDetails />} />
+          
+          <Route element={<ProtectedRouteBan isAllowed={ usuario.length===0 || usuario[0].isBanned===false }/> }>
+           
+            <Route path="/home" element={<Home />} />
+            <Route exact path="/aboutus" element={<AboutUs />} />
+            <Route exact path="/faq" element={<FAQ />} />
+            <Route exact path="/author" element={<Author />} />
+            <Route exact path="/book/:id" element={<BookDetails />} />
+            <Route exact path="/author/:id" element={<AuthorDetails />} />
+            
+          </Route>
+        
+          <Route
+            path="/banned"
+            element={
+              <ProtectedRoute
+               redirectPath="/"
+                isAllowed={usuario.length === 1 && usuario[0].isBanned === true}
+              >
+                <Banned />
+              </ProtectedRoute>
+            }
+          />
+
           
 
-          <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
+          <Route element={<ProtectedRoute isAllowed={usuario.length === 1} />}>
             <Route path="/cart" element={<ShoopingCart />} />
           </Route>
 
-          <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
+          <Route element={<ProtectedRoute isAllowed={usuario.length === 1} />}>
             <Route path="/user" element={<UserPerfil />} />
-          </Route> 
+          </Route>
 
-          <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
+          <Route element={<ProtectedRoute isAllowed={usuario.length === 1} />}>
             <Route path="/user/datos" element={<UserDatos />} />
           </Route>
 
-          <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
+          <Route element={<ProtectedRoute isAllowed={usuario.length === 1} />}>
             <Route path="/user/suscripcion" element={<UserSuscripcion />} />
           </Route>
 
-          <Route element={<ProtectedRoute isAllowed={usuario.length===1} />}>
+          <Route element={<ProtectedRoute isAllowed={usuario.length === 1} />}>
             <Route path="/user/deseados" element={<UserFav />} />
+          </Route>
+
+          <Route element={<ProtectedRoute isAllowed={usuario.length === 1} />}>
+            <Route path="/user/lectura" element={<UserPlanLectura />} />
           </Route>
 
           <Route
@@ -153,34 +141,61 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true && usuario[0].isSuperAdmin === true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <Admin />
               </ProtectedRoute>
             }
           />
-         
 
-            <Route
+          <Route
             path="/adminpro"
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1  && usuario[0].isSuperAdmin === true}
+                isAllowed={
+                  usuario.length === 1 && usuario[0].isSuperAdmin === true
+                }
               >
                 <AdminPro />
               </ProtectedRoute>
             }
           />
 
-            <Route
+          <Route
             path="/createadmin"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAllowed={
+                  usuario.length === 1 && usuario[0].isSuperAdmin === true
+                }
+              >
+                <CreateAdmin />
+              </ProtectedRoute>
+            }
+          />
+
+            <Route
+            path="/adminproprofile"
             element={
               <ProtectedRoute
                 redirectPath="/home"
                 isAllowed={usuario.length===1  && usuario[0].isSuperAdmin === true}
               >
-                <CreateAdmin/>
+                <AdminProProfile />
+              </ProtectedRoute>
+            }
+          />
+          
+          <Route
+            path="/adminuserprofile/:id"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+              >
+                <AdminUserProfile />
               </ProtectedRoute>
             }
           />
@@ -190,7 +205,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <Add />
               </ProtectedRoute>
@@ -202,7 +217,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <AddAuthor />
               </ProtectedRoute>
@@ -210,47 +225,47 @@ function App() {
           />
 
           <Route
-          path="/addbook"
-          element={
-            <ProtectedRoute
-              redirectPath="/home"
-              isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
-            >
-              <AddBook />
-            </ProtectedRoute>
-          }
-        />
+            path="/addbook"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+              >
+                <AddBook />
+              </ProtectedRoute>
+            }
+          />
 
           <Route
             path="/delete"
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <DeleteData />
               </ProtectedRoute>
             }
           />
 
-            <Route
+          <Route
             path="/deleteauthor"
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <DeleteAuthor />
               </ProtectedRoute>
             }
           />
 
-            <Route
+          <Route
             path="/deletebook"
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <DeleteBook />
               </ProtectedRoute>
@@ -262,7 +277,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <Put />
               </ProtectedRoute>
@@ -274,7 +289,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <PutBook />
               </ProtectedRoute>
@@ -286,7 +301,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <PutAuthor />
               </ProtectedRoute>
@@ -298,7 +313,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <PutAuthorID />
               </ProtectedRoute>
@@ -310,19 +325,19 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
-                <PutBookID />
+                <putBookId/>
               </ProtectedRoute>
             }
           />
-          
+
           <Route
             path="/stock"
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <Stock />
               </ProtectedRoute>
@@ -334,28 +349,27 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <StockTable />
               </ProtectedRoute>
             }
           />
 
-
-            <Route
+          <Route
             path="/adminorders"
             element={
               <ProtectedRoute
                 redirectPath="/home"
                 // isAllowed={!!users && users.roles.includes("admin")}
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <AdminOrders />
               </ProtectedRoute>
             }
           />
 
-            {/* <Route
+          {/* <Route
             path="/adminusers"
             element={
               <ProtectedRoute
@@ -374,7 +388,7 @@ function App() {
               <ProtectedRoute
                 redirectPath="/home"
                 // isAllowed={!!users && users.roles.includes("admin")}
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <AdminUsers2 />
               </ProtectedRoute>
@@ -387,14 +401,13 @@ function App() {
               <ProtectedRoute
                 redirectPath="/home"
                 // isAllowed={!!users && users.roles.includes("admin")}
-                isAllowed={usuario.length===1 && usuario[0].isAdmin===true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <AdminCarousel />
               </ProtectedRoute>
             }
           />
 
-          
           {/* <Route
             path="/user/suscripcion"
             element={
@@ -406,7 +419,6 @@ function App() {
               </ProtectedRoute>
             }
           /> */}
-          
         </Routes>
       </div>
       <BottomBar />

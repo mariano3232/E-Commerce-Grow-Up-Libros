@@ -2,7 +2,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link, useNavigate} from 'react-router-dom';
-import {deleteBookFav} from '../actions';
+import {deleteBookFav, getUsers} from '../actions';
 import style from '../Styles/userFav.module.css';
 
 const UserFav = () => {
@@ -12,13 +12,13 @@ const UserFav = () => {
     const allUsers = useSelector(state => state.users);
     const users = useSelector(state => state.userLogged);
     const userId = allUsers.filter((u) => u._id === users[0]._id);
-    console.log('soi id user', userId);
 
     const handleDeleteFav = (book) => {
         const id = users[0]._id;
         dispatch(deleteBookFav(book, id));
         alert('Libro Favorito Eliminado');
-        //navigate('/user');
+        navigate('/user');
+        dispatch(getUsers());
     }
 
     return (
