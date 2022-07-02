@@ -1,25 +1,18 @@
-
-
+require("dotenv").config();
 const { Router } = require("express");
 const router = Router();
-
+const { ACCESS_TOKEN } = process.env;
 
 // SDK de Mercado Pago
-const mercadopago = require('mercadopago')
-
-const vendedor =
-  "TEST-47481287450311-070117-c9509224bf9d5811d4f272d8236f85ea-1152954796";
+const mercadopago = require("mercadopago");
 
 mercadopago.configure({
-
-  access_token: `${vendedor}`,
+  access_token: `${ACCESS_TOKEN}`,
 });
 
 router.post("/orden", async (req, res) => {
   const carrito = req.body;
 
-
-  
   try {
     const id_order = 1;
     const itemsMp = carrito?.map((e) => ({
@@ -48,18 +41,13 @@ router.post("/orden", async (req, res) => {
       auto_return: "approved",
     };
 
-    const respuesta= await mercadopago.preferences
-      .create(preference)
-      console.log('///////', respuesta.body)
-          const globalInitPoint= respuesta.body.init_point
-           res.json({init_point:globalInitPoint})
+    const respuesta = await mercadopago.preferences.create(preference);
 
-      
+    const globalInitPoint = respuesta.body.init_point;
+    res.json({ init_point: globalInitPoint, order: "" });
   } catch (error) {
     return console.log("FALLO MERCADO PAGO", error);
   }
-
-
 });
 // {"id":1152954796,"nickname":"TETE5687095","password":"qatest2807","site_status":"active","site_id":"MCO","description":"a description","date_created":"2022-07-01T17:25:00-04:00","date_last_updated":"2022-07-01T17:25:00-04:00"} VENDEDOR
 
@@ -78,4 +66,3 @@ router.post("/orden", async (req, res) => {
 // }
 
 module.exports = router;
-
