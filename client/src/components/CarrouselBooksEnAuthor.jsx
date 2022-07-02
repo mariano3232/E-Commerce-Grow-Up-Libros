@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "../Styles/Carousel.module.css";
 import style from "../Styles/CarrouselBooks.module.css";
+import Fav from "./Fav";
+
 
 export default function CarrouselBookEnAuthor({ booksEscritor }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -55,8 +57,11 @@ export default function CarrouselBookEnAuthor({ booksEscritor }) {
               setLoaded(true);
             }}
           />
+        </Link>  
           <button className={style.btn}>Comprar</button>
-        </Link>
+         
+          <Fav book={currentBook._id} />
+          
         <div>
           <button onClick={previus} className={styles.buttons}>
             {"<"}
