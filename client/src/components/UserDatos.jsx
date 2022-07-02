@@ -62,7 +62,7 @@ const UserDatos = () => {
   }, [dispatch])
 
   return (
-    <div>
+    <div className={styles.containerAll}>
       <form className={styles.userForm} onSubmit={(e) => handleSubmit(e)}>
         <legend className={styles.legendForm}>Datos personales</legend>
 
