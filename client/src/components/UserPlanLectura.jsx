@@ -8,7 +8,6 @@ const UserPlanLectura = () => {
     const [state, setState] = useState({
         show: '',
         size: '',
-        novels: '',
         genre: '',
         budget: '',
 
@@ -49,13 +48,11 @@ const UserPlanLectura = () => {
             <label htmlFor="novels">Manuales</label>
             <input type="radio" name='novels' value='Manuales' onChange={(e) => handleChange(e)}/>
 
-            <p>¿Qué género preferis?</p>
+            <p>¿Qué géneros preferis?</p>
             <input type="list" list="genre" name='genre' onChange={(e) => handleChange(e)}/>
             <datalist id='genre' name='genre'>
                 <option value="Desarrollo Personal"></option>
-                <option value="Espiritualidad"></option>
-                <option value="Negocios"></option>
-                <option value="Salud"></option>
+                <option value="Negocios y Biografía"></option>
             </datalist>
 
             <p>¿Con que presupuesto contas?</p>
@@ -73,7 +70,7 @@ const UserPlanLectura = () => {
                     size={state.size}
                     genre={state.genre}
                     budget={state.budget}
-                /> : <p>''</p>
+                /> : <p>..."No dejes para mañana lo que puedas leer hoy"...</p>
             }
 
         </div>
