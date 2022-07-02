@@ -453,6 +453,8 @@ export function setUserNews(payload) {
   };
 }
 
+
+
 //FAVORITOS
 
 export function addFav(payload, id) {
