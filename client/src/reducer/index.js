@@ -11,7 +11,7 @@ const initialState = {
   authorsAdminCopy: [],
   authorDetails: [],
   users: [],
-  usersCpoy: [],
+  usersCopy: [],
   userLogged: [],
   cart: [],
   render: [],
@@ -262,7 +262,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         users: action.payload,
-        usersCpoy: action.payload,
+        usersCopy: action.payload,
       };
 
     case "POST_USER":
@@ -274,7 +274,7 @@ function rootReducer(state = initialState, action) {
 
 
       case "GET_USER_NAME":
-        const nameUCopy = state.users;
+        const nameUCopy = state.usersCopy;
         const nameU = nameUCopy.filter(
           (e) =>
             e.name.toLowerCase().includes(action.payload.toLowerCase()) ||

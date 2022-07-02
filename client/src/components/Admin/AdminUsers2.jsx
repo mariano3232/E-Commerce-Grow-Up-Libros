@@ -9,7 +9,9 @@ import AdminUserProfile from "./AdminUserProfile";
 import { Link } from "react-router-dom";
 import AdminSearchBarUser from "./AdminSearchBarUser";
 import AdminRefreshUsers from "./AdminRefreshUser";
+import AdminUserNewsLetter from "./AdminUserNewsLetter";
 import styles from "../../Styles/createAdmin.module.css"
+import "./adminUsers.css"
 
 
 
@@ -96,10 +98,20 @@ useEffect(() => {
             />
           </div> 
 
+          <div >
+            <AdminUserNewsLetter
+              users={seleccionados}
+              changed={changed}
+              setChanged={setChanged}
+            />
+          </div> 
+
+          
+
          
         </div>
-        <div className={styles.container}>
-        <table className={styles.table}>
+        <div class='container'>
+        <table class="content-table">
           <thead >
             <tr>
               <th>Email</th>
@@ -107,6 +119,7 @@ useEffect(() => {
              
               <th>Plan</th>
               <th>Estado</th>
+              <th>NewsLetter</th>
               <th>Administrador</th>
               <th>check</th>
             </tr>
@@ -129,8 +142,12 @@ useEffect(() => {
                 <td>{usuario.isBanned
                 ?'Bloqueado'
                 :'Activo'}</td>
-                
-                
+
+                <td>{usuario.isSubscribeNewsLetter
+                ?'Si'
+                :'No'}</td>
+
+           
                 <td>{usuario.isAdmin ? "Si" : "No"}</td>
                 <td>
 

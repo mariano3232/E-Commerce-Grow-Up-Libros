@@ -41,7 +41,7 @@ import AdminPro from "./components/AdminPro/AdminPro";
 import UserDatos from "./components/UserDatos";
 import UserSuscripcion from "./components/UserSuscripcion";
 import ShoopingCart from "./components/ShoppingCart";
-//import AdminUsers from "./components/AdminUsers";
+import AdminUsers from "./components/Admin/AdminUsers"
 import AdminOrders from "./components/AdminOrders";
 import AdminCarousel from "./components/AdminCarousel";
 import NavBarAdmin from "./components/Admin/NavBarAdmin";
@@ -54,6 +54,7 @@ import AdminUserProfile from "./components/Admin/AdminUserProfile";
 import ProtectedRouteBan from "./components/ProtectedRouteBan";
 import Banned from "./components/Admin/Banned";
 import UserNavBar from "./components/UserNavBar";
+import AdminUserNewsLetter from "./components/Admin/AdminUserNewsLetter";
 
 function App() {
   const dispatch = useDispatch();
@@ -364,7 +365,7 @@ function App() {
             }
           />
 
-          {/* <Route
+          <Route
             path="/adminusers"
             element={
               <ProtectedRoute
@@ -375,7 +376,7 @@ function App() {
                 <AdminUsers />
               </ProtectedRoute>
             }
-          /> */}
+          />
 
           <Route
             path="/adminusers2"

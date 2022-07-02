@@ -13,6 +13,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const NavBar = () => {
 
+    const {user} = useAuth0()
     const [state, setState] = useState('default');
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -67,9 +68,11 @@ const NavBar = () => {
             <div className={style.toggle}>
                 <div className={style.bar}></div>
             </div>
-
+            
+            {user?
             <Link to='/user'  className={style.Link}><h3 className={style.navItem}>Mi cuenta</h3></Link>
-           
+            :''}
+
             {/* <Link to='/user'><h3 className={style.navItem}>Login</h3></Link> */}
 
             {isAuthenticated 
