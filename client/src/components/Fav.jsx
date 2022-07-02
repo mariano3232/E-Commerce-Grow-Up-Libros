@@ -19,7 +19,6 @@ const Fav = ({book}) => {
         dispatch(getUsers());
     }
 
-
     return (
         <div>
             <FaHeart onClick={() => handleClick()}/>

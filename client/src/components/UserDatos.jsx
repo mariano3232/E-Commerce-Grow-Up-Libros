@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {getUsers, postUserData, setUserPlan} from '../actions';
+import {getUsers, postUserData, setUserNews, setUserPlan} from '../actions';
 import UserDatosPerfil from './UserDatosPerfil';
 
 const UserDatos = () => {
@@ -46,6 +46,13 @@ const UserDatos = () => {
         const id = [logged[0]._id];      
         dispatch(setUserPlan(id));
         alert('Desuscripción a "Soy Premium" con éxito');
+        navigate('/user');
+    }
+
+    const handleNewsDelete = () => {
+        const id = [logged[0]._id];
+        dispatch(setUserNews(id));
+        alert('Desuscripción a nuestro Newsletter con éxito');
         navigate('/user');
     }
 
@@ -107,11 +114,11 @@ const UserDatos = () => {
                         userId?.map(u => (
                             <tr key={u._id}>
 
-                                <td>{u.name}</td>
+                                <td>{u.nickname}</td>
 
                                 <td>
                                     {
-                                        u.isAdmin
+                                        u.isSubscribeNewsLetter
                                         ?'Si'
                                         :'No' 
                                     }
@@ -131,7 +138,9 @@ const UserDatos = () => {
             </table>
 
             {
-                <button>Baja al NewsLetter</button>
+                userId[0].isSubscribeNewsLetter === false ?
+                <button disabled>Baja al NewsLetter</button> :
+                <button onClick={handleNewsDelete}>Baja al NewsLetter</button>
             }
 
             {
@@ -139,13 +148,17 @@ const UserDatos = () => {
                 <button disabled>Baja a Soy Premium</button> :
                 <button onClick={handlePlanDelete}>Baja a Soy Premium</button> 
             }
+
+            <div>
+                <p>Si quieres modificar tu forma de pago favor escribenos a: libros@tulibreria.com</p>
+            </div>
             
 
             <br />
             <button onClick={handleClick}>Ver mis datos</button>
 
             {
-                state==='ok'?
+                state === 'ok' ?
                 <UserDatosPerfil 
                     name={userId[0].name}
                     surname={userId[0].surname}
@@ -156,7 +169,7 @@ const UserDatos = () => {
                     country={userId[0].country}
                     phone={userId[0].phone}
                     address={userId[0].address}
-                 />: <p>El camino al exito está en la lectura de libros inspiradores. 'Luis Chacon'</p>
+                 /> : <p>El camino al exito está en la lectura de libros inspiradores. 'Luis Chacon'</p>
             }
            
         </div>

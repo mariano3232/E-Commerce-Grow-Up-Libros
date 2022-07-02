@@ -424,7 +424,7 @@ export function setToSuperAdmin(payload) {
   };
 }
 
-//USUARIO: MODIFICAR ESTADO Y PLAN  'https://ecommercehenryx.herokuapp.com/users/togglePremium'
+//USUARIO: MODIFICAR ESTADO, PLAN Y NEWSLETTER  'https://ecommercehenryx.herokuapp.com/users/togglePremium'
 
 export function setUserBanned(payload) {
   return async function (dispatch) {
@@ -440,6 +440,15 @@ export function setUserPlan(payload) {
     const json = await axios.post('https://ecommercehenryx.herokuapp.com/users/togglePremium', payload);
     return dispatch({
       type: "SET_USER_PLAN",
+    });
+  };
+}
+
+export function setUserNews(payload) {
+  return async function (dispatch) {
+    const json = await axios.post('https://ecommercehenryx.herokuapp.com/users/toggleNewsletter', payload);
+    return dispatch({
+      type: "SET_USER_NEWS",
     });
   };
 }
