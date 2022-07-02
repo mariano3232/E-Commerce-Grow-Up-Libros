@@ -1,5 +1,9 @@
 .containerAll {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
 }
 
 .userForm {
@@ -7,7 +11,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 0;
+  width: 70%;
+  padding: 2rem 0;
 }
 
 .legendForm {
@@ -19,7 +24,6 @@
   grid-template-columns: repeat(2, 1fr);
   justify-items: flex-end;
   gap: 2rem;
-
   padding: 2rem;
 }
 
@@ -78,6 +82,7 @@
   border-radius: 4px;
   transition: 500ms;
   color: white;
+  margin-left: 2rem;
 }
 
 .button::after {
@@ -98,4 +103,29 @@
 .button:hover::after {
   transform: scaleX(1);
   transform-origin: left;
+}
+
+.buttonBack {
+  width: 100%;
+  align-items: flex-start;
+}
+
+.containerUserProfile {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.containerUserProfile h2 {
+  color: black;
+  font-size: 2.2rem;
+}
+.containerUser {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 2rem;
+}
+.containerUser p {
+  font-size: 1.2rem;
 }

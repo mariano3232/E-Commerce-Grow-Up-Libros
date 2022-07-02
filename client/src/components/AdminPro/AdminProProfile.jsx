@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -12,6 +12,8 @@ export function AdminProProfile() {
   const adminPro = allUsers.filter((usuario) => usuario.isSuperAdmin === true)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  console.log(adminPro)
 
   const [state, setState] = useState('')
   const [input, setInput] = useState({
@@ -52,9 +54,9 @@ export function AdminProProfile() {
 
   return (
     <div className={styles.containerAll}>
-      <Link to='/adminpro'>
-        <button className={styles.button}>Volver</button>
-      </Link>
+      <NavLink className={` ${styles.buttonBack}`} to='/adminpro'>
+        <button className={`${styles.button} `}>Volver</button>
+      </NavLink>
 
       <form className={styles.userForm} onSubmit={(e) => handleSubmit(e)}>
         <legend className={styles.legendForm}>Datos personales</legend>
@@ -146,17 +148,20 @@ export function AdminProProfile() {
           Actualizar
         </button>
       </form>
-      <div>
-        <h4>Mi perfil</h4>
-        <p>Nombre: {adminPro[0].name}</p>
-        <p>Apellido: {adminPro[0].surname}</p>
-        <p>Email: {adminPro[0].email}</p>
-        <p>Usuario: {adminPro[0].nickname}</p>
-        <p>DNI: {adminPro[0].dni}</p>
-        <p>País: {adminPro[0].country}</p>
-        <p>Tel: {adminPro[0].phone}</p>
-        <p>Dirección: {adminPro[0].address}</p>
-        <p>Fecha de nacimiento: {adminPro[0].birthday}</p>
+
+      <div className={styles.containerUserProfile}>
+        <h2>Mi perfil</h2>
+        <div className={styles.containerUser}>
+          <p>Nombre: {adminPro[0].name}</p>
+          <p>Apellido: {adminPro[0].surname}</p>
+          <p>Email: {adminPro[0].email}</p>
+          <p>Usuario: {adminPro[0].nickname}</p>
+          <p>DNI: {adminPro[0].dni}</p>
+          <p>País: {adminPro[0].country}</p>
+          <p>Tel: {adminPro[0].phone}</p>
+          <p>Dirección: {adminPro[0].address}</p>
+          <p>Fecha de nacimiento: {adminPro[0].birthday}</p>
+        </div>
       </div>
     </div>
   )
