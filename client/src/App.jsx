@@ -53,6 +53,7 @@ import { AdminProProfile } from "./components/AdminPro/AdminProProfile";
 import AdminUserProfile from "./components/AdminUserProfile";
 import ProtectedRouteBan from "./components/ProtectedRouteBan";
 import Banned from "./components/Banned";
+import UserPlanLectura from "./components/UserPlanLectura";
 
 function App() {
   const dispatch = useDispatch();
@@ -115,6 +116,10 @@ function App() {
 
           <Route element={<ProtectedRoute isAllowed={usuario.length === 1} />}>
             <Route path="/user/deseados" element={<UserFav />} />
+          </Route>
+
+          <Route element={<ProtectedRoute isAllowed={usuario.length === 1} />}>
+            <Route path="/user/lectura" element={<UserPlanLectura />} />
           </Route>
 
           <Route
