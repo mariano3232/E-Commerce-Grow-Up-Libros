@@ -7,37 +7,22 @@ import { scroller } from 'react-scroll'
 import LogInButton from './LogIn'
 import LogOutButton from './LogOut'
 import { useAuth0 } from '@auth0/auth0-react'
-import {
-  AppBar,
-  Box,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Stack,
-  styled,
-  Toolbar,
-  Typography,
-} from '@mui/material'
+import styles from "../Styles/nav.module.css"
+import { Link } from "react-router-dom";
 
-const StyledSelect = styled(Select)({
-  ':hover:not(.Mui-disabled)::before': {
-    borderColor: 'red',
-  },
-  '&:before': {
-    borderColor: 'white',
-  },
-  '&:before &:hover': {
-    borderColor: 'red',
-  },
-})
+
 
 const NavBar = () => {
   const [state, setState] = useState('default')
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { isAuthenticated } = useAuth0()
+  const {user , isAuthenticated } = useAuth0()
+ 
+    
+   
+    
+
+
 
   const handleClick = (e) => {
     e.preventDefault()
@@ -46,6 +31,7 @@ const NavBar = () => {
     scroller.scrollTo('gaston')
     setState('default')
   }
+   
 
   const handleSelectGenre = (e) => {
     e.preventDefault()
@@ -74,77 +60,47 @@ const NavBar = () => {
   ]
 
   return (
-    <AppBar position='static'>
-      <Toolbar
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-evenly',
-          backgroundColor: '#8D6A9F',
-        }}
-      >
-        <Typography variant='h5'>PG-11 Books</Typography>
+    <div className={styles.container}>
+        
+        <h3 className={styles.logo}>PG-11 Books</h3>
 
-        <NavLink style={{ textDecoration: 'none' }} to='/home'>
-          <Button
-            sx={{ color: 'white', fontSize: '16px' }}
-            variant='text'
-            onClick={handleClick}
-          >
-            Todos los libros
-          </Button>
-        </NavLink>
+        <Link to="/home" className={styles.Link}><p className={styles.navItem} onClick={handleClick}>Todos los libros</p></Link>
 
-        <NavLink style={{ textDecoration: 'none' }} to='/home'>
-          <Button
-            sx={{ color: 'white', fontSize: '16px', textDecoration: 0 }}
-            variant='text'
-          >
-            Inicio
-          </Button>
-        </NavLink>
+        <Link to='/home' className={styles.Link}><p className={styles.navItem}>Inicio</p></Link>
 
         <div>
-          <NavLink style={{ textDecoration: 'none' }} to='/author'>
-            <Button sx={{ color: 'white', fontSize: '16px' }} variant='text'>
-              Autores
-            </Button>
-          </NavLink>
+           <Link to='/author' className={styles.Link}><p className={styles.navItem}>Autores</p></Link> 
         </div>
 
         <div>
-          <FormControl
-            color='secondary'
-            variant='filled'
-            sx={{ m: 1, minWidth: 200 }}
-          >
-            <InputLabel id='select-genero'>Genero</InputLabel>
-            <StyledSelect
-              labelId='select-genero'
-              onChange={(e) => handleSelectGenre(e)}
-            >
-              <MenuItem value=''>
-                <em>Generos:</em>
-              </MenuItem>
-              {genres.map((genre) => (
-                <MenuItem value={genre} key={genre}>
-                  {genre}
-                </MenuItem>
-              ))}
-            </StyledSelect>
-          </FormControl>
+            <select defaultValue="default" value={state} onChange={(e) => handleSelectGenre(e)} className={styles.select}>Generos
+                <option value="default" disabled>Generos</option>
+                {
+                    genres?.map(e => (
+                        <option key={e} value={e}>{e}</option>
+                    ))
+                }
+            </select>    
         </div>
-        <SearchBar />
 
-        <NavLink style={{ textDecoration: 'none' }} to='/user'>
-          <Typography variant='h5'>Mi cuenta</Typography>
-        </NavLink>
+        <SearchBar/>
 
-        {/* <Link to='/user'><h3 >Login</h3></Link> */}
+        <div className={styles.toggle}>
+            <div className={styles.bar}></div>
+        </div>
+        
+        {user?
+        <Link to='/user'  className={styles.Link}><h3 className={styles.navItem}>Mi cuenta</h3></Link>
+        :''}
 
-        {isAuthenticated ? <LogOutButton /> : <LogInButton />}
-      </Toolbar>
-    </AppBar>
-  )
+        {/* <Link to='/user'><h3 className={style.navItem}>Login</h3></Link> */}
+
+        {isAuthenticated 
+            ?<LogOutButton/>
+            :<LogInButton/>
+        }
+    </div>
+)
 }
 
 export default NavBar

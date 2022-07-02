@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styles from "../Styles/Landing.module.css";
 import { postUser } from "../actions";
@@ -10,6 +10,9 @@ export default function Landing() {
 
   const dispatch = useDispatch()
   const { user } = useAuth0()
+  const usuario = useSelector ( state => state.userLogged)
+
+ 
 
   
 
