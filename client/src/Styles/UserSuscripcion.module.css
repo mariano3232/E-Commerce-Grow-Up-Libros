@@ -1,18 +1,9 @@
-.container {
-  width: 25rem;
+.containerButton {
   display: flex;
-  flex-direction: column;
-  justify-content: center center;
-  margin: 15px;
-  padding: 10px;
-  border-radius: 8px;
-  border: 2px solid #015249;
-  background: -webkit-linear-gradient(80deg, #77c9d4, #015249);
-  transition: 500ms;
-  color: white;
+  gap: 2rem;
 }
+
 .button {
-  margin-top: 10px;
   z-index: 1;
   position: relative;
   font-size: 32px;
