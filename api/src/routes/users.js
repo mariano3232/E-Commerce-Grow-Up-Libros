@@ -258,4 +258,42 @@ router.post('/toggleNewsletter', async (req, res) => {
   }
 })
 
+router.post('/toggleSuperAdmin', async (req, res) => {
+  const { id } = req.query
+  const userIds = req.body
+  try {
+    if (userIds) {
+      userIds.forEach(async (id) => {
+        const user = await Users.findById(id)
+
+        if (!user) throw new Error('The user not exists')
+        if (user.isSuperAdmin) {
+          user.isSuperAdmin = false
+          await user.save()
+        } else {
+          user.isSuperAdmin = true
+          await user.save()
+        }
+      })
+
+      res.json('Usuarios actualizados!')
+    } else {
+      const user = await Users.findById(id)
+      if (!user) throw new Error('The user not exists')
+
+      if (user.isSuperAdmin) {
+        user.isSuperAdmin = false
+        await user.save()
+        return res.send('The user now is not admin')
+      } else {
+        user.isPremiun = true
+        await user.save()
+        return res.send('The user is now admin')
+      }
+    }
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
 module.exports = router
