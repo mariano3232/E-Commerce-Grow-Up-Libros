@@ -9,6 +9,7 @@ import SuperAdminProSet from "./SuperAdminProSet";
 import AdminSearchBarUser from "../Admin/AdminSearchBarUser";
 import AdminRefreshUsers from "../Admin/AdminRefreshUser";
 import styles from "../../Styles/createAdmin.module.css"
+import "./createAdminTest.css"
 
 
 // {id: userId, changes:{isAdmin:true}}
@@ -87,33 +88,32 @@ useEffect(() => {
             />
           </div> 
        </div>
-      <div className={styles.container}>
-        <table className={styles.table}>
+      <div class='container'>
+        <table class="content-table">
           <thead >
-            <tr className={styles.th}>
-              <th>Email</th>
-              <th>Usuario</th>
+            <tr >
+              <th >Email</th>
+              <th >Usuario</th>
              
-              <th>Administrador</th>
-              <th>Pro</th>
-              <th>check</th>
+              <th >Administrador</th>
+              <th >Pro</th>
+              <th >check</th>
             </tr>
           </thead>
 
           <tbody >
             {usuarios.map((usuario) => (
              
-             <tr key={usuario._id}>
+             <tr  key={usuario._id}>
                 <td >
                   <Link to={`/adminuserprofile/${usuario._id}`}>{usuario.email}</Link>
                 </td>
-                <td>{usuario.name}</td>
-                
+                <td >{usuario.name}</td>         
                 <td>{usuario.isAdmin ? "Si" : "No"}</td>
-                <td>{usuario.isSuperAdmin ? "Si" : "No"}</td>
-                <td>
+                <td >{usuario.isSuperAdmin ? "Si" : "No"}</td>
+                <td class='active' >
                   {usuario.isSuperAdmin != "isSuperAdmin"?
-                  <input
+                  <input 
                   className="checkbox"
                     type="checkbox"
                     value={usuario._id}

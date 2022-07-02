@@ -48,43 +48,6 @@ export default function StockTable(){
 
 
 
-    // const [stockT , setStockT ] =useState (
-    //     {
-    //         busqueda:'', 
-    //        // libros:[]
-    //     }
-    // )
-
-    
-    // function onChange(e) {
-        
-    //  setStockT({
-    //       busqueda: e.target.value,
-    //     })
-    //     console.log(stockT.busqueda)
-    //     filtrarElementos()
-    //   }
-
-    
-    //  function filtrarElementos(){
-    //   const search= tabla.filter(book=>{
-    //         if(book.stock.toString().includes(stockT.busqueda) ||
-    //         book.title.toLowerCase().includes(stockT.busqueda) || 
-    //         book.editorial.toLowerCase().includes(stockT.busqueda)){
-    //             return book;
-    //         }
-    //     });
-    //     setStockT({libros:search})
-    //  }
-
-
-    //  useEffect(()=>{
-    //     console.log('hhhhhhhhhhhhhhh')
-    //     setStockT(
-    //         {libros:tabla}
-    //         )
-    //   })
-
     return(
         <div>
             <Link to='/stock'>
@@ -92,9 +55,7 @@ export default function StockTable(){
             </Link>
 
             <div>
-            <Link to='/stock'>
-            <button>Formato Cartas</button>
-            </Link>
+            
             <AdminSearchBarBooks/>
             <AdminRefreshBooks/>
             <DataTable

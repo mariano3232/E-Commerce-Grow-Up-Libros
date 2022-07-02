@@ -16,6 +16,8 @@ export default function DeleteBook() {
 
   const allBooks = useSelector((state) => state.booksAdmin)
 
+  const booksAuthorNoHide = allBooks.filter( book => book.authors.isHidden=== false)
+
   const[ order , setOrder ] = useState( true )
 
   function handleOrderByName(e) {
@@ -24,23 +26,6 @@ export default function DeleteBook() {
 };
 
  
-
-  // const orderedBooks = allBooks.sort(function (a, b) {
-  //   if (a.title.toLowerCase() > b.title.toLowerCase()) {
-  //     return 1
-  //   }
-  //   if (b.title.toLowerCase() > a.title.toLowerCase()) {
-  //     return -1
-  //   }
-  //   return 0
-  // })
-
-  // function handleShowHideBook(id) {
-  //   dispatch(showHideBook(id))
-  //   alert('Modificado')
-  //   navigate('/admin')
-  // }
-
   function handleDeleteBook(id) {
     dispatch(deleteBook(id))
     alert('Libro Eliminado')
@@ -92,8 +77,8 @@ export default function DeleteBook() {
       <div className={style.containerItems}>
         <h2>Borrar Libro</h2>
         <ul className={style.grid}>
-          {allBooks.length
-            ? allBooks.map((book) => {
+          {booksAuthorNoHide.length 
+            ? booksAuthorNoHide.map((book) => {
                 return (
                   <li className={style.cardItem}>
                     <img src={book.cover} alt='' />
