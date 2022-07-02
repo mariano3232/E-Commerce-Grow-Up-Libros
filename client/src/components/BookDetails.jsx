@@ -2,17 +2,20 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBookDetails ,getBookGenre, clearPageBookDetails, addToCart } from "../actions";
+import { getBookDetails ,getBookGenre, clearPageBookDetails, addToCart, addFav, getUsers } from "../actions";
 //import { clearPageBookDetails, getBookDetails } from "../actions";
 import { Link } from "react-router-dom";
 import styles from '../Styles/bookDetails.module.css'
 import { animateScroll as scroll} from "react-scroll";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function BookDetails() {
 
   const id = useParams().id;
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const isLogged = useSelector(state => state.userLogged);
+  const {loginWithRedirect} = useAuth0();
 
   useEffect(() => {
     dispatch(getBookDetails(id));
@@ -37,10 +40,18 @@ export default function BookDetails() {
     }
   }, [dispatch]);
 
+  const handleClickFav = () => {
+    if(isLogged.length === 0) return loginWithRedirect();
+    const iduser = isLogged[0]._id;
+    dispatch(addFav(id, iduser));
+    alert('Libro agregado a favoritos');
+    dispatch(getUsers());
+  }
+
 
   const book = useSelector(state=>state.bookDetails);
   const author = book.authors
-  console.log('book en details :',book)
+
   return (
     <div className={styles.container}>
       <Link to='/cart'><button className={styles.cart}>Ir al Carrito</button></Link>
@@ -73,9 +84,14 @@ export default function BookDetails() {
 
       <div className={styles.buy}>
         <h3 className={styles.price}>{book.price}$</h3>
-        <h4>Stock:{book.stock}</h4>
+        <h4>Stock:{book.stock>3?'Disponible'
+        :(book.stock===3?'¡Quedan 3!':(
+          book.stock===2?'¡Quedan 2!':(
+          book.stock===1?'¡Ultimo disponible!':
+          'No hay Stock')
+        ))}</h4>
         <button className={styles.button} onClick={e=>handleAddToCart(e)}>Añadir al carrito</button>
-        <button className={styles.button}>Añadir a lista de desesados</button>
+        <button className={styles.button} onClick={() => handleClickFav()}>Añadir a lista de desesados</button>
       </div>
       
       <div className={styles.details}>
