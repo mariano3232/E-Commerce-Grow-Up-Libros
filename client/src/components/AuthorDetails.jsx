@@ -9,6 +9,7 @@ import { animateScroll as scroll } from "react-scroll";
 import { useState } from "react";
 import CarrouselBookEnAuthor from "./CarrouselBooksEnAuthor";
 import styles from "../Styles/DashboardAdmin.module.css";
+import Fav from "./Fav";
 
 const AuthorDetails = () => {
   const dispatch = useDispatch();
@@ -100,6 +101,9 @@ const AuthorDetails = () => {
                 </li>
               </Link>
               <button className={style.btnImg} value={book._id} onClick={e=>handleClick(e)}>Añadir al carrito</button>
+              <div>
+                <Fav book={book._id} />
+              </div>
             </div>
           ))
         ) : (
