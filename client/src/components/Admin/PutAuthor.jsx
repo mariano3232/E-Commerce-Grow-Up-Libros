@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import style from '../Styles/PutAuthor.module.css'
-import { orderByNameAdminAuthor } from '../actions'
+import style from '../../Styles/PutAuthor.module.css'
+import { orderByNameAdminAuthor } from '../../actions'
 import AdminSearchBarAuthor from './AdminSearchBarAuthor'
 import AdminRefreshAuthor from './AdminRefreshAuthor'
 

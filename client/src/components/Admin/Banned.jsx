@@ -1,5 +1,5 @@
 import React from "react";
-import styles from '../Styles/banned.module.css'
+import styles from '../../Styles/banned.module.css'
 
 
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { getUsers } from "../actions";
+import { getUsers } from "../../actions";
 import { Link } from "react-router-dom";
 
 

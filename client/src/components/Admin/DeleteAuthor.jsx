@@ -1,14 +1,15 @@
 import React from 'react'
-import style from '../Styles/DeleteData.module.css'
-import { deleteAuthor , getAuthors} from '../actions'
+import style from '../../Styles/DeleteData.module.css'
+import { deleteAuthor , getAuthors} from '../../actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import { orderByNameAdminAuthor } from '../actions'
+import { orderByNameAdminAuthor } from '../../actions'
 import AdminSearchBarAuthor from './AdminSearchBarAuthor'
 import AdminRefreshAuthor from './AdminRefreshAuthor'
-import { showAuthor , hideAuthor} from '../actions'
+import { showAuthor , hideAuthor} from '../../actions'
+
 
 
 export default function DeleteAuthor() {

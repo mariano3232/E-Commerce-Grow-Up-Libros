@@ -3,11 +3,11 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { putBook } from '../actions'
+import { putBook } from '../../actions'
 import { Link } from 'react-router-dom'
 import { Navigate } from 'react-router-dom'
-import style from '../Styles/PutBookID.module.css'
-import { getBooks } from '../actions'
+import style from '../../Styles/PutBookID.module.css'
+import { getBooks } from '../../actions'
 
 
 export default function putBookId() {

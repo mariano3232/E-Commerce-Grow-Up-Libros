@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import style from '../Styles/Stock.module.css'
+import style from '../../Styles/Stock.module.css'
 import AdminSearchBarBooks from './AdminSearchBarBooks'
 import AdminRefreshBooks from './AdminRefreshBooks'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { orderByNameAdminBooks , orderByStockAdminBooks } from '../actions'
+import { orderByNameAdminBooks , orderByStockAdminBooks } from '../../actions'
 
 
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import styles from '../Styles/Add.module.css'
+import styles from '../../Styles/Add.module.css'
 
 export default function Add() {
   return (

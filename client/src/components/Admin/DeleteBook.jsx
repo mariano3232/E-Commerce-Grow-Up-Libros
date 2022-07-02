@@ -1,14 +1,14 @@
 import React from 'react'
-import style from '../Styles/DeleteData.module.css'
-import { deleteBook, deleteAuthor, getBooks } from '../actions'
+import style from '../../Styles/DeleteData.module.css'
+import { deleteBook, deleteAuthor, getBooks } from '../../actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import { orderByNameAdminBooks } from '../actions'
+import { orderByNameAdminBooks } from '../../actions'
 import AdminRefreshBooks from './AdminRefreshBooks'
 import AdminSearchBarBooks from './AdminSearchBarBooks'
-import { showBook , hideBook } from '../actions'
+import { showBook , hideBook } from '../../actions'
 
 export default function DeleteBook() {
   const dispatch = useDispatch()
@@ -50,7 +50,7 @@ export default function DeleteBook() {
   function ShowBook(id) {
     dispatch(showBook(id))
     setTimeout(function(){
-    dispatch(getBooks()),500})
+    dispatch(getBooks()),100})
    //alert('Modificado')
    // navigate('/admin')
   }
@@ -58,7 +58,7 @@ export default function DeleteBook() {
   function HideBook(id) {
     dispatch(hideBook(id))
     setTimeout(function(){
-      dispatch(getBooks()),500})
+      dispatch(getBooks()),100})
     
    // alert('Modificado')
   //  navigate('/admin')

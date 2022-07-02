@@ -6,8 +6,9 @@ import AdminProSet from "./AdminProSet";
 import { getUsers , postUser , setToAdmin } from "../../actions";
 import {Link} from 'react-router-dom';
 import SuperAdminProSet from "./SuperAdminProSet";
-import AdminSearchBarUser from "../AdminSearchBarUser";
-import AdminRefreshUsers from "../AdminRefreshUser";
+import AdminSearchBarUser from "../Admin/AdminSearchBarUser";
+import AdminRefreshUsers from "../Admin/AdminRefreshUser";
+import styles from "../../Styles/createAdmin.module.css"
 
 
 // {id: userId, changes:{isAdmin:true}}
@@ -86,10 +87,10 @@ useEffect(() => {
             />
           </div> 
        </div>
-
-        <table id="tableright">
-          <thead class="thead-warning">
-            <tr>
+      <div className={styles.container}>
+        <table className={styles.table}>
+          <thead >
+            <tr className={styles.th}>
               <th>Email</th>
               <th>Usuario</th>
              
@@ -99,11 +100,11 @@ useEffect(() => {
             </tr>
           </thead>
 
-          <tbody>
+          <tbody >
             {usuarios.map((usuario) => (
              
              <tr key={usuario._id}>
-                <td>
+                <td >
                   <Link to={`/adminuserprofile/${usuario._id}`}>{usuario.email}</Link>
                 </td>
                 <td>{usuario.name}</td>
@@ -124,6 +125,7 @@ useEffect(() => {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   ) : (

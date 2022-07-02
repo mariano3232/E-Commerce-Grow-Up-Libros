@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setUserPlan ,getUsers } from "../actions";
+import { setUserPlan ,getUsers } from "../../actions";
 
 
 export default function AdminUserChangePlan({users , setChanged , changed}) {

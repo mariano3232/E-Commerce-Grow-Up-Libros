@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 //import { postBook } from '../actions/index';
 import { useDispatch, useSelector } from 'react-redux'
-import { postAuthor } from '../actions/index'
-import style from '../Styles/PutAuthorID.module.css'
-import { putAuthor } from '../actions/index'
+import { postAuthor } from '../../actions/index'
+import style from '../../Styles/PutAuthorID.module.css'
+import { putAuthor } from '../../actions/index'
 
 export default function putAuthorID() {
   const navigate = useNavigate()
