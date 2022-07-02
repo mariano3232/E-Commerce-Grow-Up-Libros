@@ -116,7 +116,7 @@ function App() {
             <Route path="/cart" element={<ShoopingCart />} />
           </Route>
 
-          <Route element={<ProtectedRoute isAllowed={usuario.length === 1 && usuario.isBanned===false} />}>
+          <Route element={<ProtectedRoute isAllowed={usuario.length === 1} />}>
             <Route path="/user" element={<UserPerfil />} />
           </Route>
 
