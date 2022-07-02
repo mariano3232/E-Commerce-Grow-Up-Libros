@@ -7,38 +7,28 @@ import { scroller } from 'react-scroll'
 import LogInButton from './LogIn'
 import LogOutButton from './LogOut'
 import { useAuth0 } from '@auth0/auth0-react'
-import styles from "../Styles/nav.module.css"
-import { Link } from "react-router-dom";
-
-
+import styles from '../Styles/nav.module.css'
+import { Link } from 'react-router-dom'
 
 const NavBar = () => {
   const [state, setState] = useState('default')
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const {user , isAuthenticated } = useAuth0()
- 
-    
-   
-    
-
-
+  const { user, isAuthenticated } = useAuth0()
 
   const handleClick = (e) => {
     e.preventDefault()
     dispatch(getBooks())
     navigate('/home/')
     scroller.scrollTo('gaston')
-    setState('default')
   }
-   
 
   const handleSelectGenre = (e) => {
     e.preventDefault()
     dispatch(getBookGenre(e.target.value))
     navigate('/home/')
     scroller.scrollTo('gaston')
-    setState(e.target.value)
+    setState('default')
   }
 
   /* Styles Select */
@@ -61,46 +51,61 @@ const NavBar = () => {
 
   return (
     <div className={styles.container}>
-        
-        <h3 className={styles.logo}>PG-11 Books</h3>
+      <h3 className={styles.logo}>PG-11 Books</h3>
 
-        <Link to="/home" className={styles.Link}><p className={styles.navItem} onClick={handleClick}>Todos los libros</p></Link>
+      <Link to='/home' className={styles.Link}>
+        <p className={styles.navItem} onClick={handleClick}>
+          Todos los libros
+        </p>
+      </Link>
 
-        <Link to='/home' className={styles.Link}><p className={styles.navItem}>Inicio</p></Link>
+      <Link to='/home' className={styles.Link}>
+        <p className={styles.navItem}>Inicio</p>
+      </Link>
 
-        <div>
-           <Link to='/author' className={styles.Link}><p className={styles.navItem}>Autores</p></Link> 
-        </div>
+      <div>
+        <Link to='/author' className={styles.Link}>
+          <p className={styles.navItem}>Autores</p>
+        </Link>
+      </div>
 
-        <div>
-            <select defaultValue="default" value={state} onChange={(e) => handleSelectGenre(e)} className={styles.select}>Generos
-                <option value="default" disabled>Generos</option>
-                {
-                    genres?.map(e => (
-                        <option key={e} value={e}>{e}</option>
-                    ))
-                }
-            </select>    
-        </div>
+      <div>
+        <select
+          defaultValue='default'
+          value={state}
+          onChange={(e) => handleSelectGenre(e)}
+          className={styles.select}
+        >
+          <option value='default' disabled>
+            Generos:
+          </option>
+          {genres?.map((e) => (
+            <option key={e} value={e}>
+              {e}
+            </option>
+          ))}
+        </select>
+      </div>
 
-        <SearchBar/>
+      <SearchBar />
 
-        <div className={styles.toggle}>
-            <div className={styles.bar}></div>
-        </div>
-        
-        {user?
-        <Link to='/user'  className={styles.Link}><h3 className={styles.navItem}>Mi cuenta</h3></Link>
-        :''}
+      <div className={styles.toggle}>
+        <div className={styles.bar}></div>
+      </div>
 
-        {/* <Link to='/user'><h3 className={style.navItem}>Login</h3></Link> */}
+      {user ? (
+        <Link to='/user' className={styles.Link}>
+          <h3 className={styles.navItem}>Mi cuenta</h3>
+        </Link>
+      ) : (
+        ''
+      )}
 
-        {isAuthenticated 
-            ?<LogOutButton/>
-            :<LogInButton/>
-        }
+      {/* <Link to='/user'><h3 className={style.navItem}>Login</h3></Link> */}
+
+      {isAuthenticated ? <LogOutButton /> : <LogInButton />}
     </div>
-)
+  )
 }
 
 export default NavBar

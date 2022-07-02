@@ -11,6 +11,7 @@ const UserDatos = () => {
   const userId = allUsers.filter((u) => u._id === logged[0]._id)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
   const [state, setState] = useState('')
   const [input, setInput] = useState({
     name: '',
@@ -62,7 +63,7 @@ const UserDatos = () => {
   }, [dispatch])
 
   return (
-    <div>
+    <div className={styles.containerAll}>
       <form className={styles.userForm} onSubmit={(e) => handleSubmit(e)}>
         <legend className={styles.legendForm}>Datos personales</legend>
 

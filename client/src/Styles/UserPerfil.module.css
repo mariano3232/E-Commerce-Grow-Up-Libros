@@ -14,9 +14,8 @@
 }
 
 .containerUserGrid {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  justify-content: center;
+  display: flex;
+  justify-content: space-between;
   gap: 2rem;
 }
 
@@ -25,10 +24,13 @@
   flex-direction: column;
   gap: 2rem;
   align-items: center;
-  padding: 2rem 0;
+  padding: 2rem;
   border-right: 1px solid black;
 }
 
+.containerSection {
+  flex: 1;
+}
 .button {
   z-index: 1;
   position: relative;
