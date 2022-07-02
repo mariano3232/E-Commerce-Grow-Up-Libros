@@ -12,7 +12,6 @@ const UserFav = () => {
     const allUsers = useSelector(state => state.users);
     const users = useSelector(state => state.userLogged);
     const userId = allUsers.filter((u) => u._id === users[0]._id);
-    console.log('soi id user', userId);
 
     const handleDeleteFav = (book) => {
         const id = users[0]._id;

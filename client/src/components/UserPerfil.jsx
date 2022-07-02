@@ -38,6 +38,10 @@ const UserPerfil = () => {
                 <Link to='/user/suscripcion'>
                     <h5>Mi plan de suscripcion</h5>
                 </Link>
+
+                <Link to='/user/deseados'>
+                    <h5>Mis libros deseados</h5>
+                </Link>
                 
                 <Link to='/user/lectura'>
                     <h5>Mi plan de lectura</h5>
@@ -45,10 +49,6 @@ const UserPerfil = () => {
 
                 <Link to='/user/compras'>
                     <h5>Mis compras</h5>
-                </Link>
-
-                <Link to='/user/deseados'>
-                    <h5>Mis libros deseados</h5>
                 </Link>
             </span> 
         </div>
