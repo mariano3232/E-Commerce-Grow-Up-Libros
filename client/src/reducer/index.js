@@ -187,6 +187,24 @@ function rootReducer(state = initialState, action) {
         books: booksOrderByPrice,
       }
 
+      case 'ORDER_BY_RATING':
+        let booksOrderByRating =
+          action.payload === 'desc'
+            ? state.books.sort((a, b) => {
+                if (a.rating > b.rating) return 1
+                if (b.rating > a.rating) return -1
+                return 0
+              })
+            : state.books.sort((a, b) => {
+                if (a.rating > b.rating) return -1
+                if (b.rating > a.rating) return 1
+                return 0
+              })
+        return {
+          ...state,
+          books: booksOrderByRating,
+        }
+
     case 'ORDER_BY_NAME_AUTHOR':
       let authorsOrderByName =
         action.payload === 'Asc'
