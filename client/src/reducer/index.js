@@ -325,12 +325,13 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         books: state.books.map((book) => {
-          if (book.id === action.payload.id) {
-            return action.payload;
+          if (book._id === action.payload.book._id) {
+            return action.payload.book;
           } else {
             return book;
           }
         }),
+        userLogged: [action.payload.user],
       };
 
     default:

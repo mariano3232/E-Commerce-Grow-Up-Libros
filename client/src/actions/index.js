@@ -418,19 +418,15 @@ export function postUserData(id, payload) {
   };
 }
 
-export const putRating = (idBook, rating, userId) => async (dispatch) => {
-  try {
-    const response = await axios.put(
-      `${url}/books/updateRating/${idBook}/${rating}/${userId}`
+export function putRating(idBook, rating, userId) {
+  console.log("Action:", idBook, rating, userId);
+  return async function (dispatch) {
+    const response = await axios.post(
+      `https://ecommercehenryx.herokuapp.com/books/updateRating/${idBook}/${rating}/${userId}`
     );
-    dispatch({
+    return dispatch({
       type: "PUT_RATING",
       payload: response.data,
     });
-  } catch (error) {
-    dispatch({
-      type: "ERROR_MESSAGE",
-      payload: error,
-    });
-  }
-};
+  };
+}

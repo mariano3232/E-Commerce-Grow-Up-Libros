@@ -227,29 +227,30 @@ router.delete("/deleteBook/:id", async (req, res) => {
 });
 
 router.post("/updateRating/:idBook/:rating/:userId", async (req, res) => {
-  let { idBook, rating, userId } = req.params;
+  try {
+    let { idBook, rating, userId } = req.params;
+    const book = await Books.findById(idBook);
 
-  const book = await Books.findById(idBook);
-  if (!book) res.status(404).send("Book not found");
-  const user = await Users.findById(userId);
-  if (!user) res.status(404).send("Usuario no encontrado");
-  book.ratingUsers.push(rating);
-  book.rating = (book.rating + Number(rating)) / book.ratingUsers.length;
-  const updateBook = await book.save();
-  book.ratingBooks.push(idBook);
-  const updateUser = await user.save();
-  updateBook && updateUser
-    ? res.status(200).json(updateBook, updateUser)
-    : res.status(404).send("Error al grabar rating");
-});
+    if (!book) return res.status(404).send("Book not found");
+    const user = await Users.findById(userId);
 
-router.get("/getRating/:bookId", async (req, res) => {
-  const { bookId } = req.params;
-  const book = await Books.findById(bookId);
-  if (book && book.ratingUsers.length === 0) res.status(200).send(0);
-  book
-    ? res.status(200).send(book.rating / book.ratingUsers.length)
-    : res.status(404).send("Libro no encontrado");
+    if (!user) return res.status(404).send("Usuario no encontrado");
+
+    book.ratingUsers.push({ rating, user: user._id });
+    user.ratingBooks.push(book._id);
+
+    book.rating = (book.rating + Number(rating)) / book.ratingUsers.length;
+
+    const userUpdate = await user.save();
+    const bookUpdate = await book.save();
+
+    res.json({
+      user: userUpdate,
+      book: bookUpdate,
+    });
+  } catch (error) {
+    res.send(error.message);
+  }
 });
 
 router.post("/hideBook/:id", async (req, res) => {
