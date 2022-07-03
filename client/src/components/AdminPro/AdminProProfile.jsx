@@ -9,11 +9,12 @@ import styles from '../../Styles/AdminProProfile.module.css'
 
 export function AdminProProfile() {
   const allUsers = useSelector((state) => state.users)
-  const adminPro = allUsers.filter((usuario) => usuario.isSuperAdmin === true)
+  const adminProLogged = useSelector ( state => state.userLogged)
+  //const adminProLogged = allUsers.filter((usuario) => usuario.isSuperAdmin === true)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  console.log(adminPro)
+  //console.log(adminProLogged)
 
   const [state, setState] = useState('')
   const [input, setInput] = useState({
@@ -35,7 +36,7 @@ export function AdminProProfile() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const id = adminPro[0]._id
+    const id = adminProLogged[0]._id
     dispatch(postUserData(id, input))
     alert('Datos personales actualizado')
     navigate('/adminpro')
@@ -67,7 +68,7 @@ export function AdminProProfile() {
             <input
               type='text'
               name='nickname'
-              value={adminPro[0].nickname}
+              value={adminProLogged[0].nickname}
               readOnly
             />
           </div>
@@ -76,7 +77,7 @@ export function AdminProProfile() {
             <input
               type='text'
               name='email'
-              value={adminPro[0].email}
+              value={adminProLogged[0].email}
               readOnly
             />
           </div>
@@ -152,15 +153,15 @@ export function AdminProProfile() {
       <div className={styles.containerUserProfile}>
         <h2>Mi perfil</h2>
         <div className={styles.containerUser}>
-          <p>Nombre: {adminPro[0].name}</p>
-          <p>Apellido: {adminPro[0].surname}</p>
-          <p>Email: {adminPro[0].email}</p>
-          <p>Usuario: {adminPro[0].nickname}</p>
-          <p>DNI: {adminPro[0].dni}</p>
-          <p>País: {adminPro[0].country}</p>
-          <p>Tel: {adminPro[0].phone}</p>
-          <p>Dirección: {adminPro[0].address}</p>
-          <p>Fecha de nacimiento: {adminPro[0].birthday}</p>
+          <p>Nombre: {adminProLogged[0].name}</p>
+          <p>Apellido: {adminProLogged[0].surname}</p>
+          <p>Email: {adminProLogged[0].email}</p>
+          <p>Usuario: {adminProLogged[0].nickname}</p>
+          <p>DNI: {adminProLogged[0].dni}</p>
+          <p>País: {adminProLogged[0].country}</p>
+          <p>Tel: {adminProLogged[0].phone}</p>
+          <p>Dirección: {adminProLogged[0].address}</p>
+          <p>Fecha de nacimiento: {adminProLogged[0].birthday}</p>
         </div>
       </div>
     </div>

@@ -12,8 +12,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <React.StrictMode>
       <Auth0Provider
-        domain='guillermobenitez.us.auth0.com'
-        clientId='TBZtSR0lHcbhhoSIyPb4CejOnuNUkcHu'
+        domain='dev-ehhctnno.us.auth0.com'
+        clientId='kk80m3Q2I4wIegjCFSgOJekcVC9ZgYo5'
         redirectUri={window.location.origin}
       >
         <App />
