@@ -13,33 +13,37 @@ import mercado from '../imgs/mercadoPago.webp'
 import facebook from '../imgs/facebook.png'
 import instagram from '../imgs/instagram.png'
 import { getUsers, setUserNews } from '../actions'
+import { useAuth0, User } from '@auth0/auth0-react'
 
 export default function BottomBar() {
   const [input, setInput] = useState('')
+  const { user, isAuthenticated, isLoading } = useAuth0();
   const dispatch = useDispatch();
   const allUsers = useSelector(state => state.users);
   const isLogged = useSelector(state => state.userLogged);
   const navigate = useNavigate();
-
+  
   const handleChange = (e) => {
     setInput(e.target.value);
   }
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
+    const usuario = allUsers.filter((u) => u.email === user.email)
     if(isLogged.length === 0) {
       setInput('');
       return alert('Para suscribirte a nuestro newsletter necesitas estar logeado');
-    } else if ([isLogged[0].isSubscribeNewsLetter === true]){
+    } else if (usuario[0].isSubscribeNewsLetter === true){
       setInput('');
       return alert('Ya estas subscipto!!');
+    } else { 
+      const id = [isLogged[0]._id];
+      dispatch(setUserNews(id));
+      alert(`Gracias ${input} Suscripción exitosa a nuestro newsletters.`);
+      setInput('');
+      navigate('/user');
+      dispatch(getUsers());
     }
-    const id = [isLogged[0]._id];
-    dispatch(setUserNews(id));
-    alert(`Gracias ${input} Suscripción exitosa a nuestro newsletters.`);
-    setInput('');
-    navigate('/user');
-    dispatch(getUsers());
   }
 
   return (

@@ -27,13 +27,13 @@ export default function AboutUs() {
           </h3>
           <p>
             Somos la primer libreria dedicada a ofrecerte todos los libros de
-            superación productividad y crecimiento. Queremos brindarte los
+            superación, productividad y crecimiento. Queremos brindarte los
             mejores titulos, para que tengas un gran abanico de eleccion de los
             libros que nos mueven y motivan a ser mejores lideres, mejores
             profesionales y mejores personas.
           </p>
           <p>
-            En LibrosPG11 vas a poder relacionarte con otros lectores,
+            En Grow-Up Libros vas a poder relacionarte con otros lectores,
             intercambiar opiniones, dejar tus reseñas, puntuar libros, armar
             Listas personalizadas, y ser parte de una gran Comunidad de
             apasionados por la lectura… ¡como nosotros!
