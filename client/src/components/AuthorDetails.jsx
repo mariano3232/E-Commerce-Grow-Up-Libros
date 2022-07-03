@@ -86,7 +86,6 @@ const AuthorDetails = () => {
                             
                         )    
                     } */}
-
         {authorBooks && authorBooks.length > 1 ? (
           <CarrouselBookEnAuthor booksEscritor={authorBooks} />
         ) : authorBooks && authorBooks.length ? (
@@ -104,14 +103,14 @@ const AuthorDetails = () => {
                   ></img>
                 </li>
               </Link>
-              <button
-                className={styledButton.button}
-                value={book._id}
-                onClick={(e) => handleClick(e)}
-              >
-                Añadir al carrito
-              </button>
-              <div>
+              <div className={style.containerButtonsBooks}>
+                <button
+                  className={styledButton.button}
+                  value={book._id}
+                  onClick={(e) => handleClick(e)}
+                >
+                  Añadir al carrito
+                </button>
                 <Fav book={book._id} />
               </div>
             </div>
