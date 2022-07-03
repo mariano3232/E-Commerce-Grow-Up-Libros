@@ -97,7 +97,7 @@ const NavBar = () => {
 
       { 
       
-      usuario && usuario.isBanned===false 
+      usuario.length === 1 && usuario[0].isBanned===false
       ?
       (
         <Link to='/user' className={styles.Link}>
