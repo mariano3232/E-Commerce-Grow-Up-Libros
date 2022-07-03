@@ -11,7 +11,7 @@
 
 h2 {
   color: white;
-  height: 2rem;
+  height: 3rem;
   font-size: 1.2rem;
 }
 
@@ -23,6 +23,7 @@ h2 {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .containerRating {
   display: flex;

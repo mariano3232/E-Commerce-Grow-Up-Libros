@@ -1,28 +1,28 @@
-import React from "react";
-import styles from "../Styles/CardBook.module.css";
-import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import { Link } from "react-router-dom";
-import Fav from "./Fav";
-import { useDispatch, useSelector } from "react-redux";
-import { putRating } from "../actions";
+import React from 'react'
+import styles from '../Styles/CardBook.module.css'
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
+import { Link } from 'react-router-dom'
+import Fav from './Fav'
+import { useDispatch, useSelector } from 'react-redux'
+import { putRating } from '../actions'
 
 export default function CardBook({ title, cover, price, rating, id }) {
-  const dispatch = useDispatch();
-  const { userLogged } = useSelector((state) => state);
+  const dispatch = useDispatch()
+  const { userLogged } = useSelector((state) => state)
 
   function handleRating(value) {
-    dispatch(putRating(id, value, userLogged.id));
+    dispatch(putRating(id, value, userLogged.id))
   }
 
   return (
     <div className={styles.container}>
-      <Link to={"/book/" + id}>
+      <Link to={'/book/' + id}>
         <img
           className={styles.img}
           src={cover}
-          alt="Not Found ):"
-          width="200x"
-          height="300"
+          alt='Not Found ):'
+          width='200x'
+          height='300'
         />
       </Link>
       <div className={styles.block}>
@@ -46,5 +46,5 @@ export default function CardBook({ title, cover, price, rating, id }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
