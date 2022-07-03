@@ -8,7 +8,7 @@ import CardBook from './CardBook'
 import Carousel from './Carousel'
 import styles from '../Styles/Home.module.css'
 import { animateScroll as scroll, Element } from 'react-scroll'
-import { getBooks, orderByName, orderByPrice, postUser } from '../actions'
+import { getBooks, orderByName, orderByPrice, orderByRating, postUser } from '../actions'
 import Profile from './Profile'
 import { useAuth0 } from '@auth0/auth0-react'
 //import { unstable_renderSubtreeIntoContainer } from 'react-dom'
@@ -59,6 +59,14 @@ export default function Home() {
     setOrder(`Ordenado ${e.target.value}`)
   }
 
+  function handleOrderByRating(e) {
+    //e.preventDefault()
+    dispatch(orderByRating(e.target.value))
+    setCurrentPage(1)
+    setOrder(`Ordenado ${e.target.value}`)
+  }
+
+
   {
     useEffect(() => {
       if (user) {
@@ -108,6 +116,22 @@ export default function Home() {
                 </option>
                 <option className={styles.options} value='Asc'>
                   Precio mas Alto
+                </option>
+              </select>
+
+              <select
+                className={styles.options}
+                onChange={(e) => handleOrderByRating(e)}
+                defaultValue='default'
+              >
+                <option value='default' disabled>
+                  Orden por Rating
+                </option>
+                <option className={styles.options} value='desc'>
+                  Rating mas Bajo
+                </option>
+                <option className={styles.options} value='Asc'>
+                  Rating mas Alto
                 </option>
               </select>
             </p>

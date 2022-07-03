@@ -36,12 +36,12 @@ export function Admin() {
           <button className={styles.btn}>Ver Stock</button>
         </Link>
 
-        <Link to='/adminusers'>
+        {/* <Link to='/adminusers'>
           <button className={styles.btn}>Usuarios</button>
-        </Link>
+        </Link> */}
 
         <Link to='/adminusers2'>
-          <button className={styles.btn}>Usuarios2</button>
+          <button className={styles.btn}>Usuarios</button>
         </Link>
 
         <Link to='/adminorders'>

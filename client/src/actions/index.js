@@ -263,12 +263,19 @@ export function postAuthor(payload) {
   //ORDENAMIENTO
 
   export function orderByPrice(payload){
-    console.log('////pay:',payload)
     return{
         type: 'ORDER_BY_PRICE',
         payload: payload
     }
 }
+
+export function orderByRating(payload){
+  return{
+      type: 'ORDER_BY_RATING',
+      payload: payload
+  }
+}
+
 
 
 
@@ -499,12 +506,18 @@ export function putRating(idBook, rating, userId) {
 
 //CARRUSEL
 
-export function addBookCarousel(payload, id) {
+export function getCarouselImages() {
   return async function (dispatch) {
-    
-
+    const images=await axios.get('https://ecommercehenryx.herokuapp.com/carrousel')
     return dispatch({
-      type: "TEST_TEST",
+      type: "GET_CAROUSEL_IMAGES",
+      payload:images.data
     });
   };
 }
+// export function carouselDelete(id){
+//   return async function (dispatch){
+//     await axios.delete()
+//   }
+
+// }

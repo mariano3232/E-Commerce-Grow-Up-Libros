@@ -187,6 +187,24 @@ function rootReducer(state = initialState, action) {
         books: booksOrderByPrice,
       }
 
+      case 'ORDER_BY_RATING':
+        let booksOrderByRating =
+          action.payload === 'desc'
+            ? state.books.sort((a, b) => {
+                if (a.rating > b.rating) return 1
+                if (b.rating > a.rating) return -1
+                return 0
+              })
+            : state.books.sort((a, b) => {
+                if (a.rating > b.rating) return -1
+                if (b.rating > a.rating) return 1
+                return 0
+              })
+        return {
+          ...state,
+          books: booksOrderByRating,
+        }
+
     case 'ORDER_BY_NAME_AUTHOR':
       let authorsOrderByName =
         action.payload === 'Asc'
@@ -379,19 +397,15 @@ function rootReducer(state = initialState, action) {
       };
 
       }
-    case 'ADD_TO_CAROUSEL':
-      return {
-        ...state,
-        carousel: [...state.carousel, action.payload].flat(),
-      }
-    case 'ADD_CUSTOM_CAROUSEL':
-      return {
-        ...state,
-        carousel: [...state.carousel, action.payload].flat(),
-      }
 
+      case 'GET_CAROUSEL_IMAGES':
+         return{
+           ...state,
+           carousel:action.payload
+         }
+         
+     default:
 
-    default:
       return state
   }
 }
