@@ -19,6 +19,7 @@ export default function BottomBar() {
   const dispatch = useDispatch();
   const allUsers = useSelector(state => state.users);
   const isLogged = useSelector(state => state.userLogged);
+  const usuario = allUsers.filter((u) => u._id === isLogged[0]._id)
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -30,16 +31,17 @@ export default function BottomBar() {
     if(isLogged.length === 0) {
       setInput('');
       return alert('Para suscribirte a nuestro newsletter necesitas estar logeado');
-    } else if ([isLogged[0].isSubscribeNewsLetter === true]){
+    } else if (usuario[0].isSubscribeNewsLetter === true){
       setInput('');
       return alert('Ya estas subscipto!!');
+    } else { 
+      const id = [isLogged[0]._id];
+      dispatch(setUserNews(id));
+      alert(`Gracias ${input} Suscripción exitosa a nuestro newsletters.`);
+      setInput('');
+      navigate('/user');
+      dispatch(getUsers());
     }
-    const id = [isLogged[0]._id];
-    dispatch(setUserNews(id));
-    alert(`Gracias ${input} Suscripción exitosa a nuestro newsletters.`);
-    setInput('');
-    navigate('/user');
-    dispatch(getUsers());
   }
 
   return (
