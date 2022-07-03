@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { deleteBookFav, getUsers } from '../actions'
+import { addToCart, deleteBookFav, getUsers } from '../actions'
 import style from '../Styles/userFav.module.css'
 
 const UserFav = () => {
@@ -19,6 +19,12 @@ const UserFav = () => {
     dispatch(getUsers())
   }
 
+  function handleAddToCart(e) {
+    e.preventDefault()
+    dispatch(addToCart(id))
+    alert('Libro agregado al carrito!')
+  }
+
   return (
     <div className={style.containerFavouritesBooks}>
       <h1 className={style.titleFavouritesBooks}>Mis libros favoritos:</h1>
@@ -30,6 +36,9 @@ const UserFav = () => {
             <Link to={'/book/' + e._id}>
               <img className={style.imgBook} src={e.cover} alt='buscando' />
             </Link>
+            <button onClick={(e) => handleAddToCart(e)}>
+              Añadir al carrito
+            </button>
             <button
               className={style.button}
               onClick={() => handleDeleteFav(e._id)}
