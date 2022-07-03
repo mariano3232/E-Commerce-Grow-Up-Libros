@@ -7,7 +7,7 @@ import {
   Navigate,
   Outlet,
 } from "react-router-dom";
-import { getBooks, getAuthors, getUsers } from "./actions";
+import { getBooks, getAuthors, getUsers , postUser} from "./actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import NavBar from "./components/NavBar";
@@ -60,7 +60,9 @@ import AdminUserNewsLetter from "./components/Admin/AdminUserNewsLetter";
 function App() {
   const dispatch = useDispatch();
 
- 
+
+  const {user} = useAuth0()
+
 
   useEffect(() => {
     dispatch(getBooks());
@@ -74,6 +76,14 @@ function App() {
     dispatch(getUsers());
   }, [dispatch]);
 
+  
+    useEffect(() => {
+      if (user) {
+        dispatch(postUser(user))
+      }
+    }, [user])
+  
+
   const usuario = useSelector((state) => state.userLogged);
   console.log('appp:',usuario)
 
@@ -86,10 +96,10 @@ function App() {
       <div className="main-without-nav">
        
         <Routes>
-          <Route exact path="/" element={<Landing />} />
+          
           
           <Route element={<ProtectedRouteBan isAllowed={ usuario.length===0 || usuario[0].isBanned===false }/> }>
-           
+            <Route exact path="/" element={<Landing />} />
             <Route path="/home" element={<Home />} />
             <Route exact path="/aboutus" element={<AboutUs />} />
             <Route exact path="/faq" element={<FAQ />} />
