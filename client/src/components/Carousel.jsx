@@ -10,11 +10,14 @@ import styles from "../Styles/Carousel.module.css";
 export default function Carousel() {
 
   const dispatch=useDispatch();
-  const lastBooks = useSelector((state) => state.carousel);
+  const data = useSelector((state) => state.carousel);
+  const Images=data.map(e=>{return e.image})
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentBook, setcurrentBook] = useState(lastBooks[0]);
+  const [currentBook, setcurrentBook] = useState(Images[0]);
   const [loaded, setLoaded] = useState(false);
- console.log('lastBooks :',lastBooks)
+
+
+ console.log('Images :',Images)
   useEffect(()=>{
     dispatch(getCarouselImages())
   },[dispatch])
@@ -31,22 +34,22 @@ export default function Carousel() {
     setTimeout(() => {
       if (currentIndex !== 0) {
         setCurrentIndex(currentIndex - 1);
-        setcurrentBook(lastBooks[currentIndex - 1]);
+        setcurrentBook(Images[currentIndex - 1]);
       } else {
-        setCurrentIndex(lastBooks.length - 1);
-        setcurrentBook(lastBooks[lastBooks.length - 1]);
+        setCurrentIndex(Images.length - 1);
+        setcurrentBook(Images[Images.length - 1]);
       }
     }, 500);
   };
   const next = () => {
     setLoaded(false);
     setTimeout(() => {
-      if (currentIndex !== lastBooks.length - 1) {
+      if (currentIndex !== Images.length - 1) {
         setCurrentIndex(currentIndex + 1);
-        setcurrentBook(lastBooks[currentIndex + 1]);
+        setcurrentBook(Images[currentIndex + 1]);
       } else {
         setCurrentIndex(0);
-        setcurrentBook(lastBooks[0]);
+        setcurrentBook(Images[0]);
       }
     }, 500);
   };

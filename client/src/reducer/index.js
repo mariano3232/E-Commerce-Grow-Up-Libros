@@ -375,10 +375,9 @@ function rootReducer(state = initialState, action) {
         }),
       }
       case 'GET_CAROUSEL_IMAGES':
-        let images=action.payload.map(e=>{return e.image})
          return{
            ...state,
-           carousel:images
+           carousel:action.payload
          }
          
      default:

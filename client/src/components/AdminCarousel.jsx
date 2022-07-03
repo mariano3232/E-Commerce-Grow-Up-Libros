@@ -10,6 +10,9 @@ export default function AdminCarousel(){
     const [image,setImage]=useState({files:''})
     const [publicId,setPublicId]=useState('')
 
+    const Images=useSelector(state=>state.carousel)
+
+
 
     const uploadImage=()=>{
         const formData= new FormData();
@@ -28,13 +31,26 @@ export default function AdminCarousel(){
         
     }
 
+    function handleDelete(e){
+        e.preventDefault();
+        axios.delete('https://ecommercehenryx.herokuapp.com/carrousel//deleteCarrousel/'+e.target.value)
+    }
+
 
     return(
         <div>
             <h4>Agregar imagen:</h4>
             <input type="file" onChange={e=>{setImage(e.target.files[0])}}/>
             <button onClick={uploadImage}>Añadir</button>
-            <Image cloudName='dflpxjove' publicId={publicId} />
+
+            {
+                Images.map(e=>{
+                    return <div>
+                        <Image cloudName='dflpxjove' publicId={e.image} width='300px'/>
+                        <button value={e._id} onClick={e=>handleDelete(e)}>X</button>
+                    </div>
+                })
+            }
         </div>
     )
 }

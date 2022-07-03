@@ -514,3 +514,9 @@ export function getCarouselImages() {
     });
   };
 }
+// export function carouselDelete(id){
+//   return async function (dispatch){
+//     await axios.delete()
+//   }
+
+// }
