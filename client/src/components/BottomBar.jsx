@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styles from '../Styles/BottomBar.module.css'
 import InfoIcon from '@mui/icons-material/Info'
 import LiveHelpIcon from '@mui/icons-material/LiveHelp'
@@ -12,19 +12,38 @@ import LocationOnIcon from '@mui/icons-material/LocationOn'
 import mercado from '../imgs/mercadoPago.webp'
 import facebook from '../imgs/facebook.png'
 import instagram from '../imgs/instagram.png'
+import { getUsers, setUserNews } from '../actions'
+import { useAuth0, User } from '@auth0/auth0-react'
 
 export default function BottomBar() {
   const [input, setInput] = useState('')
-  const dispatch = useDispatch()
-
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  const dispatch = useDispatch();
+  const allUsers = useSelector(state => state.users);
+  const isLogged = useSelector(state => state.userLogged);
+  const navigate = useNavigate();
+  
   const handleChange = (e) => {
-    setInput(e.target.value)
+    setInput(e.target.value);
   }
-
+  
   const handleSubmit = (e) => {
-    e.preventDefault()
-    alert(`Gracias ${input} Suscripción exitosa a nuestro newsletters.`)
-    setInput('')
+    e.preventDefault();
+    const usuario = allUsers.filter((u) => u.email === user.email)
+    if(isLogged.length === 0) {
+      setInput('');
+      return alert('Para suscribirte a nuestro newsletter necesitas estar logeado');
+    } else if (usuario[0].isSubscribeNewsLetter === true){
+      setInput('');
+      return alert('Ya estas subscipto!!');
+    } else { 
+      const id = [isLogged[0]._id];
+      dispatch(setUserNews(id));
+      alert(`Gracias ${input} Suscripción exitosa a nuestro newsletters.`);
+      setInput('');
+      navigate('/user');
+      dispatch(getUsers());
+    }
   }
 
   return (

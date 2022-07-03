@@ -239,7 +239,9 @@ router.post("/updateRating/:idBook/:rating/:userId", async (req, res) => {
     book.ratingUsers.push({ rating, user: user._id });
     user.ratingBooks.push(book._id);
 
-    book.rating = (book.rating + Number(rating)) / book.ratingUsers.length;
+    book.rating = Math.trunc(
+      (book.rating + Number(rating)) / book.ratingUsers.length
+    );
 
     const userUpdate = await user.save();
     const bookUpdate = await book.save();
