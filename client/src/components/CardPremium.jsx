@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import { getUsers, setUserPlan } from '../actions'
 import style from '../Styles/cardPremium.module.css'
 
@@ -9,20 +8,15 @@ const CardPremium = ({ mes, trimestral, anual }) => {
   const allUsers = useSelector((state) => state.users)
   const logged = useSelector((state) => state.userLogged)
   const userId = allUsers.filter((u) => u._id === logged[0]._id)
-  const navigate = useNavigate()
 
   const handleSubmit = () => {
     const id = [logged[0]._id]
     dispatch(setUserPlan(id))
     alert('Felicidades ya Sos Premium')
-    navigate('/user')
+    setTimeout(function(){
+      dispatch(getUsers()), 100
+    })
   }
-
-  useEffect(() => {
-    return () => {
-      dispatch(getUsers())
-    }
-  }, [dispatch])
 
   return (
     <div className={style.container}>
