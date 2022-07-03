@@ -255,6 +255,19 @@ router.post("/updateRating/:idBook/:rating/:userId", async (req, res) => {
   }
 });
 
+router.get("/rating/getRating", async (req, res) => {
+  try {
+    const book = await Books.find();
+    if (book.length === 0) throw new Error("no hay books");
+    const arrayRating = book.map((b) => {
+      return { book: b.title, rating: b.rating };
+    });
+    res.send(arrayRating);
+  } catch (error) {
+    res.send(error.message);
+  }
+});
+
 router.post("/hideBook/:id", async (req, res) => {
   const { id } = req.params;
   try {
