@@ -109,9 +109,12 @@ export default function BookDetails() {
             ? '¡Ultimo disponible!'
             : 'No hay Stock'}
         </h4>
-        <button className={styles.button} onClick={(e) => handleAddToCart(e)}>
+        {book.stock > 1
+        ? <button className={styles.button} onClick={(e) => handleAddToCart(e)}>
           Añadir al carrito
-        </button>
+          </button>
+        : ''
+        }
         <button className={styles.button} onClick={() => handleClickFav()}>
           Añadir a lista de desesados
         </button>
