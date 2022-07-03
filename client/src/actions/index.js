@@ -263,12 +263,19 @@ export function postAuthor(payload) {
   //ORDENAMIENTO
 
   export function orderByPrice(payload){
-    console.log('////pay:',payload)
     return{
         type: 'ORDER_BY_PRICE',
         payload: payload
     }
 }
+
+export function orderByRating(payload){
+  return{
+      type: 'ORDER_BY_RATING',
+      payload: payload
+  }
+}
+
 
 
 

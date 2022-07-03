@@ -7,8 +7,8 @@ export default function SideBar() {
   const allBooks = useSelector((state) => state.booksTop);
 
   const orderBooksByRating = allBooks.sort((a, b) => {
-    if (a.rating > b.rating) return 1;
-    if (b.rating > a.rating) return -1;
+    if (a.rating > b.rating) return -1;
+    if (b.rating > a.rating) return 1;
     return 0;
   });
 
