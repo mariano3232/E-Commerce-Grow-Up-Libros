@@ -505,12 +505,12 @@ export const putRating = (idBook, rating, userId) => async (dispatch) => {
 
 //CARRUSEL
 
-export function addBookCarousel(payload, id) {
+export function getCarouselImages() {
   return async function (dispatch) {
-    
-
+    const images=await axios.get('https://ecommercehenryx.herokuapp.com/carrousel')
     return dispatch({
-      type: "TEST_TEST",
+      type: "GET_CAROUSEL_IMAGES",
+      payload:images.data
     });
   };
 }

@@ -374,18 +374,14 @@ function rootReducer(state = initialState, action) {
           }
         }),
       }
-    case 'ADD_TO_CAROUSEL':
-      return {
-        ...state,
-        carousel: [...state.carousel, action.payload].flat(),
-      }
-    case 'ADD_CUSTOM_CAROUSEL':
-      return {
-        ...state,
-        carousel: [...state.carousel, action.payload].flat(),
-      }
-
-    default:
+      case 'GET_CAROUSEL_IMAGES':
+        let images=action.payload.map(e=>{return e.image})
+         return{
+           ...state,
+           carousel:images
+         }
+         
+     default:
       return state
   }
 }

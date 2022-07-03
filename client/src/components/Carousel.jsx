@@ -1,16 +1,23 @@
 import React from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { getCarouselImages } from "../actions";
+import {Image} from 'cloudinary-react'
 import styles from "../Styles/Carousel.module.css";
 
 export default function Carousel() {
-  const lastBooks = useSelector((state) => state.carousel);
 
+  const dispatch=useDispatch();
+  const lastBooks = useSelector((state) => state.carousel);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentBook, setcurrentBook] = useState(lastBooks[0]);
   const [loaded, setLoaded] = useState(false);
+ console.log('lastBooks :',lastBooks)
+  useEffect(()=>{
+    dispatch(getCarouselImages())
+  },[dispatch])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -47,26 +54,22 @@ export default function Carousel() {
     <div className={styles.all}>
       <div className={styles.container}>
         <Link to={"/book/" + currentBook?._id}>
-          <img
+        <Image cloudName='dflpxjove' publicId={currentBook}
+        className={loaded ? styles.loaded : styles.img}
+        onLoad={() => {
+          setLoaded(true);
+        }}
+        />
+          {/* <img
             src={currentBook?.cover}
             alt="Cover"
             className={loaded ? styles.loaded : styles.img}
             onLoad={() => {
               setLoaded(true);
             }}
-          />
+          /> */}
         </Link>
-        {
-          currentBook?.custom?
-          <div>
-            <h1>{currentBook?.title}</h1>
-            <p>{currentBook?.description}</p>
-          </div>:
-          <div>
-            <h3>Precio : {currentBook?.price}</h3>
-            <h3>Oferta : {currentBook?.newPrice}</h3>
-          </div>
-        }
+        
         <div>
           <button onClick={previus} className={styles.buttons}>{"<"}</button>
           <button onClick={next} className={styles.buttons}>{">"}</button>
