@@ -18,6 +18,7 @@ import {
 } from '../actions'
 import Profile from './Profile'
 import { useAuth0 } from '@auth0/auth0-react'
+import { formControlClasses } from '@mui/material'
 //import { unstable_renderSubtreeIntoContainer } from 'react-dom'
 
 export default function Home() {
@@ -28,6 +29,13 @@ export default function Home() {
   const allBooks = useSelector((state) => state.books)
 
   const usuario = useSelector((state) => state.userLogged)
+
+  // useEffect(() => {
+  //   dispatch(getBooks())
+  //   console.log('HOOOOOME');
+  // }, []);
+
+  
 
   const [currentPage, setCurrentPage] = useState(1)
   const [bookPerPage] = useState(8)

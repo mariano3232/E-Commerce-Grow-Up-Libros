@@ -1,9 +1,13 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { addToCart } from '../actions'
 import style from '../Styles/UserPlanLecturaBooks.module.css'
+import Fav from './Fav'
 
 const UserPlanLecturaBooks = ({ size, genre, budget }) => {
   const allBooks = useSelector((state) => state.books)
+  const id = allBooks[0]._id;
 
   const roundOne = allBooks
     .filter((b) => b.price < '3500')
@@ -61,11 +65,11 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
     .filter((p) => p.genres.find((a) => a.genre.includes('Biografia')))
     .slice(0, 5)
 
-  /* const roundNine = allBooks
-    .filter(b => b.price > '3500')
-    .filter(e => e.pages < '300')
-    .filter(p => p.genres.map(a => a.genre == 'Desarrollo Personal'))
-    .slice(0, 5); */
+    const handleAddToCart = (e) => {
+      e.preventDefault()
+      dispatch(addToCart(id))
+      alert('Libro agregado al carrito!')
+    }
 
   return (
     <div className={style.containerBooksRecommended}>
@@ -74,7 +78,15 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
       genre == 'Desarrollo Personal' ? (
         roundOne?.map((e) => (
           <li>
-            <img className={style.container} src={e.cover} alt='buscando' />
+            <Link to={"/book/" + e._id}>
+              <img className={style.container} src={e.cover} alt='buscando' />
+            </Link>
+            <button onClick={(e) => handleAddToCart(e)}>
+              Añadir al carrito
+            </button>
+            <span>
+              <Fav book={e._id} />
+            </span>
           </li>
         ))
       ) : size == 'largos' &&
@@ -82,7 +94,15 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
         genre == 'Desarrollo Personal' ? (
         roundTwo?.map((e) => (
           <li>
-            <img className={style.container} src={e.cover} alt='buscando' />
+            <Link to={"/book/" + e._id}>
+              <img className={style.container} src={e.cover} alt='buscando' />
+            </Link>
+            <button onClick={(e) => handleAddToCart(e)}>
+              Añadir al carrito
+            </button>
+            <span>
+              <Fav book={e._id} />
+            </span>
           </li>
         ))
       ) : size == 'cortos' &&
@@ -90,7 +110,15 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
         genre == 'Desarrollo Personal' ? (
         roundThree?.map((e) => (
           <li>
-            <img className={style.container} src={e.cover} alt='buscando' />
+            <Link to={"/book/" + e._id}>
+              <img className={style.container} src={e.cover} alt='buscando' />
+            </Link>
+            <button onClick={(e) => handleAddToCart(e)}>
+              Añadir al carrito
+            </button>
+            <span>
+              <Fav book={e._id} />
+            </span>
           </li>
         ))
       ) : size == 'largos' &&
@@ -98,7 +126,15 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
         genre == 'Desarrollo Personal' ? (
         roundFour?.map((e) => (
           <li>
-            <img className={style.container} src={e.cover} alt='buscando' />
+            <Link to={"/book/" + e._id}>
+              <img className={style.container} src={e.cover} alt='buscando' />
+            </Link>
+            <button onClick={(e) => handleAddToCart(e)}>
+              Añadir al carrito
+            </button>
+            <span>
+              <Fav book={e._id} />
+            </span>
           </li>
         ))
       ) : size == 'cortos' &&
@@ -106,7 +142,15 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
         genre == 'Negocios y Biografía' ? (
         roundFive?.map((e) => (
           <li>
-            <img className={style.container} src={e.cover} alt='buscando' />
+            <Link to={"/book/" + e._id}>
+              <img className={style.container} src={e.cover} alt='buscando' />
+            </Link>
+            <button onClick={(e) => handleAddToCart(e)}>
+              Añadir al carrito
+            </button>
+            <span>
+              <Fav book={e._id} />
+            </span>
           </li>
         ))
       ) : size == 'largos' &&
@@ -114,7 +158,15 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
         genre == 'Negocios y Biografía' ? (
         roundSix?.map((e) => (
           <li>
-            <img className={style.container} src={e.cover} alt='buscando' />
+            <Link to={"/book/" + e._id}>
+              <img className={style.container} src={e.cover} alt='buscando' />
+            </Link>
+            <button onClick={(e) => handleAddToCart(e)}>
+              Añadir al carrito
+            </button>
+            <span>
+              <Fav book={e._id} />
+            </span>
           </li>
         ))
       ) : size == 'cortos' &&
@@ -122,7 +174,15 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
         genre == 'Negocios y Biografía' ? (
         roundSeven?.map((e) => (
           <li>
-            <img className={style.container} src={e.cover} alt='buscando' />
+            <Link to={"/book/" + e._id}>
+              <img className={style.container} src={e.cover} alt='buscando' />
+            </Link>
+            <button onClick={(e) => handleAddToCart(e)}>
+              Añadir al carrito
+            </button>
+            <span>
+              <Fav book={e._id} />
+            </span>
           </li>
         ))
       ) : size == 'largos' &&
@@ -130,7 +190,15 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
         genre == 'Negocios y Biografía' ? (
         roundEight?.map((e) => (
           <li>
-            <img className={style.container} src={e.cover} alt='buscando' />
+            <Link to={"/book/" + e._id}>
+              <img className={style.container} src={e.cover} alt='buscando' />
+            </Link>
+            <button onClick={(e) => handleAddToCart(e)}>
+              Añadir al carrito
+            </button>
+            <span>
+              <Fav book={e._id} />
+            </span>
           </li>
         ))
       ) : (
@@ -140,11 +208,6 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
   )
 }
 
-export default UserPlanLecturaBooks
+export default UserPlanLecturaBooks;
 
-/* 
-roundOne.length > 0 ?
-roundOne?.map(e => (
-    <li><img className={style.container} src={e.cover} alt="buscando" /></li>
-)) : <p>No se encontraron libros sugeridos</p>
-*/
+

@@ -30,6 +30,9 @@ export default function BottomBar() {
     if(isLogged.length === 0) {
       setInput('');
       return alert('Para suscribirte a nuestro newsletter necesitas estar logeado');
+    } else if ([isLogged[0].isSubscribeNewsLetter === true]){
+      setInput('');
+      return alert('Ya estas subscipto!!');
     }
     const id = [isLogged[0]._id];
     dispatch(setUserNews(id));

@@ -180,8 +180,8 @@ const UserDatos = () => {
         </div>
         <div>
           <p>
-            Si quieres modificar tu forma de pago favor escribenos a:
-            libros@tulibreria.com
+            Si quieres modificar tu forma de pago favor escríbenos a:
+            growup@gmail.com
           </p>
         </div>
       </div>
