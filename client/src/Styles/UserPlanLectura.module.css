@@ -1,45 +1,21 @@
-.containerFavouritesBooks {
-}
-
-.titleFavouritesBooks {
-}
-
-.containerGridBooks {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-}
-
-.itemBook {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-.titleBook {
-  margin: 0;
-  font-size: 20px;
-  height: 50px;
-}
-
-.imgBook {
-  width: 200px;
-  height: 300px;
-  object-fit: cover;
-}
-
 .button {
   z-index: 1;
   position: relative;
   font-size: 18px;
-  background-color: #f00202;
+  background-color: #35aae0;
   color: white;
-  width: 2rem;
   height: 3rem;
   border-radius: 10px;
   transition: 500ms;
   overflow: hidden;
   cursor: pointer;
+
+  margin-top: 1rem;
+}
+
+.containerRadioButtons {
+  display: flex;
+  gap: 2rem;
 }
 
 .button::after {
@@ -60,4 +36,15 @@
 .button:hover::after {
   transform: scaleX(1);
   transform-origin: left;
+}
+
+.containerInputs input {
+  font-size: 22px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 2px solid #93dbfc;
+  transition: all 0.2s;
+}
+.containerInputs input:focus {
+  outline: 5px solid #93dbfc;
 }

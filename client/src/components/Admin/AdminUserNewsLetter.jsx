@@ -1,7 +1,9 @@
+import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { setUserBanned, getUsers } from '../../actions'
+import { setUserNews, getUsers } from '../../actions'
 import styles from '../../Styles/Button.module.css'
-export default function AdminUserBanned({ users, setChanged, changed }) {
+
+export default function AdminUserNewsLetter({ users, setChanged, changed }) {
   const dispatch = useDispatch()
 
   var userIds = []
@@ -10,20 +12,21 @@ export default function AdminUserBanned({ users, setChanged, changed }) {
     users.map((usuario) => {
       userIds.push(usuario._id)
     })
-
-    dispatch(setUserBanned(userIds))
+    dispatch(setUserNews(userIds))
 
     setTimeout(function () {
       dispatch(getUsers())
     }, 500)
+
     setChanged(!changed)
+
     userIds = []
   }
 
   return (
     <div>
       <button className={styles.button} onClick={(e) => toogleAdmin(e, users)}>
-        Bloquear/Desbloquear Usuario
+        Suscribir/Desuscribir NewsLetter
       </button>
     </div>
   )

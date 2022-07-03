@@ -11,7 +11,7 @@ const initialState = {
   authorsAdminCopy: [],
   authorDetails: [],
   users: [],
-  usersCpoy: [],
+  usersCopy: [],
   userLogged: [],
   cart: [],
   render: [],
@@ -263,8 +263,8 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         users: action.payload,
-        usersCpoy: action.payload,
-      }
+        usersCopy: action.payload,
+      };
 
     case 'POST_USER':
       //console.log('reducerPost:',action.payload)
@@ -273,19 +273,20 @@ function rootReducer(state = initialState, action) {
         userLogged: [action.payload],
       }
 
-    case 'GET_USER_NAME':
-      const nameUCopy = state.users
-      const nameU = nameUCopy.filter(
-        (e) =>
-          e.name.toLowerCase().includes(action.payload.toLowerCase()) ||
-          e.nickname.toLowerCase().includes(action.payload.toLowerCase()) ||
-          e.email.toLowerCase().includes(action.payload.toLowerCase())
-      )
-
-      return {
-        ...state,
-        users: nameU,
-      }
+  
+      case "GET_USER_NAME":
+        const nameUCopy = state.usersCopy;
+        const nameU = nameUCopy.filter(
+          (e) =>
+            e.name.toLowerCase().includes(action.payload.toLowerCase()) ||
+            e.nickname.toLowerCase().includes(action.payload.toLowerCase()) ||
+            e.email.toLowerCase().includes(action.payload.toLowerCase())
+        );
+  
+        return {
+          ...state,
+          users: nameU,
+        };
 
     case 'ADD_TO_CART':
       let newCart = state.cart

@@ -1,34 +1,32 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setUserPlan ,getUsers } from "../../actions";
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { setUserPlan, getUsers } from '../../actions'
+import styles from '../../Styles/Button.module.css'
+export default function AdminUserChangePlan({ users, setChanged, changed }) {
+  const dispatch = useDispatch()
 
-
-export default function AdminUserChangePlan({users , setChanged , changed}) {
-  const dispatch = useDispatch();
-
-  var userIds = [];
+  var userIds = []
 
   function toogleAdmin(e, users) {
-    users.map(usuario => {
-      userIds.push(  usuario._id );
-    });
-   dispatch(setUserPlan(userIds))
+    users.map((usuario) => {
+      userIds.push(usuario._id)
+    })
+    dispatch(setUserPlan(userIds))
 
-  setTimeout(function(){
-    dispatch(getUsers())
-  }, 500);
- 
-    setChanged(!changed);
+    setTimeout(function () {
+      dispatch(getUsers())
+    }, 500)
 
-    userIds = [];
+    setChanged(!changed)
+
+    userIds = []
   }
-
 
   return (
     <div>
-      <button onClick={(e) => toogleAdmin(e, users)}>
-       Cambiar Plan
+      <button className={styles.button} onClick={(e) => toogleAdmin(e, users)}>
+        Cambiar Plan
       </button>
     </div>
-  );
+  )
 }
