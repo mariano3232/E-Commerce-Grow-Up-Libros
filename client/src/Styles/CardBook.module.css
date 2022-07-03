@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   margin: 30px;
-  width: 80%;
+  width: 200px;
   font-weight: bold;
   height: 500px;
 }
@@ -46,4 +46,15 @@ h2 {
   flex-direction: column;
   justify-content: flex-start;
   width: 100%;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.numberRating {
+  margin-left: 10px;
+  color: #ffd43b;
+  font-size: large;
 }
