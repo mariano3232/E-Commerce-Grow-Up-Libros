@@ -41,7 +41,11 @@ export default function PutAuthor() {
       <AdminRefreshAuthor />
 
       <div>
-        <select onChange={(e) => handleOrderByName(e)} defaultValue='default'>
+        <select
+          className={style.selectOrder}
+          onChange={(e) => handleOrderByName(e)}
+          defaultValue='default'
+        >
           <option value='default' disabled>
             Orden alfabético
           </option>
