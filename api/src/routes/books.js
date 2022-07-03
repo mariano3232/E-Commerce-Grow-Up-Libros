@@ -243,7 +243,9 @@ router.post('/updateRating/:idBook/:rating/:userId', async (req, res) => {
 
     console.log('Despues del push a ratingUsers', book.ratingUsers.length)
 
-    book.rating = (book.rating + Number(rating)) / book.ratingUsers.length
+    book.rating = Math.trunc(
+      (book.rating + Number(rating)) / book.ratingUsers.length
+    )
 
     const userUpdate = await user.save()
     const bookUpdate = await book.save()
