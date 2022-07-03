@@ -35,7 +35,7 @@ const Author = () => {
         e.preventDefault();
         dispatch(getAuthors());
         navigate('/admin/');
-        scroller.scrollTo("gaston");
+        scroll.scrollTo("gaston");
     };
 
     function handleOrderByName(e) {
