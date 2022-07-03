@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {Image} from 'cloudinary-react'
+import styles from '../Styles/adminCarousel.module.css'
 
 export default function AdminCarousel(){
     const dispatch=useDispatch();
@@ -18,7 +19,7 @@ export default function AdminCarousel(){
         const formData= new FormData();
         formData.append("file",image)
         formData.append("upload_preset","preset_library")
-        console.log('image :',image);
+        alert('Imagen añadida al carrusel!')
         
         axios.post("https://api.cloudinary.com/v1_1/dflpxjove/image/upload",formData).then((response=>{
             console.log(response)
@@ -26,6 +27,8 @@ export default function AdminCarousel(){
             console.log(publicId)
             axios.post('https://ecommercehenryx.herokuapp.com/carrousel/addCarrousel',{
                 image:response.data.secure_url
+            }).then(()=>{
+                setImage({files:''})
             })
         }))
         
@@ -33,24 +36,31 @@ export default function AdminCarousel(){
 
     function handleDelete(e){
         e.preventDefault();
+        alert('Imagen borrada!')
         axios.delete('https://ecommercehenryx.herokuapp.com/carrousel//deleteCarrousel/'+e.target.value)
     }
 
 
     return(
         <div>
-            <h4>Agregar imagen:</h4>
-            <input type="file" onChange={e=>{setImage(e.target.files[0])}}/>
-            <button onClick={uploadImage}>Añadir</button>
-
+            <input type="file" onChange={e=>{setImage(e.target.files[0])}} className={styles.input}/>
+            {
+                console.log('image :',image)
+            }
+            {
+                image.name?<button onClick={uploadImage} className={styles.button}>Añadir</button>:null
+            }
+            
+            <div className={styles.cardsContainer}>
             {
                 Images.map(e=>{
-                    return <div>
-                        <Image cloudName='dflpxjove' publicId={e.image} width='300px'/>
-                        <button value={e._id} onClick={e=>handleDelete(e)}>X</button>
+                    return <div className={styles.card}>
+                        <Image cloudName='dflpxjove' publicId={e.image} className={styles.img}/>
+                        <button value={e._id} onClick={e=>handleDelete(e)} className={styles.buttonX}>X</button>
                     </div>
                 })
             }
+            </div>
         </div>
     )
 }
