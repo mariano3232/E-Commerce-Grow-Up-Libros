@@ -30,36 +30,36 @@ const UserDatos = () => {
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    const id = logged[0]._id
-    dispatch(postUserData(id, input))
-    alert('Datos personales actualizado')
-    navigate('/user')
+    e.preventDefault();
+    const id = logged[0]._id;
+    dispatch(postUserData(id, input));
+    alert('Datos personales actualizado');
+    setTimeout(function(){
+      dispatch(getUsers()), 100
+    })
   }
 
   const handleClick = () => {
-    setState(!state)
+    setState(!state);
   }
 
   const handlePlanDelete = () => {
-    const id = [logged[0]._id]
-    dispatch(setUserPlan(id))
-    alert('Desuscripción a "Soy Premium" con éxito')
-    navigate('/user')
+    const id = [logged[0]._id];
+    dispatch(setUserPlan(id));
+    alert('Desuscripción a "Soy Premium" con éxito');
+    setTimeout(function(){
+      dispatch(getUsers()), 100
+    })
   }
 
   const handleNewsDelete = () => {
-    const id = [logged[0]._id]
-    dispatch(setUserNews(id))
-    alert('Desuscripción a nuestro Newsletter con éxito')
-    navigate('/user')
+    const id = [logged[0]._id];
+    dispatch(setUserNews(id));
+    alert('Desuscripción a nuestro Newsletter con éxito');
+    setTimeout(function(){
+      dispatch(getUsers()), 100
+    })
   }
-
-  useEffect(() => {
-    return () => {
-      dispatch(getUsers())
-    }
-  }, [dispatch])
 
   return (
     <div>
@@ -153,8 +153,8 @@ const UserDatos = () => {
         <h3>Plan</h3>
         <div className={styles.userPlan}>
           <p>Usuario: {userId[0].nickname} </p>
-          <p>Premium: {userId[0].isSubscribeNewsLetter ? 'Si' : 'No'} </p>
-          <p>NewsLetter: {userId[0].isPremiun ? 'Si' : 'No'} </p>
+          <p>NewsLetter: {userId[0].isSubscribeNewsLetter ? 'Si' : 'No'} </p>
+          <p>Premium: {userId[0].isPremiun ? 'Si' : 'No'} </p>
         </div>
         <div className={styles.buttonUserContainer}>
           {userId[0].isSubscribeNewsLetter === false ? (
@@ -173,7 +173,7 @@ const UserDatos = () => {
             </button>
           ) : (
             <button className={styles.button} onClick={handlePlanDelete}>
-              Alta a Soy Premium
+              Baja a Soy Premium
             </button>
           )}
         </div>

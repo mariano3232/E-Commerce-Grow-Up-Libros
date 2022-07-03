@@ -30,7 +30,6 @@ const UserPlanLectura = () => {
 
     return (
         <div>
-            <Link to='/user'><p>Volver</p></Link>
             <h3>Te vamos a ayudar a elegir tus proximos libros a leer:</h3>
             <h5>Responde las siguientes preguntas y espera tus resultados:</h5>
 

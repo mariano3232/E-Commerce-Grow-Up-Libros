@@ -23,7 +23,6 @@ const UserFav = () => {
 
     return (
         <div>
-            <Link to='/user'><p>Volver</p></Link>
 
             <h3>Mis libros favoritos:</h3>
 
