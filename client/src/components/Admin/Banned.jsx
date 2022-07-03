@@ -11,7 +11,7 @@ export default function Banned(){
 
             <h1 className={styles.titulo}>ACCESO DENEGADO!!!!</h1>
             <h3>Su cuenta ha sido bloqueada</h3>
-            <h4>Contactate con e-books-commerce-G11@gmail.com</h4>
+            <h4>Contactate con growup.libros@gmail.com</h4>
 
         </div>
     )

@@ -24,6 +24,10 @@ const Author = () => {
   //     }
   //     return 0;
   // })
+  useEffect(() => {
+    dispatch(getAuthors())
+    console.log('HOOOOOME');
+  }, []);
 
   useEffect(() => {
     scroll.scrollToTop()
