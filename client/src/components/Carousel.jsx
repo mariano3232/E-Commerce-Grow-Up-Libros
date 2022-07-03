@@ -56,7 +56,7 @@ export default function Carousel() {
   return (
     <div className={styles.all}>
       <div className={styles.container}>
-        <Link to={'/book/' + currentBook?._id}>
+        
           <Image
             cloudName='dflpxjove'
             publicId={currentBook}
@@ -73,7 +73,6 @@ export default function Carousel() {
               setLoaded(true);
             }}
           /> */}
-        </Link>
 
         <div>
           <button onClick={previus} className={styles.buttons}>
