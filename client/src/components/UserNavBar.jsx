@@ -10,6 +10,7 @@ const UserNavBar = () => {
 
     const { isAuthenticated } = useAuth0()
     const usuario = useSelector((state)=>state.userLogged)
+    console.log('//uuuu//:',usuario)
 
 
    
@@ -18,9 +19,13 @@ const UserNavBar = () => {
 
     return (
     <div className={style.container}>
+        {usuario[0].name?
                
        <h3 className={style.titulo}>Bienvenido {usuario[0].name}</h3>
+        
+       :<h3 className={style.titulo}>Bienvenido {usuario[0].nickname}</h3>
 
+        }
     </div>
 
     )

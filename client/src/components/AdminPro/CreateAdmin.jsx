@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import AdminProSet from './AdminProSet'
 import { getUsers, postUser, setToAdmin } from '../../actions'
-import { Link } from 'react-router-dom'
+import { Link , NavLink} from 'react-router-dom'
 import SuperAdminProSet from './SuperAdminProSet'
 import AdminSearchBarUser from '../Admin/AdminSearchBarUser'
 import AdminRefreshUsers from '../Admin/AdminRefreshUser'
@@ -55,6 +55,8 @@ export default function CreateAdmin(props) {
     <div className={styles.containerAll}>
       <h1>Control de Administradores</h1>
       <div className={styles.containerActions}>
+
+     
         <div id='tableleft'>
           <div className={styles.containerButtonsActions}>
             <AdminProSet
@@ -70,6 +72,11 @@ export default function CreateAdmin(props) {
           </div>
         </div>
         <div className={styles.containerUsersData}>
+
+          <NavLink className={` ${styles.buttonBack}`} to='/adminpro'>
+                  <button className={`${styles.button} `}>Volver</button>
+          </NavLink>
+
           <AdminRefreshUsers />
           <AdminSearchBarUser />
           <div class='container'>
