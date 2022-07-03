@@ -7,7 +7,7 @@ import {
   Navigate,
   Outlet,
 } from "react-router-dom";
-import { getBooks, getAuthors, getUsers , postUser} from "./actions";
+import { getBooks, getAuthors, getUsers , postUser , getCarouselImages} from "./actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import NavBar from "./components/NavBar";
@@ -82,6 +82,10 @@ function App() {
         dispatch(postUser(user))
       }
     }, [user])
+
+    useEffect(() => {
+      dispatch(getCarouselImages())
+    }, [dispatch])
   
 
   const usuario = useSelector((state) => state.userLogged);

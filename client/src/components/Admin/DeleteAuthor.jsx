@@ -1,7 +1,7 @@
 import React from 'react'
 import style from '../../Styles/DeleteData.module.css'
 import styleButton from '../../Styles/Button.module.css'
-import { deleteAuthor, getAuthors } from '../../actions'
+import { deleteAuthor, getAuthors , getAuthorsAdmin} from '../../actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
@@ -20,47 +20,40 @@ export default function DeleteAuthor() {
   const [order, setOrder] = useState(true)
 
   function handleOrderByName(e) {
-    console.log('HHHHH')
     // e.preventDefault()
     dispatch(orderByNameAdminAuthor(e.target.value))
     setOrder(`Ordenado ${e.target.value}`)
   }
 
-  //   const orderedAuthors = allAuthors.sort(function (a, b) {
-  //     if (a.name.toLowerCase() > b.name.toLowerCase()) {
-  //       return 1
-  //     }
-  //     if (b.name.toLowerCase() > a.name.toLowerCase()) {
-  //       return -1
-  //     }
-  //     return 0
-  //   })
 
   function handleDeleteAuthor(id) {
     dispatch(deleteAuthor(id))
     alert('Escritor Eliminado')
-    navigate('/admin')
+    setTimeout(function () {
+      dispatch(getAuthorsAdmin()), 800
+    })
+   // navigate('/admin')
   }
 
   function ShowAuthor(id) {
-    console.log('SHOW:', id)
     dispatch(showAuthor(id))
-
-    alert('Modificado')
     setTimeout(function () {
-      dispatch(getAuthors()), 500
+      dispatch(getAuthorsAdmin()), 800
     })
+    //getAuthors()
     // navigate('/admin')
   }
 
   function HideAuthor(id) {
     dispatch(hideAuthor(id))
     setTimeout(function () {
-      dispatch(getAuthors()), 500
+      dispatch(getAuthorsAdmin()), 800
     })
-    alert('Modificado')
+    //getAuthors()
     //navigate('/admin')
   }
+
+  
 
   return (
     <div className={style.containerDelete}>

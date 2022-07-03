@@ -9,7 +9,7 @@ import { useState } from 'react'
 import { orderByNameAdminBooks } from '../../actions'
 import AdminRefreshBooks from './AdminRefreshBooks'
 import AdminSearchBarBooks from './AdminSearchBarBooks'
-import { showBook, hideBook } from '../../actions'
+import { showBook, hideBook, getBooksAdmin } from '../../actions'
 
 export default function DeleteBook() {
   const dispatch = useDispatch()
@@ -31,13 +31,22 @@ export default function DeleteBook() {
   function handleDeleteBook(id) {
     dispatch(deleteBook(id))
     alert('Libro Eliminado')
-    navigate('/admin')
+    setTimeout(function () {
+      dispatch(getBooksAdmin()), 500
+    })
+    setTimeout(function () {
+      dispatch(getBooks()), 1000
+    })
+    //navigate('/admin')
   }
 
   function ShowBook(id) {
     dispatch(showBook(id))
     setTimeout(function () {
-      dispatch(getBooks()), 100
+      dispatch(getBooksAdmin()), 500
+    })
+    setTimeout(function () {
+      dispatch(getBooks()), 1000
     })
     //alert('Modificado')
     // navigate('/admin')
@@ -46,7 +55,10 @@ export default function DeleteBook() {
   function HideBook(id) {
     dispatch(hideBook(id))
     setTimeout(function () {
-      dispatch(getBooks()), 100
+      dispatch(getBooksAdmin()), 500
+    })
+    setTimeout(function () {
+      dispatch(getBooks()), 1000
     })
 
     // alert('Modificado')
