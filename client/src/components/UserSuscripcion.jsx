@@ -1,27 +1,61 @@
-
-import React from 'react';
-import CardPremium from './CardPremium';
-
-
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import CardPremium from './CardPremium'
+import styles from '../Styles/UserSuscripcion.module.css'
 const UserSuscripcion = () => {
-    return (
-        <div>
-            <h2>Hola</h2>
+  const [state, setState] = useState({
+    mensual: '',
+    trimestral: '',
+    anual: '',
+  })
 
-            <h1>Una suscripcion sin igual para potenciar tu desarrollo personal al máximo.</h1>
+  const handleChangeMonth = () => {
+    setState({
+      mensual: '$599,99 / mes',
+    })
+  }
 
-            <h4>Mejora tu futuro con las herramientas que te ofrece Soy Premium.</h4>
+  const handleChangeThreMonth = () => {
+    setState({
+      trimestral: '$999,99 / trimestral',
+    })
+  }
 
-            <button>Mensual</button>
-            <button>Trimestral</button>
-            <button>Anual</button>
+  const handleChangeYear = () => {
+    setState({
+      anual: '$1.599,99 / anual',
+    })
+  }
 
-            <CardPremium/>
+  return (
+    <div className={styles.containerUserSuscription}>
+      <h1 className={styles.titleUserSuscription}>
+        Una suscripcion sin igual para potenciar tu desarrollo personal al
+        máximo.
+      </h1>
 
-            <br />
-        
-        </div>
-    )
+      <h4>Mejora tu futuro con las herramientas que te ofrece Soy Premium.</h4>
+
+      <p> Elegi tu cobro preferido de estas tres opciones:</p>
+      <div className={styles.containerButton}>
+        <button className={styles.button} onClick={handleChangeMonth}>
+          Mensual
+        </button>
+        <button className={styles.button} onClick={handleChangeThreMonth}>
+          Trimestral
+        </button>
+        <button className={styles.button} onClick={handleChangeYear}>
+          Anual
+        </button>
+      </div>
+
+      <CardPremium
+        mes={state.mensual}
+        trimestral={state.trimestral}
+        anual={state.anual}
+      />
+    </div>
+  )
 }
 
-export default UserSuscripcion;
+export default UserSuscripcion
