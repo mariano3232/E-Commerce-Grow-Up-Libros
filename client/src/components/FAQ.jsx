@@ -14,10 +14,10 @@ export default function FAQ() {
     <div className={styles.container}>
       <h1>Preguntas frecuentes</h1>
       <p className={styles.subtitle}>
-        <strong>Acerca de LibrosPG11</strong>
+        <strong>Acerca de Grow-Up Libros</strong>
       </p>
       <p className={styles.question}>
-        ¿Qué beneficios tengo por ser miembro de LibrosPG11?
+        ¿Qué beneficios tengo por ser miembro de Grow-Up Libros?
       </p>
       <p className={styles.ask}>
         Por ser miembro de LibrosPG11 vas a poder reseñar y puntuar libros, y
@@ -26,10 +26,10 @@ export default function FAQ() {
         todo relacionadas con tus gustos e intereses.
       </p>
       <p className={styles.question}>
-        ¿Cómo hago para ser miembro de LibrosPG11?
+        ¿Cómo hago para ser miembro de Grow-Up Libros?
       </p>
       <p className={styles.ask}>
-        ¡Es muy simple! Registrándote ya sos miembro de LibrosPG11. Sólo vas a
+        ¡Es muy simple! Registrándote ya sos miembro de Grow-Up Libros. Sólo vas a
         necesitar ingresar tu nombre y apellido, tu mail y una clave.
         ¡Registrarse es totalmente gratuito!
       </p>
@@ -37,7 +37,7 @@ export default function FAQ() {
         ¿Cómo hago para darme de baja del newsletter?
       </p>
       <p className={styles.ask}>
-        Nunca vamos a querer que dejes de recibir los newsletters de LibrosPG11,
+        Nunca vamos a querer que dejes de recibir los newsletters de Grow-Up Libros,
         pero si en algún momento querés dejar de hacerlo, vas a poder darlo de
         baja ingresando a: Mi cuenta - “Editar perfil” - “Recibir newletter” -
         SI / NO.
@@ -54,7 +54,7 @@ export default function FAQ() {
         Cliqueá en el botón Comprar. En el siguiente paso vas a poder elegir el
         Método de envío Completá el Domicilio de envío y los datos de
         facturación Por último, cliqueá en el botón Finalizar compra. Y listo.
-        ¡Comprar en LibrosPG11 es rápido e intuitivo, para que pueda empezar a
+        ¡Comprar en Grow-Up Libros es rápido e intuitivo, para que pueda empezar a
         leer tu libro preferido cuanto antes!
       </p>
     </div>

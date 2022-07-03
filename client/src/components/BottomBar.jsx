@@ -13,21 +13,23 @@ import mercado from '../imgs/mercadoPago.webp'
 import facebook from '../imgs/facebook.png'
 import instagram from '../imgs/instagram.png'
 import { getUsers, setUserNews } from '../actions'
+import { useAuth0, User } from '@auth0/auth0-react'
 
 export default function BottomBar() {
   const [input, setInput] = useState('')
+  const { user, isAuthenticated, isLoading } = useAuth0();
   const dispatch = useDispatch();
   const allUsers = useSelector(state => state.users);
   const isLogged = useSelector(state => state.userLogged);
-  const usuario = allUsers.filter((u) => u._id === isLogged[0]._id)
   const navigate = useNavigate();
-
+  
   const handleChange = (e) => {
     setInput(e.target.value);
   }
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
+    const usuario = allUsers.filter((u) => u.email === user.email)
     if(isLogged.length === 0) {
       setInput('');
       return alert('Para suscribirte a nuestro newsletter necesitas estar logeado');
