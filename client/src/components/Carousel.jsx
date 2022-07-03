@@ -17,7 +17,7 @@ export default function Carousel() {
   const [currentBook, setcurrentBook] = useState(Images[0])
   const [loaded, setLoaded] = useState(false)
 
-  console.log('Images :', Images)
+ //console.log('Images :', Images)
   useEffect(() => {
     dispatch(getCarouselImages())
   }, [dispatch])
