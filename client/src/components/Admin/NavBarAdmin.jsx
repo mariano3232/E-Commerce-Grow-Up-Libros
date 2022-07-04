@@ -28,7 +28,7 @@ const NavBarAdmin = () => {
     return (
     <div className={style.container}>
                
-        { usuario.length === 1 && usuario[0].isSuperAdmin
+        { usuario.length === 1 && usuario[0].isSuperAdmin && usuario[0].isBanned===false
             ? 
                 <Link to='/adminpro' className={style.Link}>
                     <button className={style.navItem}>AdminPro</button>
@@ -36,7 +36,7 @@ const NavBarAdmin = () => {
             :''
         }
 
-        { usuario.length === 1 && usuario[0].isAdmin
+        { usuario.length === 1 && usuario[0].isAdmin && usuario[0].isBanned===false
             ? 
                 <Link to='/admin' className={style.Link}>
                     <button  className={style.navItem}>Administrador</button>

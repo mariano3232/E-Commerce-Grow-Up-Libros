@@ -9,10 +9,9 @@ import AdminSearchBarBooks from './AdminSearchBarBooks'
 import AdminRefreshBooks from './AdminRefreshBooks'
 
 export default function PutBook() {
-
   const allBooks = useSelector((state) => state.booksAdmin)
 
-  const[ order , setOrder ] = useState( true )
+  const [order, setOrder] = useState(true)
 
   const dispatch = useDispatch()
 
@@ -21,9 +20,7 @@ export default function PutBook() {
     // e.preventDefault()
     dispatch(orderByNameAdminBooks(e.target.value))
     setOrder(`Ordenado ${e.target.value}`)
-};
-
-
+  }
 
   // const ordereBooks = allBooks.sort(function (a, b) {
   //   if (a.title.toLowerCase() > b.title.toLowerCase()) {
@@ -37,40 +34,43 @@ export default function PutBook() {
 
   return (
     <div className={style.containerPutList}>
-
-
       <Link to='/put'>
         <button className={style.btnAdmin}>↼ Back</button>
       </Link>
 
-      <AdminSearchBarBooks/>
+      <AdminSearchBarBooks />
 
-      <AdminRefreshBooks/>
-
+      <AdminRefreshBooks />
 
       <div>
-           <select onChange={e=>handleOrderByName(e)} defaultValue='default'>
-                <option value="default" disabled >Orden alfabético</option>
-                <option  value="Asc">Nombre Ascendente</option>                     
-                <option  value="desc">Nombre Descendente</option>
-            </select>
+        <select
+          className={style.selectOrder}
+          onChange={(e) => handleOrderByName(e)}
+          defaultValue='default'
+        >
+          <option value='default' disabled>
+            Orden alfabético
+          </option>
+          <option value='Asc'>Nombre Ascendente</option>
+          <option value='desc'>Nombre Descendente</option>
+        </select>
       </div>
 
       <h1>Libros</h1>
       <div className={style.grid}>
         {allBooks.length
-        ?allBooks.map((book) => {
-          return (
-            <div className={style.cardItem}>
-              <h5>{book.title} </h5>
-              <img src={book.cover} alt='' />
-              <Link to={'/putBookID/' + book._id}>
-                <button className={style.btn}>Modificar</button>
-              </Link>
-            </div>
-          )
-        })
-      :'Resultado inexistente'}
+          ? allBooks.map((book) => {
+              return (
+                <div className={style.cardItem}>
+                  <h5>{book.title} </h5>
+                  <img src={book.cover} alt='' />
+                  <Link to={'/putBookID/' + book._id}>
+                    <button className={style.btn}>Modificar</button>
+                  </Link>
+                </div>
+              )
+            })
+          : 'Resultado inexistente'}
       </div>
 
       <Link to='/put'>

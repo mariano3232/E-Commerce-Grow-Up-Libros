@@ -6,15 +6,10 @@ import { orderByNameAdminAuthor } from '../../actions'
 import AdminSearchBarAuthor from './AdminSearchBarAuthor'
 import AdminRefreshAuthor from './AdminRefreshAuthor'
 
-
-
 export default function PutAuthor() {
-  
-
-  
   const allAuthors = useSelector((state) => state.authorsAdmin)
 
-  const[ order , setOrder ] = useState( true )
+  const [order, setOrder] = useState(true)
 
   const dispatch = useDispatch()
 
@@ -33,43 +28,48 @@ export default function PutAuthor() {
     // e.preventDefault()
     dispatch(orderByNameAdminAuthor(e.target.value))
     setOrder(`Ordenado ${e.target.value}`)
-};
+  }
 
   return (
     <div className={style.containerPutList}>
-
       <Link to='/put'>
         <button className={style.btnAdmin}>↼ Back</button>
       </Link>
 
-      <AdminSearchBarAuthor/>
-      
-      <AdminRefreshAuthor/>
+      <AdminSearchBarAuthor />
+
+      <AdminRefreshAuthor />
 
       <div>
-           <select onChange={e=>handleOrderByName(e)} defaultValue='default'>
-                <option value="default" disabled >Orden alfabético</option>
-                <option  value="Asc">Nombre Ascendente</option>                     
-                <option  value="desc">Nombre Descendente</option>
-            </select>
+        <select
+          className={style.selectOrder}
+          onChange={(e) => handleOrderByName(e)}
+          defaultValue='default'
+        >
+          <option value='default' disabled>
+            Orden alfabético
+          </option>
+          <option value='Asc'>Nombre Ascendente</option>
+          <option value='desc'>Nombre Descendente</option>
+        </select>
       </div>
       <h1>Autores</h1>
       <div className={style.grid}>
         {allAuthors.length
-        ? allAuthors.map((author) => {
-          return (
-            <div className={style.cardItem}>
-              <h5>
-                {author.name} {author.surname}
-              </h5>
-              <img src={author.picture} alt='' />
-              <Link to={'/putAuthorID/' + author._id}>
-                <button className={style.btn}>Modificar</button>
-              </Link>
-            </div>
-          )
-        })
-      :'Resultado inexistente'}
+          ? allAuthors.map((author) => {
+              return (
+                <div className={style.cardItem}>
+                  <h5>
+                    {author.name} {author.surname}
+                  </h5>
+                  <img src={author.picture} alt='' />
+                  <Link to={'/putAuthorID/' + author._id}>
+                    <button className={style.btn}>Modificar</button>
+                  </Link>
+                </div>
+              )
+            })
+          : 'Resultado inexistente'}
       </div>
       <Link to='/put'>
         <button className={style.btnAdmin}>↼ Back</button>

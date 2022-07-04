@@ -7,7 +7,7 @@ import {
   Navigate,
   Outlet,
 } from "react-router-dom";
-import { getBooks, getAuthors, getUsers } from "./actions";
+import { getBooks, getAuthors, getUsers , postUser , getCarouselImages} from "./actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import NavBar from "./components/NavBar";
@@ -41,7 +41,7 @@ import AdminPro from "./components/AdminPro/AdminPro";
 import UserDatos from "./components/UserDatos";
 import UserSuscripcion from "./components/UserSuscripcion";
 import ShoopingCart from "./components/ShoppingCart";
-//import AdminUsers from "./components/AdminUsers";
+import AdminUsers from "./components/Admin/AdminUsers"
 import AdminOrders from "./components/AdminOrders";
 import AdminCarousel from "./components/AdminCarousel";
 import NavBarAdmin from "./components/Admin/NavBarAdmin";
@@ -55,11 +55,15 @@ import ProtectedRouteBan from "./components/ProtectedRouteBan";
 import Banned from "./components/Admin/Banned";
 import UserNavBar from "./components/UserNavBar";
 import UserPlanLectura from "./components/UserPlanLectura";
+import AdminUserNewsLetter from "./components/Admin/AdminUserNewsLetter";
+import AdminProPerfilUsuarios from "./components/AdminPro/AdminProPerfilesUsuarios";
 
 function App() {
   const dispatch = useDispatch();
 
- 
+
+  const {user} = useAuth0()
+
 
   useEffect(() => {
     dispatch(getBooks());
@@ -73,6 +77,18 @@ function App() {
     dispatch(getUsers());
   }, [dispatch]);
 
+  
+    useEffect(() => {
+      if (user) {
+        dispatch(postUser(user))
+      }
+    }, [user])
+
+    useEffect(() => {
+      dispatch(getCarouselImages())
+    }, [dispatch])
+  
+
   const usuario = useSelector((state) => state.userLogged);
   console.log('appp:',usuario)
 
@@ -85,10 +101,10 @@ function App() {
       <div className="main-without-nav">
        
         <Routes>
-          <Route exact path="/" element={<Landing />} />
+          
           
           <Route element={<ProtectedRouteBan isAllowed={ usuario.length===0 || usuario[0].isBanned===false }/> }>
-           
+            <Route exact path="/" element={<Landing />} />
             <Route path="/home" element={<Home />} />
             <Route exact path="/aboutus" element={<AboutUs />} />
             <Route exact path="/faq" element={<FAQ />} />
@@ -172,6 +188,20 @@ function App() {
                 }
               >
                 <CreateAdmin />
+              </ProtectedRoute>
+            }
+          />
+
+            <Route
+            path="/adminproperfilusuarios/:id"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAllowed={
+                  usuario.length === 1 && usuario[0].isSuperAdmin === true
+                }
+              >
+                <AdminProPerfilUsuarios />
               </ProtectedRoute>
             }
           />
@@ -369,7 +399,7 @@ function App() {
             }
           />
 
-          {/* <Route
+          <Route
             path="/adminusers"
             element={
               <ProtectedRoute
@@ -380,7 +410,7 @@ function App() {
                 <AdminUsers />
               </ProtectedRoute>
             }
-          /> */}
+          />
 
           <Route
             path="/adminusers2"
