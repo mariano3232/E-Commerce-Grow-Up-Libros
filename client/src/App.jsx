@@ -56,6 +56,7 @@ import Banned from "./components/Admin/Banned";
 import UserNavBar from "./components/UserNavBar";
 import UserPlanLectura from "./components/UserPlanLectura";
 import AdminUserNewsLetter from "./components/Admin/AdminUserNewsLetter";
+import AdminProPerfilUsuarios from "./components/AdminPro/AdminProPerfilesUsuarios";
 
 function App() {
   const dispatch = useDispatch();
@@ -187,6 +188,20 @@ function App() {
                 }
               >
                 <CreateAdmin />
+              </ProtectedRoute>
+            }
+          />
+
+            <Route
+            path="/adminproperfilusuarios/:id"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAllowed={
+                  usuario.length === 1 && usuario[0].isSuperAdmin === true
+                }
+              >
+                <AdminProPerfilUsuarios />
               </ProtectedRoute>
             }
           />
