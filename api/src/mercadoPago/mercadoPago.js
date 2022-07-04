@@ -5,13 +5,10 @@ const { ACCESS_TOKEN } = process.env;
 
 // SDK de Mercado Pago
 const mercadopago = require("mercadopago");
-<<<<<<< Updated upstream
-=======
 const Ordenes = require("../model/Ordenes");
 const Users = require("../model/Users");
 const { Enum } = require("./EmunStatus");
 const { randomId } = require("./FuntionID");
->>>>>>> Stashed changes
 
 mercadopago.configure({
   access_token: `${ACCESS_TOKEN}`,
@@ -78,15 +75,8 @@ router.post("/orden", async (req, res) => {
     );
     const respuesta = await mercadopago.preferences.create(preference);
 
-<<<<<<< Updated upstream
-    const respuesta = await mercadopago.preferences.create(preference);
-
-    const globalInitPoint = respuesta.body.init_point;
-    res.json({ init_point: globalInitPoint, order: "" });
-=======
     const globalInitPoint = respuesta.body.init_point;
     return res.json({ init_point: globalInitPoint, order: saveOrder });
->>>>>>> Stashed changes
   } catch (error) {
     return console.log("FALLO MERCADO PAGO", error);
   }
