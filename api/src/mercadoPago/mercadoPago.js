@@ -5,6 +5,13 @@ const { ACCESS_TOKEN } = process.env;
 
 // SDK de Mercado Pago
 const mercadopago = require("mercadopago");
+<<<<<<< Updated upstream
+=======
+const Ordenes = require("../model/Ordenes");
+const Users = require("../model/Users");
+const { Enum } = require("./EmunStatus");
+const { randomId } = require("./FuntionID");
+>>>>>>> Stashed changes
 
 mercadopago.configure({
   access_token: `${ACCESS_TOKEN}`,
@@ -12,9 +19,35 @@ mercadopago.configure({
 
 router.post("/orden", async (req, res) => {
   const carrito = req.body;
+  const email = carrito.map((e) => e.email);
+
+  const ID = randomId(100);
+  const ID2 = randomId(100);
+  const idOrder = `a${ID}b${ID2}`;
+
+  const monto = carrito
+    .map((e) => {
+      const montoTem = e.unit_price * carrito.length;
+      return montoTem;
+    })
+    .reduce((a, b) => a + b);
+
+  const user = await Users.findOne({ email: email[0] });
+
+  const newOrder = new Ordenes({
+    status: Enum.CREATED,
+    fecha: new Date(),
+    usuario: user._id,
+    produt: carrito.map((e) => e.title),
+    total: monto,
+    payment_id: idOrder,
+    payment_status: idOrder,
+    payment_order_id: idOrder,
+  });
+
+  await newOrder.save();
 
   try {
-    const id_order = 1;
     const itemsMp = carrito?.map((e) => ({
       title: e.title,
       unit_price: Number(e.unit_price),
@@ -23,7 +56,7 @@ router.post("/orden", async (req, res) => {
 
     let preference = {
       items: itemsMp,
-      external_reference: `${id_order}`,
+      external_reference: `${idOrder}`,
       payment_methods: {
         excluded_payment_type: [
           {
@@ -40,11 +73,20 @@ router.post("/orden", async (req, res) => {
       },
       auto_return: "approved",
     };
+    const saveOrder = await Ordenes.find({ payment_id: idOrder }).populate(
+      "usuario",{name:1, surname:1, email:1}
+    );
+    const respuesta = await mercadopago.preferences.create(preference);
 
+<<<<<<< Updated upstream
     const respuesta = await mercadopago.preferences.create(preference);
 
     const globalInitPoint = respuesta.body.init_point;
     res.json({ init_point: globalInitPoint, order: "" });
+=======
+    const globalInitPoint = respuesta.body.init_point;
+    return res.json({ init_point: globalInitPoint, order: saveOrder });
+>>>>>>> Stashed changes
   } catch (error) {
     return console.log("FALLO MERCADO PAGO", error);
   }
