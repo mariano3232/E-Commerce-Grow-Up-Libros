@@ -96,7 +96,7 @@ export default function CreateAdmin(props) {
                 {usuarios.map((usuario) => (
                   <tr key={usuario._id}>
                     <td>
-                      <Link to={`/adminuserprofile/${usuario._id}`}>
+                      <Link to={`/adminproperfilusuarios/${usuario._id}`}>
                         {usuario.email}
                       </Link>
                     </td>
