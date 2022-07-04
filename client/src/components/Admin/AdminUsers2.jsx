@@ -11,6 +11,7 @@ import AdminSearchBarUser from './AdminSearchBarUser'
 import AdminRefreshUsers from './AdminRefreshUser'
 import AdminUserNewsLetter from './AdminUserNewsLetter'
 import styles from '../../Styles/AdminUser2.module.css'
+import style from '../../Styles/Stock.module.css'
 import './adminUsers.css'
 
 // import SetAdminUser from "./SetAdminUser";
@@ -63,6 +64,11 @@ export default function AdminUsers2(props) {
     <div className={styles.containerAll}>
       <h1>Control de usuarios</h1>
       <div>
+        <Link to='/admin'>
+          <button className={style.btnAdmin}>↼ Back</button>
+        </Link>
+        <br />
+        <br />
         <div id='tableleft'></div>
         <div className={styles.containerFlex}>
           <div className={styles.containerActions}>

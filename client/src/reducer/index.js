@@ -368,7 +368,7 @@ function rootReducer(state = initialState, action) {
     case "ADD_FAV":
       return {
         ...state,
-        userLogged: [action.payload],
+        /* userLogged: [action.payload], */
       };
 
     case "DELETE_BOOK_FAV":
