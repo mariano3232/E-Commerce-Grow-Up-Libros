@@ -1,27 +1,50 @@
-
-
+require("dotenv").config();
 const { Router } = require("express");
 const router = Router();
-
+const { ACCESS_TOKEN } = process.env;
 
 // SDK de Mercado Pago
-const mercadopago = require('mercadopago')
-
-const vendedor =
-  "TEST-47481287450311-070117-c9509224bf9d5811d4f272d8236f85ea-1152954796";
+const mercadopago = require("mercadopago");
+const Ordenes = require("../model/Ordenes");
+const Users = require("../model/Users");
+const { Enum } = require("./EmunStatus");
+const { randomId } = require("./FuntionID");
 
 mercadopago.configure({
-
-  access_token: `${vendedor}`,
+  access_token: `${ACCESS_TOKEN}`,
 });
 
 router.post("/orden", async (req, res) => {
   const carrito = req.body;
+  const email = carrito.map((e) => e.email);
 
+  const ID = randomId(100);
+  const ID2 = randomId(100);
+  const idOrder = `a${ID}b${ID2}`;
 
-  
+  const monto = carrito
+    .map((e) => {
+      const montoTem = e.unit_price * carrito.length;
+      return montoTem;
+    })
+    .reduce((a, b) => a + b);
+
+  const user = await Users.findOne({ email: email[0] });
+
+  const newOrder = new Ordenes({
+    status: Enum.CREATED,
+    fecha: new Date(),
+    usuario: user._id,
+    produt: carrito.map((e) => e.title),
+    total: monto,
+    payment_id: idOrder,
+    payment_status: idOrder,
+    payment_order_id: idOrder,
+  });
+
+  await newOrder.save();
+
   try {
-    const id_order = 1;
     const itemsMp = carrito?.map((e) => ({
       title: e.title,
       unit_price: Number(e.unit_price),
@@ -30,7 +53,7 @@ router.post("/orden", async (req, res) => {
 
     let preference = {
       items: itemsMp,
-      external_reference: `${id_order}`,
+      external_reference: `${idOrder}`,
       payment_methods: {
         excluded_payment_type: [
           {
@@ -47,19 +70,16 @@ router.post("/orden", async (req, res) => {
       },
       auto_return: "approved",
     };
+    const saveOrder = await Ordenes.find({ payment_id: idOrder }).populate(
+      "usuario",{name:1, surname:1, email:1}
+    );
+    const respuesta = await mercadopago.preferences.create(preference);
 
-    const respuesta= await mercadopago.preferences
-      .create(preference)
-      console.log('///////', respuesta.body)
-          const globalInitPoint= respuesta.body.init_point
-           res.json({init_point:globalInitPoint})
-
-      
+    const globalInitPoint = respuesta.body.init_point;
+    return res.json({ init_point: globalInitPoint, order: saveOrder });
   } catch (error) {
     return console.log("FALLO MERCADO PAGO", error);
   }
-
-
 });
 // {"id":1152954796,"nickname":"TETE5687095","password":"qatest2807","site_status":"active","site_id":"MCO","description":"a description","date_created":"2022-07-01T17:25:00-04:00","date_last_updated":"2022-07-01T17:25:00-04:00"} VENDEDOR
 
@@ -78,4 +98,3 @@ router.post("/orden", async (req, res) => {
 // }
 
 module.exports = router;
-
