@@ -292,5 +292,15 @@ router.post("/showBook/:id", async (req, res) => {
   }
 });
 
-
+router.delete('/comments/deleteComment/:id', async (req,res) =>{
+  const {id} = req.params;
+  
+  try{
+    const book = await Books.findById(id)
+    const comments = book
+    res.send(comments)
+  } catch (err){
+    res.send(err)
+  }
+})
 module.exports = router;
