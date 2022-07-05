@@ -3,7 +3,7 @@ import { useSelector,useDispatch } from "react-redux";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from '../Styles/shoppingCart.module.css'
-import { addToCart, clearCart, removeAllFromCart, removeOneFromCart } from "../actions";
+import { addToCart, clearCart, removeAllFromCart, removeOneFromCart,updateAmount } from "../actions";
 
 
 export default function ShoopingCart(){
@@ -13,10 +13,18 @@ export default function ShoopingCart(){
     const render=useSelector(state=>state.render);
     console.log('products :',products)
     let price=0;
+    let productsAmount=0;
+
+    
 
     for (let i=0;i<products.length;i++){
         price=price+products[i].price*products[i].amount;
+        productsAmount=productsAmount + products[i].amount;
     }
+
+    useEffect(()=>{
+        dispatch(updateAmount(productsAmount))
+    },[productsAmount])
 
     function handleAdd(e){
         e.preventDefault();
@@ -58,7 +66,8 @@ export default function ShoopingCart(){
             {
                 (products.length>0)?<button>Realizar compra</button>:null
             }
-            <span>Precio Total :{price}</span>
+            <p>Cantidad de productos : {productsAmount}</p>
+            <p>Precio Total :{price}</p>
         </div>
     )
 }

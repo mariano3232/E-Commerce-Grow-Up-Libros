@@ -388,6 +388,15 @@ export function removeAllFromCart(id) {
     });
   };
 }
+export function updateAmount(amount){
+  return (dispatch)=>{
+    return dispatch({
+      type:'UPDATE_AMOUNT',
+      payload:amount
+    })
+  }
+
+}
 export function clearCart() {
   return (dispatch) => {
     return dispatch({
