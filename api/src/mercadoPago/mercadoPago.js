@@ -45,15 +45,15 @@ router.post("/orden", async (req, res) => {
   await newOrder.save();
   user.buyBooks = user.buyBooks.concat(newOrder._id)
     await user.save()
-  console.log('/*/*/*/*/*/',user.buyBooks)
-
-  try {
+    
+    
+    try {
     const itemsMp = carrito?.map((e) => ({
       title: e.title,
       unit_price: Number(e.unit_price),
       quantity: Number(e.quantity),
     }));
-
+    
     let preference = {
       items: itemsMp,
       external_reference: `${idOrder}`,
@@ -65,7 +65,7 @@ router.post("/orden", async (req, res) => {
         ],
         installments: 4,
       },
-
+      
       back_urls: {
         success: "http://localhost:8080/feedback",
         failure: "http://localhost:8080/feedback",
@@ -73,9 +73,10 @@ router.post("/orden", async (req, res) => {
       },
       auto_return: "approved",
     };
-    const saveOrder = await Orders.find({ payment_id: idOrder }).populate(
-     { path: "usuario"}
-    );
+    const saveOrder = await Orders.findById({ _id: newOrder._id }).populate(
+      { path: "usuario"}
+      );
+   
     const respuesta = await mercadopago.preferences.create(preference);
 
     const globalInitPoint = respuesta.body.init_point;
