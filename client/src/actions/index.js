@@ -406,7 +406,7 @@ export function clearCart() {
   };
 }
 
-//ADMIN PRO y SuperAdmin
+//PERMISOS DE ADMINISTRADOR:
 
 export function setToAdmin(payload) {
   return async function (dispatch) {
@@ -428,6 +428,66 @@ export function setToSuperAdmin(payload) {
     );
     return dispatch({
       type: "SET_TO_ADMIN",
+    });
+  };
+}
+
+export function setToAdminData(payload) {
+  return async function (dispatch) {
+    const json = await axios.post(
+      "https://ecommercehenryx.herokuapp.com/users/toggleAdminData",
+      payload
+    );
+    return dispatch({
+      type: "SET_TO_ADMIN_DATA",
+    });
+  };
+}
+
+export function setToAdminStock(payload) {
+  return async function (dispatch) {
+    const json = await axios.post(
+      "https://ecommercehenryx.herokuapp.com/users/toggleAdminStock",
+      payload
+    );
+    return dispatch({
+      type: "SET_TO_ADMIN_STOCK",
+    });
+  };
+}
+
+export function setToAdminUsers(payload) {
+  return async function (dispatch) {
+    const json = await axios.post(
+      "https://ecommercehenryx.herokuapp.com/users/toggleAdminUsers",
+      payload
+    );
+    return dispatch({
+      type: "SET_TO_ADMIN_USERS",
+    });
+  };
+}
+
+export function setToAdminOrders(payload) {
+  return async function (dispatch) {
+    const json = await axios.post(
+      "https://ecommercehenryx.herokuapp.com/users/toggleAdminOrders",
+      payload
+    );
+    return dispatch({
+      type: "SET_TO_ADMIN_ORDERS",
+    });
+  };
+}
+
+export function setToAdminMarketing(payload) {
+  return async function (dispatch) {
+    const json = await axios.post(
+      "https://ecommercehenryx.herokuapp.com/users/toggleAdminMarketing",
+      payload
+    );
+    return dispatch({
+      type: "SET_TO_ADMIN_MARKETING",
     });
   };
 }
@@ -477,6 +537,7 @@ export function addFav(payload, id) {
     const json = await axios.post(
       `https://ecommercehenryx.herokuapp.com/users/addDesiredBooks/${payload}/${id}`
     );
+    console.log('SSSSdd:',json.data)
 
     return dispatch({
       type: "ADD_FAV",
@@ -532,3 +593,19 @@ export function getCarouselImages() {
 //   }
 
 // }
+
+
+//ORDERS
+
+export function getAllOrders() {
+  
+  return async function (dispatch) {
+    const json = await axios.post(
+      'path'
+    );
+    return dispatch({
+      type: "GET_ALL_ORDERS",
+      payload: json.data,
+    });
+  };
+}
