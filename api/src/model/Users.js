@@ -92,7 +92,7 @@ const userSchema = new Schema({
   buyBooks: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Books',
+      ref: 'Orders',
     },
   ],
   ratingBooks: [

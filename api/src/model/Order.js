@@ -33,4 +33,4 @@ const orderSchema = new Schema({
     type: String,
   },
 });
-module.exports = model("Ordenes", orderSchema);
+module.exports = model("Orders", orderSchema);
