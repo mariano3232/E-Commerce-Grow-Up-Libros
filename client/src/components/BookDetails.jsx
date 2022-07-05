@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { scroller } from 'react-scroll'
+import { BsCart } from 'react-icons/bs'
 
 import {
   getBookDetails,
@@ -11,6 +12,7 @@ import {
   addToCart,
   addFav,
   getUsers,
+  updateAmount,
 } from '../actions'
 //import { clearPageBookDetails, getBookDetails } from "../actions";
 import { Link } from 'react-router-dom'
@@ -23,6 +25,7 @@ export default function BookDetails() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const isLogged = useSelector((state) => state.userLogged)
+  const productsAmount=useSelector((state)=>state.cartAmount)
   const { loginWithRedirect } = useAuth0()
 
   useEffect(() => {
@@ -39,6 +42,7 @@ export default function BookDetails() {
   function handleAddToCart(e) {
     e.preventDefault()
     dispatch(addToCart(id))
+    dispatch(updateAmount(productsAmount+1))
     alert('Libro agregado al carrito!')
   }
 
@@ -62,7 +66,10 @@ export default function BookDetails() {
   return (
     <div className={styles.container}>
       <Link to='/cart'>
-        <button className={styles.cart}>Ir al Carrito</button>
+        <div className={styles.containerCart}>
+          <BsCart className={styles.cart} />
+          <h4 className={styles.productsAmount}>{productsAmount}</h4>
+        </div>
       </Link>
       <img src={book.cover} alt='Not Found ):' className={styles.img} />
 

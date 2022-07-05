@@ -14,6 +14,7 @@ const initialState = {
   usersCopy: [],
   userLogged: [],
   cart: [],
+  cartAmount:0,
   render: [],
   carousel: [],
 };
@@ -358,6 +359,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         cart: newCart3,
       };
+    case 'UPDATE_AMOUNT':
+      return{
+        ...state,
+        cartAmount:action.payload
+      }
 
     case "CLEAR_CART":
       return {
