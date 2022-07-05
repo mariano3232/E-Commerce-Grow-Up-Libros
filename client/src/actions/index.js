@@ -365,7 +365,7 @@ export function addToCart(id) {
     const book = await axios.get(
       "https://ecommercehenryx.herokuapp.com/books/" + id
     );
-    console.log("book en action :", book);
+    //console.log("book en action :", book);
     return dispatch({
       type: "ADD_TO_CART",
       payload: book.data,
@@ -406,7 +406,47 @@ export function clearCart() {
   };
 }
 
-//PERMISOS DE ADMINISTRADOR:
+export function purchaseOrder(payload) {
+  
+  return (dispatch) => {
+    return dispatch({
+      type: "PURCHASE_ORDER",
+      payload: payload,
+    });
+  };
+}
+
+export function addToCartPurchaseOrder(payload) {
+  
+  return (dispatch) => {
+    return dispatch({
+      type: "ADD_TO_CART_PURCHASE_ORDER",
+      payload: payload,
+    });
+  };
+}
+
+export function removeOneFromCartPurchaseOrder(payload) {
+  
+  return (dispatch) => {
+    return dispatch({
+      type: "REMOVE_ONE_FROM_CART_PURCHASE_ORDER",
+      payload: payload,
+    });
+  };
+}
+
+export function removeAllFromCartPurchaseOrder(payload) {
+  
+  return (dispatch) => {
+    return dispatch({
+      type: "REMOVE_ALL_FROM_CART_PURCHASE_ORDER",
+      payload: payload,
+    });
+  };
+}
+
+//ADMIN PRO y SuperAdmin
 
 export function setToAdmin(payload) {
   return async function (dispatch) {
