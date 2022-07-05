@@ -13,7 +13,8 @@ router.get("/", async function (req, res) {
         path: "genres",
         select: "genre",
       })
-      .populate({ path: "authors", select: "name", select: { _id: 0 } });
+      .populate({ path: "authors", select: "name", select: { _id: 0 } })
+      .populate('comments')
     return res.json(books);
   } catch (error) {
     console.log("FALLO GET BOOKS", error);
@@ -292,15 +293,4 @@ router.post("/showBook/:id", async (req, res) => {
   }
 });
 
-router.delete('/comments/deleteComment/:id', async (req,res) =>{
-  const {id} = req.params;
-  
-  try{
-    const book = await Books.findById(id)
-    const comments = book
-    res.send(comments)
-  } catch (err){
-    res.send(err)
-  }
-})
 module.exports = router;
