@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,6 +11,7 @@ import {
   addToCart,
   addFav,
   getUsers,
+  purchaseOrder,
 } from '../actions'
 //import { clearPageBookDetails, getBookDetails } from "../actions";
 import { Link } from 'react-router-dom'
@@ -22,7 +23,8 @@ export default function BookDetails() {
   const id = useParams().id
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const isLogged = useSelector((state) => state.userLogged)
+  const isLogged = useSelector(state => state.userLogged)
+  const products = useSelector(state => state.cart);
   const { loginWithRedirect } = useAuth0()
 
   useEffect(() => {
@@ -38,8 +40,20 @@ export default function BookDetails() {
   }
   function handleAddToCart(e) {
     e.preventDefault()
+    if (isLogged.length === 0) return loginWithRedirect()
     dispatch(addToCart(id))
     alert('Libro agregado al carrito!')
+    setTimeout(function(){
+      
+      dispatch(purchaseOrder({
+        email: isLogged[0].email, 
+        name: isLogged[0].name,
+        title: products[products.length-1].title,
+        unit_price: products[products.length-1].price, 
+        quantity: products[products.length-1].amount,
+      }))
+       
+    }, 200)
   }
 
   useEffect(() => {
