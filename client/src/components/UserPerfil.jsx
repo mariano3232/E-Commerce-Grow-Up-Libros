@@ -9,12 +9,18 @@ import UserDatos from './UserDatos'
 import UserPlanLectura from './UserPlanLectura'
 import UserSuscripcion from './UserSuscripcion'
 import UserFav from './UserFav'
+import { BsCart } from 'react-icons/bs'
+import style from '../Styles/bookDetails.module.css'
+
 const UserPerfil = () => {
+
   const dispatch = useDispatch()
   const { user, isAuthenticated, isLoading } = useAuth0()
   const usuarios = useSelector((state) => state.users)
   const usuario = usuarios.filter((u) => u.email === user.email)
   const [component, setComponent] = useState('')
+  const productsAmount=useSelector((state)=>state.cartAmount)
+
   if (isLoading) {
     return <div>Cargando...</div>
   }
@@ -37,6 +43,14 @@ const UserPerfil = () => {
         </div>
       )}
       <div className={styles.containerUserGrid}>
+
+      <Link to='/cart'>
+        <div className={style.containerCart}>
+          <BsCart className={style.cart} />
+          <h4 className={style.productsAmount}>{productsAmount}</h4>
+        </div>
+      </Link>
+
         <div className={styles.containerButtons}>
           <button
             className={styles.button}
