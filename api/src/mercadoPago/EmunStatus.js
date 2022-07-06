@@ -1,6 +1,6 @@
 exports.Enum = {
-    CREATED: "Created",
-    PROCESSING: "processing",
-    CANCELLED: "cancelled",
-    COMPLETE: "complete",
-  };
+  CREATED: 'Creado',
+  PROCESSING: 'Procesando',
+  CANCELLED: 'Cancelado',
+  COMPLETE: 'Completado',
+}
