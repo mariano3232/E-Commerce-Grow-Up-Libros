@@ -7,7 +7,7 @@ const { ACCESS_TOKEN } = process.env;
 const mercadopago = require("mercadopago");
 const Orders = require("../model/Order");
 const Users = require("../model/Users");
-const { Enum } = require("./EmunStatus");
+const { Enum, EnumStatus } = require("./EmunStatus");
 const { randomId } = require("./FuntionID");
 
 mercadopago.configure({
@@ -38,7 +38,7 @@ router.post("/orden", async (req, res) => {
     produt: carrito.map((e) => e.title),
     total: monto,
     payment_id: idOrder,
-    payment_status: idOrder,
+    payment_status: EnumStatus.PENDING,
     payment_order_id: idOrder,
   });
 
@@ -67,9 +67,9 @@ router.post("/orden", async (req, res) => {
       },
       
       back_urls: {
-        success: "http://localhost:8080/feedback",
-        failure: "http://localhost:8080/feedback",
-        pending: "http://localhost:8080/feedback",
+        success: "https://e-commerce-books.vercel.app",
+        failure: "https://e-commerce-books.vercel.app",
+        pending: "https://e-commerce-books.vercel.app",
       },
       auto_return: "approved",
     };
@@ -85,6 +85,7 @@ router.post("/orden", async (req, res) => {
     return console.log("FALLO MERCADO PAGO", error);
   }
 });
+
 // {"id":1152954796,"nickname":"TETE5687095","password":"qatest2807","site_status":"active","site_id":"MCO","description":"a description","date_created":"2022-07-01T17:25:00-04:00","date_last_updated":"2022-07-01T17:25:00-04:00"} VENDEDOR
 
 // {"id":1152955480,"nickname":"TETE6325107","password":"qatest9152","site_status":"active","site_id":"MCO","description":"a description","date_created":"2022-07-01T17:26:17-04:00","date_last_updated":"2022-07-01T17:26:17-04:00"}
