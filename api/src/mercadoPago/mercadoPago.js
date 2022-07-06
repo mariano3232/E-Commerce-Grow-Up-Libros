@@ -4,11 +4,11 @@ const router = Router()
 const { ACCESS_TOKEN } = process.env
 
 // SDK de Mercado Pago
-const mercadopago = require('mercadopago')
-const Orders = require('../model/Order')
-const Users = require('../model/Users')
-const { Enum } = require('./EmunStatus')
-const { randomId } = require('./FuntionID')
+const mercadopago = require("mercadopago");
+const Orders = require("../model/Order");
+const Users = require("../model/Users");
+const { Enum, EnumStatus } = require("./EmunStatus");
+const { randomId } = require("./FuntionID");
 
 mercadopago.configure({
   access_token: `${ACCESS_TOKEN}`,
@@ -38,7 +38,7 @@ router.post('/orden', async (req, res) => {
     produt: carrito.map((e) => e.title),
     total: monto,
     payment_id: idOrder,
-    payment_status: idOrder,
+    payment_status: EnumStatus.PENDING,
     payment_order_id: idOrder,
   })
 
@@ -64,17 +64,19 @@ router.post('/orden', async (req, res) => {
         ],
         installments: 4,
       },
-
+      
       back_urls: {
-        success: 'http://localhost:8080/feedback',
-        failure: 'http://localhost:8080/feedback',
-        pending: 'http://localhost:8080/feedback',
+        success: "https://e-commerce-books.vercel.app",
+        failure: "https://e-commerce-books.vercel.app",
+        pending: "https://e-commerce-books.vercel.app",
       },
-      auto_return: 'approved',
-    }
-    const saveOrder = await Orders.findById({ _id: newOrder._id }).populate({
-      path: 'usuario',
-    })
+      auto_return: "approved",
+    };
+    const saveOrder = await Orders.findById({ _id: newOrder._id }).populate(
+      { path: "usuario"}
+      );
+   
+  
 
     const respuesta = await mercadopago.preferences.create(preference)
 
