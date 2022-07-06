@@ -516,6 +516,18 @@ function rootReducer(state = initialState, action) {
             };
 
 
+      case "GET_STATUS_ORDERS":
+      const nameStatusOrderCopy = state.ordersCopy;
+      const nameStatusOrder = nameStatusOrderCopy.filter(
+        (order) =>
+          order.status.toLowerCase().includes(action.payload.toLowerCase())
+      );
+
+      return {
+        ...state,
+        orders: nameStatusOrder,
+      };
+
       
 
     default:

@@ -660,15 +660,26 @@ export function getAllOrders() {
   };
 }
 
-export function setOrderStatus() {
+export function setOrderStatus(payload) {
   
   return async function (dispatch) {
+    console.log('status:',payload)
     const json = await axios.post(
-      'path'
+      'https://ecommercehenryx.herokuapp.com/orders/changeStatus',payload
     );
     return dispatch({
       type: "SET_ORDER_STATUS",
      
     });
+  };
+}
+
+
+
+export function getStatusOrders(payload) {
+  console.log('PP:',payload)
+  return {
+    type: "GET_STATUS_ORDERS",
+    payload: payload,
   };
 }
