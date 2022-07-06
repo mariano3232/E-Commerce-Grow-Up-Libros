@@ -13,10 +13,11 @@ router.get('/getAllOrders', async (req, res) => {
 })
 
 router.post('/changeStatus', async (req, res) => {
-  const { orderIds, status } = req.body
+  const { ordersIds, status } = req.body
+  console.log(req.body)
   try {
-    if (orderIds.length === 0) throw new Error('Please agregar data')
-    orderIds.forEach(async (orders) => {
+    if (ordersIds.length === 0) throw new Error('Please agregar data')
+    ordersIds.forEach(async (orders) => {
       const order = await Orders.findById(orders)
       if (!order) throw new Error('The order not exists')
       order.status = status
