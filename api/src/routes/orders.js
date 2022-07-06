@@ -1,15 +1,15 @@
-const { Router } = require("express");
-const Orders = require("../model/Order");
+const { Router } = require('express')
+const Orders = require('../model/Order')
 
-const router = Router();
+const router = Router()
 
-router.get("/getAllOrders", async (req, res) => {
+router.get('/getAllOrders', async (req, res) => {
   try {
     const allOrden = await Orders.find({}).populate('usuario')
-    return res.json(allOrden);
+    return res.json(allOrden)
   } catch (error) {
-    console.log("FALLO EN LAS ORDENES", error);
+    res.send(error.message)
   }
-});
+})
 
-module.exports = router;
+module.exports = router
