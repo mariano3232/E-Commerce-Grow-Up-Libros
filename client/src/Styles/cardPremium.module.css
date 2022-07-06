@@ -11,6 +11,35 @@
   transition: 500ms;
   color: white;
 }
+
+.gas {
+  width: 25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center center;
+  margin: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #015249;
+  background: -webkit-linear-gradient(80deg, #d477b8, #30c537);
+  transition: 500ms;
+  color: white;
+}
+
+.gaston {
+  width: 25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center center;
+  margin: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #015249;
+  background: -webkit-linear-gradient(80deg, blue, yellow);
+  transition: 500ms;
+  color: white;
+}
+
 .button {
   margin-top: 10px;
   z-index: 1;
