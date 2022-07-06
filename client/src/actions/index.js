@@ -1,3 +1,4 @@
+import { gridColumnPositionsSelector } from "@mui/x-data-grid";
 import axios from "axios";
 
 //BOOKS
@@ -357,6 +358,14 @@ export function getUserName(payload) {
   };
 }
 
+export function getUserNameOrders(payload) {
+  console.log('PP:',payload)
+  return {
+    type: "GET_USER_NAME_ORDERS",
+    payload: payload,
+  };
+}
+
 //COMPRAS
 
 export function addToCart(id) {
@@ -640,12 +649,37 @@ export function getCarouselImages() {
 export function getAllOrders() {
   
   return async function (dispatch) {
-    const json = await axios.post(
-      'path'
+    const json = await axios.get(
+      "https://ecommercehenryx.herokuapp.com/orders/getAllOrders"
     );
+   
     return dispatch({
       type: "GET_ALL_ORDERS",
       payload: json.data,
     });
+  };
+}
+
+export function setOrderStatus(payload) {
+  
+  return async function (dispatch) {
+    console.log('status:',payload)
+    const json = await axios.post(
+      'https://ecommercehenryx.herokuapp.com/orders/changeStatus',payload
+    );
+    return dispatch({
+      type: "SET_ORDER_STATUS",
+     
+    });
+  };
+}
+
+
+
+export function getStatusOrders(payload) {
+  console.log('PP:',payload)
+  return {
+    type: "GET_STATUS_ORDERS",
+    payload: payload,
   };
 }

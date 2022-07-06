@@ -1,6 +1,12 @@
 exports.Enum = {
-  CREATED: 'Creado',
-  PROCESSING: 'Procesando',
-  CANCELLED: 'Cancelado',
-  COMPLETE: 'Completado',
+  CREATED: 'Created',
+  PROCESSING: 'processing',
+  CANCELLED: 'cancelled',
+  COMPLETE: 'complete',
+}
+
+exports.EnumStatus = {
+  SUCCESS: 'success',
+  FAILURE: 'failure',
+  PENDING: 'pending',
 }
