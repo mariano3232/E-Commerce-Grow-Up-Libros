@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { scroller } from 'react-scroll'
 import { BsCart } from 'react-icons/bs'
+import axios from 'axios'
 
 import {
   getBookDetails,
@@ -22,6 +23,7 @@ import { animateScroll as scroll } from 'react-scroll'
 import { useAuth0 } from '@auth0/auth0-react'
 
 export default function BookDetails() {
+  
   const id = useParams().id
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -29,6 +31,14 @@ export default function BookDetails() {
   const isLogged = useSelector(state => state.userLogged)
   const products = useSelector(state => state.cart);
   const { loginWithRedirect } = useAuth0()
+
+  const usuario = useSelector ( state => state.userLogged)
+
+  const [comment,setComment]=useState({
+    comment:'',
+    nickname:'',
+    title:'',
+  })
 
   useEffect(() => {
     dispatch(getBookDetails(id))
@@ -74,8 +84,25 @@ export default function BookDetails() {
     dispatch(getUsers())
   }
 
+  function handleChange(e){
+    e.preventDefault();
+    setComment({
+      comment:e.target.value,
+      nickname:usuario[0].nickname,
+      _id:id,
+    })
+    console.log('comment :',comment)
+  }
+  function handlePost(e){
+    e.preventDefault();
+    axios.post('https://ecommercehenryx.herokuapp.com/addComment',comment).then((response)=>{
+        console.log('axios response',response)
+    })
+  }
+
   const book = useSelector((state) => state.bookDetails)
   const author = book.authors
+
 
   return (
     <div className={styles.container}>
@@ -163,8 +190,10 @@ export default function BookDetails() {
           rows='4'
           placeholder='Comenta!'
           className={styles.comment}
+          value={comment.comment}
+          onChange={e=>handleChange(e)}
         ></textarea>
-        <button>Post</button>
+        <button onClick={e=>handlePost(e)}>Post</button>
       </div>
     </div>
   )
