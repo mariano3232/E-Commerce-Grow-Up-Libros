@@ -95,7 +95,7 @@ export default function BookDetails() {
   }
   function handlePost(e){
     e.preventDefault();
-    axios.post('https://ecommercehenryx.herokuapp.com/addComment',comment).then((response)=>{
+    axios.post('https://ecommercehenryx.herokuapp.com/comments/addComment',comment).then((response)=>{
         console.log('axios response',response)
     })
   }
