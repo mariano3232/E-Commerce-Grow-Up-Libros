@@ -1,15 +1,31 @@
-const { Router } = require("express");
-const Orders = require("../model/Order");
+const { Router } = require('express')
+const Orders = require('../model/Order')
 
-const router = Router();
+const router = Router()
 
-router.get("/getAllOrders", async (req, res) => {
+router.get('/getAllOrders', async (req, res) => {
   try {
     const allOrden = await Orders.find({}).populate('usuario')
-    return res.json(allOrden);
+    return res.json(allOrden)
   } catch (error) {
-    console.log("FALLO EN LAS ORDENES", error);
+    res.send(error.message)
   }
-});
+})
 
-module.exports = router;
+router.post('/changeStatus', async (req, res) => {
+  const { ordersIds, status } = req.body
+  console.log(req.body)
+  try {
+    if (ordersIds.length === 0) throw new Error('Please agregar data')
+    ordersIds.forEach(async (orders) => {
+      const order = await Orders.findById(orders)
+      if (!order) throw new Error('The order not exists')
+      order.status = status
+      await order.save()
+    })
+    res.send('Ordernes actualizadas')
+  } catch (error) {
+    res.status(404).json(error.message)
+  }
+})
+module.exports = router

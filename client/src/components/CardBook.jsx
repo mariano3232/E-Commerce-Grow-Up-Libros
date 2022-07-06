@@ -1,40 +1,40 @@
-import React, { useState } from "react";
-import styles from "../Styles/CardBook.module.css";
-import { Link } from "react-router-dom";
-import Fav from "./Fav";
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart, purchaseOrder, putRating, updateAmount } from "../actions";
-import { Rating } from "@mui/material";
-import { useEffect } from "react";
+import React, { useState } from 'react'
+import styles from '../Styles/CardBook.module.css'
+import { Link } from 'react-router-dom'
+import Fav from './Fav'
+import { useDispatch, useSelector } from 'react-redux'
+import { addToCart, purchaseOrder, putRating, updateAmount } from '../actions'
+import { Rating } from '@mui/material'
+import { useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 
 export default function CardBook({ title, cover, price, rating, id, stock }) {
-  const dispatch = useDispatch();
-  const { userLogged } = useSelector((state) => state);
-  const productsAmount=useSelector((state)=>state.cartAmount)
-  const products = useSelector(state => state.cart);
-  
+  const dispatch = useDispatch()
+  const { userLogged } = useSelector((state) => state)
+  const productsAmount = useSelector((state) => state.cartAmount)
+  const products = useSelector((state) => state.cart)
+
   const { loginWithRedirect } = useAuth0()
 
   //const [ifRating, setIfRating] = useState();
-  const ifRating = changeRating(id);
+  const ifRating = changeRating(id)
 
   function changeRating(id) {
     if (userLogged.length > 0 && userLogged[0].ratingBooks.length > 0) {
-      let result = userLogged[0].ratingBooks.indexOf(id);
+      let result = userLogged[0].ratingBooks.indexOf(id)
       if (result === -1) {
-        return false;
+        return false
       } else {
-        return true;
+        return true
       }
     }
     if (userLogged.length === 0) {
-      return true;
+      return true
     }
   }
 
   function handleRating(event, value) {
-    dispatch(putRating(id, value, userLogged[0]._id));
+    dispatch(putRating(id, value, userLogged[0]._id))
     // setIfRating(true);
   }
 
@@ -42,30 +42,30 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
     e.preventDefault()
     if (userLogged.length === 0) return loginWithRedirect()
     dispatch(addToCart(id))
-    dispatch(updateAmount(productsAmount+1))
+    dispatch(updateAmount(productsAmount + 1))
     alert('Libro agregado al carrito!')
-    setTimeout(function(){
-      
-      dispatch(purchaseOrder({
-        email: userLogged[0].email, 
-        name: userLogged[0].name,
-        title: products[products.length-1].title,
-        unit_price: products[products.length-1].price, 
-        quantity: products[products.length-1].amount,
-      }))
-       
+    setTimeout(function () {
+      dispatch(
+        purchaseOrder({
+          email: userLogged[0].email,
+          name: userLogged[0].name,
+          title: products[products.length - 1].title,
+          unit_price: products[products.length - 1].price,
+          quantity: products[products.length - 1].amount,
+        })
+      )
     }, 200)
   }
 
   return (
     <div className={styles.container}>
-      <Link to={"/book/" + id}>
+      <Link to={'/book/' + id}>
         <img
           className={styles.img}
           src={cover}
-          alt="Not Found ):"
-          width="200x"
-          height="300"
+          alt='Not Found ):'
+          width='200x'
+          height='300'
         />
       </Link>
       <div className={styles.block}>
@@ -73,7 +73,7 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
         <div className={styles.rating}>
           {ifRating ? (
             <Rating
-              name="half-rating"
+              name='half-rating'
               value={rating}
               precision={0.5}
               onChange={(event, value) => handleRating(event, value)}
@@ -81,7 +81,7 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
             />
           ) : (
             <Rating
-              name="half-rating"
+              name='half-rating'
               value={0}
               precision={0.5}
               onChange={(event, value) => handleRating(event, value)}
@@ -97,15 +97,19 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
             <p className={styles.price}>${price}</p>
           </div>
           <div>
-            {
-              stock > 1 ?
-              <button className={styles.button} onClick={(e) => handleAddToCart(e)}>
+            {stock > 1 ? (
+              <button
+                className={styles.button}
+                onClick={(e) => handleAddToCart(e)}
+              >
                 Añadir al carrito
-              </button> : ''
-            }
+              </button>
+            ) : (
+              ''
+            )}
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }

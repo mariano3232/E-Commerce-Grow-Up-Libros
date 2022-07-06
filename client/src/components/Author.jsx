@@ -26,7 +26,6 @@ const Author = () => {
   // })
   useEffect(() => {
     dispatch(getAuthors())
-    console.log('HOOOOOME');
   }, []);
 
   useEffect(() => {

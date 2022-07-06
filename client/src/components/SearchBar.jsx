@@ -25,10 +25,20 @@ const SearchBar = () => {
         setInput('');
     }
 
+    const handleKeyPress = (e) => {
+        if(e.charCode === 13){
+            e.preventDefault();
+            dispatch(getBookTitle(input));
+            navigate('/home/');
+            scroller.scrollTo("gaston");
+            setInput('');
+        }
+    }
+
     return (
         <div className={styles.container}>
 
-            <input type="text" placeholder='Título' value={input} onChange={(e) => handleChange(e)} className={styles.input}/>
+            <input type="text" placeholder='Título' value={input} onChange={(e) => handleChange(e)} className={styles.input} onKeyPress={(e) => handleKeyPress(e)}/>
             <button type='submit' onClick={(e) => handleSubmit(e)} className={styles.button}>Buscar</button>
       
         </div>

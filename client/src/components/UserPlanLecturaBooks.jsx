@@ -99,9 +99,12 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-              Añadir al carrito
-            </button>
+            {
+              e.stock > 1 ?
+              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
+                Añadir al carrito
+              </button> : ''
+            }
             <span>
               <Fav book={e._id} />
             </span>
@@ -115,9 +118,12 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-              Añadir al carrito
-            </button>
+            {
+              e.stock > 1 ?
+              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
+                Añadir al carrito
+              </button> : ''
+            }
             <span>
               <Fav book={e._id} />
             </span>
@@ -131,9 +137,12 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-              Añadir al carrito
-            </button>
+            {
+              e.stock > 1 ?
+              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
+                Añadir al carrito
+              </button> : ''
+            }
             <span>
               <Fav book={e._id} />
             </span>
@@ -147,9 +156,12 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-              Añadir al carrito
-            </button>
+            {
+              e.stock > 1 ?
+              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
+                Añadir al carrito
+              </button> : ''
+            }
             <span>
               <Fav book={e._id} />
             </span>
@@ -163,9 +175,12 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-              Añadir al carrito
-            </button>
+            {
+              e.stock > 1 ?
+              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
+                Añadir al carrito
+              </button> : ''
+            }
             <span>
               <Fav book={e._id} />
             </span>
@@ -179,9 +194,12 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-              Añadir al carrito
-            </button>
+            {
+              e.stock > 1 ?
+              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
+                Añadir al carrito
+              </button> : ''
+            }
             <span>
               <Fav book={e._id} />
             </span>
@@ -195,9 +213,12 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-              Añadir al carrito
-            </button>
+            {
+              e.stock > 1 ?
+              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
+                Añadir al carrito
+              </button> : ''
+            }
             <span>
               <Fav book={e._id} />
             </span>
@@ -211,9 +232,12 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-              Añadir al carrito
-            </button>
+            {
+              e.stock > 1 ?
+              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
+                Añadir al carrito
+              </button> : ''
+            }
             <span>
               <Fav book={e._id} />
             </span>
