@@ -3,7 +3,7 @@ import { useSelector,useDispatch } from "react-redux";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from '../Styles/shoppingCart.module.css'
-import stylesbutton from '../Styles/button.module.css'
+
 import { addToCart, updateAmount, addToCartPurchaseOrder, clearCart, removeAllFromCart, removeAllFromCartPurchaseOrder, removeOneFromCart, removeOneFromCartPurchaseOrder } from "../actions";
 import axios from "axios";
 
@@ -61,7 +61,7 @@ export default function ShoopingCart(){
 
     return(
         <div>
-            <h1>Carrito de compras</h1>
+            
             <h3>Productos :</h3>
             {
                 products.map(e=>{
