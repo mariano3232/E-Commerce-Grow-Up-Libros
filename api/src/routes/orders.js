@@ -14,6 +14,7 @@ router.get('/getAllOrders', async (req, res) => {
 
 router.post('/changeStatus', async (req, res) => {
   const { orderIds, status } = req.body
+  console.log(req.body)
   try {
     if (orderIds.length === 0) throw new Error('Please agregar data')
     orderIds.forEach(async (orders) => {
