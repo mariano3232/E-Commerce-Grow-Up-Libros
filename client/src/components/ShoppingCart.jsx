@@ -3,7 +3,6 @@ import { useSelector,useDispatch } from "react-redux";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from '../Styles/shoppingCart.module.css'
-import stylesbutton from '../Styles/button.module.css'
 import { addToCart, updateAmount, addToCartPurchaseOrder, clearCart, removeAllFromCart, removeAllFromCartPurchaseOrder, removeOneFromCart, removeOneFromCartPurchaseOrder } from "../actions";
 import axios from "axios";
 
@@ -52,6 +51,7 @@ export default function ShoopingCart(){
     const handleClick = async() => {
         
         const json = await axios.post('https://ecommercehenryx.herokuapp.com/mercadopago/orden', order);
+        console.log('soycompras', json.data);
         location.assign(json.data.init_point);
     }
 
@@ -59,35 +59,28 @@ export default function ShoopingCart(){
     [products])
 
     return(
-        (products.length===0)?<h1 className={styles.empity}>El carrito esta vacio!</h1>:
         <div>
+            <h1>Carrito de compras</h1>
             <h3>Productos :</h3>
             {
                 products.map(e=>{
                     return(
                     <div className={styles.product}>
-                    <h4>{e.title} ({e.price}$)</h4>
-                    <div className={styles.amount}>
-                        <button value={e._id} onClick={e=>handleRemoveOne(e)} className={styles.button}>  -  </button>
-                        <h4 className={styles.number}>{e.amount}</h4>
-                        <button value={e._id} onClick={e=>{handleAdd(e)}} className={styles.button}> + </button>
-                    </div>
-                    <div className={styles.remove}>
-                        <button value={e._id} onClick={e=>handleRemoveAll(e)}className={styles.buttonX}>Quitar</button>
-                        <h4>total : {e.price*e.amount}$</h4>
-                    </div>
+                    <button value={e._id} onClick={e=>handleRemoveOne(e)}>-</button>
+                    <h4>{e.title} (${e.price})</h4>
+                    <button value={e._id} onClick={e=>{handleAdd(e)}}>+</button>
+                    <button value={e._id} onClick={e=>handleRemoveAll(e)}>X</button>
+                    <h4>X{e.amount}</h4>
                     </div>
                     )
                 })
             }
-            <p className={styles.datos} >Cantidad de productos : {productsAmount}</p>
-            <p className={styles.datos} >precio Total :{price}$</p>
-            <div className={styles.foot}>
-                <button onClick={handleClear} className={styles.buttonX}>Vaciar carrito</button>
-                {
-                    (products.length>0)?<button type="submit" className={stylesbutton.button} onClick={handleClick}>Realizar compra</button>:null
-                }
-            </div>
+            <button onClick={handleClear}>Vaciar carrito</button>
+            {
+                (products.length>0)?<button type="submit" onClick={handleClick}>Realizar compra</button>:null
+            }
+            <p>Cantidad de productos : {productsAmount}</p>
+            <p>Precio Total :{price}</p>
         </div>
     )
 }
