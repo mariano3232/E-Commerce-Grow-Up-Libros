@@ -16,7 +16,7 @@ const NavBar = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { user, isAuthenticated } = useAuth0()
-  const usuario = useSelector ( state => state.userLogged )
+  const usuario = useSelector((state) => state.userLogged)
 
   const handleClick = (e) => {
     e.preventDefault()
@@ -94,18 +94,6 @@ const NavBar = () => {
       <div className={styles.toggle}>
         <div className={styles.bar}></div>
       </div>
-
-      { 
-      
-      usuario.length === 1 && usuario[0].isBanned===false
-      ?
-      (
-        <Link to='/user' className={styles.Link}>
-          <h3 className={styles.navItem}>Mi cuenta</h3>
-        </Link>
-      ) : 
-        ''
-      }
 
       {/* <Link to='/user'><h3 className={style.navItem}>Login</h3></Link> */}
 
