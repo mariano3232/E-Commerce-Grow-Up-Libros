@@ -92,7 +92,7 @@ const userSchema = new Schema({
   buyBooks: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Orders',
+      ref: 'Books',
     },
   ],
   ratingBooks: [
@@ -102,10 +102,6 @@ const userSchema = new Schema({
     },
   ],
   isSubscribeNewsLetter: {
-    type: Boolean,
-    default: false,
-  },
-  isHidden: {
     type: Boolean,
     default: false,
   },
