@@ -5,11 +5,13 @@ import { useDispatch } from 'react-redux'
 import { postUser } from '../actions'
 import { useSelector } from 'react-redux'
 import styles from '../Styles/UserPerfil.module.css'
+import s from '../Styles/Home.module.css'
 import UserDatos from './UserDatos'
 import UserPlanLectura from './UserPlanLectura'
 import UserSuscripcion from './UserSuscripcion'
 import UserFav from './UserFav'
 import { BsCart } from 'react-icons/bs'
+import { BsHeart } from 'react-icons/bs'
 import style from '../Styles/bookDetails.module.css'
 
 const UserPerfil = () => {
@@ -20,6 +22,7 @@ const UserPerfil = () => {
   const usuario = usuarios.filter((u) => u.email === user.email)
   const [component, setComponent] = useState('')
   const productsAmount=useSelector((state)=>state.cartAmount)
+  const isLogged = useSelector(state => state.userLogged)
 
   if (isLoading) {
     return <div>Cargando...</div>
@@ -48,6 +51,17 @@ const UserPerfil = () => {
         <div className={style.containerCart}>
           <BsCart className={style.cart} />
           <h4 className={style.productsAmount}>{productsAmount}</h4>
+        </div>
+      </Link>
+
+      <Link to='/user'>
+        <div className={s.containerHeart}>
+          <BsHeart className={s.heart} />
+          {
+            isLogged.length ?
+            <h4 className={s.productsAmount}>{isLogged[0].favouritesBooks.length}</h4>
+            : <h4 className={s.productsAmount}>{0}</h4>
+          }
         </div>
       </Link>
 
