@@ -36,6 +36,7 @@ export default function BookDetails() {
   const products = useSelector(state => state.cart);
   const { loginWithRedirect } = useAuth0()
   const [render,setRender]=useState(0)
+  const usuario = useSelector((state) => state.userLogged)
 
   const [comment,setComment]=useState({
     comment:'',
@@ -84,7 +85,7 @@ export default function BookDetails() {
   const handleClickFav = () => {
     const iduser = isLogged[0]._id
     if (isLogged.length === 0) return loginWithRedirect()
-    if (isLogged[0].favouritesBooks.includes(book)) return alert('Ya es un libro favorito');
+    if (isLogged[0].favouritesBooks.includes(id)) return alert('Ya es un libro favorito');
     dispatch(addFav(id, iduser))
     alert('Libro agregado a favoritos')
     dispatch(getUsers())
