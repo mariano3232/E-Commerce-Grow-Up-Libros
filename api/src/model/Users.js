@@ -105,6 +105,10 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  isHidden: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 module.exports = model('Users', userSchema)

@@ -1,23 +1,23 @@
-const { Schema, model } = require("mongoose");
-
-
-
-
+const { Schema, model } = require('mongoose')
 
 const orderSchema = new Schema({
   status: {
     type: String,
   },
-  usuario: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Users'
-  }],
+  usuario: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Users',
+    },
+  ],
   fecha: {
     type: Date,
   },
-  produt: [{
-    type: String,
-  }],
+  produt: [
+    {
+      type: String,
+    },
+  ],
   total: {
     type: Number,
   },
@@ -27,10 +27,14 @@ const orderSchema = new Schema({
   },
   payment_status: {
     type: String,
-    default: "",
+    default: '',
   },
   payment_order_id: {
     type: String,
   },
-});
-module.exports = model("Orders", orderSchema);
+  isHidden: {
+    type: Boolean,
+    default: false,
+  },
+})
+module.exports = model('Orders', orderSchema)
