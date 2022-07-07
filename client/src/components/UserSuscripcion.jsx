@@ -4,7 +4,7 @@ import CardPremium from './CardPremium'
 import styles from '../Styles/UserSuscripcion.module.css'
 const UserSuscripcion = () => {
 const [state, setState] = useState({
-    mensual: '$599,99 mes',
+    mensual: '$599,99 / mes',
     trimestral: '',
     anual: '',
   })
