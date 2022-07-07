@@ -195,8 +195,7 @@ router.post('/addDesiredBooks/:idBook/:idUser', async (req, res) => {
 
     const userBooksFavourites = user.favouritesBooks
     userBooksFavourites.forEach((bookFav) => {
-      if (bookFav.toString() === book._id.toString())
-        throw new Error('El libro ya ha sido añadido anteriormente')
+      if (bookFav.toString() === book._id.toString()) return res.json(user)
     })
 
     user.favouritesBooks.push(book._id)
