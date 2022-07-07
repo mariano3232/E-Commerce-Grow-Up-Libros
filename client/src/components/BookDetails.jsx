@@ -199,7 +199,9 @@ export default function BookDetails() {
       <div className={styles.space} />
 
       <div className={styles.postComments}>
-        <textarea
+        {
+          (isLogged.length === 0)?<button className={styles.login} onClick={()=>loginWithRedirect()}>Ingresa a tu cuenta para comentar</button>:
+          <textarea
           cols='80'
           rows='4'
           placeholder='Comenta!'
@@ -207,9 +209,10 @@ export default function BookDetails() {
           value={comment.comment}
           onChange={e=>handleChange(e)}
         ></textarea>
-        
+        }
+
         {
-          (isLogged.length === 0)?<button onClick={()=>loginWithRedirect()} className={styles.postButton}>{'>'}</button>:
+          (isLogged.length === 0)?null:
           <button onClick={e=>handlePost(e)} className={styles.postButton} >{'>'}</button>
         }
       </div>
