@@ -23,11 +23,31 @@ const UserDatos = () => {
     address: '',
   })
 
+  const [errors,setErrors]=useState({})
+
+  function validate(input){
+    const errors={};
+    if (input.name && !input.name.match(/^[a-zA-Z]*$/g)){
+      errors.name='Solo puede contener letras'
+    }
+    if (input.surname && !input.surname.match(/^[a-zA-Z]*$/g)){
+      errors.surname='Solo puede contener letras'
+    }
+
+    return errors
+  }
+
+  useEffect(()=>{
+    setErrors(validate(input))
+    console.log('errors :',errors)
+  },[input])
+
   const handleChange = (e) => {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     })
+    console.log('input:',input)
   }
 
   const handleSubmit = (e) => {
@@ -89,6 +109,9 @@ const UserDatos = () => {
               onChange={(e) => handleChange(e)}
               value={input.name}
             />
+            {
+              errors?.name?<p>{errors.name}</p>:null
+            }
           </div>
           <div className={styles.containerInput}>
             <label htmlFor='surname'>Apellido:</label>
@@ -98,6 +121,9 @@ const UserDatos = () => {
               onChange={(e) => handleChange(e)}
               value={input.surname}
             />
+            {
+              errors?.surname?<p>{errors.surname}</p>:null
+            }
           </div>
           <div className={styles.containerInput}>
             <label htmlFor='birthday'>Fecha de Nacimiento:</label>
