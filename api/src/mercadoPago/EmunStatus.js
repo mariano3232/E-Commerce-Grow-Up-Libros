@@ -3,6 +3,7 @@ exports.Enum = {
   PROCESSING: 'processing',
   CANCELLED: 'cancelled',
   COMPLETE: 'complete',
+  SHIPPED: 'Enviada',
 }
 
 exports.EnumStatus = {
