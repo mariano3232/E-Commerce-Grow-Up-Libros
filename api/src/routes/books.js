@@ -293,4 +293,16 @@ router.post('/showBook/:id', async (req, res) => {
   }
 })
 
+router.post('/updateStock/:id/:stock', async (req, res) => {
+  const { stock, id } = req.params
+  try {
+    const book = await Books.findById(id)
+    if (!book) throw new Error('Book no encontrado')
+    book.stock = stock
+    book.save()
+    res.send('Stock actualizado')
+  } catch (error) {
+    res.status(404).send(error.message)
+  }
+})
 module.exports = router
