@@ -5,8 +5,10 @@ import { useParams } from 'react-router-dom'
 import { addToCart, clearPageAuthorDetails, getAuthorDetails,purchaseOrder,updateAmount } from '../actions'
 import { Link } from 'react-router-dom'
 import style from '../Styles/authorDetails.module.css'
+import s from '../Styles/Home.module.css'
 import styledButton from '../Styles/Button.module.css'
 import { BsCart } from 'react-icons/bs'
+import { BsHeart } from 'react-icons/bs'
 import { animateScroll as scroll } from 'react-scroll'
 import CarrouselBookEnAuthor from './CarrouselBooksEnAuthor'
 import Fav from './Fav'
@@ -70,6 +72,18 @@ const AuthorDetails = () => {
           <h4 className={style.productsAmount}>{productsAmount}</h4>
         </div>
       </Link>
+
+      <Link to='/user'>
+        <div className={s.containerHeart}>
+          <BsHeart className={s.heart} />
+          {
+            isLogged.length ?
+            <h4 className={s.productsAmount}>{isLogged[0].favouritesBooks.length}</h4>
+            : <h4 className={s.productsAmount}>{0}</h4>
+          }
+        </div>
+      </Link>
+
       <div className={style.btnUbi}>
         <Link to='/author'>
           <button className={styledButton.button}>Volver</button>
