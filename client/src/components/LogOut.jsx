@@ -12,6 +12,7 @@ import {
   Typography,
   Divider,
 } from '@mui/material'
+import AccountBoxIcon from '@mui/icons-material/AccountBox'
 export default function LogOutButton() {
   const { logout } = useAuth0()
   const user = useSelector((state) => state.userLogged)[0]
@@ -25,7 +26,11 @@ export default function LogOutButton() {
   return (
     <Box>
       <IconButton onClick={handleOpenUserMenu}>
-        <Avatar alt={user?.nickname} src={user?.picture} />
+        <Avatar
+          sx={{ width: 56, height: 56 }}
+          alt={user?.nickname}
+          src={user?.picture}
+        />
       </IconButton>
 
       <Menu
@@ -41,35 +46,47 @@ export default function LogOutButton() {
       >
         {!user?.isBanned ? (
           <MenuItem onClick={handleCloseUserMenu} as={Link} to='/user'>
-            <Typography textAlign={'center'}>Mi cuenta</Typography>
+            <Typography color='#212529' textAlign={'center'}>
+              Mi cuenta
+            </Typography>
           </MenuItem>
         ) : (
           ''
         )}
         <MenuItem onClick={handleCloseUserMenu}>
-          <Typography textAlign={'center'}>Mis compras</Typography>
+          <Typography color='#212529' textAlign={'center'}>
+            Mis compras
+          </Typography>
         </MenuItem>
         <MenuItem onClick={handleCloseUserMenu}>
-          <Typography textAlign={'center'}>Libros favoritos</Typography>
+          <Typography color='#212529' textAlign={'center'}>
+            Libros favoritos
+          </Typography>
         </MenuItem>
         <Divider />
         {user?.isAdmin && !user.isBanned ? (
           <MenuItem onClick={handleCloseUserMenu} as={Link} to='/admin'>
-            <Typography textAlign={'center'}>Administrador</Typography>
+            <Typography color='#212529' textAlign={'center'}>
+              Administrador
+            </Typography>
           </MenuItem>
         ) : (
           ''
         )}
         {user?.isSuperAdmin && !user.isBanned ? (
           <MenuItem onClick={handleCloseUserMenu} as={Link} to='/adminpro'>
-            <Typography textAlign={'center'}>Super Administrador</Typography>
+            <Typography color='#212529' textAlign={'center'}>
+              Super Administrador
+            </Typography>
           </MenuItem>
         ) : (
           ''
         )}
         <Divider />
         <MenuItem onClick={() => logout({ returnTo: window.location.origin })}>
-          <Typography textAlign={'center'}>Cerrar Sesión</Typography>
+          <Typography color='#212529' textAlign={'center'}>
+            Cerrar Sesión
+          </Typography>
         </MenuItem>
       </Menu>
     </Box>
