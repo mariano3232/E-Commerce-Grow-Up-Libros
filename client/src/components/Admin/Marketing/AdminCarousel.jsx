@@ -11,7 +11,7 @@ export default function AdminCarousel() {
   const [image, setImage] = useState({ files: '' })
   const [publicId, setPublicId] = useState('')
 
-  const Images = useSelector((state) => state.carousel)
+  let Images = useSelector((state) => state.carousel)
 
   console.log('Images :',Images)
 
