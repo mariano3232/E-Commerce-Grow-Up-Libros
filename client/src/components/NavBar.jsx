@@ -12,9 +12,7 @@ import LogInButton from './LogIn'
 import LogOutButton from './LogOut'
 import styles from '../Styles/nav.module.css'
 import { Images } from '../assets'
-import { useEffect } from 'react'
 import {
-  Box,
   Stack,
   Button,
   Typography,
@@ -24,7 +22,6 @@ import {
   FormControl,
   AppBar,
   Toolbar,
-  Container,
 } from '@mui/material'
 
 const NavBar = () => {
@@ -38,7 +35,9 @@ const NavBar = () => {
     e.preventDefault()
     dispatch(getBooks())
     navigate('/home/')
-    scroller.scrollTo('gaston')
+    setTimeout(() => {
+      scroller.scrollTo('gaston')
+    }, 200)
   }
 
   const handleSelectGenre = (e) => {
@@ -47,7 +46,7 @@ const NavBar = () => {
     navigate('/home/')
     setTimeout(() => {
       scroller.scrollTo('gaston')
-    }, 200)
+    }, 150)
     setState('default')
   }
 
