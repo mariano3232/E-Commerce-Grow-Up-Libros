@@ -25,7 +25,8 @@ router.post("/orden", async (req, res) => {
 
   const monto = carrito
     .map((e) => {
-      const montoTem = e.unit_price * carrito.length;
+
+      const montoTem = (e.unit_price * carrito.length);
       return montoTem;
     })
     .reduce((a, b) => a + b);
@@ -52,7 +53,7 @@ router.post("/orden", async (req, res) => {
   await newOrder.save();
   user.buyBooks = user.buyBooks.concat(bookDb.map(e=> e._id));
   await user.save();
- 
+  
 
   try {
     const itemsMp = carrito?.map((e) => ({
@@ -74,9 +75,9 @@ router.post("/orden", async (req, res) => {
       },
 
       back_urls: {
-        success: "https://localhost/3001/mecadopago/success",
-        failure: "https://localhost/3001/mecadopago/success",
-        pending: "https://localhost/3001/mecadopago/success",
+        success: "http://localhost:3001/mercadopago/success",
+        failure: "http://localhost:3001/mercadopago/success",
+        pending: "http://localhost:3001/mercadopago/success",
       },
       auto_return: "approved",
     };
@@ -93,17 +94,16 @@ router.post("/orden", async (req, res) => {
   }
 });
 
-router.post("/success", async (req, res) => {
+router.get("/success", async (req, res) => {
   const { external_reference } = req.query;
-  console.log(req.query);
+  console.log(req.query)
   try {
     const order = await Orders.findOneAndUpdate({
-      payment_order_id: external_reference,
-    });
-    console.log("antes", order.payment_status);
-    order.payment_status = EnumStatus.SUCCESS;
+      payment_order_id: external_reference
+    }, req.query);    
     order.save();
-    console.log(order.payment_status, "despues");
+    console.log('/*/*/*/*',order)
+    
     return res.json(order);
   } catch (error) {
     console.log("FALLO SUCCESS ", error);
@@ -118,8 +118,14 @@ router.post("/success", async (req, res) => {
 
 // curl -X POST \
 // -H "Content-Type: application/json" \
-// -H 'Authorization: Bearer ${TEST_ACCESS_TOKEN}' \
+// -H 'Authorization: Bearer TEST-5290894943630049-070117-211fea6e87d83f8ab0769bbc6f6087b0-220603994' \
 // "https://api.mercadopago.com/users/test" \
 // -d '{"site_id":"MCO","description" : "a description"}'
 
+// {"id":1156545904,"nickname":"TETE2598970","password":"qatest9115","site_status":"active","site_id":"MCO","description":"a description","date_created":"2022-07-07T15:54:38-04:00","date_last_updated":"2022-07-07T15:54:38-04:00"}
+
 module.exports = router;
+
+
+
+//https://localhost/3001/mecadopago/success?collection_id=1291575759&collection_status=approved&payment_id=1291575759&status=approved&external_reference=a51b68&payment_type=account_money&merchant_order_id=5150786480&preference_id=1152954796-fb4c7412-5664-4422-9203-f5d3c9c23eef&site_id=MCO&processing_mode=aggregator&merchant_account_id=null
