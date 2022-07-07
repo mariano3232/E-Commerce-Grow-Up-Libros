@@ -12,7 +12,7 @@ import AdminUsersSet from './Permisos/AdminUsersSet'
 import AdminStockSet from './Permisos/AdminStockSet'
 import AdminOrdersSet from './Permisos/AdminOrdersSet'
 import AdminMarketingSet from './Permisos/AdminMarketingSet'
-
+import { animateScroll as scroll, Element } from 'react-scroll'
 import styles from '../../Styles/createAdmin.module.css'
 
 // {id: userId, changes:{isAdmin:true}}
@@ -56,6 +56,11 @@ export default function CreateAdmin(props) {
   }, [changed])
 
   useEffect(() => {}, [usuarios])
+
+  useEffect(() => {
+    scroll.scrollToTop()
+  }, [])
+
 
   return usuarios.length > 0 ? (
     <div className={styles.containerAll}>

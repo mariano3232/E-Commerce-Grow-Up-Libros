@@ -22,10 +22,14 @@ const AuthorDetails = () => {
   const productsAmount=useSelector((state)=>state.cartAmount)
   const isLogged = useSelector(state => state.userLogged)
   const products = useSelector(state => state.cart)
+  
   const authorBooks = authorDetails.books
+
+  
   // console.log('soyAllBook:',authorAllBooks)
   // const authorBooksNotHidden = authorBooks.filter( book =>{book.isHidden === false} )
-  // console.log('soyBook:',authorBooks)
+   console.log('soyBook:',authorBooks)
+  
   // console.log('soyBookNoH:',authorBooksNotHidden)
   
   const { loginWithRedirect } = useAuth0()
@@ -129,10 +133,14 @@ const AuthorDetails = () => {
                             
                         )    
                     } */}
-        {authorBooks && authorBooks.length > 1 ? (
+        {authorBooks && authorBooks.length > 1 
+        ? (
           <CarrouselBookEnAuthor booksEscritor={authorBooks} />
-        ) : authorBooks && authorBooks.length ? (
-          authorBooks.map((book) => (
+          ) 
+        :( authorBooks && authorBooks.length && authorBooks[0].isHidden === false
+        ? (
+            authorBooks.map((book) => (
+            
             <div className={style.libro}>
               <Link className={style.Link} to={'/book/' + book._id}>
                 <li>
@@ -163,8 +171,8 @@ const AuthorDetails = () => {
             </div>
           ))
         ) : (
-          'N'
-        )}
+          'No Hay Libros de este Autor'
+          ))}
       </div>
     </div>
   )
