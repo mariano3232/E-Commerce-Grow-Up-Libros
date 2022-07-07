@@ -1,8 +1,20 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { useState } from 'react'
+import { useEffect } from 'react'
 import styles from '../../../Styles/adminUserProfile.module.css'
 import { NavLink } from 'react-router-dom'
+import style from '../../../Styles/AdminUser2.module.css'
+import { Link } from 'react-router-dom'
+import AdminOrderStatusCancelled from '../Orders/ManejoDeEstados/AdminOrderStatusCancelled'
+import AdminOrderStatusProcessing from '../Orders/ManejoDeEstados/AdminOrderStatusProcessing'
+import AdminOrderStatusCreated from '../Orders/ManejoDeEstados/AdminOrderStatusCreated'
+import AdminOrderStatusComplete from '../Orders/ManejoDeEstados/AdminOrderStatusComplete'
+import { getAllOrders } from '../../../actions'
+import AdminSearchBarStatusOrders from '../SearchBars/AdminSearchBarStatusOrders'
+
+
 
 export default function AdminUserProfile() {
   const id = useParams().id
@@ -11,15 +23,101 @@ export default function AdminUserProfile() {
 
   const usuario = allUsers.filter((usuario) => usuario._id === id)[0]
 
+  const allOrders = useSelector(state=> state.orders)
+
+  const userOrders = allOrders.filter(order => order.usuario[0]._id === id)
+
+  const userL = useSelector(state => state.userLogged)
+  console.log('yo:',userL)
+  
+//Manejo de estado de la orden-------------------------------------------------------
+
+  const dispatch = useDispatch()
+
+  const [seleccionados, setSeleccionados] = useState([])
+
+  const [changed, setChanged] = useState(false)
+
+  function selectOrder(e) {
+    var orderId = e.target.value
+    console.log('estoy:',orderId)
+    if (!e.target.checked) {
+      let seleccion = seleccionados.filter((order) => order._id !== orderId)    
+      setSeleccionados(seleccion)
+    } else {
+      let orderCheck = userOrders.find((order) => order._id === orderId)
+      setSeleccionados([...seleccionados, orderCheck])
+    }
+  }
+
+ 
+  useEffect(() => {
+    var checkeds = document.getElementsByClassName('checkbox')
+    for (let i = 0; i < checkeds.length; i++) {
+      checkeds[i].checked = false
+    }
+    setSeleccionados([])
+    dispatch(getAllOrders())
+  }, [changed])
+
+  useEffect(() => {}, [userOrders])
+//----------------------------------------------------------------------
+
+//------------PAGINADO------------------------------------------------
+const [currentPage, setCurrentPage] = useState(1);
+const [rows, setRows] = useState(10); //modificamos esto si queremos mostrar mas filas
+const [pageNumberLimit, setPageNumberLimit] = useState(5);
+const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(5);
+const [minPageNumberLmit, setMinPageNumberLmit] = useState(0);
+
+const handleClick = (event) => {
+  setCurrentPage(Number(event.target.id));
+};
+const handleNextbtn = () => {
+  setCurrentPage(currentPage + 1);
+  if (currentPage + 1 > maxPageNumberLimit) {
+    setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+    setMinPageNumberLmit(minPageNumberLmit + pageNumberLimit);
+  }
+};
+const handlePrevbtn = () => {
+  setCurrentPage(currentPage - 1);
+  if ((currentPage - 1) % pageNumberLimit === 0) {
+    setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
+    setMinPageNumberLmit(minPageNumberLmit - pageNumberLimit);
+  }
+};
+
+const pages = [];
+for (let i = 1; i <= Math.ceil(userOrders.length / rows); i++) {
+  pages.push(i);
+}
+const indexOfLastItem = currentPage * rows;
+const indexOfFirstItem = indexOfLastItem - rows;
+const currentItems = userOrders.slice(indexOfFirstItem, indexOfLastItem);
+const renderPageNumbers = pages.map((number) => {
+  if (number < maxPageNumberLimit + 1 && number > minPageNumberLmit) {
+    return (
+      <li
+        key={number}
+        id={number}
+        onClick={e=>handleClick(e)}
+        className={currentPage === number ? "activo" : null}
+      >
+        {number}
+      </li>
+    );
+  } else {
+    return null;
+  }
+});
+//-------------------------------------------------------------------
+
   return (
     <div className={styles.containerAdminProfile}>
       
-      <h1>Manejo Perfil Administrador</h1>
-      {
-      <NavLink className={` ${styles.buttonBack}`} to='/adminorders'>
-            <button className={`${styles.button} `}>Ver Todas las Ordenes</button>
-      </NavLink>
-      }
+      <h1>Manejo Perfil de Usuario</h1>
+      
       <div className={styles.containerAdmin}>
         <p className={styles.h2}>Name: {usuario.name}</p>
         <p className={styles.h2}>Surname: {usuario.surname}</p>
@@ -32,7 +130,116 @@ export default function AdminUserProfile() {
         <p className={styles.h2}>Address: {usuario.address}</p>
       </div>
 
+   
+    {userL[0].isAdminOrders === true 
+    ? 
+    <div><div>
       <h2>ORDENES</h2>
+
+      <NavLink className={` ${style.buttonBack}`} to='/adminorders'>
+            <button className={`${style.button} `}>Ver Las Ordenes de Todos Los Usuarios</button>
+      </NavLink>
+
+      <AdminSearchBarStatusOrders/>
+     
+
+            <AdminOrderStatusCreated
+              orders={seleccionados}
+              changed={changed}
+              setChanged={setChanged}
+            />
+             <AdminOrderStatusProcessing
+              orders={seleccionados}
+              changed={changed}
+              setChanged={setChanged}
+            />
+             <AdminOrderStatusComplete
+              orders={seleccionados}
+              changed={changed}
+              setChanged={setChanged}
+            />
+             <AdminOrderStatusCancelled
+              orders={seleccionados}
+              changed={changed}
+              setChanged={setChanged}
+            />
+
+          <div class='container'>
+            <table class='content-table'>
+                <thead>
+                  <tr>
+                    <th>Nº Orden</th>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                    <th>Estado de Pago</th>
+                    <th>Estado de Orden</th>
+                   
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {currentItems.length>0 && currentItems.map((order) => (
+                    <tr key={order._id}>
+                      <td>
+                        <Link to={`/adminorderdetails/${order._id}`}>
+                          {order._id}
+                        </Link>
+                      </td>
+
+                      <td>
+                        {order.fecha}
+                      </td>
+
+                      <td>
+                        {order.total}
+                      </td>
+
+                      <td>{order.payment_status}</td>
+
+                      <td>{order.status}</td>
+
+                    
+                      <td>
+                        <input
+                          className='checkbox'
+                          type='checkbox'
+                          value={order._id}
+                          onChange={(e) => selectOrder(e)}
+                          defaultChecked={false}
+                        ></input>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              </div>
+         </div>
+         <div>
+          {
+            <ul className="pageNumbers">
+              <li>
+                <button
+                  onClick={handlePrevbtn}
+                  disabled={currentPage === pages[0] ? true : false}
+                >
+                  prev
+                </button>
+              </li>
+              {renderPageNumbers}
+              <li>
+                <button
+                  onClick={handleNextbtn}
+                  disabled={
+                    currentPage === pages[pages.length - 1] ? true : false
+                  }
+                >
+                  next
+                </button>
+              </li>
+            </ul>
+          }</div>
+          </div>
+         :''}
     </div>
   )
 }
