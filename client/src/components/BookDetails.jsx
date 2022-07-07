@@ -110,6 +110,15 @@ export default function BookDetails() {
     })
   }
 
+  function handleDelete(e){
+    e.preventDefault();
+    axios.delete('https://ecommercehenryx.herokuapp.com/comments/deleteComment/'+e.target.value).then(()=>{
+      setTimeout(function () {
+        dispatch(getBookComments(id)),500
+      })
+    })
+  }
+
   const book = useSelector((state) => state.bookDetails)
   const comments=useSelector((state)=>state.comments)
   console.log('comments:',comments)
@@ -198,12 +207,19 @@ export default function BookDetails() {
           value={comment.comment}
           onChange={e=>handleChange(e)}
         ></textarea>
-        <button onClick={e=>handlePost(e)} className={styles.postButton}>{'>'}</button>
+        
+        {
+          (isLogged.length === 0)?<button onClick={()=>loginWithRedirect()} className={styles.postButton}>{'>'}</button>:
+          <button onClick={e=>handlePost(e)} className={styles.postButton} >{'>'}</button>
+        }
       </div>
         {
           comments.map(e=>{
             return(
             <div className={styles.commentContainer}>
+            {
+              (e.users[0]._id===usuario[0]?._id)?<button value={e._id} onClick={e=>handleDelete(e)} className={styles.delete}>x</button>:null
+            }
             <h4>{e.users[0].nickname}</h4>
             <p>{e.comment}</p>
             </div>

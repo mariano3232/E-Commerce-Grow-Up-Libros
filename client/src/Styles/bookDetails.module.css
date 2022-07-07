@@ -159,7 +159,7 @@
 .postComments{
     position:relative;
     margin-top: 3rem;
-    background-color: grey;
+    
     height: 10rem;
     width: 100%;
     padding:0
@@ -172,11 +172,24 @@
 .postButton{
     position:absolute;
     top:1.5rem;
-    height: 5rem ;
+    height: 4rem ;
 }
 .commentContainer{
-    background-color: #015249;
+    position: relative;
+    background-color:#015249;
     width: 100%;
     margin: 2px;
     border-radius: 6px;
+}
+.delete{
+    background-color: #015249a6;
+    border-radius: 50px;
+    border: none;
+    position:absolute;
+    right: 1rem;
+    top:1rem;
+    transition:800ms;
+}
+.delete:hover{
+    transform: scale(1.6);
 }
