@@ -15,6 +15,8 @@ import {
   getUsers,
   updateAmount,
   purchaseOrder,
+  getBookComments,
+  clearComments,
 } from '../actions'
 //import { clearPageBookDetails, getBookDetails } from "../actions";
 import { Link } from 'react-router-dom'
@@ -31,6 +33,7 @@ export default function BookDetails() {
   const isLogged = useSelector(state => state.userLogged)
   const products = useSelector(state => state.cart);
   const { loginWithRedirect } = useAuth0()
+  const [render,setRender]=useState(0)
 
   const usuario = useSelector ( state => state.userLogged)
 
@@ -42,6 +45,7 @@ export default function BookDetails() {
 
   useEffect(() => {
     dispatch(getBookDetails(id))
+    dispatch(getBookComments(id))
     scroll.scrollToTop()
   }, [dispatch])
 
@@ -73,6 +77,7 @@ export default function BookDetails() {
   useEffect(() => {
     return () => {
       dispatch(clearPageBookDetails())
+      dispatch (clearComments())
     }
   }, [dispatch])
 
@@ -89,18 +94,25 @@ export default function BookDetails() {
     setComment({
       comment:e.target.value,
       nickname:usuario[0].nickname,
-      _id:id,
+      title:book.title,
     })
     console.log('comment :',comment)
   }
   function handlePost(e){
     e.preventDefault();
+    console.log('comment :',comment)
     axios.post('https://ecommercehenryx.herokuapp.com/comments/addComment',comment).then((response)=>{
         console.log('axios response',response)
+    }).then(()=>{
+      setTimeout(function () {
+        dispatch(getBookComments(id)),500
+      })
     })
   }
 
   const book = useSelector((state) => state.bookDetails)
+  const comments=useSelector((state)=>state.comments)
+  console.log('comments:',comments)
   const author = book.authors
 
 
@@ -177,24 +189,27 @@ export default function BookDetails() {
 
       <div className={styles.space} />
 
-      <div className={styles.comments}>
-        <label>Da tu puntuacion!</label>
-        <input
-          type='number'
-          placeholder='Puntuacion...'
-          className={styles.rating}
-        />
-        <button>Ok</button>
+      <div className={styles.postComments}>
         <textarea
           cols='80'
           rows='4'
           placeholder='Comenta!'
-          className={styles.comment}
+          className={styles.textArea}
           value={comment.comment}
           onChange={e=>handleChange(e)}
         ></textarea>
-        <button onClick={e=>handlePost(e)}>Post</button>
+        <button onClick={e=>handlePost(e)} className={styles.postButton}>{'>'}</button>
       </div>
+        {
+          comments.map(e=>{
+            return(
+            <div className={styles.commentContainer}>
+            <h4>{e.users[0].nickname}</h4>
+            <p>{e.comment}</p>
+            </div>
+            )
+          })
+        }
     </div>
   )
 }

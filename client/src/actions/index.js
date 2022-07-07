@@ -24,6 +24,26 @@ export function getBookDetails(id) {
     });
   };
 }
+export function getBookComments(id){
+  return async (dispatch)=>{
+    let allComments=await axios('https://ecommercehenryx.herokuapp.com/comments');
+    let comments=allComments.data.filter(e=>e.books[0]._id===id)
+
+    return dispatch({
+      type:'GET_BOOK_COMMENTS',
+      payload:comments
+    })
+  }
+}
+export function clearComments(){
+  return (dispatch)=>{
+    
+    return dispatch({
+      type:'CLEAR_COMMENTS',
+      payload:'a'
+    })
+  }
+}
 
 export function getBookTitle(payload) {
   return {

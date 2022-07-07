@@ -5,6 +5,7 @@ const initialState = {
   booksAdmin: [],
   booksAdminCopy: [],
   bookDetails: [],
+  comments:[],
   authors: [],
   authorsCopy: [],
   authorsAdmin: [],
@@ -104,6 +105,17 @@ function rootReducer(state = initialState, action) {
         ...state,
         bookDetails: action.payload,
       };
+    
+    case "GET_BOOK_COMMENTS":
+      return {
+        ...state,
+        comments:action.payload
+      }
+    case "CLEAR_COMMENTS":
+      return {
+        ...state,
+        comments:[]
+      }
 
     case "GET_BOOK_GENRE":
       return {
