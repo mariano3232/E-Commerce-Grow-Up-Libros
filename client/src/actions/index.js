@@ -426,6 +426,7 @@ export function updateAmount(amount){
   }
 
 }
+
 export function clearCart() {
   return (dispatch) => {
     return dispatch({

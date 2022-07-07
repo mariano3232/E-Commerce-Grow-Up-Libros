@@ -39,6 +39,25 @@
   background-color: orange
 }
 
+.containerHeart {
+  position: fixed;
+  background-color: #77c9d4;
+  top: 12rem;
+  right: 2rem;
+  z-index: 2;
+  border-radius: 100%;
+  padding: 1rem;
+  transition: 500ms;
+}
+.containerHeart:hover{
+  background-color:#77c9d480 ;
+}
+.heart {
+  width: 48px;
+  height: 48px;
+  color: white;
+}
+
 .home {
   width: 100%;
 }
