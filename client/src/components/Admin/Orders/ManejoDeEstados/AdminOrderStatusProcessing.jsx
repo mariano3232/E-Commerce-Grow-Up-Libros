@@ -12,7 +12,7 @@ export default function AdminOrderStatusProcessing({ orders, setChanged, changed
     orders.map((order) => {
       ordersIds.push(order._id)
     })
-    dispatch(setOrderStatus({ordersIds,status:'processing'}))
+    dispatch(setOrderStatus({ordersIds,status:'Procesada'}))
 
     setTimeout(function () {
       dispatch(getAllOrders())

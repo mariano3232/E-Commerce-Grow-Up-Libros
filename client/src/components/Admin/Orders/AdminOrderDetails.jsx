@@ -10,6 +10,7 @@ import AdminOrderStatusComplete from "./ManejoDeEstados/AdminOrderStatusComplete
 import AdminOrderStatusProcessing from "./ManejoDeEstados/AdminOrderStatusProcessing";
 import { useState } from "react";
 import { setOrderStatus , getAllOrders} from "../../../actions";
+import { animateScroll as scroll, Element } from 'react-scroll'
 
 export default function AdminOrderDetails(){
 
@@ -41,6 +42,16 @@ export default function AdminOrderDetails(){
       }, 1000)
       
      }
+
+     function changeShipped(){
+      console.log('estoy')
+      dispatch(setOrderStatus({ordersIds,status:'Enviada'}))
+      setTimeout(function () {
+        dispatch(getAllOrders())
+      }, 1000)
+      
+     }
+
      function changeCompletada(){
       console.log('estoy')
       dispatch(setOrderStatus({ordersIds,status:'Completada'}))
@@ -53,12 +64,17 @@ export default function AdminOrderDetails(){
     
     function changeCancelled(){
       console.log('estoy')
-      dispatch(setOrderStatus({ordersIds,status:'Cancelled'}))
+      dispatch(setOrderStatus({ordersIds,status:'Cancelada'}))
       setTimeout(function () {
         dispatch(getAllOrders())
       }, 1000)
       
      }
+
+     useEffect(() => {
+      scroll.scrollToTop()
+    }, [])
+  
 
 
     return(
@@ -72,6 +88,7 @@ export default function AdminOrderDetails(){
 
         <button onClick={()=>changeCreated(ordersIds)}>Creada</button>
         <button onClick={()=>changeProcessing(ordersIds)}>Procesando</button>
+        <button onClick={()=>changeShipped(ordersIds)}>Enviada</button>
         <button onClick={()=>changeCompletada(ordersIds)}>Completada</button>
         <button onClick={()=>changeCancelled(ordersIds)}>Cancelada</button>
 

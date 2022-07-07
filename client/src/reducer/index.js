@@ -541,6 +541,19 @@ function rootReducer(state = initialState, action) {
       };
 
       
+      case "GET_PAYMENT_STATUS":
+      const namePaymentStatusCopy = state.ordersCopy;
+      const namePaymentStatus = namePaymentStatusCopy.filter(
+        (order) =>
+          order.payment_status.toLowerCase().includes(action.payload.toLowerCase())
+      );
+
+      return {
+        ...state,
+        orders: namePaymentStatus,
+      };
+
+      
 
     default:
       return state;
