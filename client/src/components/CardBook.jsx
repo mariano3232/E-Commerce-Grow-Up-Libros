@@ -69,7 +69,7 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
         />
       </Link>
       <div className={styles.block}>
-        <h2>{title}</h2>
+        
         <div className={styles.rating}>
           {ifRating ? (
             <Rating
@@ -89,6 +89,7 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
           )}
           <span className={styles.numberRating}>{rating.toFixed(2)}</span>
         </div>
+
         <div className={styles.info}>
           <div className={styles.containerRating}>
             <span>
@@ -96,6 +97,9 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
             </span>
             <p className={styles.price}>${price}</p>
           </div>
+          
+        </div>
+
           <div>
             {stock > 1 ? (
               <button
@@ -108,7 +112,8 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
               ''
             )}
           </div>
-        </div>
+
+
       </div>
     </div>
   )
