@@ -19,7 +19,7 @@ const CardPremium = ({ mes, trimestral, anual }) => {
   }
 
   return (
-    <div className={style.container}>
+    <div className={mes ? (style.container) : trimestral ? (style.gas) : style.gaston}>
       <h3>Plan: Soy Premium</h3>
 
       <p>Herramientas para empezar a potencial tu desarrollo al máximo</p>
@@ -27,12 +27,37 @@ const CardPremium = ({ mes, trimestral, anual }) => {
       <h1>
         Ars {mes} {trimestral} {anual}
       </h1>
-
-      <li>Envio de podcast de interes</li>
-      <li>Envio de notas de tu interes</li>
-      <li>Opiniones de las ultimas herramientas de productividad</li>
-      <li>Reseñas de textos selecionadas</li>
-      <li>Resumen de tus libros favoritos</li>
+      {
+        mes? 
+        (
+          <ol>
+            <li>Envio de podcast de interes</li>
+            <li>Envio de notas de interes</li>
+          </ol> 
+        ) 
+        : 
+        trimestral ? 
+        (
+          <ol>
+            <li>Envio de podcast de interes</li>
+            <li>Envio de notas de interes</li>
+            <li>Opiniones de las ultimas herramientas de productividad</li>
+            <li>Reseñas de textos selecionadas</li>
+          </ol>
+        ) 
+        : anual ? 
+        (
+          <ol>
+            <li>Envio de podcast de interes</li>
+            <li>Envio de notas de interes</li>
+            <li>Opiniones de las ultimas herramientas de productividad</li>
+            <li>Reseñas de textos selecionadas</li>
+            <li>Resumen de tus libros favoritos</li>
+            <li>Novedades de los ultimos libros de desarrollo personal</li>
+          </ol>
+        ) 
+        : ''
+      }
 
       <br />
 
