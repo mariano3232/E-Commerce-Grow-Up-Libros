@@ -17,6 +17,6 @@ const commentsSchema = new Schema({
         ref:'Books',
      }
     ],
-})
+}, {timestamps: true})
 
 module.exports = model('Comments', commentsSchema)
