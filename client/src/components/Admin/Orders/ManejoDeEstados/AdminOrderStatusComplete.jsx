@@ -11,7 +11,7 @@ export default function AdminOrderStatusComplete({ orders, setChanged, changed }
     orders.map((order) => {
       ordersIds.push(order._id)
     })
-    dispatch(setOrderStatus({ordersIds,status:'complete'}))
+    dispatch(setOrderStatus({ordersIds,status:'Completada'}))
 
     setTimeout(function () {
       dispatch(getAllOrders())

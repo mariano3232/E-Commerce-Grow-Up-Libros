@@ -11,7 +11,7 @@ export default function AdminOrderStatusCancelled({ orders, setChanged, changed 
     orders.map((order) => {
       ordersIds.push(order._id)
     })
-    dispatch(setOrderStatus({ordersIds,status:'cancelled'}))
+    dispatch(setOrderStatus({ordersIds,status:'Cancelada'}))
 
     setTimeout(function () {
       dispatch(getAllOrders())

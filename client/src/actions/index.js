@@ -426,6 +426,7 @@ export function updateAmount(amount){
   }
 
 }
+
 export function clearCart() {
   return (dispatch) => {
     return dispatch({
@@ -683,7 +684,7 @@ export function getAllOrders() {
 export function setOrderStatus(payload) {
   
   return async function (dispatch) {
-    console.log('status:',payload)
+    
     const json = await axios.post(
       'https://ecommercehenryx.herokuapp.com/orders/changeStatus',payload
     );
@@ -697,9 +698,17 @@ export function setOrderStatus(payload) {
 
 
 export function getStatusOrders(payload) {
-  console.log('PP:',payload)
+  
   return {
     type: "GET_STATUS_ORDERS",
+    payload: payload,
+  };
+}
+
+export function getPaymentStatus(payload) {
+  
+  return {
+    type: "GET_PAYMENT_STATUS",
     payload: payload,
   };
 }

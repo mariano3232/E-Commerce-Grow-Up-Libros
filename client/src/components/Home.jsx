@@ -8,6 +8,7 @@ import CardBook from './CardBook'
 import Carousel from './Carousel'
 import styles from '../Styles/Home.module.css'
 import { BsCart } from 'react-icons/bs'
+import { BsHeart } from 'react-icons/bs'
 import { animateScroll as scroll, Element } from 'react-scroll'
 import {
   getBooks,
@@ -99,6 +100,18 @@ export default function Home() {
           <h4 className={styles.productsAmount}>{productsAmount}</h4>
         </div>
       </Link>
+
+      <Link to='/user'>
+        <div className={styles.containerHeart}>
+          <BsHeart className={styles.heart} />
+          {
+            usuario.length ?
+            <h4 className={styles.productsAmount}>{usuario[0].favouritesBooks.length}</h4>
+            : <h4 className={styles.productsAmount}>{0}</h4>
+          }
+        </div>
+      </Link>
+
       <div className={styles.color}>
         <Carousel />
 

@@ -13,6 +13,9 @@ import AdminOrderStatusCreated from '../Orders/ManejoDeEstados/AdminOrderStatusC
 import AdminOrderStatusComplete from '../Orders/ManejoDeEstados/AdminOrderStatusComplete'
 import { getAllOrders } from '../../../actions'
 import AdminSearchBarStatusOrders from '../SearchBars/AdminSearchBarStatusOrders'
+import AdminSearchBarPaymentStatus from '../SearchBars/AdminSearchBarPaymentStatus'
+import AdminRefreshOrders from '../RefreshButtons/AdminRefreshOrders'
+import { animateScroll as scroll, Element } from 'react-scroll'
 
 
 
@@ -28,7 +31,11 @@ export default function AdminUserProfile() {
   const userOrders = allOrders.filter(order => order.usuario[0]._id === id)
 
   const userL = useSelector(state => state.userLogged)
-  console.log('yo:',userL)
+ 
+
+  useEffect(() => {
+    scroll.scrollToTop()
+  }, [])
   
 //Manejo de estado de la orden-------------------------------------------------------
 
@@ -115,6 +122,9 @@ const renderPageNumbers = pages.map((number) => {
 
   return (
     <div className={styles.containerAdminProfile}>
+       <Link to='/adminusers2'>
+          <button className={style.btnAdmin}>↼ Back</button>
+        </Link>
       
       <h1>Manejo Perfil de Usuario</h1>
       
@@ -140,7 +150,9 @@ const renderPageNumbers = pages.map((number) => {
             <button className={`${style.button} `}>Ver Las Ordenes de Todos Los Usuarios</button>
       </NavLink>
 
+      <AdminRefreshOrders/>
       <AdminSearchBarStatusOrders/>
+      <AdminSearchBarPaymentStatus/>
      
 
             <AdminOrderStatusCreated

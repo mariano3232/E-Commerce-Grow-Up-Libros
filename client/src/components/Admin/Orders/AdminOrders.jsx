@@ -10,7 +10,13 @@ import AdminOrderStatusCancelled from './ManejoDeEstados/AdminOrderStatusCancell
 import AdminOrderStatusComplete from './ManejoDeEstados/AdminOrderStatusComplete'
 import AdminOrderStatusCreated from './ManejoDeEstados/AdminOrderStatusCreated'
 import AdminSearchBarStatusOrders from '../SearchBars/AdminSearchBarStatusOrders'
+import AdminOrderStatusShipped from './ManejoDeEstados/AdminOrderStatusShipped'
 import styles from '../../../Styles/AdminUser2.module.css'
+import AdminSearchBarPaymentStatus from '../SearchBars/AdminSearchBarPaymentStatus'
+import { animateScroll as scroll, Element } from 'react-scroll'
+
+
+
 
 
 export default function AdminOrders(props) {
@@ -43,10 +49,12 @@ export default function AdminOrders(props) {
     dispatch(getAllOrders())
   }, [])
 
-  // useEffect(() => {
-  //   setOrderView(orders);
-  // }, [orders]);
+ 
 
+  useEffect(() => {
+    scroll.scrollToTop()
+  }, [])
+  
   
 
   //------------PAGINADO
@@ -128,6 +136,11 @@ export default function AdminOrders(props) {
               changed={changed}
               setChanged={setChanged}
             />
+             <AdminOrderStatusShipped
+              orders={seleccionados}
+              changed={changed}
+              setChanged={setChanged}
+            />
              <AdminOrderStatusComplete
               orders={seleccionados}
               changed={changed}
@@ -145,6 +158,7 @@ export default function AdminOrders(props) {
               <AdminRefreshOrders />
               <AdminSearchBarUserOrders />
               <AdminSearchBarStatusOrders />
+              <AdminSearchBarPaymentStatus/>
               
             </div>
             <div class='container'>

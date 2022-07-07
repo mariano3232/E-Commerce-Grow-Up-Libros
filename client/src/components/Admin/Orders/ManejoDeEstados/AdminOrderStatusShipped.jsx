@@ -2,9 +2,9 @@ import { useDispatch } from 'react-redux'
 import { setOrderStatus, getAllOrders} from '../../../../actions'
 import styles from '../../../../Styles/Button.module.css'
 
-export default function AdminOrderStatusCreated({ orders, setChanged, changed }) {
+export default function AdminOrderStatusShipped({ orders, setChanged, changed }) {
   const dispatch = useDispatch()
-  console.log('TTTT:',orders)
+  
 
   var ordersIds = []
 
@@ -12,7 +12,7 @@ export default function AdminOrderStatusCreated({ orders, setChanged, changed })
     orders.map((order) => {
       ordersIds.push(order._id)
     })
-    dispatch(setOrderStatus({ordersIds,status:'Creada'}))
+    dispatch(setOrderStatus({ordersIds,status:'Enviada'}))
 
     setTimeout(function () {
       dispatch(getAllOrders())
@@ -26,7 +26,7 @@ export default function AdminOrderStatusCreated({ orders, setChanged, changed })
   return (
     <div>
       <button className={styles.button} onClick={(e) => toogleAdmin(e, orders)}>
-        Creada
+      Enviada
       </button>
     </div>
   )
