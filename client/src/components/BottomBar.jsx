@@ -98,13 +98,13 @@ export default function BottomBar() {
               <DraftsIcon />
               <span>NewsLetter</span>
             </div>
-            <input
+            {/* <input
               className={styles.input}
               type='text'
               placeholder='mail'
               value={input}
               onChange={(e) => handleChange(e)}
-            />
+            /> */}
             {
               isLogged.length === 0 ? 
               <p>Para suscribirte necesitas estar logeado</p> :
