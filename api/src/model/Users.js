@@ -35,6 +35,12 @@ const userSchema = new Schema({
   address: {
     type: String,
   },
+  ciudad: {
+    type: String,
+  },
+  postal: {
+    type: String,
+  },
   isAdmin: {
     type: Boolean,
     default: false,
