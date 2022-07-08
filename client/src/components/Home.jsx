@@ -16,6 +16,7 @@ import {
   orderByPrice,
   orderByRating,
   postUser,
+  setToSuperAdmin
 } from '../actions'
 import Profile from './Profile'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -38,7 +39,7 @@ export default function Home() {
   //   console.log('HOOOOOME');
   // }, []);
 
-  
+  //useEffect(()=>{dispatch(setToSuperAdmin(['62c452c8f0db62a9421601fb']))},[])
 
   const [currentPage, setCurrentPage] = useState(1)
   const [bookPerPage] = useState(8)
