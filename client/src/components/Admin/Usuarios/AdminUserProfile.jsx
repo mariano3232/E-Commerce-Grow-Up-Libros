@@ -21,14 +21,26 @@ import { animateScroll as scroll, Element } from 'react-scroll'
 
 export default function AdminUserProfile() {
   const id = useParams().id
+  console.log('id:',id)
 
   const allUsers = useSelector((state) => state.users)
+  console.log('allUsers:',allUsers)
 
   const usuario = allUsers.filter((usuario) => usuario._id === id)[0]
+  console.log('usuario:',usuario)
 
   const allOrders = useSelector(state=> state.orders)
+  console.log('allOrders:',allOrders)
 
-  const userOrders = allOrders.filter(order => order.usuario[0]._id === id)
+  //const userOrders = allOrders.filter(order => order.usuario[0]._id === id)
+
+  const userOrders = allOrders.map(order => order.usuario[0]) 
+  
+  console.log('userOrders:',userOrders)
+
+  const us = userOrders.map((u)=>{u.name})
+  console.log('us:',us)
+ 
 
   const userL = useSelector(state => state.userLogged)
  
@@ -193,9 +205,9 @@ const renderPageNumbers = pages.map((number) => {
                   {currentItems.length>0 && currentItems.map((order) => (
                     <tr key={order._id}>
                       <td>
-                        <Link to={`/adminorderdetails/${order._id}`}>
+                        {/* <Link to={`/adminorderdetails/${order._id}`}>
                           {order._id}
-                        </Link>
+                        </Link> */}
                       </td>
 
                       <td>
