@@ -5,10 +5,11 @@ import { getBooksAdmin } from '../../../../actions'
 import { Link , NavLink} from 'react-router-dom'
 
 import { animateScroll as scroll, Element } from 'react-scroll'
-import styles from '../../../../Styles/createadmin.module.css'
+
+
 import AdminSearchBarBooks from '../../SearchBars/AdminSearchBarBooks'
 import AdminRefreshBooks from '../../RefreshButtons/AdminRefreshBooks'
-import { Bookmark } from '@mui/icons-material'
+
 
 
 
@@ -135,29 +136,29 @@ const handleSubmit = (e) => {
 
  
   return books.length?(
-    <div className={styles.containerAll}>
+    <div >
       <h1>Stock</h1>
      
-      <div className={styles.containerActions}>
+      <div>
 
      
          <div id='tableleft'>
-                <div className={styles.containerButtonsActions}>  
-                    <h2 className={styles.h2}>Agregar Stock</h2>             
+                <div >  
+                    <h2 >Agregar Stock</h2>             
                     {/* <SuperAdminProSet
                         users={seleccionados}
                         changed={changed}
                         setChanged={setChanged}
                         />            */}
-                 <button type='submit' onClick={(e) => handleSubmit(e)} className={styles.button}>Agregar</button>
+                 <button type='submit' onClick={(e) => handleSubmit(e)} >Agregar</button>
                 </div>
         </div> 
 
 
-        <div className={styles.containerUsersData}>
+        <div >
 
-          <NavLink className={` ${styles.buttonBack}`} to='/admin'>
-                  <button className={`${styles.button} `}>Volver</button>
+          <NavLink to='/admin'>
+                  <button >Volver</button>
           </NavLink>
 
           <AdminRefreshBooks />
@@ -206,7 +207,7 @@ const handleSubmit = (e) => {
           </div>
         </div>
         {
-          <ul className="pageNumbers">
+          <ul>
             <li>
               <button
                 onClick={handlePrevbtn}
