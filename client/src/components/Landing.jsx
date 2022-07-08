@@ -11,7 +11,7 @@ export default function Landing() {
   const dispatch = useDispatch()
   const { user } = useAuth0()
   const usuario = useSelector ( state => state.userLogged)
-  console.log(usuario)
+  
 
  
 
