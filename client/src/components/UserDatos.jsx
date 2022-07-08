@@ -6,6 +6,9 @@ import UserDatosPerfil from './UserDatosPerfil'
 import styles from '../Styles/UserDatos.module.css'
 
 const UserDatos = () => {
+
+  const paises=["Afganistán","Albania","Alemania","Andorra","Angola","Antigua y Barbuda","Arabia Saudita","Argelia","Argentina","Armenia","Australia","Austria","Azerbaiyán","Bahamas","Bangladés","Barbados","Baréin","Bélgica","Belice","Benín","Bielorrusia","Birmania","Bolivia","Bosnia y Herzegovina","Botsuana","Brasil","Brunéi","Bulgaria","Burkina Faso","Burundi","Bután","Cabo Verde","Camboya","Camerún","Canadá","Catar","Chad","Chile","China","Chipre","Ciudad del Vaticano","Colombia","Comoras","Corea del Norte","Corea del Sur","Costa de Marfil","Costa Rica","Croacia","Cuba","Dinamarca","Dominica","Ecuador","Egipto","El Salvador","Emiratos Árabes Unidos","Eritrea","Eslovaquia","Eslovenia","España","Estados Unidos","Estonia","Etiopía","Filipinas","Finlandia","Fiyi","Francia","Gabón","Gambia","Georgia","Ghana","Granada","Grecia","Guatemala","Guyana","Guinea","Guinea ecuatorial","Guinea-Bisáu","Haití","Honduras","Hungría","India","Indonesia","Irak","Irán","Irlanda","Islandia","Islas Marshall","Islas Salomón","Israel","Italia","Jamaica","Japón","Jordania","Kazajistán","Kenia","Kirguistán","Kiribati","Kuwait","Laos","Lesoto","Letonia","Líbano","Liberia","Libia","Liechtenstein","Lituania","Luxemburgo","Madagascar","Malasia","Malaui","Maldivas","Malí","Malta","Marruecos","Mauricio","Mauritania","México","Micronesia","Moldavia","Mónaco","Mongolia","Montenegro","Mozambique","Namibia","Nauru","Nepal","Nicaragua","Níger","Nigeria","Noruega","Nueva Zelanda","Omán","Países Bajos","Pakistán","Palaos","Palestina","Panamá","Papúa Nueva Guinea","Paraguay","Perú","Polonia","Portugal","Reino Unido","República Centroafricana","República Checa","República de Macedonia","República del Congo","República Democrática del Congo","República Dominicana","República Sudafricana","Ruanda","Rumanía","Rusia","Samoa","San Cristóbal y Nieves","San Marino","San Vicente y las Granadinas","Santa Lucía","Santo Tomé y Príncipe","Senegal","Serbia","Seychelles","Sierra Leona","Singapur","Siria","Somalia","Sri Lanka","Suazilandia","Sudán","Sudán del Sur","Suecia","Suiza","Surinam","Tailandia","Tanzania","Tayikistán","Timor Oriental","Togo","Tonga","Trinidad y Tobago","Túnez","Turkmenistán","Turquía","Tuvalu","Ucrania","Uganda","Uruguay","Uzbekistán","Vanuatu","Venezuela","Vietnam","Yemen","Yibuti","Zambia","Zimbabue"]
+
   const allUsers = useSelector((state) => state.users)
   const logged = useSelector((state) => state.userLogged)
   const userId = allUsers.filter((u) => u._id === logged[0]._id)
@@ -33,6 +36,15 @@ const UserDatos = () => {
     if (input.surname && !input.surname.match(/^[a-zA-Z]*$/g)){
       errors.surname='Solo puede contener letras'
     }
+    if (input.birthday&&!input.birthday.match(/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/)){
+      errors.birthday='Debe ser una fecha valida'
+    }
+    if (!input.dni.match(/^[\d]{1,3}\.?[\d]{3,3}\.?[\d]{3,3}$/)){
+      errors.dni='Ingresar un numero de documento valido'
+    }
+    if (!input.phone.match(/^\(?\d{2}\)?[\s\.-]?\d{4}[\s\.-]?\d{4}$/)){
+      errors.phone='Ingresar un numero de telefono valido'
+    }
 
     return errors
   }
@@ -48,6 +60,12 @@ const UserDatos = () => {
       [e.target.name]: e.target.value,
     })
     console.log('input:',input)
+  }
+  const handleSelect=(e)=>{
+    setInput({
+      ...input,
+      country:e.target.value
+    })
   }
 
   const handleSubmit = (e) => {
@@ -134,14 +152,25 @@ const UserDatos = () => {
               value={input.birthday}
             />
           </div>
+          {
+            errors.birthday?<p>{errors.birthday}</p>:null
+          }
           <div className={styles.containerInput}>
             <label htmlFor='country'>Nacionalidad:</label>
-            <input
+            <select name='country' className={styles.select} onChange={e=>handleChange(e)}>
+              <option value="">Seleccionar</option>
+            {
+              paises.map(e=>{
+               return <option key={e} value={e}>{e}</option>
+              })
+            }
+            </select>
+            {/* <input
               type='text'
               name='country'
               onChange={(e) => handleChange(e)}
               value={input.country}
-            />
+            /> */}
           </div>
           <div className={styles.containerInput}>
             <label htmlFor='dni'>Nº de Documento:</label>
@@ -151,6 +180,9 @@ const UserDatos = () => {
               onChange={(e) => handleChange(e)}
               value={input.dni}
             />
+            {
+              errors.dni&&input.dni?<p>{errors.dni}</p>:null
+            }
           </div>
           <div className={styles.containerInput}>
             <label htmlFor='phone'>Telofono:</label>
@@ -160,6 +192,9 @@ const UserDatos = () => {
               onChange={(e) => handleChange(e)}
               value={input.phone}
             />
+            {
+              errors.phone&&input.phone?<p>{errors.phone}</p>:null
+            }
           </div>
           <div className={styles.containerInput}>
             <label htmlFor='address'>Direccion:</label>
