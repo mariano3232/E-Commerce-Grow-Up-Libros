@@ -14,121 +14,145 @@ import facebook from '../imgs/facebook.png'
 import instagram from '../imgs/instagram.png'
 import { getUsers, setUserNews } from '../actions'
 import { useAuth0, User } from '@auth0/auth0-react'
+import { Images } from '../assets'
+
+import {
+  Box,
+  Stack,
+  Typography,
+  Input,
+  Button,
+  Grid,
+  IconButton,
+} from '@mui/material'
+
+import { Instagram, Facebook, WhatsApp } from '@mui/icons-material'
 
 export default function BottomBar() {
   const [input, setInput] = useState('')
-  const { user, isAuthenticated, isLoading } = useAuth0();
-  const dispatch = useDispatch();
-  const allUsers = useSelector(state => state.users);
-  const isLogged = useSelector(state => state.userLogged);
-  const navigate = useNavigate();
-  
+  const { user, isAuthenticated, isLoading } = useAuth0()
+  const dispatch = useDispatch()
+  const allUsers = useSelector((state) => state.users)
+  const isLogged = useSelector((state) => state.userLogged)
+  const navigate = useNavigate()
+
   const handleChange = (e) => {
-    setInput(e.target.value);
+    setInput(e.target.value)
   }
-  
+
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const usuario = allUsers.filter((u) => u._id === isLogged[0]._id);
+    e.preventDefault()
+    const usuario = allUsers.filter((u) => u._id === isLogged[0]._id)
     /* if(isLogged.length === 0) {
       setInput('');
       return alert('Para suscribirte a nuestro newsletter necesitas estar logeado'); 
     } */
-    if (usuario[0].isSubscribeNewsLetter === true){
-      setInput('');
-      return alert('Ya estas subscipto!!');
-    } 
-    
-    const id = [isLogged[0]._id];
-    dispatch(setUserNews(id));
-    alert(`Gracias ${input} Suscripción exitosa a nuestro newsletters.`);
-    setInput('');
-    navigate('/user');
-    dispatch(getUsers());
-    
+    if (usuario[0].isSubscribeNewsLetter === true) {
+      setInput('')
+      return alert('Ya estas subscipto!!')
+    }
+
+    const id = [isLogged[0]._id]
+    dispatch(setUserNews(id))
+    alert(`Gracias ${input} Suscripción exitosa a nuestro newsletters.`)
+    setInput('')
+    navigate('/user')
+    dispatch(getUsers())
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.container2}>
-        <div>
-          <div className={styles.about}>
-            <InfoIcon />
-            <Link className={styles.Link} to='/aboutus'>
-              <span>About us</span>
-            </Link>
-          </div>
-          <div>
-            <LiveHelpIcon />
-            <Link className={styles.Link} to='/faq'>
-              <span>FAQ's</span>
-            </Link>
-          </div>
-        </div>
-        <div>
-          <div className={styles.payments}>
-            <PaymentIcon />
-            <span>Medios de Pago:</span>
-
-            <img src={mercado} width='100px'></img>
-          </div>
-        </div>
-        <div>
-          <div className={styles.networks}>
-            <ShareIcon />
-            <span>Redes Sociales:</span>
-            <a
-              href='https://www.instagram.com/'
-              target='_blank'
-              rel='noreferrer noopener'>
-              <img src={instagram} width='35px' height='35px' />
-            </a>
-
-            <a
-              href='https://www.facebook.com/'
-              target='_blank'
-              rel='noreferrer noopener'>
-              <img src={facebook} width='35px' height='35px' />
-            </a>
-          </div>
-        </div>
-        <div>
-          <div>
-            <div className={styles.info}>
-              <DraftsIcon />
-              <span>NewsLetter</span>
-            </div>
-            <input
-              className={styles.input}
-              type='text'
-              placeholder='mail'
-              value={input}
-              onChange={(e) => handleChange(e)}
-            />
-            {
-              isLogged.length === 0 ? 
-              <p>Para suscribirte necesitas estar logeado</p> :
-              <button
-              className={styles.btn}
-              type='submit'
-              onClick={(e) => handleSubmit(e)}>
-              Suscribirse
-            </button> 
-            
-            }
-            {/* <button
-              className={styles.btn}
-              type='submit'
-              onClick={(e) => handleSubmit(e)}>
-              Suscribirse
-            </button> */}
-          </div>
-        </div>
-        <div>
-          <LocationOnIcon />
-          <span>Dirección: Av Belgrano 444, Mendoza, Argentina</span>
-        </div>
-      </div>
-    </div>
+    <Grid
+      alignItems={'center'}
+      container
+      spacing={2}
+      columns={4}
+      className={styles.container}
+    >
+      <Grid width={'100%'} xs={1} item>
+        <Stack spacing={2} direction={'row'} alignItems={'center'}>
+          <IconButton as={Link} to='/'>
+            <img src={Images.logoBook} alt='logo' />
+          </IconButton>
+          <Stack spacing={1}>
+            <Typography color='white' fontSize={'24px'}>
+              Grow-Up Libros
+            </Typography>
+            <Stack spacing={4} direction={'row'}>
+              <a
+                href='https://www.instagram.com/'
+                target='_blank'
+                rel='noreferrer noopener'
+              >
+                <Instagram sx={{ fontSize: '32px', color: 'white' }} />
+              </a>
+              <a
+                href='https://www.facebook.com/'
+                target='_blank'
+                rel='noreferrer noopener'
+              >
+                <Facebook sx={{ fontSize: '32px', color: 'white' }} />
+              </a>
+              <WhatsApp sx={{ fontSize: '32px', color: 'white' }} />
+            </Stack>
+          </Stack>
+        </Stack>
+      </Grid>
+      <Grid xs={1} item>
+        <Stack alignItems={'flex-start'}>
+          <Stack as={Link} to='/aboutus' direction={'row'} alignItems='center'>
+            <IconButton>
+              <InfoIcon sx={{ color: 'white' }} />
+            </IconButton>
+            <Typography sx={{ textDecoration: 'inherit', color: 'white' }}>
+              Sobre nosotros
+            </Typography>
+          </Stack>
+          <Stack as={Link} to='/faq' direction={'row'} alignItems='center'>
+            <IconButton>
+              <LiveHelpIcon sx={{ color: 'white' }} />
+            </IconButton>
+            <Typography sx={{ textDecoration: 'inherit', color: 'white' }}>
+              Preguntas frecuentes
+            </Typography>
+          </Stack>
+        </Stack>
+      </Grid>
+      <Grid item xs={1}>
+        <img style={{ maxWidth: '50%' }} src={mercado} alt='mercadopago-logo' />
+      </Grid>
+      <Grid width={'100%'} xs={1} item>
+        <Stack direction={'row'} spacing='2'>
+          <Input
+            type='text'
+            placeholder='Email'
+            value={input}
+            onChange={(e) => handleChange(e)}
+            sx={{
+              color: 'white',
+              fontSize: '20px',
+              '::placeholder': {
+                color: 'white',
+              },
+              ':hover:not(.Mui-disabled):before': {
+                borderColor: 'white',
+              },
+              ':before': {
+                borderColor: 'white',
+              },
+              ':after': {
+                borderColor: 'transparent',
+              },
+            }}
+          />
+          <Button
+            sx={{ fontWeight: 'bold' }}
+            onClick={handleSubmit}
+            color='secondary'
+          >
+            Suscribete
+          </Button>
+        </Stack>
+      </Grid>
+    </Grid>
   )
 }
