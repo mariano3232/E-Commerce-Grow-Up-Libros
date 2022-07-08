@@ -13,6 +13,7 @@ import AdminUserNewsLetter from './Manejo de estados/AdminUserNewsLetter'
 import styles from '../../../Styles/AdminUser2.module.css'
 import style from '../../../Styles/Stock.module.css'
 import './adminUsers.css'
+import { animateScroll as scroll, Element } from 'react-scroll'
 
 // import SetAdminUser from "./SetAdminUser";
 // import BannAdminUser from "./BannUser";
@@ -59,6 +60,12 @@ export default function AdminUsers2(props) {
   }, [changed])
 
   useEffect(() => {}, [usuarios])
+
+  useEffect(() => {
+    scroll.scrollToTop()
+  }, [])
+
+
 
   return usuarios.length > 0 ? (
     <div className={styles.containerAll}>

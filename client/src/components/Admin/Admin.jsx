@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import styles from '../../Styles/DashboardAdmin.module.css'
 import { getBooksAdmin , getAuthorsAdmin } from '../../actions'
 import { useDispatch, useSelector } from 'react-redux'
+import { animateScroll as scroll, Element } from 'react-scroll'
 
 
 export function Admin() {
@@ -23,6 +24,11 @@ export function Admin() {
     dispatch(getAuthorsAdmin())
   })
 
+  useEffect(() => {
+    scroll.scrollToTop()
+  }, [])
+
+
   return (
     <div className={styles.admin}>
       <div className={styles.containerAdmin}>
@@ -33,6 +39,13 @@ export function Admin() {
         </Link>
         : ''}
 
+
+        {usuario[0].isAdminData === true ?
+        <Link to='/put'>
+          <button className={styles.btn}>Modificar Data</button>
+        </Link>
+        : ''}
+
         {usuario[0].isAdminData === true ? 
         <Link to='/delete'>
           <button className={styles.btn}>Borrar/Ocultar Data</button>
@@ -40,11 +53,7 @@ export function Admin() {
         : ''}
 
 
-        {usuario[0].isAdminData === true ?
-        <Link to='/put'>
-          <button className={styles.btn}>Modificar Data</button>
-        </Link>
-        : ''}
+     
 
 
         {usuario[0].isAdminStock=== true ?

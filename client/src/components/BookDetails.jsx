@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { scroller } from 'react-scroll'
 import { BsCart } from 'react-icons/bs'
+import { BsHeart } from 'react-icons/bs'
 import axios from 'axios'
 
 import {
@@ -21,6 +22,7 @@ import {
 //import { clearPageBookDetails, getBookDetails } from "../actions";
 import { Link } from 'react-router-dom'
 import styles from '../Styles/bookDetails.module.css'
+import s from '../Styles/Home.module.css'
 import { animateScroll as scroll } from 'react-scroll'
 import { useAuth0 } from '@auth0/auth0-react'
 
@@ -34,8 +36,7 @@ export default function BookDetails() {
   const products = useSelector(state => state.cart);
   const { loginWithRedirect } = useAuth0()
   const [render,setRender]=useState(0)
-
-  const usuario = useSelector ( state => state.userLogged)
+  const usuario = useSelector((state) => state.userLogged)
 
   const [comment,setComment]=useState({
     comment:'',
@@ -82,8 +83,9 @@ export default function BookDetails() {
   }, [dispatch])
 
   const handleClickFav = () => {
-    if (isLogged.length === 0) return loginWithRedirect()
     const iduser = isLogged[0]._id
+    if (isLogged.length === 0) return loginWithRedirect()
+    if (isLogged[0].favouritesBooks.includes(id)) return alert('Ya es un libro favorito');
     dispatch(addFav(id, iduser))
     alert('Libro agregado a favoritos')
     dispatch(getUsers())
@@ -133,6 +135,18 @@ export default function BookDetails() {
           <h4 className={styles.productsAmount}>{productsAmount}</h4>
         </div>
       </Link>
+
+      <Link to='/user'>
+        <div className={s.containerHeart}>
+          <BsHeart className={s.heart} />
+          {
+            isLogged.length ?
+            <h4 className={s.productsAmount}>{isLogged[0].favouritesBooks.length}</h4>
+            : <h4 className={s.productsAmount}>{0}</h4>
+          }
+        </div>
+      </Link>
+
       <img src={book.cover} alt='Not Found ):' className={styles.img} />
 
       <div className={styles.info}>

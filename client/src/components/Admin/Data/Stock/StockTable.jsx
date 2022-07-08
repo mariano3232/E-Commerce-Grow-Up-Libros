@@ -6,6 +6,7 @@ import { useState } from 'react'
 import AdminSearchBarBooks from '../../SearchBars/AdminSearchBarBooks'
 import AdminRefreshBooks from '../../RefreshButtons/AdminRefreshBooks'
 import { Link } from 'react-router-dom'
+import { animateScroll as scroll, Element } from 'react-scroll'
 
 import styledButton from '../../../../Styles/Button.module.css'
 
@@ -19,6 +20,10 @@ export default function StockTable() {
       stock: book.stock,
     }
   })
+
+  useEffect(() => {
+    scroll.scrollToTop()
+  }, [])
 
   const columnas = [
     {

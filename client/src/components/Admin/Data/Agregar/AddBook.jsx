@@ -190,6 +190,7 @@ export default function AddBook() {
   }
 
   function handleGenres(e) {
+    if(!post.genres.includes(e.target.value))
     setPost({
       ...post,
       genres: [...post.genres, e.target.value],
@@ -202,6 +203,9 @@ export default function AddBook() {
       genres: post.genres.filter((e) => e !== genre),
     })
   }
+
+
+
 
   function handleAuthorName(e) {
     setPost({

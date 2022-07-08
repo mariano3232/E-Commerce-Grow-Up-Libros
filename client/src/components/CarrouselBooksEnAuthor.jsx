@@ -11,8 +11,10 @@ import { addToCart, purchaseOrder, updateAmount } from '../actions'
 
 export default function CarrouselBookEnAuthor({ booksEscritor }) {
 
+  const booksEscritorNoHidden = booksEscritor.filter (book => book.isHidden===false)
+
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [currentBook, setcurrentBook] = useState(booksEscritor[0])
+  const [currentBook, setcurrentBook] = useState(booksEscritorNoHidden[0])
   const [loaded, setLoaded] = useState(false)
   const dispatch = useDispatch()
   const { loginWithRedirect } = useAuth0()
@@ -32,22 +34,22 @@ export default function CarrouselBookEnAuthor({ booksEscritor }) {
     setTimeout(() => {
       if (currentIndex !== 0) {
         setCurrentIndex(currentIndex - 1)
-        setcurrentBook(booksEscritor[currentIndex - 1])
+        setcurrentBook(booksEscritorNoHidden[currentIndex - 1])
       } else {
-        setCurrentIndex(booksEscritor.length - 1)
-        setcurrentBook(booksEscritor[booksEscritor.length - 1])
+        setCurrentIndex(booksEscritorNoHidden.length - 1)
+        setcurrentBook(booksEscritorNoHidden[booksEscritorNoHidden.length - 1])
       }
     }, 500)
   }
   const next = () => {
     setLoaded(false)
     setTimeout(() => {
-      if (currentIndex !== booksEscritor.length - 1) {
+      if (currentIndex !== booksEscritorNoHidden.length - 1) {
         setCurrentIndex(currentIndex + 1)
-        setcurrentBook(booksEscritor[currentIndex + 1])
+        setcurrentBook(booksEscritorNoHidden[currentIndex + 1])
       } else {
         setCurrentIndex(0)
-        setcurrentBook(booksEscritor[0])
+        setcurrentBook(booksEscritorNoHidden[0])
       }
     }, 500)
   }

@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from "react";
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import styles from '../../Styles/adminProUserProfile.module.css'
 import { NavLink } from 'react-router-dom'
+import { animateScroll as scroll, Element } from 'react-scroll'
 
 export default function AdminProPerfilUsuarios() {
   const id = useParams().id
@@ -11,9 +12,11 @@ export default function AdminProPerfilUsuarios() {
 
   const usuario = allUsers.filter((usuario) => usuario._id === id)[0]
 
-  console.log('wwww:', usuario)
 
-  console.log('aaaa', id)
+  useEffect(() => {
+    scroll.scrollToTop()
+  }, [])
+
   return (
     <div className={styles.containerAdminProfile}>
          <NavLink className={` ${styles.buttonBack}`} to='/createadmin'>

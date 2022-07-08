@@ -484,7 +484,7 @@ function rootReducer(state = initialState, action) {
     case "ADD_FAV":
       return {
         ...state,
-        /* userLogged: [action.payload], */
+        userLogged: [action.payload],
       };
 
     case "DELETE_BOOK_FAV":
@@ -538,6 +538,19 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         orders: nameStatusOrder,
+      };
+
+      
+      case "GET_PAYMENT_STATUS":
+      const namePaymentStatusCopy = state.ordersCopy;
+      const namePaymentStatus = namePaymentStatusCopy.filter(
+        (order) =>
+          order.payment_status.toLowerCase().includes(action.payload.toLowerCase())
+      );
+
+      return {
+        ...state,
+        orders: namePaymentStatus,
       };
 
       
