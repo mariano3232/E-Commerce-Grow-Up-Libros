@@ -279,6 +279,22 @@ export function postAuthor(payload) {
   };
 }
 
+//ADMIN STOCK UP
+
+
+export function setStockUp(payload) {
+  return async function (dispatch) {
+    const json = await axios.post(
+      "r",
+      payload
+    );
+    return dispatch({
+      type: "SET_STOCK_UP",
+      
+    });
+  };
+}
+
 //ORDENAMIENTO
 
 export function orderByPrice(payload) {

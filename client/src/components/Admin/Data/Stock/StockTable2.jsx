@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { getBooksAdmin } from '../../../../actions'
+import { getBooksAdmin , setStockUp } from '../../../../actions'
 import { Link , NavLink} from 'react-router-dom'
 
 import { animateScroll as scroll, Element } from 'react-scroll'
@@ -9,6 +9,7 @@ import { animateScroll as scroll, Element } from 'react-scroll'
 
 import AdminSearchBarBooks from '../../SearchBars/AdminSearchBarBooks'
 import AdminRefreshBooks from '../../RefreshButtons/AdminRefreshBooks'
+import { gridColumnsSelector } from '@mui/x-data-grid'
 
 
 
@@ -20,19 +21,69 @@ export default function StockTable2() {
 
   const books = useSelector((state) => state.booksAdmin)
 
-  console.log('libros:',books)
 
-  const [input , setInput] = useState('')
+  const [input , setInput] = useState([])
+  console.log('INPUT:',input)
 
-  const handleChange = (e) => {
-    setInput(e.target.value);
-}
+
+
+  function handleChange(e) {
+    var orderId = {id:e.target.name,stock:e.target.value}
+    if (!e.target.value) {
+      let seleccion = input.filter((i) => i.id !== orderId.id)    
+      setInput(seleccion)
+    } else {
+      
+      // let orderCheck = books.find((book) => book._id === orderId.id)
+      setInput([...input, orderId])
+    }
+  }
+
+  // function handleChange(e) {
+  //   var orderId = {id:e.target.name,stock:e.target.value}
+  //   if (!e.target.value) {
+  //     let seleccion = input.filter((input) => input.id !== orderId.id)    
+  //     setInput(seleccion)
+  //   } else {
+  //     let orderCheck = books.find((book) => book._id === orderId.id)
+  //     setInput([...input, orderCheck])
+  //   }
+  // }
+
+//   const handleChange = (e) => {
+//     // const AA = {id:e.target.name,stock:e.target.value}
+//     // console.log('AA:',AA)
+//     // const incl = input.length?.filter(i=>i.id !== AA.id)
+//     // console.log('incl:',incl)
+//     // if(incl.length===0){
+//     //   setInput(...input,incl)
+//     // }
+
+//   //  if(!input.map(i=>i.id.includes(AA.id))){
+//   //   setInput(...input,AA)
+//   //  }
+    
+//   //  const II = input.filter(i=>i.id!==e.target.name)
+//   //  setInput(II)
+//   //   {
+//     const a = input.filter(i=>i.id === e.target.name)
+//     if(a){
+//   setInput(
+//         [
+//         ...input,{
+//         id : e.target.name,
+//         stock : e.target.value}
+//         ]
+//     )
+//     }}
+  
+// // (...input,{id:e.target.name,stock:e.target.value})
+
 
 const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(getBookTitleAdmin(input));
-    scroller.scrollTo("gaston");
-    setInput('');
+    dispatch(setStockUp(input));
+    setInput([]);
 }
 
 
@@ -170,7 +221,6 @@ const handleSubmit = (e) => {
               <thead>
                 <tr>
                   <th>Titulo</th>
-                  <th>Escritor</th>
                   <th>Editorial</th>
                   <th>Stock</th>
                   <th>Agregar Stock</th>
@@ -183,21 +233,21 @@ const handleSubmit = (e) => {
 
 
                     <td>{book.title}</td>
-                    <td>{book.price}</td>
                     <td>{book.editorial}</td>
                     <td>{book.stock}</td>
 
                     <td>
                         <input
-                        type='number'
-                        key={book._id}
-                        value={input} 
-                        onChange={e=>handleChange(e)} 
+                          type='text'
+                          key={book._id}
+                          name={book._id}
+                         
+                          
+                         
+                          onChange={e=>handleChange(e)} 
                         >
                         </input>
 
-                     
-            
                     </td>
                   </tr>
                 ))}
@@ -234,3 +284,8 @@ const handleSubmit = (e) => {
   ) 
   :'loading'
 }
+
+
+/*
+[{id:3124214214, stock: 50},{id:45345345, stock: 80}]
+*/
