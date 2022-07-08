@@ -64,7 +64,7 @@ router.post("/orden", async (req, res) => {
 
     let preference = {
       items: itemsMp,
-      external_reference: `${idOrder}`,
+      external_reference: `${newOrder._id}`,
       payment_methods: {
         excluded_payment_type: [
           {
@@ -75,9 +75,9 @@ router.post("/orden", async (req, res) => {
       },
 
       back_urls: {
-        success: "http://localhost:3001/mercadopago/success",
-        failure: "http://localhost:3001/mercadopago/success",
-        pending: "http://localhost:3001/mercadopago/success",
+        success: "https://ecommercehenryx.herokuapp.com/mercadopago/success",
+        failure: "https://ecommercehenryx.herokuapp.com/mercadopago/success",
+        pending: "https://ecommercehenryx.herokuapp.com/mercadopago/success",
       },
       auto_return: "approved",
     };
@@ -96,13 +96,13 @@ router.post("/orden", async (req, res) => {
 
 router.get("/success", async (req, res) => {
   const { external_reference } = req.query;
-  console.log(req.query)
+ 
   try {
     const order = await Orders.findOneAndUpdate({
-      payment_order_id: external_reference
-    }, req.query);    
+     _id: external_reference
+    }, req.query).populate('usuario');    
     order.save();
-    console.log('/*/*/*/*',order)
+    
     
     return res.json(order);
   } catch (error) {
@@ -122,7 +122,8 @@ router.get("/success", async (req, res) => {
 // "https://api.mercadopago.com/users/test" \
 // -d '{"site_id":"MCO","description" : "a description"}'
 
-// {"id":1156545904,"nickname":"TETE2598970","password":"qatest9115","site_status":"active","site_id":"MCO","description":"a description","date_created":"2022-07-07T15:54:38-04:00","date_last_updated":"2022-07-07T15:54:38-04:00"}
+// {"id":1156545904,"nickname":"TETE2598970","password":"qatest9115","site_status":"active","site_id":"MCO","description":"a description","date_created":"2022-07-07T15:54:38-04:00","date_last_updated":"2022-07-07T15:54:38-04:00" 
+//test_user_18656584@testuser.com}
 
 module.exports = router;
 
