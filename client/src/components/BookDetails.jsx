@@ -231,17 +231,19 @@ export default function BookDetails() {
         }
       </div>
         {
+          comments?
           comments.map(e=>{
             return(
             <div className={styles.commentContainer}>
             {
               (e.users[0]._id===usuario[0]?._id)?<button value={e._id} onClick={e=>handleDelete(e)} className={styles.delete}>x</button>:null
             }
-            <h4>{e.users[0].nickname}</h4>
+            <span className={styles.nickname}>{e.users[0].nickname}</span>
+            <span>{e.createdAt?.slice(0,10)}</span>
             <p>{e.comment}</p>
             </div>
             )
-          })
+          }):null
         }
     </div>
   )
