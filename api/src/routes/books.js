@@ -315,8 +315,15 @@ router.post('/updateStockUp', async (req, res) => {
     console.log('STOCK SIN REPETIRSE', stockSinRepetirse)
 
     stockSinRepetirse.forEach(async (data) => {
+      console.log(data.id)
+      console.log(data.stock)
+
       const book = await Books.findById(data.id)
+
+      console.log(book)
+
       book.stock = book.stock + Number(data.stock)
+
       await book.save()
     })
     res.send('Stock agregado')
