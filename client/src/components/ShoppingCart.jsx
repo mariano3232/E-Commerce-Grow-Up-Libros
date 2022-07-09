@@ -65,7 +65,7 @@ export default function ShoopingCart(){
                 products.map(e=>{
                     return(
                     <div className={styles.product}>
-                    <h4>{e.title} ({e.price}$)</h4>
+                    <h4>{e.title} - ${e.price}</h4>
                     <div className={styles.amount}>
                         <button value={e._id} onClick={e=>handleRemoveOne(e)} className={styles.button}>  -  </button>
                         <h4 className={styles.number}>{e.amount}</h4>
@@ -73,14 +73,14 @@ export default function ShoopingCart(){
                     </div>
                     <div className={styles.remove}>
                         <button value={e._id} onClick={e=>handleRemoveAll(e)}className={styles.buttonX}>Quitar</button>
-                        <h4>total : {e.price*e.amount}$</h4>
+                        <h4>Total: ${e.price*e.amount}</h4>
                     </div>
                     </div>
                     )
                 })
             }
             <p className={styles.datos} >Cantidad de productos : {productsAmount}</p>
-            <p className={styles.datos} >precio Total :{price}$</p>
+            <p className={styles.datos} >Precio Total: ${price}</p>
             <div className={styles.foot}>
                 <button onClick={handleClear} className={styles.buttonX}>Vaciar carrito</button>
                 {

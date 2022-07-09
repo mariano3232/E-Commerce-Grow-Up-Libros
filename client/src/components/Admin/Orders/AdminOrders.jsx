@@ -5,46 +5,113 @@ import { Link } from 'react-router-dom'
 import AdminSearchBarUserOrders from '../SearchBars/AdminSearchBarUserOrders'
 import AdminRefreshUsers from '../RefreshButtons/AdminRefreshUser'
 import AdminRefreshOrders from '../RefreshButtons/AdminRefreshOrders'
-import AdminOrderStatus from './ManejoDeEstados/AdminOrderStatus'
+import AdminOrderStatusProcessing from './ManejoDeEstados/AdminOrderStatusProcessing'
+import AdminOrderStatusCancelled from './ManejoDeEstados/AdminOrderStatusCancelled'
+import AdminOrderStatusComplete from './ManejoDeEstados/AdminOrderStatusComplete'
+import AdminOrderStatusCreated from './ManejoDeEstados/AdminOrderStatusCreated'
+import AdminSearchBarStatusOrders from '../SearchBars/AdminSearchBarStatusOrders'
+import AdminOrderStatusShipped from './ManejoDeEstados/AdminOrderStatusShipped'
 import styles from '../../../Styles/AdminUser2.module.css'
+import AdminSearchBarPaymentStatus from '../SearchBars/AdminSearchBarPaymentStatus'
+import { animateScroll as scroll, Element } from 'react-scroll'
 
 
-// import SetAdminUser from "./SetAdminUser";
-// import BannAdminUser from "./BannUser";
-// import ForcePasswordResetButton from "./ForcePSWreset";
 
-// {id: userId, changes:{isAdmin:true}}
+
 
 export default function AdminOrders(props) {
   const dispatch = useDispatch()
 
   const usuarios = useSelector((state) => state.users)
-  const orders = useSelector(state=>state.orders)
+  const orders = useSelector(state =>state.orders)
+
+  //console.log('order:',orders)
+
+  const orderOk = orders.filter(order => order.usuario.length > 0)
+  
+ // console.log('orderOk:',orderOk)
   
 
   const [seleccionados, setSeleccionados] = useState([])
 
   const [changed, setChanged] = useState(false)
 
+
+
+
   function selectOrder(e) {
     var orderId = e.target.value
-   
-
     if (!e.target.checked) {
-      let seleccion = seleccionados.filter((order) => order._id !== orderId)
-      
+      let seleccion = seleccionados.filter((order) => order._id !== orderId)    
       setSeleccionados(seleccion)
     } else {
       let orderCheck = orders.find((order) => order._id === orderId)
-      
-
       setSeleccionados([...seleccionados, orderCheck])
     }
   }
 
+
   useEffect(() => {
     dispatch(getAllOrders())
   }, [])
+
+ 
+
+  useEffect(() => {
+    scroll.scrollToTop()
+  }, [])
+  
+  
+
+  //------------PAGINADO
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rows, setRows] = useState(10); //modificamos esto si queremos mostrar mas filas
+  const [pageNumberLimit, setPageNumberLimit] = useState(5);
+  const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(5);
+  const [minPageNumberLmit, setMinPageNumberLmit] = useState(0);
+
+  const handleClick = (event) => {
+    setCurrentPage(Number(event.target.id));
+  };
+  const handleNextbtn = () => {
+    setCurrentPage(currentPage + 1);
+    if (currentPage + 1 > maxPageNumberLimit) {
+      setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+      setMinPageNumberLmit(minPageNumberLmit + pageNumberLimit);
+    }
+  };
+  const handlePrevbtn = () => {
+    setCurrentPage(currentPage - 1);
+    if ((currentPage - 1) % pageNumberLimit === 0) {
+      setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
+      setMinPageNumberLmit(minPageNumberLmit - pageNumberLimit);
+    }
+  };
+ 
+  const pages = [];
+  for (let i = 1; i <= Math.ceil(orderOk.length / rows); i++) {
+    pages.push(i);
+  }
+  const indexOfLastItem = currentPage * rows;
+  const indexOfFirstItem = indexOfLastItem - rows;
+  const currentItems = orderOk.slice(indexOfFirstItem, indexOfLastItem);
+  const renderPageNumbers = pages.map((number) => {
+    if (number < maxPageNumberLimit + 1 && number > minPageNumberLmit) {
+      return (
+        <li
+          key={number}
+          id={number}
+          onClick={e=>handleClick(e)}
+          className={currentPage === number ? "activo" : null}
+        >
+          {number}
+        </li>
+      );
+    } else {
+      return null;
+    }
+  });
+  //-------------------------------------------------------------------
 
   useEffect(() => {
     var checkeds = document.getElementsByClassName('checkbox')
@@ -64,20 +131,44 @@ export default function AdminOrders(props) {
         <div id='tableleft'></div>
         <div className={styles.containerFlex}>
           <div className={styles.containerActions}>
-          
-            <AdminOrderStatus
+          <h2>Cambiar el Estado de la Orden a:</h2>
+            <AdminOrderStatusCreated
               orders={seleccionados}
               changed={changed}
               setChanged={setChanged}
             />
+             <AdminOrderStatusProcessing
+              orders={seleccionados}
+              changed={changed}
+              setChanged={setChanged}
+            />
+             <AdminOrderStatusShipped
+              orders={seleccionados}
+              changed={changed}
+              setChanged={setChanged}
+            />
+             <AdminOrderStatusComplete
+              orders={seleccionados}
+              changed={changed}
+              setChanged={setChanged}
+            />
+             <AdminOrderStatusCancelled
+              orders={seleccionados}
+              changed={changed}
+              setChanged={setChanged}
+            />
+          
           </div>
           <div>
             <div className={styles.containerUser}>
               <AdminRefreshOrders />
               <AdminSearchBarUserOrders />
+              <AdminSearchBarStatusOrders />
+              <AdminSearchBarPaymentStatus/>
               
             </div>
             <div class='container'>
+              
               <table class='content-table'>
                 <thead>
                   <tr>
@@ -86,14 +177,14 @@ export default function AdminOrders(props) {
 
                     <th>Fecha</th>
                     <th>Total</th>
-                    <th>Producto</th>
+                    <th>Estado de Pago</th>
                     <th>Estado de Orden</th>
                    
                   </tr>
                 </thead>
 
                 <tbody>
-                  {orders.map((order) => (
+                  {currentItems.length>0  && currentItems.map((order) => (
                     <tr key={order._id}>
                       <td>
                         <Link to={`/adminorderdetails/${order._id}`}>
@@ -115,6 +206,8 @@ export default function AdminOrders(props) {
 
                       <td>{order.status}</td>
 
+                      <td>{order.status_order}</td>
+
                     
                       <td>
                         <input
@@ -132,6 +225,29 @@ export default function AdminOrders(props) {
             </div>
           </div>
         </div>
+        {
+          <ul className="pageNumbers">
+            <li>
+              <button
+                onClick={handlePrevbtn}
+                disabled={currentPage === pages[0] ? true : false}
+              >
+                prev
+              </button>
+            </li>
+            {renderPageNumbers}
+            <li>
+              <button
+                onClick={handleNextbtn}
+                disabled={
+                  currentPage === pages[pages.length - 1] ? true : false
+                }
+              >
+                next
+              </button>
+            </li>
+          </ul>
+        }
       </div>
     </div>
   ) : (

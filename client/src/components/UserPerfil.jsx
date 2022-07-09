@@ -1,32 +1,44 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useAuth0, User } from '@auth0/auth0-react'
-import { useDispatch } from 'react-redux'
-import { postUser } from '../actions'
-import { useSelector } from 'react-redux'
-import styles from '../Styles/UserPerfil.module.css'
-import UserDatos from './UserDatos'
-import UserPlanLectura from './UserPlanLectura'
-import UserSuscripcion from './UserSuscripcion'
-import UserFav from './UserFav'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useAuth0, User } from "@auth0/auth0-react";
+import { useDispatch } from "react-redux";
+import { postUser } from "../actions";
+import { useSelector } from "react-redux";
+import styles from "../Styles/UserPerfil.module.css";
+import s from "../Styles/Home.module.css";
+import UserDatos from "./UserDatos";
+import UserPlanLectura from "./UserPlanLectura";
+import UserSuscripcion from "./UserSuscripcion";
+import UserHistory from "./UserHistory";
+import UserFav from "./UserFav";
+import { BsCart } from "react-icons/bs";
+import { BsHeart } from "react-icons/bs";
+import style from "../Styles/bookDetails.module.css";
+
 const UserPerfil = () => {
-  const dispatch = useDispatch()
-  const { user, isAuthenticated, isLoading } = useAuth0()
-  const usuarios = useSelector((state) => state.users)
-  const usuario = usuarios.filter((u) => u.email === user.email)
-  const [component, setComponent] = useState('')
+  const dispatch = useDispatch();
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  const usuarios = useSelector((state) => state.users);
+  const usuario = usuarios.filter((u) => u.email === user.email);
+  const [component, setComponent] = useState("");
+  const productsAmount = useSelector((state) => state.cartAmount);
+  const isLogged = useSelector((state) => state.userLogged);
+
+  const userFavBooksShowed = useSelector(state=>state.userLoggedFavsBooksShowed)
+
   if (isLoading) {
-    return <div>Cargando...</div>
+    return <div>Cargando...</div>;
   }
 
   const handleInput = (e) => {
-    e.preventDefault()
-    const name = e.target.name
-    if (name === 'userData') setComponent(<UserDatos />)
-    if (name === 'userSubscripcion') setComponent(<UserSuscripcion />)
-    if (name === 'userPlanLectura') setComponent(<UserPlanLectura />)
-    if (name === 'userFav') setComponent(<UserFav />)
-  }
+    e.preventDefault();
+    const name = e.target.name;
+    if (name === "userData") setComponent(<UserDatos />);
+    if (name === "userSubscripcion") setComponent(<UserSuscripcion />);
+    if (name === "userPlanLectura") setComponent(<UserPlanLectura />);
+    if (name === "userFav") setComponent(<UserFav />);
+    if (name === "userHistory") setComponent(<UserHistory />);
+  };
 
   return (
     <div className={styles.containerUserPerfil}>
@@ -37,10 +49,30 @@ const UserPerfil = () => {
         </div>
       )}
       <div className={styles.containerUserGrid}>
+        <Link to="/cart">
+          <div className={style.containerCart}>
+            <BsCart className={style.cart} />
+            <h4 className={style.productsAmount}>{productsAmount}</h4>
+          </div>
+        </Link>
+
+      
+
+      <Link to='/user'>
+        <div className={s.containerHeart}>
+          <BsHeart className={s.heart} />
+          {
+            isLogged.length ?
+            <h4 className={s.productsAmount}>{userFavBooksShowed.length}</h4>
+            : <h4 className={s.productsAmount}>{0}</h4>
+          }
+        </div>
+      </Link>
+
         <div className={styles.containerButtons}>
           <button
             className={styles.button}
-            name='userData'
+            name="userData"
             onClick={handleInput}
           >
             Mis datos personales
@@ -49,7 +81,7 @@ const UserPerfil = () => {
           <button
             className={styles.button}
             onClick={handleInput}
-            name='userSubscripcion'
+            name="userSubscripcion"
           >
             Mi plan de suscripcion
           </button>
@@ -57,7 +89,7 @@ const UserPerfil = () => {
           <button
             className={styles.button}
             onClick={handleInput}
-            name='userFav'
+            name="userFav"
           >
             Mis libros deseados
           </button>
@@ -65,22 +97,26 @@ const UserPerfil = () => {
           <button
             className={styles.button}
             onClick={handleInput}
-            name='userPlanLectura'
+            name="userPlanLectura"
           >
             Mi plan de lectura
           </button>
 
-          <button className={styles.button} name=''>
+          <button
+            className={styles.button}
+            onClick={handleInput}
+            name="userHistory"
+          >
             Mis compras
           </button>
         </div>
         <div className={styles.containerSection}>{component}</div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default UserPerfil
+export default UserPerfil;
 
 // export default function Profile(){
 

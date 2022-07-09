@@ -8,6 +8,7 @@ import CardBook from './CardBook'
 import Carousel from './Carousel'
 import styles from '../Styles/Home.module.css'
 import { BsCart } from 'react-icons/bs'
+import { BsHeart } from 'react-icons/bs'
 import { animateScroll as scroll, Element } from 'react-scroll'
 import {
   getBooks,
@@ -15,6 +16,7 @@ import {
   orderByPrice,
   orderByRating,
   postUser,
+  setToSuperAdmin
 } from '../actions'
 import Profile from './Profile'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -31,13 +33,21 @@ export default function Home() {
   const allBooks = useSelector((state) => state.books)
 
   const usuario = useSelector((state) => state.userLogged)
+  
+  const userFavBooksShowed = useSelector(state=>state.userLoggedFavsBooksShowed)
+ 
+
+  
+ // const usuarioAllFavBooks = usuario.favouritesBooks
+
+  //const usuarioFavBookNotHidden = usuarioAllFavBooks.filter(books=>books.isHidden===false)
 
   // useEffect(() => {
   //   dispatch(getBooks())
   //   console.log('HOOOOOME');
   // }, []);
 
-  
+  //useEffect(()=>{dispatch(setToSuperAdmin(['62c452c8f0db62a9421601fb']))},[])
 
   const [currentPage, setCurrentPage] = useState(1)
   const [bookPerPage] = useState(8)
@@ -99,6 +109,18 @@ export default function Home() {
           <h4 className={styles.productsAmount}>{productsAmount}</h4>
         </div>
       </Link>
+
+      <Link to='/user'>
+        <div className={styles.containerHeart}>
+          <BsHeart className={styles.heart} />
+          {
+            usuario.length ?
+            <h4 className={styles.productsAmount}>{userFavBooksShowed.length}</h4>
+            : <h4 className={styles.productsAmount}>{0}</h4>
+          }
+        </div>
+      </Link>
+
       <div className={styles.color}>
         <Carousel />
 

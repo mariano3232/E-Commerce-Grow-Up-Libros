@@ -6,18 +6,38 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, purchaseOrder, putRating, updateAmount } from "../actions";
 import { Rating } from "@mui/material";
 import { useEffect } from "react";
-import { useAuth0 } from '@auth0/auth0-react'
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function CardBook({ title, cover, price, rating, id, stock }) {
-  const dispatch = useDispatch();
-  const { userLogged } = useSelector((state) => state);
-  const productsAmount=useSelector((state)=>state.cartAmount)
-  const products = useSelector(state => state.cart);
+  const dispatch = useDispatch()
+  const { userLogged } = useSelector((state) => state)
+  const productsAmount = useSelector((state) => state.cartAmount)
+  const products = useSelector((state) => state.cart)
+  const myFavsBooks = useSelector(state=>state.userLoggedFavsBooksShowed)
+
+  const myFavsBooksIds = myFavsBooks.map(book=>book._id)
   
-  const { loginWithRedirect } = useAuth0()
+
+
+  const { loginWithRedirect } = useAuth0();
 
   //const [ifRating, setIfRating] = useState();
   const ifRating = changeRating(id);
+  const isBuy = changeBuy(id);
+
+  function changeBuy(id) {
+    if (userLogged.length > 0 && userLogged[0].buyBooks.length > 0) {
+      let result = userLogged[0].buyBooks.indexOf(id);
+      if (result === -1) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+    if (userLogged.length === 0) {
+      return true;
+    }
+  }
 
   function changeRating(id) {
     if (userLogged.length > 0 && userLogged[0].ratingBooks.length > 0) {
@@ -39,37 +59,45 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
   }
 
   function handleAddToCart(e) {
-    e.preventDefault()
-    if (userLogged.length === 0) return loginWithRedirect()
-    dispatch(addToCart(id))
-    dispatch(updateAmount(productsAmount+1))
-    alert('Libro agregado al carrito!')
-    setTimeout(function(){
-      
-      dispatch(purchaseOrder({
-        email: userLogged[0].email, 
-        name: userLogged[0].name,
-        title: products[products.length-1].title,
-        unit_price: products[products.length-1].price, 
-        quantity: products[products.length-1].amount,
-      }))
-       
-    }, 200)
+    e.preventDefault();
+    if (userLogged.length === 0) return loginWithRedirect();
+    dispatch(addToCart(id));
+    dispatch(updateAmount(productsAmount + 1));
+    alert("Libro agregado al carrito!");
+    setTimeout(function () {
+      dispatch(
+        purchaseOrder({
+          email: userLogged[0].email,
+          name: userLogged[0].name,
+          title: products[products.length - 1].title,
+          unit_price: products[products.length - 1].price,
+          quantity: products[products.length - 1].amount,
+        })
+      );
+    }, 200);
   }
 
   return (
     <div className={styles.container}>
-      <Link to={"/book/" + id}>
-        <img
-          className={styles.img}
-          src={cover}
-          alt="Not Found ):"
-          width="200x"
-          height="300"
-        />
-      </Link>
+      <div className={styles.image}>
+        <Link to={"/book/" + id}>
+          <img
+            className={styles.img}
+            src={cover}
+            alt="Not Found ):"
+            width="200x"
+            height="300"
+          />
+        </Link>
+        <span
+          className={
+            isBuy ? styles.comprado + " " + styles.show : styles.comprado
+          }
+        >
+          COMPRADO
+        </span>
+      </div>
       <div className={styles.block}>
-        <h2>{title}</h2>
         <div className={styles.rating}>
           {ifRating ? (
             <Rating
@@ -89,21 +117,30 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
           )}
           <span className={styles.numberRating}>{rating.toFixed(2)}</span>
         </div>
+
         <div className={styles.info}>
           <div className={styles.containerRating}>
             <span>
-              <Fav book={id} />
+              
+              <Fav book={id} painted={`${myFavsBooksIds.includes(id)
+                          ?'secondary'
+                        :'disabled'}`}/>
             </span>
             <p className={styles.price}>${price}</p>
           </div>
-          <div>
-            {
-              stock > 1 ?
-              <button className={styles.button} onClick={(e) => handleAddToCart(e)}>
-                Añadir al carrito
-              </button> : ''
-            }
-          </div>
+        </div>
+
+        <div>
+          {stock > 1 ? (
+            <button
+              className={styles.button}
+              onClick={(e) => handleAddToCart(e)}
+            >
+              Añadir al carrito
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

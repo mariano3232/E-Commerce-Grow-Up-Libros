@@ -4,6 +4,8 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { scroller } from 'react-scroll'
 import { BsCart } from 'react-icons/bs'
+import { BsHeart } from 'react-icons/bs'
+import axios from 'axios'
 
 import {
   getBookDetails,
@@ -14,14 +16,18 @@ import {
   getUsers,
   updateAmount,
   purchaseOrder,
+  getBookComments,
+  clearComments,
 } from '../actions'
 //import { clearPageBookDetails, getBookDetails } from "../actions";
 import { Link } from 'react-router-dom'
 import styles from '../Styles/bookDetails.module.css'
+import s from '../Styles/Home.module.css'
 import { animateScroll as scroll } from 'react-scroll'
 import { useAuth0 } from '@auth0/auth0-react'
 
 export default function BookDetails() {
+  
   const id = useParams().id
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -29,9 +35,26 @@ export default function BookDetails() {
   const isLogged = useSelector(state => state.userLogged)
   const products = useSelector(state => state.cart);
   const { loginWithRedirect } = useAuth0()
+  const [render,setRender]=useState(0)
+  const usuario = useSelector((state) => state.userLogged)
+
+  const uBooksFav = useSelector(state=> state.userLoggedFavsBooksShowed)
+  //console.log('uBooksFavs:',uBooksFav)
+
+  const bookAdded = uBooksFav.filter(e=>e._id===id)
+ // console.log('bookAdded:,',bookAdded)
+
+ 
+
+  const [comment,setComment]=useState({
+    comment:'',
+    nickname:'',
+    title:'',
+  })
 
   useEffect(() => {
     dispatch(getBookDetails(id))
+    dispatch(getBookComments(id))
     scroll.scrollToTop()
   }, [dispatch])
 
@@ -63,19 +86,55 @@ export default function BookDetails() {
   useEffect(() => {
     return () => {
       dispatch(clearPageBookDetails())
+      dispatch (clearComments())
     }
   }, [dispatch])
 
   const handleClickFav = () => {
+   
     if (isLogged.length === 0) return loginWithRedirect()
-    const iduser = isLogged[0]._id
+    if (bookAdded.length) return alert('Ya es un libro favorito');
+     const iduser = isLogged[0]._id
     dispatch(addFav(id, iduser))
     alert('Libro agregado a favoritos')
     dispatch(getUsers())
   }
 
+  function handleChange(e){
+    e.preventDefault();
+    setComment({
+      comment:e.target.value,
+      nickname:usuario[0].nickname,
+      title:book.title,
+    })
+    console.log('comment :',comment)
+  }
+  function handlePost(e){
+    e.preventDefault();
+    console.log('comment :',comment)
+    axios.post('https://ecommercehenryx.herokuapp.com/comments/addComment',comment).then((response)=>{
+        console.log('axios response',response)
+    }).then(()=>{
+      setTimeout(function () {
+        dispatch(getBookComments(id)),500
+      })
+    })
+  }
+
+  function handleDelete(e){
+    e.preventDefault();
+    axios.delete('https://ecommercehenryx.herokuapp.com/comments/deleteComment/'+e.target.value).then(()=>{
+      setTimeout(function () {
+        dispatch(getBookComments(id)),500
+      })
+    })
+  }
+
   const book = useSelector((state) => state.bookDetails)
+  const comments=useSelector((state)=>state.comments)
+  console.log('comments:',comments)
   const author = book.authors
+
 
   return (
     <div className={styles.container}>
@@ -85,6 +144,18 @@ export default function BookDetails() {
           <h4 className={styles.productsAmount}>{productsAmount}</h4>
         </div>
       </Link>
+
+      <Link to='/user'>
+        <div className={s.containerHeart}>
+          <BsHeart className={s.heart} />
+          {
+            isLogged.length ?
+            <h4 className={s.productsAmount}>{uBooksFav.length}</h4>
+            : <h4 className={s.productsAmount}>{0}</h4>
+          }
+        </div>
+      </Link>
+
       <img src={book.cover} alt='Not Found ):' className={styles.img} />
 
       <div className={styles.info}>
@@ -136,6 +207,7 @@ export default function BookDetails() {
           </button>
         : ''
         }
+
         <button className={styles.button} onClick={() => handleClickFav()}>
           Añadir a lista de desesados
         </button>
@@ -150,22 +222,38 @@ export default function BookDetails() {
 
       <div className={styles.space} />
 
-      <div className={styles.comments}>
-        <label>Da tu puntuacion!</label>
-        <input
-          type='number'
-          placeholder='Puntuacion...'
-          className={styles.rating}
-        />
-        <button>Ok</button>
-        <textarea
+      <div className={styles.postComments}>
+        {
+          (isLogged.length === 0)?<button className={styles.login} onClick={()=>loginWithRedirect()}>Ingresa a tu cuenta para comentar</button>:
+          <textarea
           cols='80'
           rows='4'
           placeholder='Comenta!'
-          className={styles.comment}
+          className={styles.textArea}
+          value={comment.comment}
+          onChange={e=>handleChange(e)}
         ></textarea>
-        <button>Post</button>
+        }
+
+        {
+          (isLogged.length === 0)?null:
+          <button onClick={e=>handlePost(e)} className={styles.postButton} >{'>'}</button>
+        }
       </div>
+        {comments.users>0?
+          comments.map(e=>{
+            return(
+            <div className={styles.commentContainer}>
+            {
+              (e.users[0]._id===usuario[0]?._id)?<button value={e._id} onClick={e=>handleDelete(e)} className={styles.delete}>x</button>:null
+            }
+            <span className={styles.nickname}>{e.users[0].nickname}</span>
+            <span>{e.createdAt?.slice(0,10)}</span>
+            <p>{e.comment}</p>
+            </div>
+            )
+          })
+        :'N'}
     </div>
   )
 }

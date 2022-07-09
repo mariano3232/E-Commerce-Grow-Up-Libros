@@ -1,35 +1,52 @@
 import React, { useState } from 'react'
-import SearchBar from './SearchBar'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getBookGenre, getBooks } from '../actions'
 import { scroller } from 'react-scroll'
-import LogInButton from './LogIn'
-import LogOutButton from './LogOut'
 import { useAuth0 } from '@auth0/auth0-react'
-import styles from '../Styles/nav.module.css'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+
+import SearchBar from './SearchBar'
+import LogInButton from './LogIn'
+import LogOutButton from './LogOut'
+import styles from '../Styles/nav.module.css'
+import { Images } from '../assets'
+import {
+  Stack,
+  Button,
+  Typography,
+  Select,
+  IconButton,
+  MenuItem,
+  FormControl,
+  AppBar,
+  Toolbar,
+} from '@mui/material'
 
 const NavBar = () => {
   const [state, setState] = useState('default')
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { user, isAuthenticated } = useAuth0()
-  const usuario = useSelector ( state => state.userLogged )
+  const usuario = useSelector((state) => state.userLogged)
 
   const handleClick = (e) => {
     e.preventDefault()
     dispatch(getBooks())
     navigate('/home/')
-    scroller.scrollTo('gaston')
+    setTimeout(() => {
+      scroller.scrollTo('gaston')
+    }, 200)
   }
 
   const handleSelectGenre = (e) => {
     e.preventDefault()
     dispatch(getBookGenre(e.target.value))
     navigate('/home/')
-    scroller.scrollTo('gaston')
+    setTimeout(() => {
+      scroller.scrollTo('gaston')
+    }, 150)
     setState('default')
   }
 
@@ -52,65 +69,95 @@ const NavBar = () => {
   ]
 
   return (
-    <div className={styles.container}>
-      <h3 className={styles.logo}>Grow Up-Libros</h3>
-
-      <Link to='/home' className={styles.Link}>
-        <p className={styles.navItem} onClick={handleClick}>
-          Todos los libros
-        </p>
-      </Link>
-
-      <Link to='/home' className={styles.Link}>
-        <p className={styles.navItem}>Inicio</p>
-      </Link>
-
-      <div>
-        <Link to='/author' className={styles.Link}>
-          <p className={styles.navItem}>Autores</p>
-        </Link>
-      </div>
-
-      <div>
-        <select
-          defaultValue='default'
-          value={state}
-          onChange={(e) => handleSelectGenre(e)}
-          className={styles.select}
+    <AppBar position='sticky'>
+      <Toolbar disableGutters>
+        <Stack
+          width={'100%'}
+          direction={'row'}
+          justifyContent={'space-between'}
+          alignItems='center'
+          px={2}
         >
-          <option value='default' disabled>
-            Generos:
-          </option>
-          {genres?.map((e) => (
-            <option key={e} value={e}>
-              {e}
-            </option>
-          ))}
-        </select>
-      </div>
+          <Stack
+            spacing={2}
+            color='white'
+            direction={'row'}
+            alignItems='center'
+          >
+            <IconButton as={Link} to='/'>
+              <img width={64} src={Images.logoBook} alt='book' />
+            </IconButton>
+            <Typography variant='h5'>Grow Up-Libros</Typography>
+          </Stack>
+          <Link to='/home' className={styles.Link}>
+            <Button
+              color='secondary'
+              className={styles.navItem}
+              onClick={handleClick}
+              sx={{
+                fontSize: '18px',
+              }}
+            >
+              Todos los libros
+            </Button>
+          </Link>
 
-      <SearchBar />
+          <Link to='/home' className={styles.Link}>
+            <Button
+              color='secondary'
+              className={styles.navItem}
+              onClick={handleClick}
+              sx={{
+                fontSize: '18px',
+              }}
+            >
+              Inicio
+            </Button>
+          </Link>
 
-      <div className={styles.toggle}>
-        <div className={styles.bar}></div>
-      </div>
+          <Link to='/author' className={styles.Link}>
+            <Button
+              color='secondary'
+              className={styles.navItem}
+              sx={{
+                fontSize: '18px',
+              }}
+            >
+              Autores
+            </Button>
+          </Link>
 
-      { 
-      
-      usuario.length === 1 && usuario[0].isBanned===false
-      ?
-      (
-        <Link to='/user' className={styles.Link}>
-          <h3 className={styles.navItem}>Mi cuenta</h3>
-        </Link>
-      ) : 
-        ''
-      }
+          <FormControl>
+            <Select
+              onChange={handleSelectGenre}
+              defaultValue='default'
+              value={state}
+              MenuProps={{ disableScrollLock: true }}
+              sx={{
+                backgroundColor: 'white',
 
-      {/* <Link to='/user'><h3 className={style.navItem}>Login</h3></Link> */}
+                '& .MuiSvgIcon-root': {
+                  color: '#74c0fc',
+                },
+              }}
+            >
+              <MenuItem value='default' disabled>
+                Generos:
+              </MenuItem>
+              {genres?.map((e) => (
+                <MenuItem as='' key={e} value={e}>
+                  {e}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
-      {isAuthenticated ? <LogOutButton /> : <LogInButton />}
-    </div>
+          <SearchBar />
+
+          {isAuthenticated ? <LogOutButton /> : <LogInButton />}
+        </Stack>
+      </Toolbar>
+    </AppBar>
   )
 }
 

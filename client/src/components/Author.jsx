@@ -10,11 +10,20 @@ import { useState } from 'react'
 import { orderByNameAuthor } from '../actions'
 import styles from '../Styles/author.module.css'
 import styledButton from '../Styles/Button.module.css'
+import { BsCart } from 'react-icons/bs'
+import { BsHeart } from 'react-icons/bs'
+import s from '../Styles/Home.module.css'
+import style from '../Styles/authorDetails.module.css'
 
 const Author = () => {
   const dispatch = useDispatch()
   const authors = useSelector((state) => state.authors)
   const [order, setOrder] = useState(true)
+  const isLogged = useSelector(state => state.userLogged)
+  const productsAmount=useSelector((state)=>state.cartAmount)
+
+  const userFavBooksShowed = useSelector(state=>state.userLoggedFavsBooksShowed)
+
   // const orderedAuthors = authors.sort(function (a, b) {
   //     if (a.name.toLowerCase() > b.name.toLowerCase()) {
   //       return 1;
@@ -26,7 +35,6 @@ const Author = () => {
   // })
   useEffect(() => {
     dispatch(getAuthors())
-    console.log('HOOOOOME');
   }, []);
 
   useEffect(() => {
@@ -69,6 +77,25 @@ const Author = () => {
             <option value='desc'>Nombre Descendente</option>
           </select>
         </div>
+
+        <Link to='/cart'>
+        <div className={style.containerCart}>
+          <BsCart className={style.cart} />
+          <h4 className={style.productsAmount}>{productsAmount}</h4>
+        </div>
+      </Link>
+
+      <Link to='/user'>
+        <div className={s.containerHeart}>
+          <BsHeart className={s.heart} />
+          {
+            isLogged.length ?
+            <h4 className={s.productsAmount}>{userFavBooksShowed.length}</h4>
+            : <h4 className={s.productsAmount}>{0}</h4>
+          }
+        </div>
+      </Link>
+
       </div>
 
       <ol className={styles.container}>

@@ -5,6 +5,7 @@ const initialState = {
   booksAdmin: [],
   booksAdminCopy: [],
   bookDetails: [],
+  comments:[],
   authors: [],
   authorsCopy: [],
   authorsAdmin: [],
@@ -13,6 +14,9 @@ const initialState = {
   users: [],
   usersCopy: [],
   userLogged: [],
+  usersFavAll:[],
+  usersFavShowed:[],
+  userLoggedFavsBooksShowed:[],
   cart: [],
   cartAmount:0,
   render: [],
@@ -104,6 +108,17 @@ function rootReducer(state = initialState, action) {
         ...state,
         bookDetails: action.payload,
       };
+    
+    case "GET_BOOK_COMMENTS":
+      return {
+        ...state,
+        comments:action.payload
+      }
+    case "CLEAR_COMMENTS":
+      return {
+        ...state,
+        comments:[]
+      }
 
     case "GET_BOOK_GENRE":
       return {
@@ -284,17 +299,26 @@ function rootReducer(state = initialState, action) {
       };
 
     case "GET_USERS":
+      
+      
       return {
         ...state,
         users: action.payload,
         usersCopy: action.payload,
+        usersFavAll: action.payload,
+        usersFavShowed: action.payload
+        
       };
 
     case "POST_USER":
-      //console.log('reducerPost:',action.payload)
+      const loggedFavBooks = action.payload[0].favouritesBooks
+      const loggedFavBooksShowed = loggedFavBooks.filter(book=>book.isHidden===false)
+      
+
       return {
         ...state,
-        userLogged: [action.payload],
+        userLogged: action.payload,
+        userLoggedFavsBooksShowed: loggedFavBooksShowed
       };
 
     case "GET_USER_NAME":
@@ -470,15 +494,25 @@ function rootReducer(state = initialState, action) {
       };
 
     case "ADD_FAV":
+
+      const loggedFavBooks2 = action.payload[0].favouritesBooks    
+      const loggedFavBooksShowed2 = loggedFavBooks2.filter(book=>book.isHidden===false)
+      
       return {
         ...state,
-        /* userLogged: [action.payload], */
+        userLogged: action.payload,
+        userLoggedFavsBooksShowed: loggedFavBooksShowed2
       };
+     
 
     case "DELETE_BOOK_FAV":
+      const loggedFavBooks3 = action.payload[0].favouritesBooks
+      const loggedFavBooksShowed3 = loggedFavBooks3.filter(book=>book.isHidden===false)
+
       return {
         ...state,
-        userLogged: [action.payload],
+        userLogged: action.payload,
+        userLoggedFavsBooksShowed: loggedFavBooksShowed3
       };
 
     case "POST_USER_DATA":
@@ -515,6 +549,31 @@ function rootReducer(state = initialState, action) {
              ordersCopy:action.payload
             };
 
+
+      case "GET_STATUS_ORDERS":
+      const nameStatusOrderCopy = state.ordersCopy;
+      const nameStatusOrder = nameStatusOrderCopy.filter(
+        (order) =>
+          order.status.toLowerCase().includes(action.payload.toLowerCase())
+      );
+
+      return {
+        ...state,
+        orders: nameStatusOrder,
+      };
+
+      
+      case "GET_PAYMENT_STATUS":
+      const namePaymentStatusCopy = state.ordersCopy;
+      const namePaymentStatus = namePaymentStatusCopy.filter(
+        (order) =>
+          order.payment_status.toLowerCase().includes(action.payload.toLowerCase())
+      );
+
+      return {
+        ...state,
+        orders: namePaymentStatus,
+      };
 
       
 

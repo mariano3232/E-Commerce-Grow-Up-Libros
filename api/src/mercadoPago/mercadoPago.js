@@ -5,6 +5,7 @@ const { ACCESS_TOKEN } = process.env;
 
 // SDK de Mercado Pago
 const mercadopago = require("mercadopago");
+const Books = require("../model/Books");
 const Orders = require("../model/Order");
 const Users = require("../model/Users");
 const { Enum, EnumStatus } = require("./EmunStatus");
@@ -64,7 +65,7 @@ router.post("/orden", async (req, res) => {
       },
 
       back_urls: {
-        success: "http://localhost:3001/mercadopago/success",
+        success: "https://ecommercehenryx.herokuapp.com/mercadopago/success",
         failure: "https://ecommercehenryx.herokuapp.com/mercadopago/success",
         pending: "https://ecommercehenryx.herokuapp.com/mercadopago/success",
       },
@@ -85,23 +86,17 @@ router.post("/orden", async (req, res) => {
 
 router.get("/success", async (req, res) => {
   const { external_reference } = req.query;
-  try {  
-
-    const order = await Orders.findOneAndUpdate(
-      {
-        _id: external_reference,
-      },
-      req.query
-      );
-      const orderSave = await order.save();
-      const user = await Users.findOne({_id: orderSave.usuario[0]})
-      console.log('ESTE ES EL USURIO', user.name, user.email)
-      
-      // enviar_mail(user.name, user.email)
-      res.json(orderSave);
-      mail.enviar_mail(user.name, user.email)
+ 
+  try {
+    const order = await Orders.findOneAndUpdate({
+     _id: external_reference
+    }, req.query).populate('usuario');    
+    order.save();
+    
+    
+    return res.json(order);
   } catch (error) {
-    return res.json({msg: "FALLO SUCCESS ", error: error });
+    console.log("FALLO SUCCESS ", error);
   }
 });
 
@@ -111,16 +106,17 @@ router.get("/success", async (req, res) => {
 
 // {"id":1152955480,"nickname":"TETE6325107","password":"qatest9152","site_status":"active","site_id":"MCO","description":"a description","date_created":"2022-07-01T17:26:17-04:00","date_last_updated":"2022-07-01T17:26:17-04:00"}
 
+// curl -X POST \
 // -H "Content-Type: application/json" \
-// -H 'Authorization: Bearer TEST-5290894943630049-070117-211fea6e87d83f8ab0769bbc6f6087b0-220603994 ' \
+// -H 'Authorization: Bearer TEST-5290894943630049-070117-211fea6e87d83f8ab0769bbc6f6087b0-220603994' \
 // "https://api.mercadopago.com/users/test" \
 // -d '{"site_id":"MCO","description" : "a description"}'
 
-// const mercado={
-//   {"id":1152313861,"nickname":"TESTJZQE2T8N","password":"qatest1091","site_status":"active","email":"test_user_24242501@testuser.com"}//vendedor
-
-// {"id":1152320451,"nickname":"TESTKLOPS6H1","password":"qatest5467","site_status":"active","email":"test_user_120617@testuser.com"}
-
-// }
+// {"id":1156545904,"nickname":"TETE2598970","password":"qatest9115","site_status":"active","site_id":"MCO","description":"a description","date_created":"2022-07-07T15:54:38-04:00","date_last_updated":"2022-07-07T15:54:38-04:00" 
+//test_user_18656584@testuser.com}
 
 module.exports = router;
+
+
+
+//https://localhost/3001/mecadopago/success?collection_id=1291575759&collection_status=approved&payment_id=1291575759&status=approved&external_reference=a51b68&payment_type=account_money&merchant_order_id=5150786480&preference_id=1152954796-fb4c7412-5664-4422-9203-f5d3c9c23eef&site_id=MCO&processing_mode=aggregator&merchant_account_id=null

@@ -7,6 +7,8 @@ import AdminRefreshBooks from '../../RefreshButtons/AdminRefreshBooks'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { orderByNameAdminBooks, orderByStockAdminBooks } from '../../../../actions'
+import { animateScroll as scroll, Element } from 'react-scroll'
+import { useEffect } from 'react'
 
 export default function Stock() {
   const allBooks = useSelector((state) => state.booksAdmin)
@@ -28,6 +30,11 @@ export default function Stock() {
     dispatch(orderByStockAdminBooks(e.target.value))
     setOrder(`Ordenado ${e.target.value}`)
   }
+
+  useEffect(() => {
+    scroll.scrollToTop()
+  }, [])
+
 
   return (
     <div className={style.stock}>

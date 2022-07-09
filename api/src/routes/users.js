@@ -1,6 +1,7 @@
 const { Router } = require('express')
 const router = Router()
 const Books = require('../model/Books')
+const Order = require('../model/Order')
 const Users = require('../model/Users')
 
 router.get('/', async (req, res) => {
@@ -194,8 +195,7 @@ router.post('/addDesiredBooks/:idBook/:idUser', async (req, res) => {
 
     const userBooksFavourites = user.favouritesBooks
     userBooksFavourites.forEach((bookFav) => {
-      if (bookFav.toString() === book._id.toString())
-        throw new Error('El libro ya ha sido añadido anteriormente')
+      if (bookFav.toString() === book._id.toString()) return res.json(user)
     })
 
     user.favouritesBooks.push(book._id)
@@ -488,4 +488,68 @@ router.post('/toggleAdminMarketing', async (req, res) => {
     res.send(error.message)
   }
 })
+
+router.post('/hideUser/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    const user = await Users.findById(id)
+    if (!user) throw new Error('El usuario no existe')
+
+    if (user.buyBooks.length > 0) {
+      user.buyBooks.forEach(async (idBook) => {
+        const order = await Order.findById(idBook)
+        order.isHidden = true
+        await order.save()
+      })
+    }
+
+    user.isHidden = true
+    user.save()
+
+    if (user.isHidden) return res.send('Usuario ocultado')
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
+router.post('/showUser/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    const user = await Users.findById(id)
+    if (!user) throw new Error('El usuario no existe')
+
+    if (user.buyBooks.length > 0) {
+      user.buyBooks.forEach(async (idOrder) => {
+        const order = await Order.findById(idOrder)
+        order.isHidden = false
+        await order.save()
+      })
+    }
+
+    user.isHidden = false
+    user.save()
+
+    if (!user.isHidden) return res.send('Usuario desocultado')
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
+router.delete('/deleteUser/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    const user = await Users.findById(id)
+    if (!user) throw new Error('Usuario no encontrado')
+    if (user.buyBooks.length > 0) {
+      user.buyBooks.forEach(async (idOrder) => {
+        await Order.findByIdAndDelete(idOrder)
+      })
+    }
+    await Users.findByIdAndDelete(id)
+    res.send('Usuario eliminado correctamente')
+  } catch (error) {
+    res.status(404).send(error.message)
+  }
+})
+
 module.exports = router

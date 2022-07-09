@@ -1,14 +1,9 @@
-const { Schema, model } = require("mongoose");
-
-
-
-
+const { Schema, model } = require('mongoose')
 
 const orderSchema = new Schema({
   status: {
     type: String,
   },
-
   usuario: [
     {
       type: Schema.Types.ObjectId,
@@ -18,9 +13,11 @@ const orderSchema = new Schema({
   fecha: {
     type: Date,
   },
-  produt: [{
-    type: String,
-  }],
+  produt: [
+    {
+      type: String,
+    },
+  ],
   total: {
     type: Number,
   },
@@ -30,7 +27,7 @@ const orderSchema = new Schema({
   },
   status_order: {
     type: String,
-    default: "",
+    default: '',
   },
  
   isHidden: {

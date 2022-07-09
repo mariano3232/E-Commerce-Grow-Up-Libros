@@ -14,6 +14,10 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
   const productsAmount=useSelector((state)=>state.cartAmount)
   const id = allBooks[0]._id;
 
+  const myFavsBooks = useSelector(state=>state.userLoggedFavsBooksShowed)
+
+  const myFavsBooksIds = myFavsBooks.map(book=>book._id)
+
   const roundOne = allBooks
     .filter((b) => b.price < '3500')
     .filter((e) => e.pages < '300')
@@ -99,11 +103,16 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-              Añadir al carrito
-            </button>
+            {
+              e.stock > 1 ?
+              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
+                Añadir al carrito
+              </button> : ''
+            }
             <span>
-              <Fav book={e._id} />
+              <Fav book={e._id} painted={`${myFavsBooksIds.includes(e._id)
+                          ?'secondary'
+                        :'disabled'}`}/>
             </span>
           </li>
         ))
@@ -115,11 +124,16 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-              Añadir al carrito
-            </button>
+            {
+              e.stock > 1 ?
+              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
+                Añadir al carrito
+              </button> : ''
+            }
             <span>
-              <Fav book={e._id} />
+              <Fav book={e._id} painted={`${myFavsBooksIds.includes(e._id)
+                          ?'secondary'
+                        :'disabled'}`} />
             </span>
           </li>
         ))
@@ -131,11 +145,16 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-              Añadir al carrito
-            </button>
+            {
+              e.stock > 1 ?
+              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
+                Añadir al carrito
+              </button> : ''
+            }
             <span>
-              <Fav book={e._id} />
+              <Fav book={e._id} painted={`${myFavsBooksIds.includes(e._id)
+                          ?'secondary'
+                        :'disabled'}`} />
             </span>
           </li>
         ))
@@ -147,11 +166,16 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-              Añadir al carrito
-            </button>
+            {
+              e.stock > 1 ?
+              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
+                Añadir al carrito
+              </button> : ''
+            }
             <span>
-              <Fav book={e._id} />
+              <Fav book={e._id} painted={`${myFavsBooksIds.includes(e._id)
+                          ?'secondary'
+                        :'disabled'}`}/>
             </span>
           </li>
         ))
@@ -163,11 +187,16 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-              Añadir al carrito
-            </button>
+            {
+              e.stock > 1 ?
+              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
+                Añadir al carrito
+              </button> : ''
+            }
             <span>
-              <Fav book={e._id} />
+              <Fav book={e._id} painted={`${myFavsBooksIds.includes(e._id)
+                          ?'secondary'
+                        :'disabled'}`}/>
             </span>
           </li>
         ))
@@ -179,11 +208,16 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-              Añadir al carrito
-            </button>
+            {
+              e.stock > 1 ?
+              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
+                Añadir al carrito
+              </button> : ''
+            }
             <span>
-              <Fav book={e._id} />
+              <Fav book={e._id} painted={`${myFavsBooksIds.includes(e._id)
+                          ?'secondary'
+                        :'disabled'}`}/>
             </span>
           </li>
         ))
@@ -195,11 +229,16 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-              Añadir al carrito
-            </button>
+            {
+              e.stock > 1 ?
+              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
+                Añadir al carrito
+              </button> : ''
+            }
             <span>
-              <Fav book={e._id} />
+              <Fav book={e._id} painted={`${myFavsBooksIds.includes(e._id)
+                          ?'secondary'
+                        :'disabled'}`} />
             </span>
           </li>
         ))
@@ -211,11 +250,16 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
-            <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-              Añadir al carrito
-            </button>
+            {
+              e.stock > 1 ?
+              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
+                Añadir al carrito
+              </button> : ''
+            }
             <span>
-              <Fav book={e._id} />
+              <Fav book={e._id} painted={`${myFavsBooksIds.includes(e._id)
+                          ?'secondary'
+                        :'disabled'}`} />
             </span>
           </li>
         ))

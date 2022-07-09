@@ -58,3 +58,22 @@ h2 {
   color: #ffd43b;
   font-size: large;
 }
+
+.image {
+  position: relative;
+}
+
+.comprado {
+  background-color: red;
+  color: white;
+  padding: 0 20px;
+  position: absolute;
+  transform: rotate(315deg);
+  left: -30px;
+  top: 25px;
+  display: none;
+}
+
+.show {
+  display: block;
+}

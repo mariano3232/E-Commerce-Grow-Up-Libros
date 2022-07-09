@@ -3,15 +3,17 @@ import axios from 'axios'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Image } from 'cloudinary-react'
+import { getCarouselImages } from '../../../actions'
 import styles from '../../../Styles/adminCarousel.module.css'
-import styledButton from '../../../Styles/Button.module.css'
 export default function AdminCarousel() {
   const dispatch = useDispatch()
 
   const [image, setImage] = useState({ files: '' })
   const [publicId, setPublicId] = useState('')
 
-  const Images = useSelector((state) => state.carousel)
+  let Images = useSelector((state) => state.carousel)
+
+  console.log('Images :',Images)
 
   const uploadImage = () => {
     const formData = new FormData()
@@ -22,9 +24,7 @@ export default function AdminCarousel() {
     axios
       .post('https://api.cloudinary.com/v1_1/dflpxjove/image/upload', formData)
       .then((response) => {
-        console.log(response)
         setPublicId(response.data.secure_url)
-        console.log(publicId)
         axios
           .post(
             'https://ecommercehenryx.herokuapp.com/carrousel/addCarrousel',
@@ -34,6 +34,10 @@ export default function AdminCarousel() {
           )
           .then(() => {
             setImage({ files: '' })
+            dispatch(getCarouselImages())
+            setTimeout(function(){
+              Images=useSelector(state=>state.carousel)
+            },500)
           })
       })
   }
@@ -44,7 +48,12 @@ export default function AdminCarousel() {
     axios.delete(
       'https://ecommercehenryx.herokuapp.com/carrousel//deleteCarrousel/' +
         e.target.value
-    )
+    ).then(()=>{
+      dispatch(getCarouselImages())
+      setTimeout(function(){
+        Images=useSelector(state=>state.carousel)
+      },500)
+    })
   }
 
   return (

@@ -1,13 +1,11 @@
 import React from 'react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { getBookTitleAdmin } from '../../../actions'
 import styles from '../../../Styles/searchBar.module.css'
 import { scroller } from 'react-scroll'
-import { getUserName } from '../../../actions'
+import { getStatusOrders } from '../../../actions'
 
-const AdminSearchBarUser = () => {
+export default function AdminSearchBarStatusOrders(){
   const [input, setInput] = useState('')
   const dispatch = useDispatch()
 
@@ -17,7 +15,7 @@ const AdminSearchBarUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(getUserName(input))
+    dispatch(getStatusOrders(input))
     scroller.scrollTo('gaston')
     setInput('')
   }
@@ -25,7 +23,7 @@ const AdminSearchBarUser = () => {
   const handleKeyPress = (e) => {
     if(e.charCode === 13){
         e.preventDefault();
-        dispatch(getUserName(input));
+        dispatch(getStatusOrders(input));
         scroller.scrollTo("gaston");
         setInput('');
     }
@@ -35,7 +33,7 @@ const AdminSearchBarUser = () => {
     <div className={styles.container}>
       <input
         type='text'
-        placeholder='Name'
+        placeholder='Estado de orden'
         value={input}
         onChange={(e) => handleChange(e)}
         className={styles.input}
@@ -45,7 +43,7 @@ const AdminSearchBarUser = () => {
         type='submit'
         onClick={(e) => handleSubmit(e)}
         className={styles.button}
-       
+        
       >
         Buscar
       </button>
@@ -53,4 +51,4 @@ const AdminSearchBarUser = () => {
   )
 }
 
-export default AdminSearchBarUser
+

@@ -1,28 +1,96 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styles from '../../../Styles/adminUserProfile.module.css'
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import AdminOrderStatusCancelled from "./ManejoDeEstados/AdminOrderStatusCancelled";
+import AdminOrderStatusCreated from "./ManejoDeEstados/AdminOrderStatusCreated";
+import AdminOrderStatusComplete from "./ManejoDeEstados/AdminOrderStatusComplete";
+import AdminOrderStatusProcessing from "./ManejoDeEstados/AdminOrderStatusProcessing";
+import { useState } from "react";
+import { setOrderStatus , getAllOrders} from "../../../actions";
+import { animateScroll as scroll, Element } from 'react-scroll'
 
 export default function AdminOrderDetails(){
 
-    const id = useParams().id
-    console.log('I:',id)
-
     const allOrders = useSelector(state=>state.orders)
+    const dispatch = useDispatch()
 
+    const id = useParams().id 
     const order = allOrders.filter((order) => order._id === id)[0]
+    
+    const ordersIds= [id]
 
+    
+    // const [seleccionados, setSeleccionados] = useState([id])
+    const [changed, setChanged] = useState(false)
 
+    function changeCreated(){
+      console.log('estoy')
+      dispatch(setOrderStatus({ordersIds,status:'Creada'}))
+      setTimeout(function () {
+        dispatch(getAllOrders())
+      }, 1000)
+      
+     }
+     function changeProcessing(){
+      console.log('estoy')
+      dispatch(setOrderStatus({ordersIds,status:'Procesando'}))
+      setTimeout(function () {
+        dispatch(getAllOrders())
+      }, 1000)
+      
+     }
+
+     function changeShipped(){
+      console.log('estoy')
+      dispatch(setOrderStatus({ordersIds,status:'Enviada'}))
+      setTimeout(function () {
+        dispatch(getAllOrders())
+      }, 1000)
+      
+     }
+
+     function changeCompletada(){
+      console.log('estoy')
+      dispatch(setOrderStatus({ordersIds,status:'Completada'}))
+      setTimeout(function () {
+        dispatch(getAllOrders())
+      }, 1000)
+      
+     }
+
+    
+    function changeCancelled(){
+      console.log('estoy')
+      dispatch(setOrderStatus({ordersIds,status:'Cancelada'}))
+      setTimeout(function () {
+        dispatch(getAllOrders())
+      }, 1000)
+      
+     }
+
+     useEffect(() => {
+      scroll.scrollToTop()
+    }, [])
+  
 
 
     return(
         <div className={styles.containerAdminProfile}>
 
         <NavLink className={` ${styles.buttonBack}`} to='/adminorders'>
-                  <button className={`${styles.button} `}>Volver</button>
-          </NavLink>
+              <button className={`${styles.button} `}>Ir a Todas Las Ordenes</button>
+        </NavLink>
+
+        <h2>Cambiar el Estado de la orden</h2>
+
+        <button onClick={()=>changeCreated(ordersIds)}>Creada</button>
+        <button onClick={()=>changeProcessing(ordersIds)}>Procesando</button>
+        <button onClick={()=>changeShipped(ordersIds)}>Enviada</button>
+        <button onClick={()=>changeCompletada(ordersIds)}>Completada</button>
+        <button onClick={()=>changeCancelled(ordersIds)}>Cancelada</button>
 
         <div className={styles.containerAdmin}>
          <h1>Detalles de Orden</h1>
@@ -33,11 +101,15 @@ export default function AdminOrderDetails(){
                 </Link>
             <p className={styles.h2}>Fecha: {order.fecha}</p>
             <p className={styles.h2}>Total precio : {order.total}</p>
-            <p className={styles.h2}>Producto: {order.produt}</p>
+            <p className={styles.h2}>Producto: 
+              {order.produt.map(product=>
+              <li>{product}</li>
+              )}
+            </p>
             <p className={styles.h2}>Cantidad: {order.quantity}</p>
             <p className={styles.h2}>Direccion: {order.usuario[0].address}</p>
-            <p className={styles.h2}>Estado de Pago: {order.phone}</p>
-            <p className={styles.h2}>Estado de Orden: {order.status}</p>
+            <p className={styles.h2}>Estado de Pago: {order.status}</p>
+            <p className={styles.h2}>Estado de Orden: {order.status_order}</p>
       
             </div>
         </div>

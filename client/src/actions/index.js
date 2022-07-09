@@ -24,6 +24,26 @@ export function getBookDetails(id) {
     });
   };
 }
+export function getBookComments(id){
+  return async (dispatch)=>{
+    let allComments=await axios('https://ecommercehenryx.herokuapp.com/comments');
+    let comments=allComments.data.filter(e=>e.books[0]._id===id)
+
+    return dispatch({
+      type:'GET_BOOK_COMMENTS',
+      payload:comments
+    })
+  }
+}
+export function clearComments(){
+  return (dispatch)=>{
+    
+    return dispatch({
+      type:'CLEAR_COMMENTS',
+      payload:'a'
+    })
+  }
+}
 
 export function getBookTitle(payload) {
   return {
@@ -259,6 +279,23 @@ export function postAuthor(payload) {
   };
 }
 
+//ADMIN STOCK UP
+
+
+export function setStockUp(payload) {
+  return async function (dispatch) {
+    console.log('payStock:',payload)
+    const json = await axios.post(
+      "https://ecommercehenryx.herokuapp.com/books/updateStock/stockUp",
+      payload
+    );
+    return dispatch({
+      type: "SET_STOCK_UP",
+      
+    });
+  };
+}
+
 //ORDENAMIENTO
 
 export function orderByPrice(payload) {
@@ -406,6 +443,7 @@ export function updateAmount(amount){
   }
 
 }
+
 export function clearCart() {
   return (dispatch) => {
     return dispatch({
@@ -586,7 +624,7 @@ export function addFav(payload, id) {
     const json = await axios.post(
       `https://ecommercehenryx.herokuapp.com/users/addDesiredBooks/${payload}/${id}`
     );
-    console.log('SSSSdd:',json.data)
+    console.log('actionAddFav:',json.data)
 
     return dispatch({
       type: "ADD_FAV",
@@ -600,7 +638,7 @@ export function deleteBookFav(payload, id) {
     const json = await axios.post(
       `https://ecommercehenryx.herokuapp.com/users/deleteDesiredBooks/${payload}/${id}`
     );
-
+ console.log('deleteBookFAv:',json.data)
     return dispatch({
       type: "DELETE_BOOK_FAV",
       payload: json.data,
@@ -660,15 +698,34 @@ export function getAllOrders() {
   };
 }
 
-export function setOrderStatus() {
+export function setOrderStatus(payload) {
   
   return async function (dispatch) {
+    
     const json = await axios.post(
-      'path'
+      'https://ecommercehenryx.herokuapp.com/orders/changeStatus',payload
     );
     return dispatch({
       type: "SET_ORDER_STATUS",
      
     });
+  };
+}
+
+
+
+export function getStatusOrders(payload) {
+  
+  return {
+    type: "GET_STATUS_ORDERS",
+    payload: payload,
+  };
+}
+
+export function getPaymentStatus(payload) {
+  
+  return {
+    type: "GET_PAYMENT_STATUS",
+    payload: payload,
   };
 }

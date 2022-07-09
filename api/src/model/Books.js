@@ -51,10 +51,14 @@ const libroSchema = new Schema({
   },
   comments: [
     {
-     type: Schema.Types.ObjectId,
-     ref: 'Comments',
+      type: Schema.Types.ObjectId,
+      ref: 'Comments',
     },
-  ]
+  ],
+  soldCount: {
+    type: Number,
+    default: 0,
+  },
 })
 
 module.exports = model('Books', libroSchema)
