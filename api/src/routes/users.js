@@ -212,7 +212,14 @@ router.post('/addDesiredBooks/:idBook/:idUser', async (req, res) => {
 
     user.favouritesBooks.push(book._id)
 
-    const userUpdated = await user.save()
+    await user.save()
+
+    const userUpdated = await Users.findById(idUser).populate([
+      'comments',
+      'readBooks',
+      'favouritesBooks',
+      'buyBooks',
+    ])
 
     res.json(userUpdated)
   } catch (error) {
