@@ -295,12 +295,15 @@ router.post('/showBook/:id', async (req, res) => {
 
 router.post('/updateStockUp', async (req, res) => {
   const booksUpdate = req.body
+  console.log('DATA', booksUpdate)
   try {
     const idsSinRepetirse = []
 
     booksUpdate.forEach((book) => {
       if (!idsSinRepetirse.includes(book.id)) idsSinRepetirse.push(book.id)
     })
+
+    console.log('IDS SIN REPETIRSE', idsSinRepetirse)
 
     const stockSinRepetirse = []
 
@@ -309,10 +312,12 @@ router.post('/updateStockUp', async (req, res) => {
       stockSinRepetirse.push(array[array.length - 1])
     })
 
+    console.log('STOCK SIN REPETIRSE', stockSinRepetirse)
+
     stockSinRepetirse.forEach(async (data) => {
       const book = await Books.findById(data.id)
-      book.stock = book.stock + data.stock
-      book.save()
+      book.stock = book.stock + Number(data.stock)
+      await book.save()
     })
     res.send('Stock agregado')
   } catch (error) {
