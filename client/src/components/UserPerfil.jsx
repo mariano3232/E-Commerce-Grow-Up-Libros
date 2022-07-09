@@ -24,6 +24,8 @@ const UserPerfil = () => {
   const productsAmount=useSelector((state)=>state.cartAmount)
   const isLogged = useSelector(state => state.userLogged)
 
+  const userFavBooksShowed = useSelector(state=>state.userLoggedFavsBooksShowed)
+
   if (isLoading) {
     return <div>Cargando...</div>
   }
@@ -59,7 +61,7 @@ const UserPerfil = () => {
           <BsHeart className={s.heart} />
           {
             isLogged.length ?
-            <h4 className={s.productsAmount}>{isLogged[0].favouritesBooks.length}</h4>
+            <h4 className={s.productsAmount}>{userFavBooksShowed.length}</h4>
             : <h4 className={s.productsAmount}>{0}</h4>
           }
         </div>

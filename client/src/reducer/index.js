@@ -312,9 +312,8 @@ function rootReducer(state = initialState, action) {
 
     case "POST_USER":
       const loggedFavBooks = action.payload[0].favouritesBooks
-      console.log('LOGGEDfAVbOOK:',loggedFavBooks)
       const loggedFavBooksShowed = loggedFavBooks.filter(book=>book.isHidden===false)
-      console.log('shwed:',loggedFavBooksShowed)
+      
 
       return {
         ...state,
@@ -496,11 +495,9 @@ function rootReducer(state = initialState, action) {
 
     case "ADD_FAV":
 
-      const loggedFavBooks2 = action.payload[0].favouritesBooks
-      console.log('LOGGEDfAVbOOK2:',loggedFavBooks2)
+      const loggedFavBooks2 = action.payload[0].favouritesBooks    
       const loggedFavBooksShowed2 = loggedFavBooks2.filter(book=>book.isHidden===false)
-      console.log('shwed2:',loggedFavBooksShowed2)
-
+      
       return {
         ...state,
         userLogged: action.payload,
@@ -510,9 +507,8 @@ function rootReducer(state = initialState, action) {
 
     case "DELETE_BOOK_FAV":
       const loggedFavBooks3 = action.payload[0].favouritesBooks
-     // console.log('LOGGEDfAVbOOK2:',loggedFavBooks2)
       const loggedFavBooksShowed3 = loggedFavBooks3.filter(book=>book.isHidden===false)
-     // console.log('shwed2:',loggedFavBooksShowed2)
+
       return {
         ...state,
         userLogged: action.payload,

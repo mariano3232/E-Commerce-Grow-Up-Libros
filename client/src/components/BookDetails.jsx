@@ -44,6 +44,8 @@ export default function BookDetails() {
   const bookAdded = uBooksFav.filter(e=>e._id===id)
  // console.log('bookAdded:,',bookAdded)
 
+ 
+
   const [comment,setComment]=useState({
     comment:'',
     nickname:'',
@@ -148,7 +150,7 @@ export default function BookDetails() {
           <BsHeart className={s.heart} />
           {
             isLogged.length ?
-            <h4 className={s.productsAmount}>{isLogged[0].favouritesBooks.length}</h4>
+            <h4 className={s.productsAmount}>{uBooksFav.length}</h4>
             : <h4 className={s.productsAmount}>{0}</h4>
           }
         </div>
@@ -238,7 +240,7 @@ export default function BookDetails() {
           <button onClick={e=>handlePost(e)} className={styles.postButton} >{'>'}</button>
         }
       </div>
-        {comments.users >0?
+        {comments.users>0?
           comments.map(e=>{
             return(
             <div className={styles.commentContainer}>
