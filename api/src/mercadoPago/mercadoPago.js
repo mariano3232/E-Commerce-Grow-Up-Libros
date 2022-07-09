@@ -101,7 +101,7 @@ router.get("/success", async (req, res) => {
       res.json(orderSave);
       mail.enviar_mail(user.name, user.email)
   } catch (error) {
-    console.log("FALLO SUCCESS ", error);
+    return res.json({msg: "FALLO SUCCESS ", error: error });
   }
 });
 
