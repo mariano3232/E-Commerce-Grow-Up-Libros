@@ -55,7 +55,7 @@ router.post('/addUser', async (req, res) => {
     })
     await newUser.save()
 
-    const user = await Users.findOne({ email }).populate([
+    const user = await Users.findOne({ email: email }).populate([
       'comments',
       'readBooks',
       'favouritesBooks',
