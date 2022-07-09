@@ -31,19 +31,22 @@ const UserDatos = () => {
   function validate(input){
     const errors={};
     if (input.name && !input.name.match(/^[a-zA-Z]*$/g)){
-      errors.name='Solo puede contener letras'
+      errors.name='Solo puede contener letras*'
     }
     if (input.surname && !input.surname.match(/^[a-zA-Z]*$/g)){
-      errors.surname='Solo puede contener letras'
+      errors.surname='Solo puede contener letras*'
     }
     if (input.birthday&&!input.birthday.match(/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/)){
-      errors.birthday='Debe ser una fecha valida'
+      errors.birthday='Debe ser una fecha valida*'
     }
-    if (!input.dni.match(/^[\d]{1,3}\.?[\d]{3,3}\.?[\d]{3,3}$/)){
-      errors.dni='Ingresar un numero de documento valido'
+    if (input.dni&&!input.dni.match(/^[\d]{1,3}\.?[\d]{3,3}\.?[\d]{3,3}$/)){
+      errors.dni='Ingresar un numero de documento valido*'
     }
-    if (!input.phone.match(/^\(?\d{2}\)?[\s\.-]?\d{4}[\s\.-]?\d{4}$/)){
-      errors.phone='Ingresar un numero de telefono valido'
+    if (input.phone&&!input.phone.match(/^\(?\d{2}\)?[\s\.-]?\d{4}[\s\.-]?\d{4}$/)){
+      errors.phone='Ingresar un numero de telefono valido*'
+    }
+    if (!input.address.match(/^[A-Za-z0-9\s]+$/g)&&input.address){
+      errors.address=('No se admiten simbolos*')
     }
 
     return errors
@@ -70,12 +73,17 @@ const UserDatos = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const id = logged[0]._id;
+    if (Object.values(errors).length > 0){
+      return alert(Object.values(errors))
+    }
+    else{
+      const id = logged[0]._id;
     dispatch(postUserData(id, input));
     alert('Datos personales actualizado');
     setTimeout(function(){
       dispatch(getUsers()), 100
     })
+    }
   }
 
   const handleClick = () => {
@@ -128,7 +136,7 @@ const UserDatos = () => {
               value={input.name}
             />
             {
-              errors?.name?<p>{errors.name}</p>:null
+              errors?.name?<p className={styles.error}>{errors.name}</p>:null
             }
           </div>
           <div className={styles.containerInput}>
@@ -140,7 +148,7 @@ const UserDatos = () => {
               value={input.surname}
             />
             {
-              errors?.surname?<p>{errors.surname}</p>:null
+              errors?.surname?<p className={styles.error}>{errors.surname}</p>:null
             }
           </div>
           <div className={styles.containerInput}>
@@ -153,7 +161,7 @@ const UserDatos = () => {
             />
           </div>
           {
-            errors.birthday?<p>{errors.birthday}</p>:null
+            errors.birthday?<p className={styles.error}>{errors.birthday}</p>:null
           }
           <div className={styles.containerInput}>
             <label htmlFor='country'>Nacionalidad:</label>
@@ -181,7 +189,7 @@ const UserDatos = () => {
               value={input.dni}
             />
             {
-              errors.dni&&input.dni?<p>{errors.dni}</p>:null
+              errors.dni&&input.dni?<p className={styles.error}>{errors.dni}</p>:null
             }
           </div>
           <div className={styles.containerInput}>
@@ -193,7 +201,7 @@ const UserDatos = () => {
               value={input.phone}
             />
             {
-              errors.phone&&input.phone?<p>{errors.phone}</p>:null
+              errors.phone&&input.phone?<p className={styles.error}>{errors.phone}</p>:null
             }
           </div>
           <div className={styles.containerInput}>
@@ -204,6 +212,9 @@ const UserDatos = () => {
               onChange={(e) => handleChange(e)}
               value={input.address}
             />
+            {
+              errors?.address?<p className={styles.error}>{errors.address}</p>:null
+            }
           </div>
         </div>
         <button className={styles.button} type='submit'>
