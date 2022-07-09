@@ -108,8 +108,8 @@ export default function AdminOrderDetails(){
             </p>
             <p className={styles.h2}>Cantidad: {order.quantity}</p>
             <p className={styles.h2}>Direccion: {order.usuario[0].address}</p>
-            <p className={styles.h2}>Estado de Pago: {order.payment_status}</p>
-            <p className={styles.h2}>Estado de Orden: {order.status}</p>
+            <p className={styles.h2}>Estado de Pago: {order.status}</p>
+            <p className={styles.h2}>Estado de Orden: {order.status_order}</p>
       
             </div>
         </div>

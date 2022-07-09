@@ -22,6 +22,10 @@ export default function CarrouselBookEnAuthor({ booksEscritor }) {
   const products = useSelector(state => state.cart)
   const productsAmount=useSelector((state)=>state.cartAmount)
 
+  const userFavBooksShowed = useSelector(state=>state.userLoggedFavsBooksShowed)
+
+  const myFavsBooksIds = userFavBooksShowed.map(book=>book._id)
+
   useEffect(() => {
     const interval = setInterval(() => {
       next()
@@ -102,7 +106,9 @@ export default function CarrouselBookEnAuthor({ booksEscritor }) {
           </button> : ''
         }
         
-        <Fav book={currentBook._id} />
+        <Fav book={currentBook._id} painted={`${myFavsBooksIds.includes(currentBook._id)
+                          ?'secondary'
+                        :'disabled'}`}/>
 
         <div>
           <button onClick={previus} className={styles.buttons}>

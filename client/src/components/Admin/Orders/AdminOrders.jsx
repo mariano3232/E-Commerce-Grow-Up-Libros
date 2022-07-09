@@ -23,7 +23,13 @@ export default function AdminOrders(props) {
   const dispatch = useDispatch()
 
   const usuarios = useSelector((state) => state.users)
-  const orders = useSelector(state=>state.orders)
+  const orders = useSelector(state =>state.orders)
+
+  //console.log('order:',orders)
+
+  const orderOk = orders.filter(order => order.usuario.length > 0)
+  
+ // console.log('orderOk:',orderOk)
   
 
   const [seleccionados, setSeleccionados] = useState([])
@@ -83,12 +89,12 @@ export default function AdminOrders(props) {
   };
  
   const pages = [];
-  for (let i = 1; i <= Math.ceil(orders.length / rows); i++) {
+  for (let i = 1; i <= Math.ceil(orderOk.length / rows); i++) {
     pages.push(i);
   }
   const indexOfLastItem = currentPage * rows;
   const indexOfFirstItem = indexOfLastItem - rows;
-  const currentItems = orders.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = orderOk.slice(indexOfFirstItem, indexOfLastItem);
   const renderPageNumbers = pages.map((number) => {
     if (number < maxPageNumberLimit + 1 && number > minPageNumberLmit) {
       return (
@@ -178,7 +184,7 @@ export default function AdminOrders(props) {
                 </thead>
 
                 <tbody>
-                  {currentItems.length>0&&currentItems.map((order) => (
+                  {currentItems.length>0  && currentItems.map((order) => (
                     <tr key={order._id}>
                       <td>
                         <Link to={`/adminorderdetails/${order._id}`}>
@@ -198,9 +204,9 @@ export default function AdminOrders(props) {
                         {order.total}
                       </td>
 
-                      <td>{order.payment_status}</td>
-
                       <td>{order.status}</td>
+
+                      <td>{order.status_order}</td>
 
                     
                       <td>

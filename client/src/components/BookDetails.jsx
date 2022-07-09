@@ -38,6 +38,14 @@ export default function BookDetails() {
   const [render,setRender]=useState(0)
   const usuario = useSelector((state) => state.userLogged)
 
+  const uBooksFav = useSelector(state=> state.userLoggedFavsBooksShowed)
+  //console.log('uBooksFavs:',uBooksFav)
+
+  const bookAdded = uBooksFav.filter(e=>e._id===id)
+ // console.log('bookAdded:,',bookAdded)
+
+ 
+
   const [comment,setComment]=useState({
     comment:'',
     nickname:'',
@@ -83,9 +91,10 @@ export default function BookDetails() {
   }, [dispatch])
 
   const handleClickFav = () => {
-    const iduser = isLogged[0]._id
+   
     if (isLogged.length === 0) return loginWithRedirect()
-    if (isLogged[0].favouritesBooks.includes(id)) return alert('Ya es un libro favorito');
+    if (bookAdded.length) return alert('Ya es un libro favorito');
+     const iduser = isLogged[0]._id
     dispatch(addFav(id, iduser))
     alert('Libro agregado a favoritos')
     dispatch(getUsers())
@@ -141,7 +150,7 @@ export default function BookDetails() {
           <BsHeart className={s.heart} />
           {
             isLogged.length ?
-            <h4 className={s.productsAmount}>{isLogged[0].favouritesBooks.length}</h4>
+            <h4 className={s.productsAmount}>{uBooksFav.length}</h4>
             : <h4 className={s.productsAmount}>{0}</h4>
           }
         </div>
@@ -198,6 +207,7 @@ export default function BookDetails() {
           </button>
         : ''
         }
+
         <button className={styles.button} onClick={() => handleClickFav()}>
           Añadir a lista de desesados
         </button>
@@ -230,8 +240,7 @@ export default function BookDetails() {
           <button onClick={e=>handlePost(e)} className={styles.postButton} >{'>'}</button>
         }
       </div>
-        {
-          comments?
+        {comments.users>0?
           comments.map(e=>{
             return(
             <div className={styles.commentContainer}>
@@ -243,8 +252,8 @@ export default function BookDetails() {
             <p>{e.comment}</p>
             </div>
             )
-          }):null
-        }
+          })
+        :'N'}
     </div>
   )
 }

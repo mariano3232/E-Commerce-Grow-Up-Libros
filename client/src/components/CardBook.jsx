@@ -9,10 +9,15 @@ import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function CardBook({ title, cover, price, rating, id, stock }) {
-  const dispatch = useDispatch();
-  const { userLogged } = useSelector((state) => state);
-  const productsAmount = useSelector((state) => state.cartAmount);
-  const products = useSelector((state) => state.cart);
+  const dispatch = useDispatch()
+  const { userLogged } = useSelector((state) => state)
+  const productsAmount = useSelector((state) => state.cartAmount)
+  const products = useSelector((state) => state.cart)
+  const myFavsBooks = useSelector(state=>state.userLoggedFavsBooksShowed)
+
+  const myFavsBooksIds = myFavsBooks.map(book=>book._id)
+  
+
 
   const { loginWithRedirect } = useAuth0();
 
@@ -116,7 +121,10 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
         <div className={styles.info}>
           <div className={styles.containerRating}>
             <span>
-              <Fav book={id} />
+              
+              <Fav book={id} painted={`${myFavsBooksIds.includes(id)
+                          ?'secondary'
+                        :'disabled'}`}/>
             </span>
             <p className={styles.price}>${price}</p>
           </div>
