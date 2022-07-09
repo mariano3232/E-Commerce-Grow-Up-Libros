@@ -17,7 +17,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 const AuthorDetails = () => {
   const dispatch = useDispatch()
   const authorDetails = useSelector((state) => state.authorDetails)
-  console.log('soyAutorDetalles:',authorDetails)
+  //console.log('soyAutorDetalles:',authorDetails)
   const books = useSelector((state) => state.books)
   const productsAmount=useSelector((state)=>state.cartAmount)
   const isLogged = useSelector(state => state.userLogged)
@@ -25,10 +25,14 @@ const AuthorDetails = () => {
   
   const authorBooks = authorDetails.books
 
+  const userFavBooksShowed = useSelector(state=>state.userLoggedFavsBooksShowed)
+
+  const myFavsBooksIds = userFavBooksShowed.map(book=>book._id)
+
   
   // console.log('soyAllBook:',authorAllBooks)
   // const authorBooksNotHidden = authorBooks.filter( book =>{book.isHidden === false} )
-   console.log('soyBook:',authorBooks)
+   //console.log('soyBook:',authorBooks)
   
   // console.log('soyBookNoH:',authorBooksNotHidden)
   
@@ -82,7 +86,7 @@ const AuthorDetails = () => {
           <BsHeart className={s.heart} />
           {
             isLogged.length ?
-            <h4 className={s.productsAmount}>{isLogged[0].favouritesBooks.length}</h4>
+            <h4 className={s.productsAmount}>{userFavBooksShowed.length}</h4>
             : <h4 className={s.productsAmount}>{0}</h4>
           }
         </div>
@@ -166,7 +170,9 @@ const AuthorDetails = () => {
                     Añadir al carrito
                   </button> : ''
                 }
-                <Fav book={book._id} />
+                <Fav book={book._id} painted={`${myFavsBooksIds.includes(book._id)
+                          ?'secondary'
+                        :'disabled'}`} />
               </div>
             </div>
           ))
