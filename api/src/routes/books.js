@@ -332,4 +332,60 @@ router.post('/updateStock/stockUp', async (req, res) => {
     res.send(error.message)
   }
 })
+
+router.post('/updateStock/stockDown', async (req, res) => {
+  const booksUpdate = req.body
+  console.log('DATA', booksUpdate)
+  try {
+    const idsSinRepetirse = []
+
+    booksUpdate.forEach((book) => {
+      if (!idsSinRepetirse.includes(book.id)) idsSinRepetirse.push(book.id)
+    })
+
+    console.log('IDS SIN REPETIRSE', idsSinRepetirse)
+
+    const stockSinRepetirse = []
+
+    idsSinRepetirse.forEach((id) => {
+      const array = booksUpdate.filter((e) => e.id === id)
+      stockSinRepetirse.push(array[array.length - 1])
+    })
+
+    console.log('STOCK SIN REPETIRSE', stockSinRepetirse)
+
+    stockSinRepetirse.forEach(async (data) => {
+      const stock = Number(data.stock)
+      const id = data.id
+
+      const book = await Books.findById(id)
+      if (!book) throw new Error('libro no encontrado')
+      console.log(book)
+
+      book.stock = book.stock - stock
+
+      await book.save()
+    })
+
+    res.send('Stock agregado')
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
+router.post('/updateStock/stock/:id/:cantidad', (req, res) => {
+  const { id, cantidad } = req.params
+  try {
+    if (!id && !cantidad) throw new Error('Ingrese datos')
+
+    const book = await Books.findById(id)
+
+    if(!book) throw new Error("Libro no encontrado")
+    book.stock = cantidad;
+
+    await book.save()
+  } catch (error) {
+    res.send(error.message)
+  }
+})
 module.exports = router
