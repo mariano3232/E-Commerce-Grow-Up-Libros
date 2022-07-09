@@ -54,7 +54,7 @@ export default function FAQ() {
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
-                Por ser miembro de LibrosPG11 vas a poder reseñar y puntuar
+                Por ser miembro de Grow-Up Libros vas a poder reseñar y puntuar
                 libros, y marcar libros como favoritos para cuando te decidas a
                 comprarlos. Además, completando tu perfil vas a poder ver tus
                 libros comprados y todo relacionadas con tus gustos e intereses.

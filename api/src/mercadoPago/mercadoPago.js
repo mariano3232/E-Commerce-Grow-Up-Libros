@@ -25,7 +25,8 @@ router.post("/orden", async (req, res) => {
 
   const monto = carrito
     .map((e) => {
-      const montoTem = e.unit_price * carrito.length;
+
+      const montoTem = (e.unit_price * carrito.length);
       return montoTem;
     })
     .reduce((a, b) => a + b);
@@ -52,7 +53,7 @@ router.post("/orden", async (req, res) => {
   await newOrder.save();
   user.buyBooks = user.buyBooks.concat(bookDb.map(e=> e._id));
   await user.save();
- 
+  
 
   try {
     const itemsMp = carrito?.map((e) => ({
@@ -63,7 +64,7 @@ router.post("/orden", async (req, res) => {
 
     let preference = {
       items: itemsMp,
-      external_reference: `${idOrder}`,
+      external_reference: `${newOrder._id}`,
       payment_methods: {
         excluded_payment_type: [
           {
@@ -74,9 +75,9 @@ router.post("/orden", async (req, res) => {
       },
 
       back_urls: {
-        success: "https://localhost/3001/mecadopago/success",
-        failure: "https://localhost/3001/mecadopago/success",
-        pending: "https://localhost/3001/mecadopago/success",
+        success: "https://ecommercehenryx.herokuapp.com/mercadopago/success",
+        failure: "https://ecommercehenryx.herokuapp.com/mercadopago/success",
+        pending: "https://ecommercehenryx.herokuapp.com/mercadopago/success",
       },
       auto_return: "approved",
     };
@@ -93,17 +94,16 @@ router.post("/orden", async (req, res) => {
   }
 });
 
-router.post("/success", async (req, res) => {
+router.get("/success", async (req, res) => {
   const { external_reference } = req.query;
-  console.log(req.query);
+ 
   try {
     const order = await Orders.findOneAndUpdate({
-      payment_order_id: external_reference,
-    });
-    console.log("antes", order.payment_status);
-    order.payment_status = EnumStatus.SUCCESS;
+     _id: external_reference
+    }, req.query).populate('usuario');    
     order.save();
-    console.log(order.payment_status, "despues");
+    
+    
     return res.json(order);
   } catch (error) {
     console.log("FALLO SUCCESS ", error);
@@ -118,8 +118,15 @@ router.post("/success", async (req, res) => {
 
 // curl -X POST \
 // -H "Content-Type: application/json" \
-// -H 'Authorization: Bearer ${TEST_ACCESS_TOKEN}' \
+// -H 'Authorization: Bearer TEST-5290894943630049-070117-211fea6e87d83f8ab0769bbc6f6087b0-220603994' \
 // "https://api.mercadopago.com/users/test" \
 // -d '{"site_id":"MCO","description" : "a description"}'
 
+// {"id":1156545904,"nickname":"TETE2598970","password":"qatest9115","site_status":"active","site_id":"MCO","description":"a description","date_created":"2022-07-07T15:54:38-04:00","date_last_updated":"2022-07-07T15:54:38-04:00" 
+//test_user_18656584@testuser.com}
+
 module.exports = router;
+
+
+
+//https://localhost/3001/mecadopago/success?collection_id=1291575759&collection_status=approved&payment_id=1291575759&status=approved&external_reference=a51b68&payment_type=account_money&merchant_order_id=5150786480&preference_id=1152954796-fb4c7412-5664-4422-9203-f5d3c9c23eef&site_id=MCO&processing_mode=aggregator&merchant_account_id=null
