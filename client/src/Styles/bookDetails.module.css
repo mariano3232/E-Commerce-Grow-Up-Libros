@@ -190,6 +190,10 @@
     margin: 2px;
     border-radius: 6px;
 }
+.nickname{
+    font-size: larger;
+    margin: 10px;
+}
 .delete{
     background-color: #015249a6;
     border-radius: 50px;
