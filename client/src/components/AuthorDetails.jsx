@@ -17,7 +17,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 const AuthorDetails = () => {
   const dispatch = useDispatch()
   const authorDetails = useSelector((state) => state.authorDetails)
-  console.log('soyAutorDetalles:',authorDetails)
+  //console.log('soyAutorDetalles:',authorDetails)
   const books = useSelector((state) => state.books)
   const productsAmount=useSelector((state)=>state.cartAmount)
   const isLogged = useSelector(state => state.userLogged)
@@ -28,7 +28,7 @@ const AuthorDetails = () => {
   
   // console.log('soyAllBook:',authorAllBooks)
   // const authorBooksNotHidden = authorBooks.filter( book =>{book.isHidden === false} )
-   console.log('soyBook:',authorBooks)
+   //console.log('soyBook:',authorBooks)
   
   // console.log('soyBookNoH:',authorBooksNotHidden)
   

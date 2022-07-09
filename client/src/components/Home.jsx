@@ -33,6 +33,14 @@ export default function Home() {
   const allBooks = useSelector((state) => state.books)
 
   const usuario = useSelector((state) => state.userLogged)
+  
+  const userFavBooksShowed = useSelector(state=>state.userLoggedFavsBooksShowed)
+ 
+
+  
+ // const usuarioAllFavBooks = usuario.favouritesBooks
+
+  //const usuarioFavBookNotHidden = usuarioAllFavBooks.filter(books=>books.isHidden===false)
 
   // useEffect(() => {
   //   dispatch(getBooks())
@@ -107,7 +115,7 @@ export default function Home() {
           <BsHeart className={styles.heart} />
           {
             usuario.length ?
-            <h4 className={styles.productsAmount}>{usuario[0].favouritesBooks.length}</h4>
+            <h4 className={styles.productsAmount}>{userFavBooksShowed.length}</h4>
             : <h4 className={styles.productsAmount}>{0}</h4>
           }
         </div>

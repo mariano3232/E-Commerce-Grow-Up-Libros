@@ -25,11 +25,11 @@ export default function AdminOrders(props) {
   const usuarios = useSelector((state) => state.users)
   const orders = useSelector(state =>state.orders)
 
-  console.log('order:',orders)
+  //console.log('order:',orders)
 
   const orderOk = orders.filter(order => order.usuario.length > 0)
   
-  console.log('orderOk:',orderOk)
+ // console.log('orderOk:',orderOk)
   
 
   const [seleccionados, setSeleccionados] = useState([])

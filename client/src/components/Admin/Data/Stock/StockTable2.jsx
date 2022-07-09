@@ -83,6 +83,9 @@ export default function StockTable2() {
 const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(setStockUp(input));
+    setTimeout(function () {
+      dispatch(getBooksAdmin())
+    }, 1000)
     setInput([]);
 }
 
