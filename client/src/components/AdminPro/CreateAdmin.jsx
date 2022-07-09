@@ -137,7 +137,7 @@ export default function CreateAdmin(props) {
 
 
  
-  return usuarios.length > 0 ? (
+  return usuarios && usuarios.length > 0 ? (
     <div className={styles.containerAll}>
       <h1>Control de Administradores</h1>
       <h2>Quitar/Otorgar Permisos</h2>

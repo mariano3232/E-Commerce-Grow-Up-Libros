@@ -279,6 +279,23 @@ export function postAuthor(payload) {
   };
 }
 
+//ADMIN STOCK UP
+
+
+export function setStockUp(payload) {
+  return async function (dispatch) {
+    console.log('payStock:',payload)
+    const json = await axios.post(
+      "https://ecommercehenryx.herokuapp.com/books/updateStock/stockUp",
+      payload
+    );
+    return dispatch({
+      type: "SET_STOCK_UP",
+      
+    });
+  };
+}
+
 //ORDENAMIENTO
 
 export function orderByPrice(payload) {
@@ -607,7 +624,7 @@ export function addFav(payload, id) {
     const json = await axios.post(
       `https://ecommercehenryx.herokuapp.com/users/addDesiredBooks/${payload}/${id}`
     );
-    console.log('SSSSdd:',json.data)
+    console.log('actionAddFav:',json.data)
 
     return dispatch({
       type: "ADD_FAV",
@@ -621,7 +638,7 @@ export function deleteBookFav(payload, id) {
     const json = await axios.post(
       `https://ecommercehenryx.herokuapp.com/users/deleteDesiredBooks/${payload}/${id}`
     );
-
+ console.log('deleteBookFAv:',json.data)
     return dispatch({
       type: "DELETE_BOOK_FAV",
       payload: json.data,

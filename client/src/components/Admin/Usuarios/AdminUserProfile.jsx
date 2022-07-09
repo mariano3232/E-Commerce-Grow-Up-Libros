@@ -21,25 +21,27 @@ import { animateScroll as scroll, Element } from 'react-scroll'
 
 export default function AdminUserProfile() {
   const id = useParams().id
-  console.log('id:',id)
+ // console.log('id:',id)
 
   const allUsers = useSelector((state) => state.users)
-  console.log('allUsers:',allUsers)
+ // console.log('allUsers:',allUsers)
 
   const usuario = allUsers.filter((usuario) => usuario._id === id)[0]
-  console.log('usuario:',usuario)
+ // console.log('usuario:',usuario)
 
   const allOrders = useSelector(state=> state.orders)
-  console.log('allOrders:',allOrders)
+//  console.log('allOrders:',allOrders)
 
   //const userOrders = allOrders.filter(order => order.usuario[0]._id === id)
 
-  const userOrders = allOrders.map(order => order.usuario[0]) 
+  const userOrders = allOrders.filter(order =>order.usuario.length >0 ) 
   
   console.log('userOrders:',userOrders)
 
-  const us = userOrders.map((u)=>{u.name})
-  console.log('us:',us)
+  //const us = userOrders?.map((u)=>u.name)
+
+// userOrders.forEach(casa=>console.log(casa.name))
+ //console.log('us:',us)
  
 
   const userL = useSelector(state => state.userLogged)
@@ -218,9 +220,9 @@ const renderPageNumbers = pages.map((number) => {
                         {order.total}
                       </td>
 
-                      <td>{order.payment_status}</td>
-
                       <td>{order.status}</td>
+
+                      <td>{order.status_order}</td>
 
                     
                       <td>

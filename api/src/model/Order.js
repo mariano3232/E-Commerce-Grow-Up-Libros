@@ -25,13 +25,11 @@ const orderSchema = new Schema({
   payment_id: {
     type: String,
   },
-  payment_status: {
+  status_order: {
     type: String,
     default: '',
   },
-  payment_order_id: {
-    type: String,
-  },
+ 
   isHidden: {
     type: Boolean,
     default: false,

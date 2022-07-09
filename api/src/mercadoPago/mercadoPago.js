@@ -9,7 +9,7 @@ const Books = require('../model/Books')
 const Orders = require('../model/Order')
 const Users = require('../model/Users')
 const { Enum, EnumStatus } = require('./EmunStatus')
-const { randomId } = require('./FuntionID')
+const mail = require('./util/successEmail')
 
 mercadopago.configure({
   access_token: `${ACCESS_TOKEN}`,
@@ -18,39 +18,30 @@ mercadopago.configure({
 router.post('/orden', async (req, res) => {
   const carrito = req.body
   const email = carrito.map((e) => e.email)
-
-  const ID = randomId(100)
-  const ID2 = randomId(100)
-  const idOrder = `a${ID}b${ID2}`
+  // const user = carrito.map((e) => e.name);
 
   const monto = carrito
     .map((e) => {
-      const montoTem = e.unit_price * carrito.length
+      const montoTem = e.unit_price * e.quantity
       return montoTem
     })
     .reduce((a, b) => a + b)
 
-  const user = await Users.findOne({ email: email[0] })
-  const book = await carrito.map(async (e) => {
-    const temBooks = await Books.findOne({ title: e.title })
-    return temBooks
-  })
-  const bookDb = await Promise.all(book)
+  const userDB = await Users.findOne({ email: email[0] })
 
   const newOrder = new Orders({
-    status: Enum.CREATED,
+    status: EnumStatus.PENDING,
     fecha: new Date(),
-    usuario: user._id,
+    usuario: userDB._id,
     produt: carrito.map((e) => e.title),
     total: monto,
-    payment_id: idOrder,
-    payment_status: EnumStatus.PENDING,
-    payment_order_id: idOrder,
+    payment_id: 0,
+    status_order: Enum.CREATED,
   })
 
   await newOrder.save()
-  user.buyBooks = user.buyBooks.concat(bookDb.map((e) => e._id))
-  await user.save()
+  userDB.buyBooks = userDB.buyBooks.concat(newOrder._id)
+  await userDB.save()
 
   try {
     const itemsMp = carrito?.map((e) => ({
@@ -61,6 +52,8 @@ router.post('/orden', async (req, res) => {
 
     let preference = {
       items: itemsMp,
+      nameUser: userDB.name,
+      emailUser: userDB.email,
       external_reference: `${newOrder._id}`,
       payment_methods: {
         excluded_payment_type: [
@@ -93,19 +86,25 @@ router.post('/orden', async (req, res) => {
 
 router.get('/success', async (req, res) => {
   const { external_reference } = req.query
-
+})
+router.get('/success', async (req, res) => {
+  const { external_reference } = req.query
   try {
     const order = await Orders.findOneAndUpdate(
       {
         _id: external_reference,
       },
       req.query
-    ).populate('usuario')
-    order.save()
+    )
+    const orderSave = await order.save()
+    const user = await Users.findOne({ _id: orderSave.usuario[0] })
+    console.log('ESTE ES EL USURIO', user.name, user.email)
 
-    return res.json(order)
+    // enviar_mail(user.name, user.email)
+    res.json(orderSave)
+    mail.enviar_mail(user.name, user.email)
   } catch (error) {
-    console.log('FALLO SUCCESS ', error)
+    return res.json({ msg: 'FALLO SUCCESS ', error: error })
   }
 })
 
@@ -125,5 +124,3 @@ router.get('/success', async (req, res) => {
 //test_user_18656584@testuser.com}
 
 module.exports = router
-
-//https://localhost/3001/mecadopago/success?collection_id=1291575759&collection_status=approved&payment_id=1291575759&status=approved&external_reference=a51b68&payment_type=account_money&merchant_order_id=5150786480&preference_id=1152954796-fb4c7412-5664-4422-9203-f5d3c9c23eef&site_id=MCO&processing_mode=aggregator&merchant_account_id=null
