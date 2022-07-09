@@ -27,7 +27,7 @@ const orderSchema = new Schema({
   },
   status_order: {
     type: String,
-    default: 'creada',
+    default: '',
   },
 
   isHidden: {
