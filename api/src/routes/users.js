@@ -203,11 +203,16 @@ router.post('/addDesiredBooks/:idBook/:idUser', async (req, res) => {
   const { idBook, idUser } = req.params
   try {
     const book = await Books.findById(idBook)
-    const user = await Users.findById(idUser)
+    const user = await Users.findById(idUser).populate([
+      'comments',
+      'readBooks',
+      'favouritesBooks',
+      'buyBooks',
+    ])
 
     const userBooksFavourites = user.favouritesBooks
     userBooksFavourites.forEach((bookFav) => {
-      if (bookFav.toString() === book._id.toString()) return res.json(user)
+      if (bookFav._id.toString() === book._id.toString()) return res.json(user)
     })
 
     user.favouritesBooks.push(book._id)
