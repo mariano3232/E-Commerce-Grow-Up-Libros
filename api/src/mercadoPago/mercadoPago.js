@@ -1,36 +1,31 @@
-require('dotenv').config()
-const { Router } = require('express')
-const router = Router()
-const { ACCESS_TOKEN } = process.env
+require("dotenv").config();
+const { Router } = require("express");
+const router = Router();
+const { ACCESS_TOKEN } = process.env;
 
 // SDK de Mercado Pago
 const mercadopago = require("mercadopago");
 const Orders = require("../model/Order");
 const Users = require("../model/Users");
 const { Enum, EnumStatus } = require("./EmunStatus");
-const { randomId } = require("./FuntionID");
+
 
 mercadopago.configure({
   access_token: `${ACCESS_TOKEN}`,
-})
+});
 
-router.post('/orden', async (req, res) => {
-  const carrito = req.body
-  const email = carrito.map((e) => e.email)
-
-  const ID = randomId(100)
-  const ID2 = randomId(100)
-  const idOrder = `a${ID}b${ID2}`
+router.post("/orden", async (req, res) => {
+  const carrito = req.body;
+  const email = carrito.map((e) => e.email);
 
   const monto = carrito
     .map((e) => {
-
-      const montoTem = (e.unit_price * e.quantity) ;
+      const montoTem = e.unit_price * e.quantity;
       return montoTem;
     })
-    .reduce((a, b) => a + b)
+    .reduce((a, b) => a + b);
 
-  const user = await Users.findOne({ email: email[0] })
+  const user = await Users.findOne({ email: email[0] });
 
   const newOrder = new Orders({
     status: EnumStatus.PENDING,
@@ -40,32 +35,31 @@ router.post('/orden', async (req, res) => {
     total: monto,
     payment_id: 0,
     status_order: Enum.CREATED,
-    
   });
 
-  await newOrder.save()
-  user.buyBooks = user.buyBooks.concat(newOrder._id)
-  await user.save()
+  await newOrder.save();
+  user.buyBooks = user.buyBooks.concat(newOrder._id);
+  await user.save();
 
   try {
     const itemsMp = carrito?.map((e) => ({
       title: e.title,
       unit_price: Number(e.unit_price),
       quantity: Number(e.quantity),
-    }))
+    }));
 
     let preference = {
       items: itemsMp,
-      external_reference: `${idOrder}`,
+      external_reference: `${newOrder._id}`,
       payment_methods: {
         excluded_payment_type: [
           {
-            id: 'atm',
+            id: "atm",
           },
         ],
         installments: 4,
       },
-      
+
       back_urls: {
         success: "http://localhost:3001/mercadopago/success",
         failure: "https://ecommercehenryx.herokuapp.com/mercadopago/success",
@@ -73,32 +67,31 @@ router.post('/orden', async (req, res) => {
       },
       auto_return: "approved",
     };
-    const saveOrder = await Orders.findById({ _id: newOrder._id }).populate(
-      { path: "usuario"}
-      );
-   
-  
+    const saveOrder = await Orders.findById({ _id: newOrder._id }).populate({
+      path: "usuario",
+    });
 
-    const respuesta = await mercadopago.preferences.create(preference)
+    const respuesta = await mercadopago.preferences.create(preference);
 
-    const globalInitPoint = respuesta.body.init_point
-    return res.json({ init_point: globalInitPoint, order: saveOrder })
+    const globalInitPoint = respuesta.body.init_point;
+    return res.json({ init_point: globalInitPoint, order: saveOrder });
   } catch (error) {
-    return console.log('FALLO MERCADO PAGO', error)
+    return console.log("FALLO MERCADO PAGO", error);
   }
 });
 
 router.get("/success", async (req, res) => {
   const { external_reference } = req.query;
- 
+
   try {
-    
-    
-    const order = await Orders.findOneAndUpdate({
-     _id: external_reference
-    }, req.query);    
-    const orderSave = await order.save();    
-    
+    const order = await Orders.findOneAndUpdate(
+      {
+        _id: external_reference,
+      },
+      req.query
+    );
+    const orderSave = await order.save();
+
     return res.json(orderSave);
   } catch (error) {
     console.log("FALLO SUCCESS ", error);
@@ -123,4 +116,4 @@ router.get("/success", async (req, res) => {
 
 // }
 
-module.exports = router
+module.exports = router;
