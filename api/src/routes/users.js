@@ -38,8 +38,14 @@ router.get('/:id', async (req, res) => {
 router.post('/addUser', async (req, res) => {
   const { nickname, name, email, picture, phone, address } = req.body
   try {
-    const isExistUser = await Users.findOne({ email })
-    if (isExistUser) return res.json(isExistUser)
+    const isExistUser = await Users.findOne({ email }).populate([
+      'comments',
+      'readBooks',
+      'favouritesBooks',
+      'buyBooks',
+    ])
+
+    if (isExistUser) return res.json([isExistUser])
 
     let isSuperAdmin = false
     if (email === 'guillermobr88@gmail.com') isSuperAdmin = true
@@ -55,14 +61,12 @@ router.post('/addUser', async (req, res) => {
     })
     await newUser.save()
 
-    const user = await Users.find({ email: email }).populate([
+    const user = await Users.find({ email }).populate([
       'comments',
       'readBooks',
       'favouritesBooks',
       'buyBooks',
     ])
-
-    console.log(user)
 
     res.json([user])
   } catch (error) {
