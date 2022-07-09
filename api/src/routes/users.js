@@ -221,7 +221,7 @@ router.post('/addDesiredBooks/:idBook/:idUser', async (req, res) => {
       'buyBooks',
     ])
 
-    res.json(userUpdated)
+    res.json([userUpdated])
   } catch (error) {
     res.send(error.message)
   }
