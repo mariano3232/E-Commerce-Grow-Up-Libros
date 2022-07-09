@@ -240,7 +240,12 @@ router.post('/deleteDesiredBooks/:idBook/:idUser', async (req, res) => {
   try {
     if (!idBook || !idUser) throw new Error('Please insert complete data')
     const book = await Books.findById(idBook)
-    const user = await Users.findById(idUser)
+    const user = await Users.findById(idUser).populate([
+      'comments',
+      'readBooks',
+      'favouritesBooks',
+      'buyBooks',
+    ])
 
     user.favouritesBooks = user.favouritesBooks.filter((b) => {
       return b._id.toString() !== book._id.toString()
@@ -248,7 +253,7 @@ router.post('/deleteDesiredBooks/:idBook/:idUser', async (req, res) => {
 
     const userUpdate = await user.save()
 
-    res.send(userUpdate)
+    res.send([userUpdate])
   } catch (error) {
     res.send(error.message)
   }
