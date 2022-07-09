@@ -63,13 +63,15 @@ export default function LogOutButton() {
             Libros favoritos
           </Typography>
         </MenuItem>
-        <Divider />
         {user?.isAdmin && !user.isBanned ? (
-          <MenuItem onClick={handleCloseUserMenu} as={Link} to='/admin'>
-            <Typography color='#212529' textAlign={'center'}>
-              Administrador
-            </Typography>
-          </MenuItem>
+          <div>
+            <Divider />
+            <MenuItem onClick={handleCloseUserMenu} as={Link} to='/admin'>
+              <Typography color='#212529' textAlign={'center'}>
+                Administrador
+              </Typography>
+            </MenuItem>
+          </div>
         ) : (
           ''
         )}
