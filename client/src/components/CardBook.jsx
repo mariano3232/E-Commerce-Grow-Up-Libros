@@ -7,6 +7,7 @@ import { addToCart, purchaseOrder, putRating, updateAmount } from "../actions";
 import { Rating } from "@mui/material";
 import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 export default function CardBook({ title, cover, price, rating, id, stock }) {
   const dispatch = useDispatch()
@@ -128,21 +129,35 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
             </span>
             <p className={styles.price}>${price}</p>
           </div>
+
+          <div>
+            {
+              stock > 1 ? (
+                <AddShoppingCartIcon
+                  cursor='pointer'
+                  color="action"
+                  fontSize="large" 
+                  onClick={(e) => handleAddToCart(e)}
+                />
+              ) : (
+                ""
+              )
+            }
+          </div>
+
         </div>
 
-        <div>
-          {stock > 1 ? (
-            <button
-              className={styles.button}
-              onClick={(e) => handleAddToCart(e)}
-            >
-              Añadir al carrito
-            </button>
-          ) : (
-            ""
-          )}
-        </div>
       </div>
     </div>
   );
 }
+
+
+/* 
+<button
+                className={styles.button}
+                onClick={(e) => handleAddToCart(e)}
+              >
+                Añadir al carrito
+              </button>
+*/

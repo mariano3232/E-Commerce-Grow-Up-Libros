@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { addToCart, purchaseOrder, updateAmount } from '../actions'
 import style from '../Styles/UserPlanLecturaBooks.module.css'
 import Fav from './Fav'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 const UserPlanLecturaBooks = ({ size, genre, budget }) => {
 
@@ -77,7 +78,7 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
     const handleAddToCart = (e) => {
       e.preventDefault()
       if (users.length === 0) return loginWithRedirect()
-      dispatch(addToCart(e.target.value))
+      dispatch(addToCart(e.target.id))
       dispatch(updateAmount(productsAmount+1))
       alert('Libro agregado al carrito!')
       setTimeout(function(){
@@ -103,17 +104,22 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             <Link to={"/book/" + e._id}>
               <img className={style.container} src={e.cover} alt='buscando' />
             </Link>
+            <div>
             {
               e.stock > 1 ?
-              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-                Añadir al carrito
-              </button> : ''
+              <AddShoppingCartIcon
+                cursor='pointer'
+                color="action"
+                fontSize="large" 
+                id={e._id}
+                onClick={(e) => handleAddToCart(e)}
+              /> : ''
             }
-            <span>
-              <Fav book={e._id} painted={`${myFavsBooksIds.includes(e._id)
+            <Fav book={e._id} painted={`${myFavsBooksIds.includes(e._id)
                           ?'secondary'
                         :'disabled'}`}/>
-            </span>
+            
+            </div>
           </li>
         ))
       ) : size == 'largos' &&
@@ -126,9 +132,13 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             </Link>
             {
               e.stock > 1 ?
-              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-                Añadir al carrito
-              </button> : ''
+              <AddShoppingCartIcon
+                cursor='pointer'
+                color="action"
+                fontSize="large" 
+                id={e._id}
+                onClick={(e) => handleAddToCart(e)}
+              /> : ''
             }
             <span>
               <Fav book={e._id} painted={`${myFavsBooksIds.includes(e._id)
@@ -147,9 +157,13 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             </Link>
             {
               e.stock > 1 ?
-              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-                Añadir al carrito
-              </button> : ''
+              <AddShoppingCartIcon
+                cursor='pointer'
+                color="action"
+                fontSize="large" 
+                id={e._id}
+                onClick={(e) => handleAddToCart(e)}
+              /> : ''
             }
             <span>
               <Fav book={e._id} painted={`${myFavsBooksIds.includes(e._id)
@@ -168,9 +182,13 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             </Link>
             {
               e.stock > 1 ?
-              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-                Añadir al carrito
-              </button> : ''
+              <AddShoppingCartIcon
+                cursor='pointer'
+                color="action"
+                fontSize="large" 
+                id={e._id}
+                onClick={(e) => handleAddToCart(e)}
+              />: ''
             }
             <span>
               <Fav book={e._id} painted={`${myFavsBooksIds.includes(e._id)
@@ -189,9 +207,13 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             </Link>
             {
               e.stock > 1 ?
-              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-                Añadir al carrito
-              </button> : ''
+              <AddShoppingCartIcon
+                cursor='pointer'
+                color="action"
+                fontSize="large" 
+                id={e._id}
+                onClick={(e) => handleAddToCart(e)}
+              /> : ''
             }
             <span>
               <Fav book={e._id} painted={`${myFavsBooksIds.includes(e._id)
@@ -210,9 +232,13 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             </Link>
             {
               e.stock > 1 ?
-              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-                Añadir al carrito
-              </button> : ''
+              <AddShoppingCartIcon
+                cursor='pointer'
+                color="action"
+                fontSize="large" 
+                id={e._id}
+                onClick={(e) => handleAddToCart(e)}
+              /> : ''
             }
             <span>
               <Fav book={e._id} painted={`${myFavsBooksIds.includes(e._id)
@@ -231,9 +257,13 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             </Link>
             {
               e.stock > 1 ?
-              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-                Añadir al carrito
-              </button> : ''
+              <AddShoppingCartIcon
+                cursor='pointer'
+                color="action"
+                fontSize="large" 
+                id={e._id}
+                onClick={(e) => handleAddToCart(e)}
+              /> : ''
             }
             <span>
               <Fav book={e._id} painted={`${myFavsBooksIds.includes(e._id)
@@ -252,9 +282,13 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
             </Link>
             {
               e.stock > 1 ?
-              <button value={e._id} onClick={(e) => handleAddToCart(e)}>
-                Añadir al carrito
-              </button> : ''
+              <AddShoppingCartIcon
+                cursor='pointer'
+                color="action"
+                fontSize="large" 
+                id={e._id}
+                onClick={(e) => handleAddToCart(e)}
+              /> : ''
             }
             <span>
               <Fav book={e._id} painted={`${myFavsBooksIds.includes(e._id)
@@ -273,3 +307,8 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
 export default UserPlanLecturaBooks;
 
 
+/* 
+<button value={e._id} onClick={(e) => handleAddToCart(e)}>
+                Añadir al carrito
+              </button> 
+*/
