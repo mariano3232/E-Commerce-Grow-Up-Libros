@@ -55,12 +55,14 @@ router.post('/addUser', async (req, res) => {
     })
     await newUser.save()
 
-    const user = await Users.findOne({ email: email }).populate([
+    const user = await Users.find({ email: email }).populate([
       'comments',
       'readBooks',
       'favouritesBooks',
       'buyBooks',
     ])
+
+    console.log(user)
 
     res.json([user])
   } catch (error) {
