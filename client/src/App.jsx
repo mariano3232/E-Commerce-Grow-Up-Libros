@@ -14,6 +14,7 @@ import {
   postUser,
   getCarouselImages,
   getAllOrders,
+  getBooksAdmin
 } from './actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
@@ -65,6 +66,8 @@ import UserPlanLectura from './components/UserPlanLectura'
 import AdminUserNewsLetter from './components/Admin/Usuarios/Manejo de estados/AdminUserNewsLetter'
 import AdminProPerfilUsuarios from './components/AdminPro/AdminProPerfilesUsuarios'
 import AdminOrderDetails from './components/Admin/Orders/AdminOrderDetails'
+import StockTable2 from './components/Admin/Data/Stock/StockTable2'
+
 
 function App() {
   const dispatch = useDispatch()
@@ -74,6 +77,11 @@ function App() {
   useEffect(() => {
     dispatch(getBooks())
   }, [dispatch])
+
+  useEffect(() => {
+    dispatch(getBooksAdmin())
+  }, [dispatch])
+
 
   useEffect(() => {
     dispatch(getAuthors())
@@ -443,6 +451,22 @@ function App() {
                 }
               >
                 <StockTable />
+              </ProtectedRoute>
+            }
+          />
+
+            <Route
+            path='/stocktable2'
+            element={
+              <ProtectedRoute
+                redirectPath='/home'
+                isAllowed={
+                  usuario.length === 1 &&
+                  usuario[0].isAdmin === true &&
+                  usuario[0].isAdminStock === true
+                }
+              >
+                <StockTable2 />
               </ProtectedRoute>
             }
           />

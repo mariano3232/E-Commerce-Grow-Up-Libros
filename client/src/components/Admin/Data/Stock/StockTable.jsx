@@ -7,6 +7,7 @@ import AdminSearchBarBooks from '../../SearchBars/AdminSearchBarBooks'
 import AdminRefreshBooks from '../../RefreshButtons/AdminRefreshBooks'
 import { Link } from 'react-router-dom'
 import { animateScroll as scroll, Element } from 'react-scroll'
+import StockTable2 from './StockTable2'
 
 import styledButton from '../../../../Styles/Button.module.css'
 
@@ -56,6 +57,9 @@ export default function StockTable() {
         <button className={styledButton.button}>Formato Cartas</button>
       </Link>
 
+      <Link to='/stocktable2'>
+        <button className={styledButton.button}>Tabla 2</button>
+      </Link>
       <div>
         <AdminSearchBarBooks />
         <AdminRefreshBooks />
