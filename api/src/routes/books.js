@@ -373,15 +373,15 @@ router.post('/updateStock/stockDown', async (req, res) => {
   }
 })
 
-router.post('/updateStock/stock/:id/:cantidad', (req, res) => {
+router.post('/updateStock/stock/:id/:cantidad', async (req, res) => {
   const { id, cantidad } = req.params
   try {
     if (!id && !cantidad) throw new Error('Ingrese datos')
 
     const book = await Books.findById(id)
 
-    if(!book) throw new Error("Libro no encontrado")
-    book.stock = cantidad;
+    if (!book) throw new Error('Libro no encontrado')
+    book.stock = cantidad
 
     await book.save()
   } catch (error) {
