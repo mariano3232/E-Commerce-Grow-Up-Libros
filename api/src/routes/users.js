@@ -53,10 +53,16 @@ router.post('/addUser', async (req, res) => {
       address,
       isSuperAdmin,
     })
+    await newUser.save()
 
-    const user = await newUser.save()
+    const user = await Users.findOne({ email }).populate([
+      'comments',
+      'readBooks',
+      'favouritesBooks',
+      'buyBooks',
+    ])
 
-    res.send(user)
+    res.json([user])
   } catch (error) {
     res.status(404).send(error.message)
   }
