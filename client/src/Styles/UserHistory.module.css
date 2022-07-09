@@ -1,0 +1,14 @@
+.ordenes {
+  height: 500px;
+  overflow-y: scroll;
+}
+
+.tabla {
+  font-size: 20px;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 10px 15px;
+  border: 1px solid lightgray;
+}
