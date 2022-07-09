@@ -25,13 +25,8 @@ export default function AdminOrders(props) {
   const usuarios = useSelector((state) => state.users)
   const orders = useSelector(state =>state.orders)
 
-  //console.log('order:',orders)
-
   const orderOk = orders.filter(order => order.usuario.length > 0)
   
- // console.log('orderOk:',orderOk)
-  
-
   const [seleccionados, setSeleccionados] = useState([])
 
   const [changed, setChanged] = useState(false)
@@ -65,7 +60,7 @@ export default function AdminOrders(props) {
 
   //------------PAGINADO
   const [currentPage, setCurrentPage] = useState(1);
-  const [rows, setRows] = useState(10); //modificamos esto si queremos mostrar mas filas
+  const [rows, setRows] = useState(10); 
   const [pageNumberLimit, setPageNumberLimit] = useState(5);
   const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(5);
   const [minPageNumberLmit, setMinPageNumberLmit] = useState(0);

@@ -9,7 +9,7 @@ import AdminOrderStatusCreated from "./ManejoDeEstados/AdminOrderStatusCreated";
 import AdminOrderStatusComplete from "./ManejoDeEstados/AdminOrderStatusComplete";
 import AdminOrderStatusProcessing from "./ManejoDeEstados/AdminOrderStatusProcessing";
 import { useState } from "react";
-import { setOrderStatus , getAllOrders} from "../../../actions";
+import { setOrderStatus , getAllOrders , deleteOrder} from "../../../actions";
 import { animateScroll as scroll, Element } from 'react-scroll'
 
 export default function AdminOrderDetails(){
@@ -75,6 +75,12 @@ export default function AdminOrderDetails(){
       scroll.scrollToTop()
     }, [])
   
+    function handleDeleteOrder(id) {
+      dispatch(deleteOrder(id))
+      alert('Orden Eliminada')
+      navigate('/admin')
+      dispatch(getAllOrders())
+    }
 
 
     return(
@@ -112,6 +118,7 @@ export default function AdminOrderDetails(){
             <p className={styles.h2}>Estado de Orden: {order.status_order}</p>
       
             </div>
+            <button onClick={()=>handleDeleteOrder(id)}>Borrar Orden</button>
         </div>
     )
 }

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { getBooksAdmin , setStockUp } from '../../../../actions'
 import { Link , NavLink} from 'react-router-dom'
 
 import { animateScroll as scroll, Element } from 'react-scroll'
+import { scroller } from 'react-scroll'
 
 
 import AdminSearchBarBooks from '../../SearchBars/AdminSearchBarBooks'
@@ -24,6 +25,8 @@ export default function StockTable2() {
 
   const [input , setInput] = useState([])
   console.log('INPUT:',input)
+
+  const [changed, setChanged] = useState([false])
 
 
 
@@ -85,9 +88,37 @@ const handleSubmit = (e) => {
     dispatch(setStockUp(input));
     setTimeout(function () {
       dispatch(getBooksAdmin())
-    }, 1000)
+    }, 500)
+
+    var inputs = document.getElementsByClassName('input')
+    console.log('II:',inputs)
+    for (let i = 0; i < inputs.length; i++) {
+      inputs[i].value = ''
+      console.log('tt:',inputs[i].value)
+    }
+    setChanged(!changed)
     setInput([]);
 }
+
+const handleKeyPress = (e) => {
+  if(e.charCode === 13){
+      e.preventDefault();
+      dispatch(setStockUp(input));
+      setTimeout(function () {
+        dispatch(getBooksAdmin())
+      }, 500)
+      var inputs = document.getElementsByClassName('input')
+      console.log('II:',inputs)
+      for (let i = 0; i < inputs.length; i++) {
+        inputs[i].value = ''
+        console.log('tt:',inputs[i].value)
+      }
+      setChanged(!changed)
+      setInput([]);
+      scroller.scrollTo("gaston");
+  }
+}
+
 
 
 
@@ -241,13 +272,14 @@ const handleSubmit = (e) => {
 
                     <td>
                         <input
+                        className='input'
+                        
                           type='text'
                           key={book._id}
-                          name={book._id}
-                         
-                          
-                         
+                          name={book._id}  
+                          defaultValue=''                     
                           onChange={e=>handleChange(e)} 
+                          onKeyPress={(e) => handleKeyPress(e)}
                         >
                         </input>
 
