@@ -86,9 +86,6 @@ router.post('/orden', async (req, res) => {
 
 router.get('/success', async (req, res) => {
   const { external_reference } = req.query
-})
-router.get('/success', async (req, res) => {
-  const { external_reference } = req.query
   try {
     const order = await Orders.findOneAndUpdate(
       {
