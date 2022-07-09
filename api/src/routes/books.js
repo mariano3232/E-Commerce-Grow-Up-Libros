@@ -328,7 +328,7 @@ router.post('/update/updateStockUp', async (req, res) => {
     })
     res.send('Stock agregado')
   } catch (error) {
-    res.status(404).send(error.message)
+    res.send(error.message)
   }
 })
 module.exports = router
