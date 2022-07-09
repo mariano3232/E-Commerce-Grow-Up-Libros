@@ -9,7 +9,7 @@ const Books = require("../model/Books");
 const Orders = require("../model/Order");
 const Users = require("../model/Users");
 const { Enum, EnumStatus } = require("./EmunStatus");
-const { randomId } = require("./FuntionID");
+const mail = require('./util/successEmail')
 
 mercadopago.configure({
   access_token: `${ACCESS_TOKEN}`,
@@ -18,42 +18,30 @@ mercadopago.configure({
 router.post("/orden", async (req, res) => {
   const carrito = req.body;
   const email = carrito.map((e) => e.email);
-
-  const ID = randomId(100);
-  const ID2 = randomId(100);
-  const idOrder = `a${ID}b${ID2}`;
+  // const user = carrito.map((e) => e.name);
 
   const monto = carrito
     .map((e) => {
-
-      const montoTem = (e.unit_price * carrito.length);
+      const montoTem = e.unit_price * e.quantity;
       return montoTem;
     })
     .reduce((a, b) => a + b);
 
-  const user = await Users.findOne({ email: email[0] });
-  const book = await carrito.map(async (e) =>{
-    const temBooks = await Books.findOne({title: e.title})
-    return temBooks
-  } );
-  const bookDb = await Promise.all(book);
-  
+  const userDB = await Users.findOne({ email: email[0] });
 
   const newOrder = new Orders({
-    status: Enum.CREATED,
+    status: EnumStatus.PENDING,
     fecha: new Date(),
-    usuario: user._id,
+    usuario: userDB._id,
     produt: carrito.map((e) => e.title),
     total: monto,
-    payment_id: idOrder,
-    payment_status: EnumStatus.PENDING,
-    payment_order_id: idOrder,
+    payment_id: 0,
+    status_order: Enum.CREATED,
   });
 
   await newOrder.save();
-  user.buyBooks = user.buyBooks.concat(bookDb.map(e=> e._id));
-  await user.save();
-  
+  userDB.buyBooks = userDB.buyBooks.concat(newOrder._id);
+  await userDB.save();
 
   try {
     const itemsMp = carrito?.map((e) => ({
@@ -64,6 +52,8 @@ router.post("/orden", async (req, res) => {
 
     let preference = {
       items: itemsMp,
+      nameUser: userDB.name,
+      emailUser: userDB.email,
       external_reference: `${newOrder._id}`,
       payment_methods: {
         excluded_payment_type: [
