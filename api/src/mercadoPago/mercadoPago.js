@@ -86,17 +86,23 @@ router.post("/orden", async (req, res) => {
 
 router.get("/success", async (req, res) => {
   const { external_reference } = req.query;
- 
-  try {
-    const order = await Orders.findOneAndUpdate({
-     _id: external_reference
-    }, req.query).populate('usuario');    
-    order.save();
-    
-    
-    return res.json(order);
+  try {  
+
+    const order = await Orders.findOneAndUpdate(
+      {
+        _id: external_reference,
+      },
+      req.query
+      );
+      const orderSave = await order.save();
+      const user = await Users.findOne({_id: orderSave.usuario[0]})
+      console.log('ESTE ES EL USURIO', user.name, user.email)
+      
+      // enviar_mail(user.name, user.email)
+      res.json(orderSave);
+      mail.enviar_mail(user.name, user.email)
   } catch (error) {
-    console.log("FALLO SUCCESS ", error);
+    return res.json({msg: "FALLO SUCCESS ", error: error });
   }
 });
 
@@ -115,8 +121,7 @@ router.get("/success", async (req, res) => {
 // {"id":1156545904,"nickname":"TETE2598970","password":"qatest9115","site_status":"active","site_id":"MCO","description":"a description","date_created":"2022-07-07T15:54:38-04:00","date_last_updated":"2022-07-07T15:54:38-04:00" 
 //test_user_18656584@testuser.com}
 
+
+
+
 module.exports = router;
-
-
-
-//https://localhost/3001/mecadopago/success?collection_id=1291575759&collection_status=approved&payment_id=1291575759&status=approved&external_reference=a51b68&payment_type=account_money&merchant_order_id=5150786480&preference_id=1152954796-fb4c7412-5664-4422-9203-f5d3c9c23eef&site_id=MCO&processing_mode=aggregator&merchant_account_id=null
