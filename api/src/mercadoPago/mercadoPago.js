@@ -24,14 +24,9 @@ router.post('/orden', async (req, res) => {
 
   const monto = carrito
     .map((e) => {
-<<<<<<< Updated upstream
-      const montoTem = e.unit_price * carrito.length
-      return montoTem
-=======
 
       const montoTem = (e.unit_price * e.quantity) ;
       return montoTem;
->>>>>>> Stashed changes
     })
     .reduce((a, b) => a + b)
 
@@ -43,17 +38,10 @@ router.post('/orden', async (req, res) => {
     usuario: user._id,
     produt: carrito.map((e) => e.title),
     total: monto,
-<<<<<<< Updated upstream
-    payment_id: idOrder,
-    payment_status: EnumStatus.PENDING,
-    payment_order_id: idOrder,
-  })
-=======
     payment_id: 0,
     status_order: Enum.CREATED,
     
   });
->>>>>>> Stashed changes
 
   await newOrder.save()
   user.buyBooks = user.buyBooks.concat(newOrder._id)
@@ -79,15 +67,9 @@ router.post('/orden', async (req, res) => {
       },
       
       back_urls: {
-<<<<<<< Updated upstream
-        success: "https://e-commerce-books.vercel.app",
-        failure: "https://e-commerce-books.vercel.app",
-        pending: "https://e-commerce-books.vercel.app",
-=======
         success: "http://localhost:3001/mercadopago/success",
         failure: "https://ecommercehenryx.herokuapp.com/mercadopago/success",
         pending: "https://ecommercehenryx.herokuapp.com/mercadopago/success",
->>>>>>> Stashed changes
       },
       auto_return: "approved",
     };
@@ -104,17 +86,13 @@ router.post('/orden', async (req, res) => {
   } catch (error) {
     return console.log('FALLO MERCADO PAGO', error)
   }
-<<<<<<< Updated upstream
-})
-=======
 });
 
 router.get("/success", async (req, res) => {
   const { external_reference } = req.query;
  
   try {
-    console.log('//////////',external_reference)
-    console.log('//*/*/*/*/', req.query)
+    
     
     const order = await Orders.findOneAndUpdate({
      _id: external_reference
@@ -129,7 +107,6 @@ router.get("/success", async (req, res) => {
 
 //http://localhost:8080/feedback?collection_id=1290273508&collection_status=approved&payment_id=1290273508&status=approved&external_reference=a59b17&payment_type=credit_card&merchant_order_id=5143913058&preference_id=1152954796-49f441b2-e9d1-494f-8bdc-571a606e2a63&site_id=MCO&processing_mode=aggregator&merchant_account_id=null
 
->>>>>>> Stashed changes
 // {"id":1152954796,"nickname":"TETE5687095","password":"qatest2807","site_status":"active","site_id":"MCO","description":"a description","date_created":"2022-07-01T17:25:00-04:00","date_last_updated":"2022-07-01T17:25:00-04:00"} VENDEDOR
 
 // {"id":1152955480,"nickname":"TETE6325107","password":"qatest9152","site_status":"active","site_id":"MCO","description":"a description","date_created":"2022-07-01T17:26:17-04:00","date_last_updated":"2022-07-01T17:26:17-04:00"}
