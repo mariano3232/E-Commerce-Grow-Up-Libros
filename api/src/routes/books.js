@@ -293,7 +293,7 @@ router.post('/showBook/:id', async (req, res) => {
   }
 })
 
-router.post('/update/updateStockUp', async (req, res) => {
+router.post('/updateStock/stockUp', async (req, res) => {
   const booksUpdate = req.body
   console.log('DATA', booksUpdate)
   try {
