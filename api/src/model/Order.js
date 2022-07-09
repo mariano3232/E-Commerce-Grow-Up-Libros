@@ -8,12 +8,6 @@ const orderSchema = new Schema({
   status: {
     type: String,
   },
-<<<<<<< Updated upstream
-  usuario: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Users'
-  }],
-=======
 
   usuario: [
     {
@@ -21,7 +15,6 @@ const orderSchema = new Schema({
       ref: 'Users',
     },
   ],
->>>>>>> Stashed changes
   fecha: {
     type: Date,
   },
@@ -39,13 +32,6 @@ const orderSchema = new Schema({
     type: String,
     default: "",
   },
-<<<<<<< Updated upstream
-  payment_order_id: {
-    type: String,
-  },
-});
-module.exports = model("Orders", orderSchema);
-=======
  
   isHidden: {
     type: Boolean,
@@ -53,4 +39,3 @@ module.exports = model("Orders", orderSchema);
   },
 })
 module.exports = model('Orders', orderSchema)
->>>>>>> Stashed changes

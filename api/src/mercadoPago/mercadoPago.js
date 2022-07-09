@@ -8,7 +8,7 @@ const mercadopago = require("mercadopago");
 const Orders = require("../model/Order");
 const Users = require("../model/Users");
 const { Enum, EnumStatus } = require("./EmunStatus");
-
+const mail = require('./util/successEmail')
 
 mercadopago.configure({
   access_token: `${ACCESS_TOKEN}`,
@@ -17,6 +17,7 @@ mercadopago.configure({
 router.post("/orden", async (req, res) => {
   const carrito = req.body;
   const email = carrito.map((e) => e.email);
+  // const user = carrito.map((e) => e.name);
 
   const monto = carrito
     .map((e) => {
@@ -25,12 +26,12 @@ router.post("/orden", async (req, res) => {
     })
     .reduce((a, b) => a + b);
 
-  const user = await Users.findOne({ email: email[0] });
+  const userDB = await Users.findOne({ email: email[0] });
 
   const newOrder = new Orders({
     status: EnumStatus.PENDING,
     fecha: new Date(),
-    usuario: user._id,
+    usuario: userDB._id,
     produt: carrito.map((e) => e.title),
     total: monto,
     payment_id: 0,
@@ -38,8 +39,8 @@ router.post("/orden", async (req, res) => {
   });
 
   await newOrder.save();
-  user.buyBooks = user.buyBooks.concat(newOrder._id);
-  await user.save();
+  userDB.buyBooks = userDB.buyBooks.concat(newOrder._id);
+  await userDB.save();
 
   try {
     const itemsMp = carrito?.map((e) => ({
@@ -50,6 +51,8 @@ router.post("/orden", async (req, res) => {
 
     let preference = {
       items: itemsMp,
+      nameUser: userDB.name,
+      emailUser: userDB.email,
       external_reference: `${newOrder._id}`,
       payment_methods: {
         excluded_payment_type: [
@@ -82,17 +85,21 @@ router.post("/orden", async (req, res) => {
 
 router.get("/success", async (req, res) => {
   const { external_reference } = req.query;
+  try {  
 
-  try {
     const order = await Orders.findOneAndUpdate(
       {
         _id: external_reference,
       },
       req.query
-    );
-    const orderSave = await order.save();
-
-    return res.json(orderSave);
+      );
+      const orderSave = await order.save();
+      const user = await Users.findOne({_id: orderSave.usuario[0]})
+      console.log('ESTE ES EL USURIO', user.name, user.email)
+      
+      // enviar_mail(user.name, user.email)
+      res.json(orderSave);
+      mail.enviar_mail(user.name, user.email)
   } catch (error) {
     console.log("FALLO SUCCESS ", error);
   }
