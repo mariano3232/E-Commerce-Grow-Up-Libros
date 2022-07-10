@@ -13,6 +13,7 @@ import { animateScroll as scroll } from 'react-scroll'
 import CarrouselBookEnAuthor from './CarrouselBooksEnAuthor'
 import Fav from './Fav'
 import { useAuth0 } from '@auth0/auth0-react'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 const AuthorDetails = () => {
   const dispatch = useDispatch()
@@ -54,7 +55,7 @@ const AuthorDetails = () => {
   function handleClick(e) {
     e.preventDefault();
     if (isLogged.length === 0) return loginWithRedirect()
-    dispatch(addToCart(e.target.value))
+    dispatch(addToCart(authorBooks[0]._id))
     dispatch(updateAmount(productsAmount+1))
     alert('Libro añadido al carrito!')
     setTimeout(function(){
@@ -162,13 +163,13 @@ const AuthorDetails = () => {
                 {  
 
                   books[0].stock > 1 ?
-                  <button
-                    className={styledButton.button}
-                    value={book._id}
+                  <AddShoppingCartIcon
+                    cursor='pointer'
+                    color="action"
+                    fontSize="large" 
                     onClick={(e) => handleClick(e)}
-                  >
-                    Añadir al carrito
-                  </button> : ''
+                  />
+                   : ''
                 }
                 <Fav book={book._id} painted={`${myFavsBooksIds.includes(book._id)
                           ?'secondary'
@@ -185,3 +186,13 @@ const AuthorDetails = () => {
 }
 
 export default AuthorDetails
+
+/* 
+<button
+                    className={styledButton.button}
+                    value={book._id}
+                    onClick={(e) => handleClick(e)}
+                  >
+                    Añadir al carrito
+                  </button>
+*/

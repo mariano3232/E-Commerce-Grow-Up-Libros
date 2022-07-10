@@ -8,6 +8,7 @@ import style from '../Styles/CarrouselBooks.module.css'
 import Fav from './Fav'
 import { useAuth0 } from '@auth0/auth0-react'
 import { addToCart, purchaseOrder, updateAmount } from '../actions'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 export default function CarrouselBookEnAuthor({ booksEscritor }) {
 
@@ -61,7 +62,7 @@ export default function CarrouselBookEnAuthor({ booksEscritor }) {
   function handleClick(e) {
     e.preventDefault();
     if (isLogged.length === 0) return loginWithRedirect()
-    dispatch(addToCart(e.target.value))
+    dispatch(addToCart(currentBook._id))
     dispatch(updateAmount(productsAmount+1))
     alert('Libro añadido al carrito!')
     setTimeout(function(){
@@ -94,16 +95,15 @@ export default function CarrouselBookEnAuthor({ booksEscritor }) {
 
         {
           currentBook.stock > 1 ?
-          <button 
-            className={style.btn}
+          <AddShoppingCartIcon
+            cursor='pointer'
+            color="action"
+            fontSize="large" 
             onLoad={() => {
               setLoaded(true)
             }}
-            value={currentBook._id}
             onClick={(e) => handleClick(e)}
-          >
-            Añadir al carrito
-          </button> : ''
+          /> : ''
         }
         
         <Fav book={currentBook._id} painted={`${myFavsBooksIds.includes(currentBook._id)
@@ -122,3 +122,17 @@ export default function CarrouselBookEnAuthor({ booksEscritor }) {
     </div>
   )
 }
+
+
+/* 
+<button 
+            className={style.btn}
+            onLoad={() => {
+              setLoaded(true)
+            }}
+            value={currentBook._id}
+            onClick={(e) => handleClick(e)}
+          >
+            Añadir al carrito
+          </button>
+*/

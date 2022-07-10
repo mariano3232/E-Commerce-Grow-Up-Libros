@@ -19,12 +19,14 @@ import {
   getBookComments,
   clearComments,
 } from '../actions'
-//import { clearPageBookDetails, getBookDetails } from "../actions";
+
 import { Link } from 'react-router-dom'
 import styles from '../Styles/bookDetails.module.css'
 import s from '../Styles/Home.module.css'
 import { animateScroll as scroll } from 'react-scroll'
 import { useAuth0 } from '@auth0/auth0-react'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import Fav from './Fav'
 
 export default function BookDetails() {
   
@@ -90,7 +92,7 @@ export default function BookDetails() {
     }
   }, [dispatch])
 
-  const handleClickFav = () => {
+  /* const handleClickFav = () => {
    
     if (isLogged.length === 0) return loginWithRedirect()
     if (bookAdded.length) return alert('Ya es un libro favorito');
@@ -98,7 +100,7 @@ export default function BookDetails() {
     dispatch(addFav(id, iduser))
     alert('Libro agregado a favoritos')
     dispatch(getUsers())
-  }
+  } */
 
   function handleChange(e){
     e.preventDefault();
@@ -188,7 +190,7 @@ export default function BookDetails() {
       </div>
 
       <div className={styles.buy}>
-        <h3 className={styles.price}>{book.price}$</h3>
+        <h3 className={styles.price}>${book.price}</h3>
         <h4>
           Stock:
           {book.stock > 3
@@ -201,16 +203,25 @@ export default function BookDetails() {
             ? '¡Ultimo disponible!'
             : 'No hay Stock'}
         </h4>
-        {book.stock > 1
-        ? <button className={styles.button} onClick={(e) => handleAddToCart(e)}>
-          Añadir al carrito
-          </button>
-        : ''
+        {
+          book.stock > 1 ?
+          <AddShoppingCartIcon
+            cursor='pointer'
+            color="action"
+            fontSize="large" 
+            onClick={(e) => handleAddToCart(e)}
+          />
+          
+          : ''
         }
 
-        <button className={styles.button} onClick={() => handleClickFav()}>
+        <Fav book={book._id} painted={`${bookAdded.includes(book._id)
+                          ?'secondary'
+                        :'disabled'}`} />
+
+        {/* <button className={styles.button} onClick={() => handleClickFav()}>
           Añadir a lista de desesados
-        </button>
+        </button> */}
       </div>
 
       <div className={styles.details}>
@@ -257,3 +268,11 @@ export default function BookDetails() {
     </div>
   )
 }
+
+
+
+/* 
+<button className={styles.button} onClick={(e) => handleAddToCart(e)}>
+            Añadir al carrito
+            </button>
+*/

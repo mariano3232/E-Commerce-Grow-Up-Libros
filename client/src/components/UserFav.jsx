@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { addToCart, deleteBookFav, getUsers, orderByStockAdminBooks, purchaseOrder, updateAmount } from '../actions'
 import style from '../Styles/userFav.module.css'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 const UserFav = () => {
   const dispatch = useDispatch()
@@ -39,7 +40,7 @@ const UserFav = () => {
   function handleAddToCart(e) {
     e.preventDefault()
     if (users.length === 0) return loginWithRedirect()
-    dispatch(addToCart(e.target.value))
+    dispatch(addToCart(e.target.id))
     dispatch(updateAmount(productsAmount+1))
     alert('Libro agregado al carrito!')
     setTimeout(function(){
@@ -68,9 +69,13 @@ const UserFav = () => {
             </Link>
             {
               book.stock > 1 ?
-              <button value={book._id} onClick={(e) => handleAddToCart(e)}>
-                Añadir al carrito
-              </button> : ''
+              <AddShoppingCartIcon
+                cursor='pointer'
+                color="action"
+                fontSize="large" 
+                id={book._id}
+                onClick={(e) => handleAddToCart(e)}
+              /> : ''
             }
             <button
               className={style.button}
@@ -119,4 +124,10 @@ return (
   </div>
 )
 }
+*/
+
+/* 
+<button value={book._id} onClick={(e) => handleAddToCart(e)}>
+                Añadir al carrito
+              </button>
 */
