@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getUsers, postUserData, setUserNews, setUserPlan } from '../actions'
 import UserDatosPerfil from './UserDatosPerfil'
 import styles from '../Styles/UserDatos.module.css'
+import axios from 'axios'
 
 const UserDatos = () => {
 
@@ -24,6 +25,9 @@ const UserDatos = () => {
     dni: '',
     phone: '',
     address: '',
+    ciudad: '',
+    postal: '',
+    picture: '',
   })
 
   const [errors,setErrors]=useState({})
@@ -48,13 +52,19 @@ const UserDatos = () => {
     if (!input.address.match(/^[A-Za-z0-9\s]+$/g)&&input.address){
       errors.address=('No se admiten simbolos*')
     }
+    if (!input.ciudad.match(/^[A-Za-z\s]+$/g)&&input.ciudad){
+      errors.ciudad=('No se admiten numeros o simbolos*')
+    }
+    if (input.postal&&!input.postal.match(/^\(?\d{4}\)?[\s\.-]?\d{4}[\s\.-]?\d{4}$/)){
+      errors.postal='Ingresar un CP valido*'
+    }
 
     return errors
   }
 
   useEffect(()=>{
     setErrors(validate(input))
-    console.log('errors :',errors)
+    
   },[input])
 
   const handleChange = (e) => {
@@ -62,7 +72,7 @@ const UserDatos = () => {
       ...input,
       [e.target.name]: e.target.value,
     })
-    console.log('input:',input)
+    
   }
   const handleSelect=(e)=>{
     setInput({
@@ -107,6 +117,13 @@ const UserDatos = () => {
       dispatch(getUsers()), 100
     })
   }
+
+  /* const handleDeleteUser = async () => {
+    console.log('hola')
+    const id = [logged[0]._id]
+    const json = await axios.get('https://ecommercehenryx.herokuapp.com/users/deleteUser/', id);
+    navigate('/home');
+  } */
 
   return (
     <div className={styles.containerAll}>
@@ -216,6 +233,44 @@ const UserDatos = () => {
               errors?.address?<p className={styles.error}>{errors.address}</p>:null
             }
           </div>
+
+          <div className={styles.containerInput}>
+            <label htmlFor='ciudad'>Ciudad:</label>
+            <input
+              type='text'
+              name='ciudad'
+              onChange={(e) => handleChange(e)}
+              value={input.ciudad}
+            />
+            {
+              errors?.ciudad?<p className={styles.error}>{errors.ciudad}</p>:null
+            }
+          </div>
+
+          <div className={styles.containerInput}>
+            <label htmlFor='postal'>Codigo Postal:</label>
+            <input
+              type='number'
+              name='postal'
+              onChange={(e) => handleChange(e)}
+              value={input.postal}
+            />
+            {
+              errors?.postal?<p className={styles.error}>{errors.postal}</p>:null
+            }
+          </div>
+
+          <div className={styles.containerInput}>
+            <label htmlFor='picture'>Imagen:</label>
+            <input
+              type='text'
+              name='picture'
+              onChange={(e) => handleChange(e)}
+              value={input.picture}
+            />
+            
+          </div>
+
         </div>
         <button className={styles.button} type='submit'>
           Actualizar
@@ -256,6 +311,13 @@ const UserDatos = () => {
             growup@gmail.com
           </p>
         </div>
+
+        {/* <h3>Baja de usuario</h3>
+        
+          <button className={styles.button} onClick={handleDeleteUser}>
+            Baja como usuario
+          </button> */}
+          
       </div>
 
       <br />
@@ -274,6 +336,8 @@ const UserDatos = () => {
           country={userId[0].country}
           phone={userId[0].phone}
           address={userId[0].address}
+          ciudad={userId[0].ciudad}
+          postal={userId[0].postal}
         />
       ) : (
         <p>

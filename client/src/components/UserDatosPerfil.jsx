@@ -10,6 +10,8 @@ const UserDatosPerfil = ({
   country,
   phone,
   address,
+  ciudad,
+  postal,
 }) => {
   return (
     <div className={styles.containerUserProfile}>
@@ -23,6 +25,8 @@ const UserDatosPerfil = ({
         <p>País: {country}</p>
         <p>Tel: {phone}</p>
         <p>Dirección: {address}</p>
+        <p>Ciudad: {ciudad}</p>
+        <p>Codigo Postal: {postal}</p>
         <p>Fecha de nacimiento: {birthday}</p>
       </div>
     </div>

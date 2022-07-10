@@ -30,7 +30,7 @@ const UserFav = () => {
     const id = users[0]._id
     dispatch(deleteBookFav(book, id))
     alert('Libro Favorito Eliminado')
-    navigate('/user')
+    //navigate('/user')
     setTimeout(function () {
       dispatch(getUsers())
     }, 500)

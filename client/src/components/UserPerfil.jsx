@@ -19,7 +19,7 @@ const UserPerfil = () => {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading } = useAuth0();
   const usuarios = useSelector((state) => state.users);
-  const usuario = usuarios.filter((u) => u.email === user.email);
+  //const usuario = usuarios.filter((u) => u.email === user.email);
   const [component, setComponent] = useState("");
   const productsAmount = useSelector((state) => state.cartAmount);
   const isLogged = useSelector((state) => state.userLogged);
