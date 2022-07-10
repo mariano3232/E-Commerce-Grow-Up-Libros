@@ -195,16 +195,10 @@ router.post('/addBook', async function (req, res) {
 
 router.post('/update/:id', async (req, res) => {
   const { id } = req.params
-  const data = req.body
-
   try {
-    await Books.findByIdAndUpdate(id, data, () => {
-      if (!data) {
-        throw new Error('Failed to update books')
-      } else {
-        return res.status(200).send('Success update')
-      }
-    })
+    if (Object.keys(req.body).length === 0) throw new Error('Send propertys')
+    const book = await Books.findByIdAndUpdate(id, req.body, { new: 1 })
+    res.json(book)
   } catch (err) {
     res.status(404).send(err.message)
   }

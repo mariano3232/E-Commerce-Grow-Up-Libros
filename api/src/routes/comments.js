@@ -108,12 +108,10 @@ router.post('/toggleComment', async (req, res) => {
 
 router.delete('/adminDeleteComments', async (req, res) => {
   const commentIds = req.body
-  console.log(req.body)
   try {
     if (commentIds) {
       commentIds.forEach(async (id) => {
         const comment = await Comments.findById(id)
-        console.log('SOY EL COMENTARIO:', comment)
         await Comments.deleteOne({ _id: id }).populate('users', 'books')
       })
     }
