@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth0, User } from "@auth0/auth0-react";
 import { useDispatch } from "react-redux";
@@ -14,6 +14,9 @@ import UserFav from "./UserFav";
 import { BsCart } from "react-icons/bs";
 import { BsHeart } from "react-icons/bs";
 import style from "../Styles/bookDetails.module.css";
+import UserEditDatos from "./UserEditDatos";
+import UserEditPlanes from "./UserEditPlanes";
+import { animateScroll as scroll } from 'react-scroll';
 
 const UserPerfil = () => {
   const dispatch = useDispatch();
@@ -26,6 +29,10 @@ const UserPerfil = () => {
 
   const userFavBooksShowed = useSelector(state=>state.userLoggedFavsBooksShowed)
 
+  useEffect(() => {
+    scroll.scrollToTop()
+  }, [])
+
   if (isLoading) {
     return <div>Cargando...</div>;
   }
@@ -34,7 +41,9 @@ const UserPerfil = () => {
     e.preventDefault();
     const name = e.target.name;
     if (name === "userData") setComponent(<UserDatos />);
+    if (name === "userEditData") setComponent(<UserEditDatos />);
     if (name === "userSubscripcion") setComponent(<UserSuscripcion />);
+    if (name === "userEditPlan") setComponent(<UserEditPlanes />);
     if (name === "userPlanLectura") setComponent(<UserPlanLectura />);
     if (name === "userFav") setComponent(<UserFav />);
     if (name === "userHistory") setComponent(<UserHistory />);
@@ -75,7 +84,15 @@ const UserPerfil = () => {
             name="userData"
             onClick={handleInput}
           >
-            Mis datos personales
+            Datos personales
+          </button>
+
+          <button
+            className={styles.button}
+            name="userEditData"
+            onClick={handleInput}
+          >
+            Editar Datos personales
           </button>
 
           <button
@@ -83,7 +100,15 @@ const UserPerfil = () => {
             onClick={handleInput}
             name="userSubscripcion"
           >
-            Mi plan de suscripcion
+            Plan de suscripcion
+          </button>
+
+          <button
+            className={styles.button}
+            onClick={handleInput}
+            name="userEditPlan"
+          >
+            Editar Planes
           </button>
 
           <button
@@ -91,7 +116,7 @@ const UserPerfil = () => {
             onClick={handleInput}
             name="userFav"
           >
-            Mis libros deseados
+            Libros deseados
           </button>
 
           <button
@@ -99,7 +124,7 @@ const UserPerfil = () => {
             onClick={handleInput}
             name="userPlanLectura"
           >
-            Mi plan de lectura
+            Plan de lectura
           </button>
 
           <button
