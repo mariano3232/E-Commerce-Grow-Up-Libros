@@ -65,9 +65,9 @@ router.post('/orden', async (req, res) => {
       },
 
       back_urls: {
-        success: 'http://localhost:3001/mercadopago/success',
-        failure: 'http://localhost:3001/mercadopago/success',
-        pending: 'http://localhost:3001/mercadopago/success',
+        success: 'http://localhost:3000/mercadopago/success',
+        failure: 'http://localhost:3000/mercadopago/success',
+        pending: 'http://localhost:3000/mercadopago/success',
       },
       auto_return: 'approved',
     }
