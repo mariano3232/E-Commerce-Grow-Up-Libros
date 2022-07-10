@@ -108,6 +108,7 @@ router.post('/toggleComment', async (req, res) => {
 
 router.delete('/adminDeleteComments', async (req, res) => {
   const commentIds = req.body
+  console.log(req.body)
   try {
     if (commentIds) {
       commentIds.forEach(async (id) => {
