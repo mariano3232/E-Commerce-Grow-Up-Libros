@@ -251,20 +251,22 @@ export default function BookDetails() {
           <button onClick={e=>handlePost(e)} className={styles.postButton} >{'>'}</button>
         }
       </div>
-        {comments.users>0?
+        {
           comments.map(e=>{
-            return(
-            <div className={styles.commentContainer}>
-            {
-              (e.users[0]._id===usuario[0]?._id)?<button value={e._id} onClick={e=>handleDelete(e)} className={styles.delete}>x</button>:null
+            if (e.users.length>0){
+              return(
+                <div className={styles.commentContainer}>
+                {
+                  (e.users[0]._id===usuario[0]?._id)?<button value={e._id} onClick={e=>handleDelete(e)} className={styles.delete}>x</button>:null
+                }
+                <span className={styles.nickname}>{e.users[0].nickname}</span>
+                <span>{e.createdAt?.slice(0,10)}</span>
+                <p>{e.comment}</p>
+                </div>
+              )
             }
-            <span className={styles.nickname}>{e.users[0].nickname}</span>
-            <span>{e.createdAt?.slice(0,10)}</span>
-            <p>{e.comment}</p>
-            </div>
-            )
           })
-        :'N'}
+        }
     </div>
   )
 }
