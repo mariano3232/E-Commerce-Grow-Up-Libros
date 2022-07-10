@@ -111,7 +111,7 @@ router.delete('/adminDeleteComments', async (req, res) => {
   try {
     if (commentIds) {
       commentIds.forEach(async (id) => {
-        await Comments.findByIdAndDelete(id)
+        await Comments.deleteOne({ _id: id }).populate('users', 'books')
       })
     }
     return res.json('Usuarios actualizados!')
