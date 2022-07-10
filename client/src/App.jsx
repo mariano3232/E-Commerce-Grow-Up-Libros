@@ -20,8 +20,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import NavBar from './components/NavBar'
 import Home from './components/Home'
-import AboutUs from './components/AboutUs'
-import FAQ from './components/FAQ'
+import AboutUs from './components/Bottom Bar/AboutUs'
+import FAQ from './components/Bottom Bar/FAQ'
 import Landing from './components/Landing'
 import Author from './components/Author'
 import BookDetails from './components/BookDetails'
@@ -29,7 +29,7 @@ import AuthorDetails from './components/AuthorDetails'
 import Add from './components/Admin/Data/Agregar/Add'
 import AddBook from './components/Admin/Data/Agregar/AddBook'
 import AddAuthor from './components/Admin/Data/Agregar/AddAuthor'
-import BottomBar from './components/BottomBar'
+import BottomBar from './components/Bottom Bar/BottomBar'
 import { Admin } from './components/Admin/Admin'
 import UserPerfil from './components/UserPerfil'
 import DeleteData from './components/Admin/Data/Borrar/DeleteData'
@@ -68,7 +68,8 @@ import AdminProPerfilUsuarios from './components/AdminPro/AdminProPerfilesUsuari
 import AdminOrderDetails from './components/Admin/Orders/AdminOrderDetails'
 import StockTable2 from './components/Admin/Data/Stock/StockTable2'
 import UserHistory from "./components/UserHistory";
-
+import AdminComentarios from "./components/Admin/Comentarios/AdminComentarios";
+import AdminVentas from "./components/Admin/Ventas/AdminVentas";
 
 function App() {
   const dispatch = useDispatch();
@@ -248,6 +249,18 @@ function App() {
                 isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
               >
                 <AdminUserProfile />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admincomentarios"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+              >
+                <AdminComentarios />
               </ProtectedRoute>
             }
           />
@@ -557,6 +570,23 @@ function App() {
                 }
               >
                 <AdminOrderDetails />
+              </ProtectedRoute>
+            }
+          />
+
+            <Route
+            path="/adminventas"
+            element={
+              <ProtectedRoute
+                redirectPath="/home"
+                // isAllowed={!!users && users.roles.includes("admin")}
+                isAllowed={
+                  usuario.length === 1 &&
+                  usuario[0].isAdmin === true &&
+                  usuario[0].isAdminOrders === true
+                }
+              >
+                <AdminVentas />
               </ProtectedRoute>
             }
           />

@@ -11,7 +11,7 @@ import AdminOrderStatusCancelled from '../Orders/ManejoDeEstados/AdminOrderStatu
 import AdminOrderStatusProcessing from '../Orders/ManejoDeEstados/AdminOrderStatusProcessing'
 import AdminOrderStatusCreated from '../Orders/ManejoDeEstados/AdminOrderStatusCreated'
 import AdminOrderStatusComplete from '../Orders/ManejoDeEstados/AdminOrderStatusComplete'
-import { getAllOrders, getUsers , deleteUser } from '../../../actions'
+import { getAllOrders, getUsers , deleteUser , orderByDate} from '../../../actions'
 import AdminSearchBarStatusOrders from '../SearchBars/AdminSearchBarStatusOrders'
 import AdminSearchBarPaymentStatus from '../SearchBars/AdminSearchBarPaymentStatus'
 import AdminRefreshOrders from '../RefreshButtons/AdminRefreshOrders'
@@ -34,7 +34,9 @@ export default function AdminUserProfile() {
 
   //const userOrders = allOrders.filter(order => order.usuario[0]._id === id)
 
-  const userOrders = allOrders.filter(order =>order.usuario.length >0 ) 
+  const ordersWithUsers = allOrders.filter(order =>order.usuario.length >0 ) 
+
+  const userOrders = ordersWithUsers.filter(order => order.usuario[0]._id === id)
   
   //console.log('userOrders:',userOrders)
 
@@ -135,6 +137,16 @@ function handleDeleteUser(id) {
   navigate('/admin')
   dispatch(getUsers())
 }
+const [order, setOrder] = useState(true)
+
+
+function handleOrderByDate(e) {
+  //e.preventDefault()
+  dispatch(orderByDate(e.target.value))
+  setCurrentPage(1)
+  setOrder(`Ordenado ${e.target.value}`)
+}
+
 
   return (
     <div className={styles.containerAdminProfile}>
@@ -169,6 +181,24 @@ function handleDeleteUser(id) {
       <AdminRefreshOrders/>
       <AdminSearchBarStatusOrders/>
       <AdminSearchBarPaymentStatus/>
+
+      
+           <p>
+              <select
+                      onChange={(e) => handleOrderByDate(e)}
+                      defaultValue='default'
+                    >
+                      <option value='default' disabled>
+                        Orden por Fecha
+                      </option>
+                      <option  value='desc'>
+                       Mas antiguas
+                      </option>
+                      <option  value='Asc'>
+                        Mas nuevas
+                      </option>
+                    </select>
+              </p>
      
 
             <AdminOrderStatusCreated
@@ -209,9 +239,9 @@ function handleDeleteUser(id) {
                   {currentItems.length>0 && currentItems.map((order) => (
                     <tr key={order._id}>
                       <td>
-                        {/* <Link to={`/adminorderdetails/${order._id}`}>
+                        <Link to={`/adminorderdetails/${order._id}`}>
                           {order._id}
-                        </Link> */}
+                        </Link> 
                       </td>
 
                       <td>

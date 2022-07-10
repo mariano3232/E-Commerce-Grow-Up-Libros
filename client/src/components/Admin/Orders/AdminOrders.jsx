@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getUsers, getAllOrders } from '../../../actions'
+import { getUsers, getAllOrders , orderByDate } from '../../../actions'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import AdminSearchBarUserOrders from '../SearchBars/AdminSearchBarUserOrders'
@@ -119,6 +119,16 @@ export default function AdminOrders(props) {
 
   useEffect(() => {}, [orders])
 
+  const [order, setOrder] = useState(true)
+
+
+  function handleOrderByDate(e) {
+    //e.preventDefault()
+    dispatch(orderByDate(e.target.value))
+    setCurrentPage(1)
+    setOrder(`Ordenado ${e.target.value}`)
+  }
+
   return orders.length > 0 ? (
     <div className={styles.containerAll}>
       <h1>Control de Ordenes</h1>
@@ -160,6 +170,23 @@ export default function AdminOrders(props) {
               <AdminSearchBarUserOrders />
               <AdminSearchBarStatusOrders />
               <AdminSearchBarPaymentStatus/>
+
+              <p>
+              <select
+                      onChange={(e) => handleOrderByDate(e)}
+                      defaultValue='default'
+                    >
+                      <option value='default' disabled>
+                        Orden por Fecha
+                      </option>
+                      <option  value='desc'>
+                       Mas antiguas
+                      </option>
+                      <option  value='Asc'>
+                        Mas nuevas
+                      </option>
+                    </select>
+              </p>
               
             </div>
             <div class='container'>
