@@ -29,6 +29,7 @@ export default function AdminUsers2(props) {
 
 
   function changePlan(e){
+    e.preventDefault()
     var userId = [e.target.value]
     dispatch(setUserPlan(userId))
     setTimeout(function () {
@@ -38,6 +39,7 @@ export default function AdminUsers2(props) {
 
   
   function changeBan(e){
+    e.preventDefault()
     var userId = [e.target.value]
     dispatch(setUserBanned(userId))
     setTimeout(function () {
@@ -47,6 +49,7 @@ export default function AdminUsers2(props) {
 
   
   function changeNews(e){
+    e.preventDefault()
     var userId = [e.target.value]
     dispatch(setUserNews(userId))
     setTimeout(function () {
@@ -123,7 +126,7 @@ export default function AdminUsers2(props) {
                           defaultChecked={false}
                            />
                          <span class="slider round"></span>
-                         <span class="slider labels" data-on="ON" data-off="OFF"></span>   
+                         
                          </label>
 
                          : <label class='switch'>
@@ -148,7 +151,7 @@ export default function AdminUsers2(props) {
                           defaultChecked={true}
                            />
                          <span class="slider round"></span>
-                         <span class="slider labels" data-on="ON" data-off="OFF"></span>   
+                       
                          </label>
 
                          : <label class='switch'>
@@ -171,7 +174,7 @@ export default function AdminUsers2(props) {
                           defaultChecked={false}
                            />
                          <span class="slider round"></span>
-                         <span class="slider labels" data-on="ON" data-off="OFF"></span>   
+                    
                          </label>
 
                          : <label class='switch'>

@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import AdminProSet from './Permisos/AdminProSet'
-import { getUsers, postUser, setToAdmin, setToAdminStock, setToSuperAdmin , setToAdminData, setToAdminUsers, setToAdminOrders, setToAdminMarketing} from '../../actions'
+import { getUsers, postUser, setToAdmin, setToAdminStock, setToSuperAdmin , setToAdminData, setToAdminUsers, setToAdminOrders, setToAdminMarketing , setToAdminComments ,setToAdminVentas} from '../../actions'
 import { Link , NavLink} from 'react-router-dom'
 import SuperAdminProSet from './Permisos/SuperAdminProSet'
 import AdminSearchBarUser from '../Admin/SearchBars/AdminSearchBarUser'
@@ -122,6 +122,22 @@ export default function CreateAdmin(props) {
     }, 500)
   }
 
+  function changeAdminComments(e){
+    var userId = [e.target.value]
+    dispatch(setToAdminComments(userId))
+    setTimeout(function () {
+      dispatch(getUsers())
+    }, 500)
+  }
+
+  function changeAdminVentas(e){
+    var userId = [e.target.value]
+    dispatch(setToAdminVentas(userId))
+    setTimeout(function () {
+      dispatch(getUsers())
+    }, 500)
+  }
+
   
   //-------------------------------------------------------------
 
@@ -216,6 +232,8 @@ export default function CreateAdmin(props) {
                   <th>Stock</th>
                   <th>Users</th>
                   <th>Orders</th>
+                  <th>Ventas</th>
+                  <th>Comentarios</th>
                   <th>Marketing</th>
                 </tr>
               </thead>
@@ -373,6 +391,52 @@ export default function CreateAdmin(props) {
                           type="checkbox"
                           value={usuario._id}
                           onChange={(e) => changeOrders(e)}
+                          defaultChecked={false}
+                           />
+                         <span class="slider round"></span>
+                         
+                        </label>}
+                      </td>
+
+                      <td>{usuario.isAdminVentas ?  
+                      <label class='switch'>
+                         <input 
+                          type="checkbox"
+                          value={usuario._id}
+                          onChange={(e) => changeAdminVentas(e)}
+                          defaultChecked={true}
+                           />
+                         <span class="slider round"></span>
+                         
+                         </label>
+                         : <label class='switch'>
+                         <input 
+                          type="checkbox"
+                          value={usuario._id}
+                          onChange={(e) => changeAdminVentas(e)}
+                          defaultChecked={false}
+                           />
+                         <span class="slider round"></span>
+                         
+                        </label>}
+                      </td>
+
+                      <td>{usuario.isAdminComments ?  
+                      <label class='switch'>
+                         <input 
+                          type="checkbox"
+                          value={usuario._id}
+                          onChange={(e) => changeAdminComments(e)}
+                          defaultChecked={true}
+                           />
+                         <span class="slider round"></span>
+                         
+                         </label>
+                         : <label class='switch'>
+                         <input 
+                          type="checkbox"
+                          value={usuario._id}
+                          onChange={(e) => changeAdminComments(e)}
                           defaultChecked={false}
                            />
                          <span class="slider round"></span>

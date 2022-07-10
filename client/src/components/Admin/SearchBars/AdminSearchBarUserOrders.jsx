@@ -16,7 +16,7 @@ export default function AdminSearchBarUserOrders(){
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(getUserNameOrders(input))
-    scroller.scrollTo('gaston')
+    scroll.scrollToTop()
     setInput('')
   }
 

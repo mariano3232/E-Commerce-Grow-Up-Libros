@@ -53,12 +53,10 @@ export function Admin() {
         : ''}
 
 
-     
-
-
+    
         {usuario[0].isAdminStock=== true ?
-        <Link to='/stock'>
-          <button className={styles.btn}>Ver Stock</button>
+        <Link to='/stocktable2'>
+          <button className={styles.btn}>Stock</button>
         </Link>
         : ''}
 
@@ -67,9 +65,15 @@ export function Admin() {
         </Link> */}
 
 
-{       usuario[0].isAdminUsers === true ?
+        {usuario[0].isAdminUsers === true ?
         <Link to='/adminusers2'>
           <button className={styles.btn}>Usuarios</button>
+        </Link>
+        : ''}
+
+        {usuario[0].isAdminUsers === true ?
+        <Link to='/admincomentarios'>
+          <button className={styles.btn}>Comentarios</button>
         </Link>
         : ''}
 
@@ -77,6 +81,12 @@ export function Admin() {
         {usuario[0].isAdminOrders === true ?
         <Link to='/adminorders'>
           <button className={styles.btn}>Ordenes</button>
+        </Link>
+        : ''}
+
+        {usuario[0].isAdminOrders === true ?
+        <Link to='/adminventas'>
+          <button className={styles.btn}>Ventas</button>
         </Link>
         : ''}
 

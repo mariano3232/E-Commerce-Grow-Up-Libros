@@ -1,7 +1,7 @@
 import React from 'react'
 import style from '../../../../Styles/DeleteData.module.css'
 import styledButton from '../../../../Styles/Button.module.css'
-import { deleteBook, deleteAuthor, getBooks } from '../../../../actions'
+import { deleteBook, deleteAuthor, getBooks , allHide , allShow } from '../../../../actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
@@ -10,6 +10,7 @@ import { orderByNameAdminBooks } from '../../../../actions'
 import AdminRefreshBooks from '../../RefreshButtons/AdminRefreshBooks'
 import AdminSearchBarBooks from '../../SearchBars/AdminSearchBarBooks'
 import { showBook, hideBook, getBooksAdmin } from '../../../../actions'
+import { scroller } from 'react-scroll'
 
 export default function DeleteBook() {
   const dispatch = useDispatch()
@@ -51,10 +52,17 @@ export default function DeleteBook() {
     setTimeout(function () {
       dispatch(getBooksAdmin()), 500
     })
-
-    // alert('Modificado')
-    //  navigate('/admin')
   }
+
+ 
+  const handleHide = (e) => {
+    dispatch(allHide()) 
+  }
+
+  const handleShow = (e) => {
+    dispatch(allShow()) 
+  }
+
 
   return (
     <div className={style.containerDelete}>
@@ -65,6 +73,8 @@ export default function DeleteBook() {
       <AdminSearchBarBooks />
 
       <AdminRefreshBooks />
+
+      
 
       <div>
         <select
@@ -78,6 +88,11 @@ export default function DeleteBook() {
           <option value='Asc'>Nombre Ascendente</option>
           <option value='desc'>Nombre Descendente</option>
         </select>
+      </div>
+
+      <div>
+      <button className={style.btnAdmin} onClick={()=>handleHide()}>Ocultos</button>
+      <button className={style.btnAdmin} onClick={()=>handleShow()}>No Ocultos</button>
       </div>
 
       <h1>Borrar Informacion</h1>

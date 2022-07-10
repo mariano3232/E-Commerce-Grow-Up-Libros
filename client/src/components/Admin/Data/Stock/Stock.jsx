@@ -39,11 +39,15 @@ export default function Stock() {
   return (
     <div className={style.stock}>
       <Link to='/admin'>
-        <button className={style.btnAdmin}>↼ Back</button>
+        <button className={style.btnAdmin}>Panel Administrador</button>
       </Link>
 
       <Link to='/stocktable'>
-        <button className={style.btnAdmin}>Formato Tabla</button>
+        <button className={style.btnAdmin}>DataGrid</button>
+      </Link>
+
+      <Link to='/stocktable2'>
+        <button className={style.btnAdmin}>Tabla</button>
       </Link>
 
       <AdminSearchBarBooks />
