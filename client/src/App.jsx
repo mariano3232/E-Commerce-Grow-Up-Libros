@@ -14,7 +14,8 @@ import {
   postUser,
   getCarouselImages,
   getAllOrders,
-  getBooksAdmin
+  getBooksAdmin,
+  getComments
 } from './actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
@@ -106,6 +107,12 @@ function App() {
   useEffect(() => {
     dispatch(getAllOrders());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getComments());
+  }, [dispatch]);
+
+
 
   const usuario = useSelector((state) => state.userLogged);
 
@@ -258,7 +265,7 @@ function App() {
             element={
               <ProtectedRoute
                 redirectPath="/home"
-                isAllowed={usuario.length === 1 && usuario[0].isAdmin === true}
+                isAllowed={usuario.length === 1 && usuario[0].isAdminComments === true}
               >
                 <AdminComentarios />
               </ProtectedRoute>
@@ -583,7 +590,7 @@ function App() {
                 isAllowed={
                   usuario.length === 1 &&
                   usuario[0].isAdmin === true &&
-                  usuario[0].isAdminOrders === true
+                  usuario[0].isAdminVentas === true
                 }
               >
                 <AdminVentas />

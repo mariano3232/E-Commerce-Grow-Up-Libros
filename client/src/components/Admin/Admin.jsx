@@ -71,7 +71,7 @@ export function Admin() {
         </Link>
         : ''}
 
-        {usuario[0].isAdminUsers === true ?
+        {usuario[0].isAdminComments === true ?
         <Link to='/admincomentarios'>
           <button className={styles.btn}>Comentarios</button>
         </Link>
@@ -84,7 +84,7 @@ export function Admin() {
         </Link>
         : ''}
 
-        {usuario[0].isAdminOrders === true ?
+        {usuario[0].isAdminVentas === true ?
         <Link to='/adminventas'>
           <button className={styles.btn}>Ventas</button>
         </Link>

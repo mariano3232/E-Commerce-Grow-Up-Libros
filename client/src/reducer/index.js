@@ -6,6 +6,8 @@ const initialState = {
   booksAdminCopy: [],
   bookDetails: [],
   comments:[],
+  commentsAdmin:[],
+  commentsAdminCopy:[],
   authors: [],
   authorsCopy: [],
   authorsAdmin: [],
@@ -108,6 +110,13 @@ function rootReducer(state = initialState, action) {
         ...state,
         bookDetails: action.payload,
       };
+
+      case "GET_COMMENTS":
+        return {
+          ...state,
+          commentsAdmin : action.payload,
+          commentsAdminCopy : action.payload,
+        }
     
     case "GET_BOOK_COMMENTS":
       return {
@@ -336,10 +345,8 @@ function rootReducer(state = initialState, action) {
       };
 
       case "GET_USER_NAME_ORDERS":
-        const ordersWithUsersReducer =state.ordersCopy.filter(order =>order.usuario.length >0 ) 
-
-      
-      const nameUOrder = ordersWithUsersReducer.filter(
+        const ordersWithUsersReducer =state.ordersCopy.filter(order =>order.usuario.length >0 )    
+        const nameUOrder = ordersWithUsersReducer.filter(
         (order) =>
           order.usuario[0].email.toLowerCase().includes(action.payload.toLowerCase())
       );
@@ -348,6 +355,47 @@ function rootReducer(state = initialState, action) {
         ...state,
         orders: nameUOrder,
       };
+
+      case "GET_USER_NAME_COMMENT":
+        const userNameComments =state.commentsAdminCopy.filter(comment =>comment.users.length >0 )       
+        const nameUComment = userNameComments.filter(
+            (comment) =>
+            comment.users[0].email.toLowerCase().includes(action.payload.toLowerCase())
+          );
+     
+      return {
+        ...state,
+        commentsAdmin: nameUComment,
+      };
+
+      
+
+      case "GET_BOOK_NAME_COMMENT":
+        const bookNameComments =state.commentsAdminCopy
+        const titleBComment = bookNameComments.filter(
+            (comment) =>
+            comment.books[0].title.toLowerCase().includes(action.payload.toLowerCase())
+          );
+     
+      return {
+        ...state,
+        commentsAdmin: titleBComment,
+      };
+
+
+      case  "GET_WORD_COMMENT":
+        const bookWordComments =state.commentsAdminCopy
+        const coomentWord = bookWordComments.filter(
+            (comment) =>
+            comment.comment.toLowerCase().includes(action.payload.toLowerCase())
+          );
+     
+      return {
+        ...state,
+        commentsAdmin: coomentWord,
+      };
+
+      
 
     case 'PURCHASE_ORDER':
 
@@ -594,6 +642,25 @@ function rootReducer(state = initialState, action) {
           ...state,
          orders: ordersOrderByDate,
         };
+
+        case "ORDER_COMMENTS_BY_DATE":
+          const commentsWithUserReducer =state.commentsAdmin.filter(comment =>comment.users.length >0 )
+          let commentsOrderByDate =
+            action.payload === "desc"
+              ? commentsWithUserReducer.sort((a, b) => {
+                  if (a.createdAt> b.createdAt) return 1;
+                  if (b.createdAt > a.createdAt) return -1;
+                  return 0;
+                })
+              : commentsWithUserReducer.sort((a, b) => {
+                  if (a.createdAt > b.createdAt) return -1;
+                  if (b.createdAt > a.createdAt) return 1;
+                  return 0;
+                });
+          return {
+            ...state,
+           commentsAdmin: commentsOrderByDate,
+          };
 
         case 'ALL_HIDE':
           const booksAdminHide = state.booksAdminCopy.filter(book=>book.isHidden===true)
