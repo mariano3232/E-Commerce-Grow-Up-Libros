@@ -37,6 +37,9 @@ router.post('/orden', async (req, res) => {
     total: monto,
     payment_id: 0,
     status_order: Enum.CREATED,
+    libros: carrito.map((cart) => {
+      return { title: cart.title, cantidad: cart.quantity }
+    }),
   })
 
   await newOrder.save()
