@@ -1,10 +1,12 @@
-import React from "react";
-import axios from "axios";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Image } from "cloudinary-react";
-import { getCarouselImages } from "../../../actions";
-import styles from "../../../Styles/adminCarousel.module.css";
+
+import React from 'react'
+import axios from 'axios'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Image } from 'cloudinary-react'
+import { getCarouselImages } from '../../../actions'
+import styles from '../../../Styles/adminCarousel.module.css'
+import { Link } from 'react-router-dom'
 import Alert from "../../../functions/Alert";
 
 export default function AdminCarousel() {
@@ -62,6 +64,10 @@ export default function AdminCarousel() {
 
   return (
     <div>
+      <Link to='/admin'>
+            <button >Panel Administrador</button>
+      </Link>
+      <div>
       <input
         type="file"
         onChange={(e) => {
@@ -95,6 +101,7 @@ export default function AdminCarousel() {
             </div>
           );
         })}
+      </div>
       </div>
     </div>
   );

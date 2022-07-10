@@ -8,7 +8,6 @@ import Alert from "../functions/Alert";
 const Fav = ({ book, painted }) => {
   console.log("painted<:", painted);
 
-  const allUsers = useSelector((state) => state.users);
 
   const isLogged = useSelector((state) => state.userLogged);
 

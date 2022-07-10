@@ -1,27 +1,24 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { useState } from "react";
-import { useEffect } from "react";
-import styles from "../../../Styles/adminUserProfile.module.css";
-import { NavLink } from "react-router-dom";
-import style from "../../../Styles/AdminUser2.module.css";
-import { Link } from "react-router-dom";
-import AdminOrderStatusCancelled from "../Orders/ManejoDeEstados/AdminOrderStatusCancelled";
-import AdminOrderStatusProcessing from "../Orders/ManejoDeEstados/AdminOrderStatusProcessing";
-import AdminOrderStatusCreated from "../Orders/ManejoDeEstados/AdminOrderStatusCreated";
-import AdminOrderStatusComplete from "../Orders/ManejoDeEstados/AdminOrderStatusComplete";
-import {
-  getAllOrders,
-  getUsers,
-  deleteUser,
-  orderByDate,
-} from "../../../actions";
-import AdminSearchBarStatusOrders from "../SearchBars/AdminSearchBarStatusOrders";
-import AdminSearchBarPaymentStatus from "../SearchBars/AdminSearchBarPaymentStatus";
-import AdminRefreshOrders from "../RefreshButtons/AdminRefreshOrders";
-import { animateScroll as scroll, Element } from "react-scroll";
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { useState } from 'react'
+import { useEffect } from 'react'
+import styles from '../../../Styles/adminUserProfile.module.css'
+import { NavLink } from 'react-router-dom'
+import style from '../../../Styles/AdminUser2.module.css'
+import { Link } from 'react-router-dom'
+import AdminOrderStatusCancelled from '../Orders/ManejoDeEstados/AdminOrderStatusCancelled'
+import AdminOrderStatusProcessing from '../Orders/ManejoDeEstados/AdminOrderStatusProcessing'
+import AdminOrderStatusCreated from '../Orders/ManejoDeEstados/AdminOrderStatusCreated'
+import AdminOrderStatusComplete from '../Orders/ManejoDeEstados/AdminOrderStatusComplete'
+import { getAllOrders, getUsers , deleteUser , orderByDate} from '../../../actions'
+import AdminSearchBarStatusOrders from '../SearchBars/AdminSearchBarStatusOrders'
+import AdminSearchBarPaymentStatus from '../SearchBars/AdminSearchBarPaymentStatus'
+import AdminRefreshOrders from '../RefreshButtons/AdminRefreshOrders'
+import { animateScroll as scroll, Element } from 'react-scroll'
+import { useNavigate } from 'react-router-dom'
 import Alert from "../../../functions/Alert";
+
 
 export default function AdminUserProfile() {
   const id = useParams().id;
@@ -46,7 +43,11 @@ export default function AdminUserProfile() {
 
   //console.log('userOrders:',userOrders)
 
-  const userL = useSelector((state) => state.userLogged);
+
+  const userL = useSelector(state => state.userLogged)
+
+  const navigate = useNavigate()
+ 
 
   useEffect(() => {
     scroll.scrollToTop();
@@ -148,6 +149,27 @@ export default function AdminUserProfile() {
     setCurrentPage(1);
     setOrder(`Ordenado ${e.target.value}`);
   }
+
+});
+//-------------------------------------------------------------------
+
+function handleDeleteUser(id) {
+  dispatch(deleteUser(id))
+  alert('Usuario Eliminado')
+  navigate('/admin')
+  dispatch(getUsers())
+}
+
+const [order, setOrder] = useState(true)
+
+
+function handleOrderByDate(e) {
+  //e.preventDefault()
+  dispatch(orderByDate(e.target.value))
+  setCurrentPage(1)
+  setOrder(`Ordenado ${e.target.value}`)
+}
+
 
   return (
     <div className={styles.containerAdminProfile}>

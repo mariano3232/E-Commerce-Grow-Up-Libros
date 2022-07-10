@@ -18,20 +18,20 @@ export default function PutAuthorID() {
   console.log("aaaa:", authorId);
 
   const [post, setPost] = useState({
-    name: "",
-    surname: "",
-    date: "",
-    country: "",
-    biography: "",
-    picture: "",
-  });
+    name: '',
+    surname: '',
+    birth: '',
+    country: '',
+    biography: '',
+    picture: '',
+  })
 
   useEffect(() => {
     setPost({
       ...post,
       name: authorId[0].name,
       surname: authorId[0].surname,
-      date: authorId[0].date,
+      birth: authorId[0].birth,
       country: authorId[0].country,
       biography: authorId[0].biography,
       picture: authorId[0].picture,
@@ -83,6 +83,7 @@ export default function PutAuthorID() {
             value={post.date}
             name="date"
             max="2022-12-12"
+
             onChange={(e) => handleChange(e)}
           />
         </div>
