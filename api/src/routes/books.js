@@ -333,7 +333,7 @@ router.post('/updateStock/stockUp', async (req, res) => {
   }
 })
 
-router.post('/updateStock/stockDown', async (req, res) => {
+router.post('/updateStock/stock', async (req, res) => {
   const booksUpdate = req.body
   console.log('DATA', booksUpdate)
   try {
@@ -362,7 +362,7 @@ router.post('/updateStock/stockDown', async (req, res) => {
       if (!book) throw new Error('libro no encontrado')
       console.log(book)
 
-      book.stock = book.stock - stock
+      book.stock = stock
 
       await book.save()
     })
@@ -373,19 +373,4 @@ router.post('/updateStock/stockDown', async (req, res) => {
   }
 })
 
-router.post('/updateStock/stock/:id/:cantidad', async (req, res) => {
-  const { id, cantidad } = req.params
-  try {
-    if (!id && !cantidad) throw new Error('Ingrese datos')
-
-    const book = await Books.findById(id)
-
-    if (!book) throw new Error('Libro no encontrado')
-    book.stock = cantidad
-
-    await book.save()
-  } catch (error) {
-    res.send(error.message)
-  }
-})
 module.exports = router

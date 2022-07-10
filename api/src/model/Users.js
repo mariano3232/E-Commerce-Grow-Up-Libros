@@ -13,12 +13,15 @@ const userSchema = new Schema({
   },
   birthday: {
     type: String,
+    default: '',
   },
   dni: {
     type: String,
+    default: '',
   },
   country: {
     type: String,
+    default: '',
   },
   email: {
     type: String,
@@ -31,15 +34,19 @@ const userSchema = new Schema({
   },
   phone: {
     type: String,
+    default: '',
   },
   address: {
     type: String,
+    default: '',
   },
   ciudad: {
     type: String,
+    default: '',
   },
   postal: {
     type: String,
+    default: '',
   },
   isAdmin: {
     type: Boolean,
