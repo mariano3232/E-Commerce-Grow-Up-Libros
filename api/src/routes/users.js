@@ -521,6 +521,82 @@ router.post('/toggleAdminMarketing', async (req, res) => {
   }
 })
 
+router.post('/toggleAdminComments', async (req, res) => {
+  const { id } = req.query
+  const userIds = req.body
+  try {
+    if (userIds) {
+      userIds.forEach(async (id) => {
+        const user = await Users.findById(id)
+
+        if (!user) throw new Error('The user not exists')
+        if (user.isAdminComments) {
+          user.isAdminComments = false
+          await user.save()
+        } else {
+          user.isAdminComments = true
+          await user.save()
+        }
+      })
+
+      res.json('Usuarios actualizados!')
+    } else {
+      const user = await Users.findById(id)
+      if (!user) throw new Error('The user not exists')
+
+      if (user.isAdminComments) {
+        user.isAdminComments = false
+        await user.save()
+        return res.send('The user now is not admin')
+      } else {
+        user.isAdminComments = true
+        await user.save()
+        return res.send('The user is now admin')
+      }
+    }
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
+router.post('/toggleAdminVentas', async (req, res) => {
+  const { id } = req.query
+  const userIds = req.body
+  try {
+    if (userIds) {
+      userIds.forEach(async (id) => {
+        const user = await Users.findById(id)
+
+        if (!user) throw new Error('The user not exists')
+        if (user.isAdminVentas) {
+          user.isAdminVentas = false
+          await user.save()
+        } else {
+          user.isAdminVentas = true
+          await user.save()
+        }
+      })
+
+      res.json('Usuarios actualizados!')
+    } else {
+      const user = await Users.findById(id)
+      if (!user) throw new Error('The user not exists')
+
+      if (user.isAdminVentas) {
+        user.isAdminVentas = false
+        await user.save()
+        return res.send('The user now is not admin')
+      } else {
+        user.isAdminVentas = true
+        await user.save()
+        return res.send('The user is now admin')
+      }
+    }
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
 router.post('/hideUser/:id', async (req, res) => {
   const { id } = req.params
   try {

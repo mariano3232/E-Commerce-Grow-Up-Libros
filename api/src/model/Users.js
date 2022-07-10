@@ -90,6 +90,14 @@ const userSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  isAdminComments: {
+    type: Boolean,
+    default: false,
+  },
+  isAdminVentas: {
+    type: Boolean,
+    default: false,
+  },
   readBooks: [
     {
       type: Schema.Types.ObjectId,
