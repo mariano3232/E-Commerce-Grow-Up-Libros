@@ -15,8 +15,8 @@ export default function SideBar() {
   const top5Rating = orderBooksByRating.slice(0, 5)
 
   const orderBooksBySold = allBooks.sort((a, b) => {
-    if (a.price > b.price) return -1
-    if (b.price > a.price) return 1
+    if (a.soldCount > b.soldCount) return -1
+    if (b.soldCount > a.soldCount) return 1
     return 0
   })
 
