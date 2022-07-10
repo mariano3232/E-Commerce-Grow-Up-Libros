@@ -106,4 +106,18 @@ router.post('/toggleComment', async (req, res) => {
   }
 })
 
+router.delete('/adminDeleteComments', async (req, res) => {
+  const commentIds = req.body
+  try {
+    if (commentIds) {
+      commentIds.forEach(async (id) => {
+        await Comments.findByIdAndDelete(id).populate(['users, books'])
+      })
+    }
+    return res.json('Usuarios actualizados!')
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
 module.exports = router
