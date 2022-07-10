@@ -14,7 +14,8 @@ import {
   postUser,
   getCarouselImages,
   getAllOrders,
-  getBooksAdmin
+  getBooksAdmin,
+  getComments
 } from './actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
@@ -106,6 +107,12 @@ function App() {
   useEffect(() => {
     dispatch(getAllOrders());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getComments());
+  }, [dispatch]);
+
+
 
   const usuario = useSelector((state) => state.userLogged);
 
