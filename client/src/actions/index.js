@@ -199,6 +199,42 @@ export function hideAuthor(id) {
   };
 }
 
+
+export function allHide() {
+ 
+    return {
+      type: "ALL_HIDE", 
+    };
+  };
+
+  export function allShow() {
+ 
+    return {
+      type: "ALL_SHOW", 
+    };
+  };
+
+  export function allAuthorShow() {
+ 
+    return {
+      type: "ALL_AUTHOR_SHOW", 
+    };
+  };
+
+
+  export function allAuthorHide() {
+ 
+    return {
+      type: "ALL_AUTHOR_HIDE", 
+    };
+  };
+
+
+
+
+
+
+
 //ADMIN BORRAR DATA
 export function deleteBook(id) {
   return async function (dispatch) {
@@ -291,6 +327,21 @@ export function setStockUp(payload) {
     );
     return dispatch({
       type: "SET_STOCK_UP",
+      
+    });
+  };
+}
+
+
+export function setStockChange(payload) {
+  return async function (dispatch) {
+    console.log('payStock:',payload)
+    const json = await axios.post(
+      "ruta",
+      payload
+    );
+    return dispatch({
+      type: "SET_STOCK_CHANGE",
       
     });
   };
@@ -402,6 +453,21 @@ export function getUserNameOrders(payload) {
     payload: payload,
   };
 }
+
+
+export function deleteUser(id) {
+  return async function (dispatch) {
+    const json = await axios.delete(
+      `https://ecommercehenryx.herokuapp.com/users/deleteUser/${id}`
+    );
+    return dispatch({
+      type: "DELETE_USER",
+    });
+  };
+}
+
+
+
 
 //COMPRAS
 
@@ -579,6 +645,30 @@ export function setToAdminMarketing(payload) {
   };
 }
 
+export function setToAdminComments(payload) {
+  return async function (dispatch) {
+    const json = await axios.post(
+      "https://ecommercehenryx.herokuapp.com/users/toggleAdminComments",
+      payload
+    );
+    return dispatch({
+      type: "SET_TO_ADMIN_COMMENTS",
+    });
+  };
+}
+
+export function setToAdminVentas(payload) {
+  return async function (dispatch) {
+    const json = await axios.post(
+      "https://ecommercehenryx.herokuapp.com/users/toggleAdminVentas",
+      payload
+    );
+    return dispatch({
+      type: "SET_TO_ADMIN_VENTAS",
+    });
+  };
+}
+
 //USUARIO: MODIFICAR ESTADO, PLAN Y NEWSLETTER  'https://ecommercehenryx.herokuapp.com/users/togglePremium'
 
 export function setUserBanned(payload) {
@@ -729,3 +819,22 @@ export function getPaymentStatus(payload) {
     payload: payload,
   };
 }
+
+export function deleteOrder(id) {
+  return async function (dispatch) {
+    const json = await axios.delete(
+      `https://ecommercehenryx.herokuapp.com/orders/deleteOrder/${id}`
+    );
+    return dispatch({
+      type: "DELETE_ORDER",
+    });
+  };
+}
+
+export function orderByDate(payload) {
+  return {
+    type: "ORDER_BY_DATE",
+    payload: payload,
+  };
+}
+

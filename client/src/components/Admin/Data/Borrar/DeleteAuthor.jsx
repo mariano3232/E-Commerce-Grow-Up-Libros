@@ -1,7 +1,7 @@
 import React from 'react'
 import style from '../../../../Styles/DeleteData.module.css'
 import styleButton from '../../../../Styles/Button.module.css'
-import { deleteAuthor, getAuthors , getAuthorsAdmin} from '../../../../actions'
+import { deleteAuthor, getAuthors , getAuthorsAdmin , allAuthorShow ,allAuthorHide} from '../../../../actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
@@ -53,7 +53,15 @@ export default function DeleteAuthor() {
     //navigate('/admin')
   }
 
-  
+   
+  const handleAHide = (e) => {
+    dispatch(allAuthorHide()) 
+  }
+
+  const handleAShow = (e) => {
+    dispatch(allAuthorShow()) 
+  }
+
 
   return (
     <div className={style.containerDelete}>
@@ -79,6 +87,12 @@ export default function DeleteAuthor() {
           <option value='desc'>Nombre Descendente</option>
         </select>
       </div>
+
+      <div>
+      <button className={style.btnAdmin} onClick={()=>handleAHide()}>Ocultos</button>
+      <button className={style.btnAdmin} onClick={()=>handleAShow()}>No Ocultos</button>
+      </div>
+
 
       <h1>Borrar Informacion</h1>
       <div className={style.containerItems}>

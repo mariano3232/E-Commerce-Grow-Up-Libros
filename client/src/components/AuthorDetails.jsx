@@ -178,7 +178,7 @@ const AuthorDetails = () => {
             </div>
           ))
         ) : (
-          'No Hay Libros de este Autor'
+          ''
           ))}
       </div>
     </div>

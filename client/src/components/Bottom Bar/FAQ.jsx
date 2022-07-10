@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { animateScroll as scroll } from 'react-scroll'
-import styles from '../Styles/FAQ.module.css'
+import styles from '../../Styles/FAQ.module.css'
 import {
   Accordion,
   AccordionDetails,

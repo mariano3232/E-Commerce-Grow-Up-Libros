@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { animateScroll as scroll } from 'react-scroll'
-import style from '../Styles/aboutUs.module.css'
+import style from '../../Styles/aboutUs.module.css'
 
 export default function AboutUs() {
   useEffect(() => {

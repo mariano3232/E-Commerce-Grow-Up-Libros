@@ -2,23 +2,21 @@ import React from 'react'
 import DataTable from 'react-data-table-component'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { useState } from 'react'
-import AdminSearchBarBooks from '../../SearchBars/AdminSearchBarBooks'
-import AdminRefreshBooks from '../../RefreshButtons/AdminRefreshBooks'
+import AdminSearchBarBooks from '../SearchBars/AdminSearchBarBooks'
+import AdminRefreshBooks from '../RefreshButtons/AdminRefreshBooks'
 import { Link } from 'react-router-dom'
 import { animateScroll as scroll, Element } from 'react-scroll'
-import StockTable2 from './StockTable2'
+import styledButton from '../../../Styles/Button.module.css'
 
-import styledButton from '../../../../Styles/Button.module.css'
-
-export default function StockTable() {
+export default function AdminVentas() {
   const books = useSelector((state) => state.booksAdmin)
 
   const tabla = books.map((book) => {
     return {
       title: book.title,
+      authorSurname: book.authors.surname,
       editorial: book.editorial,
-      stock: book.stock,
+      stock: book.soldCount,
     }
   })
 
@@ -32,14 +30,19 @@ export default function StockTable() {
       selector: 'title',
       sortable: true,
     },
+      {
+        name: 'Apellido',
+        selector: 'authorSurname',
+        sortable: true,
+      },
     {
       name: 'Editorial',
       selector: 'editorial',
       sortable: true,
     },
     {
-      name: 'Stock',
-      selector: 'stock',
+      name: 'Ventas',
+      selector: 'soldCount',
       sortable: true,
     },
   ]
@@ -53,24 +56,17 @@ export default function StockTable() {
 
   return (
     <div>
-       <Link to='/admin'>
-                  <button className={styledButton.button}>Panel Administrador</button>
-          </Link>
+        <Link to='/admin'>
+            <button className={styledButton.button}>Panel Administrador</button>
+        </Link>
 
-      <Link to='/stock'>
-        <button className={styledButton.button}>Formato Cartas</button>
-      </Link>
-
-      <Link to='/stocktable2'>
-        <button className={styledButton.button}>Tabla</button>
-      </Link>
       <div>
         <AdminSearchBarBooks />
         <AdminRefreshBooks />
         <DataTable
           columns={columnas}
           data={tabla}
-          title='Stock Libros'
+          title='Ventas'
           pagination
           paginationComponentOptions={paginacionOpciones}
           fixedHeader

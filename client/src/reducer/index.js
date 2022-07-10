@@ -336,8 +336,10 @@ function rootReducer(state = initialState, action) {
       };
 
       case "GET_USER_NAME_ORDERS":
-      const nameUOrderCopy = state.ordersCopy;
-      const nameUOrder = nameUOrderCopy.filter(
+        const ordersWithUsersReducer =state.ordersCopy.filter(order =>order.usuario.length >0 ) 
+
+      
+      const nameUOrder = ordersWithUsersReducer.filter(
         (order) =>
           order.usuario[0].email.toLowerCase().includes(action.payload.toLowerCase())
       );
@@ -554,7 +556,7 @@ function rootReducer(state = initialState, action) {
       const nameStatusOrderCopy = state.ordersCopy;
       const nameStatusOrder = nameStatusOrderCopy.filter(
         (order) =>
-          order.status.toLowerCase().includes(action.payload.toLowerCase())
+          order.status_order.toLowerCase().includes(action.payload.toLowerCase())
       );
 
       return {
@@ -567,13 +569,60 @@ function rootReducer(state = initialState, action) {
       const namePaymentStatusCopy = state.ordersCopy;
       const namePaymentStatus = namePaymentStatusCopy.filter(
         (order) =>
-          order.payment_status.toLowerCase().includes(action.payload.toLowerCase())
+          order.status.toLowerCase().includes(action.payload.toLowerCase())
       );
 
       return {
         ...state,
         orders: namePaymentStatus,
       };
+
+      case "ORDER_BY_DATE":
+        let ordersOrderByDate =
+          action.payload === "desc"
+            ? state.orders.sort((a, b) => {
+                if (a.fecha> b.fecha) return 1;
+                if (b.fecha > a.fecha) return -1;
+                return 0;
+              })
+            : state.orders.sort((a, b) => {
+                if (a.fecha > b.fecha) return -1;
+                if (b.fecha > a.fecha) return 1;
+                return 0;
+              });
+        return {
+          ...state,
+         orders: ordersOrderByDate,
+        };
+
+        case 'ALL_HIDE':
+          const booksAdminHide = state.booksAdminCopy.filter(book=>book.isHidden===true)
+          return {
+            ...state,
+           booksAdmin: booksAdminHide,
+          };
+
+          case 'ALL_SHOW':
+            const booksAdminShow = state.booksAdminCopy.filter(book=>book.isHidden===false)
+            return {
+              ...state,
+             booksAdmin: booksAdminShow,
+            };
+
+            case 'ALL_AUTHOR_HIDE':
+          const authorsAdminHide = state.authorsAdminCopy.filter(author=>author.isHidden===true)
+          return {
+            ...state,
+           authorsAdmin: authorsAdminHide,
+          };
+
+          case 'ALL_AUTHOR_SHOW':
+            const authorsAdminShow = state.authorsAdminCopy.filter(author=>author.isHidden===false)
+            return {
+              ...state,
+             authorsAdmin: authorsAdminShow,
+            };
+  
 
       
 

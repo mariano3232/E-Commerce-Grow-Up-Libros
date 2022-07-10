@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
-import { getBooksAdmin , setStockUp } from '../../../../actions'
+import { getBooksAdmin , setStockUp , setStockChange } from '../../../../actions'
 import { Link , NavLink} from 'react-router-dom'
-
 import { animateScroll as scroll, Element } from 'react-scroll'
-
-
+import { scroller } from 'react-scroll'
 import AdminSearchBarBooks from '../../SearchBars/AdminSearchBarBooks'
 import AdminRefreshBooks from '../../RefreshButtons/AdminRefreshBooks'
 import { gridColumnsSelector } from '@mui/x-data-grid'
@@ -18,128 +15,118 @@ import { gridColumnsSelector } from '@mui/x-data-grid'
 export default function StockTable2() {
 
   const dispatch = useDispatch()
-
   const books = useSelector((state) => state.booksAdmin)
-
-
   const [input , setInput] = useState([])
-  console.log('INPUT:',input)
+  const [stockC, setStockC]= useState([])
+  const [changed, setChanged] = useState([false])
 
 
 
-  function handleChange(e) {
+  function handleSetUp(e) {
     var orderId = {id:e.target.name,stock:e.target.value}
     if (!e.target.value) {
       let seleccion = input.filter((i) => i.id !== orderId.id)    
       setInput(seleccion)
     } else {
-      
-      // let orderCheck = books.find((book) => book._id === orderId.id)
       setInput([...input, orderId])
     }
   }
 
-  // function handleChange(e) {
-  //   var orderId = {id:e.target.name,stock:e.target.value}
-  //   if (!e.target.value) {
-  //     let seleccion = input.filter((input) => input.id !== orderId.id)    
-  //     setInput(seleccion)
-  //   } else {
-  //     let orderCheck = books.find((book) => book._id === orderId.id)
-  //     setInput([...input, orderCheck])
-  //   }
-  // }
-
-//   const handleChange = (e) => {
-//     // const AA = {id:e.target.name,stock:e.target.value}
-//     // console.log('AA:',AA)
-//     // const incl = input.length?.filter(i=>i.id !== AA.id)
-//     // console.log('incl:',incl)
-//     // if(incl.length===0){
-//     //   setInput(...input,incl)
-//     // }
-
-//   //  if(!input.map(i=>i.id.includes(AA.id))){
-//   //   setInput(...input,AA)
-//   //  }
-    
-//   //  const II = input.filter(i=>i.id!==e.target.name)
-//   //  setInput(II)
-//   //   {
-//     const a = input.filter(i=>i.id === e.target.name)
-//     if(a){
-//   setInput(
-//         [
-//         ...input,{
-//         id : e.target.name,
-//         stock : e.target.value}
-//         ]
-//     )
-//     }}
-  
-// // (...input,{id:e.target.name,stock:e.target.value})
 
 
-const handleSubmit = (e) => {
+
+const handleSubmitSetUp = (e) => {
     e.preventDefault();
     dispatch(setStockUp(input));
     setTimeout(function () {
       dispatch(getBooksAdmin())
-    }, 1000)
+    }, 500)
+
+    var inputs = document.getElementsByClassName('input')
+    console.log('II:',inputs)
+    for (let i = 0; i < inputs.length; i++) {
+      inputs[i].value = ''
+      console.log('tt:',inputs[i].value)
+    }
+    setChanged(!changed)
     setInput([]);
+}
+
+const handleKeyPressSetUp = (e) => {
+  if(e.charCode === 13){
+      e.preventDefault();
+      dispatch(setStockUp(input));
+      setTimeout(function () {
+        dispatch(getBooksAdmin())
+      }, 500)
+      var inputs = document.getElementsByClassName('input')
+      console.log('II:',inputs)
+      for (let i = 0; i < inputs.length; i++) {
+        inputs[i].value = ''
+        console.log('tt:',inputs[i].value)
+      }
+      setChanged(!changed)
+      setInput([]);
+   
+  }
+}
+
+function handleChange(e) {
+  var orderId = {id:e.target.name,stock:e.target.value}
+  if (!e.target.value) {
+    let seleccionChange = stockC.filter((i) => i.id !== orderId.id)    
+    setStockC(seleccionChange)
+  } else {
+    setStockC([...stockC, orderId])
+  }
+}
+
+const handleSubmitChange = (e) => {
+  e.preventDefault();
+  dispatch(setStockChange(stockC));
+  setTimeout(function () {
+    dispatch(getBooksAdmin())
+  }, 500)
+
+  var inputs = document.getElementsByClassName('input')
+  
+  for (let i = 0; i < inputs.length; i++) {
+    inputs[i].value = ''
+    
+  }
+  setChanged(!changed)
+  setStockC([]);
+}
+
+const handleKeyPressChange = (e) => {
+if(e.charCode === 13){
+    e.preventDefault();
+    dispatch(setStockChange(stockC));
+    setTimeout(function () {
+      dispatch(getBooksAdmin())
+    }, 500)
+    var inputs = document.getElementsByClassName('input')
+  
+    for (let i = 0; i < inputs.length; i++) {
+      inputs[i].value = ''
+      
+    }
+    setChanged(!changed)
+    setStockC([]);
+  }
 }
 
 
 
-  //---------------------CON CHECKBOX------------------
 
-  // const [seleccionados, setSeleccionados] = useState([])
-
-  // const [changed, setChanged] = useState(false)
-
-  // function selectUser(e) {
-  //   var userId = e.target.value
-  //   console.log('userId:', userId)
-
-  //   if (!e.target.checked) {
-  //     let seleccion = seleccionados.filter((usuario) => usuario._id !== userId)
-  //     console.log('seleccion:', seleccion)
-  //     setSeleccionados(seleccion)
-  //   } else {
-  //     let usuarioCheck = usuarios.find((usuario) => usuario._id === userId)
-  //     console.log('usuarioCheck:', usuarioCheck)
-
-  //     setSeleccionados([...seleccionados, usuarioCheck])
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   var checkeds = document.getElementsByClassName('checkbox')
-  //   for (let i = 0; i < checkeds.length; i++) {
-  //     checkeds[i].checked = false
-  //   }
-  //   setSeleccionados([])
-  //   dispatch(getUsers())
-  // }, [changed])
-
-  // useEffect(() => {}, [usuarios])
-  ///-----------------------------------cambiar la logica en el render
-
-  
-//   useEffect(() => {
-//     dispatch(getBooksAdmin())
-//   }, [])
-
-
-
-//   useEffect(() => {
-//     scroll.scrollToTop()
-//   }, [])
+  useEffect(() => {
+    scroll.scrollToTop()
+   }, [])
 
 
   //------------PAGINADO
   const [currentPage, setCurrentPage] = useState(1);
-  const [rows, setRows] = useState(10); //modificamos esto si queremos mostrar mas filas
+  const [rows, setRows] = useState(10); 
   const [pageNumberLimit, setPageNumberLimit] = useState(5);
   const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(5);
   const [minPageNumberLmit, setMinPageNumberLmit] = useState(0);
@@ -192,6 +179,23 @@ const handleSubmit = (e) => {
   return books.length?(
     <div >
       <h1>Stock</h1>
+
+      <NavLink to='/admin'>
+                  <button >Panel Administrador</button>
+          </NavLink>
+
+          <Link to='/stocktable'>
+            <button >DataGrid</button>
+          </Link>
+
+          <Link to='/stock'>
+            <button >Formato Cartas</button>
+          </Link>
+
+
+
+          <AdminRefreshBooks />
+          <AdminSearchBarBooks />
      
       <div>
 
@@ -199,24 +203,21 @@ const handleSubmit = (e) => {
          <div id='tableleft'>
                 <div >  
                     <h2 >Agregar Stock</h2>             
-                    {/* <SuperAdminProSet
-                        users={seleccionados}
-                        changed={changed}
-                        setChanged={setChanged}
-                        />            */}
-                 <button type='submit' onClick={(e) => handleSubmit(e)} >Agregar</button>
+                 <button type='submit' onClick={(e) => handleSubmitSetUp(e)} >Agregar</button>
+                </div>
+        </div> 
+
+        <div id='tableleft'>
+                <div >  
+                    <h2 >Modificar Stock</h2>             
+                 <button type='submit' onClick={(e) => handleSubmitChange(e)} >Modificar</button>
                 </div>
         </div> 
 
 
         <div >
 
-          <NavLink to='/admin'>
-                  <button >Volver</button>
-          </NavLink>
-
-          <AdminRefreshBooks />
-          <AdminSearchBarBooks />
+         
 
 
           <div class='container'>
@@ -227,6 +228,7 @@ const handleSubmit = (e) => {
                   <th>Editorial</th>
                   <th>Stock</th>
                   <th>Agregar Stock</th>
+                  <th>Modificar Stock</th>
                 </tr>
               </thead>
 
@@ -241,13 +243,27 @@ const handleSubmit = (e) => {
 
                     <td>
                         <input
+                        className='input'                      
                           type='text'
                           key={book._id}
-                          name={book._id}
-                         
-                          
-                         
+                          name={book._id}  
+                          defaultValue=''                     
+                          onChange={e=>handleSetUp(e)} 
+                          onKeyPress={(e) => handleKeyPressSetUp(e)}
+                        >
+                        </input>
+
+                    </td>
+
+                    <td>
+                        <input
+                         className='input'
+                          type='text'
+                          key={book._id}
+                          name={book._id}  
+                          defaultValue=''                     
                           onChange={e=>handleChange(e)} 
+                          onKeyPress={(e) => handleKeyPressChange(e)}
                         >
                         </input>
 
