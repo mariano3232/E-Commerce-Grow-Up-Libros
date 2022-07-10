@@ -18,6 +18,11 @@ export default function AdminComentarios(){
     const dispatch = useDispatch()
     const comments = useSelector(state=>state.commentsAdmin)
 
+    //  const allBooks = useSelector(state=>state.books)
+    //  console.log('allBooks:',allBooks)
+    //  const allBooksComments = allBooks.filter(book => book.comments)
+    //  console.log('all:',allBooksComments)
+
      
     // CHECKBOX------------------
   

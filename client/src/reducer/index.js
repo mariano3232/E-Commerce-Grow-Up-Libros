@@ -644,7 +644,7 @@ function rootReducer(state = initialState, action) {
         };
 
         case "ORDER_COMMENTS_BY_DATE":
-          const commentsWithUserReducer =state.commentsAdmin.filter(comment =>comment.usuario.length >0 )
+          const commentsWithUserReducer =state.commentsAdmin.filter(comment =>comment.users.length >0 )
           let commentsOrderByDate =
             action.payload === "desc"
               ? commentsWithUserReducer.sort((a, b) => {

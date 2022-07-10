@@ -48,8 +48,11 @@ export function getComments(){
 }
 
 export function deleteComment(payload){
+  console.log('ee:',payload)
   return async (dispatch)=>{
-    var json=await axios.delete('ruta',payload);
+    var json=await axios.delete
+    ('https://ecommercehenryx.herokuapp.com/comments/adminDeleteComments',
+    {data: payload});
 
     return dispatch({
       type:'DELETE_COMMENTS',
@@ -62,7 +65,7 @@ export function deleteComment(payload){
 export function hideComment(payload) {
   return async function (dispatch) {
     const json = await axios.post(
-      "https://ecommercehenryx.herokuapp.com/users/toggleAdminData",
+      "https://ecommercehenryx.herokuapp.com/comments/toggleComment",
       payload
     );
     return dispatch({
@@ -374,7 +377,7 @@ export function setStockChange(payload) {
   return async function (dispatch) {
     console.log('payStock:',payload)
     const json = await axios.post(
-      "ruta",
+      "https://ecommercehenryx.herokuapp.com/books/updateStock/stock",
       payload
     );
     return dispatch({

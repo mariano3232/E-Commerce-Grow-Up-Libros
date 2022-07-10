@@ -16,6 +16,7 @@ import AdminSearchBarStatusOrders from '../SearchBars/AdminSearchBarStatusOrders
 import AdminSearchBarPaymentStatus from '../SearchBars/AdminSearchBarPaymentStatus'
 import AdminRefreshOrders from '../RefreshButtons/AdminRefreshOrders'
 import { animateScroll as scroll, Element } from 'react-scroll'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -42,6 +43,8 @@ export default function AdminUserProfile() {
 
 
   const userL = useSelector(state => state.userLogged)
+
+  const navigate = useNavigate()
  
 
   useEffect(() => {
@@ -137,6 +140,7 @@ function handleDeleteUser(id) {
   navigate('/admin')
   dispatch(getUsers())
 }
+
 const [order, setOrder] = useState(true)
 
 
