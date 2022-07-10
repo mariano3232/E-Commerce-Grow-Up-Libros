@@ -1,72 +1,77 @@
-import React from 'react'
-import style from '../../../../Styles/DeleteData.module.css'
-import styledButton from '../../../../Styles/Button.module.css'
-import { deleteBook, deleteAuthor, getBooks , allHide , allShow } from '../../../../actions'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
-import { orderByNameAdminBooks } from '../../../../actions'
-import AdminRefreshBooks from '../../RefreshButtons/AdminRefreshBooks'
-import AdminSearchBarBooks from '../../SearchBars/AdminSearchBarBooks'
-import { showBook, hideBook, getBooksAdmin } from '../../../../actions'
-import { scroller } from 'react-scroll'
+import React from "react";
+import style from "../../../../Styles/DeleteData.module.css";
+import styledButton from "../../../../Styles/Button.module.css";
+import {
+  deleteBook,
+  deleteAuthor,
+  getBooks,
+  allHide,
+  allShow,
+} from "../../../../actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { orderByNameAdminBooks } from "../../../../actions";
+import AdminRefreshBooks from "../../RefreshButtons/AdminRefreshBooks";
+import AdminSearchBarBooks from "../../SearchBars/AdminSearchBarBooks";
+import { showBook, hideBook, getBooksAdmin } from "../../../../actions";
+import { scroller } from "react-scroll";
+import Alert from "../../../../functions/Alert";
 
 export default function DeleteBook() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const allBooks = useSelector((state) => state.booksAdmin)
+  const allBooks = useSelector((state) => state.booksAdmin);
 
   const booksAuthorNoHide = allBooks.filter(
     (book) => book.authors.isHidden === false
-  )
+  );
 
-  const [order, setOrder] = useState(true)
+  const [order, setOrder] = useState(true);
 
   function handleOrderByName(e) {
-    dispatch(orderByNameAdminBooks(e.target.value))
-    setOrder(`Ordenado ${e.target.value}`)
+    dispatch(orderByNameAdminBooks(e.target.value));
+    setOrder(`Ordenado ${e.target.value}`);
   }
 
   function handleDeleteBook(id) {
-    dispatch(deleteBook(id))
-    alert('Libro Eliminado')
+    dispatch(deleteBook(id));
+    Alert("Libro Eliminado", "success");
     setTimeout(function () {
-      dispatch(getBooksAdmin()), 500
-    })
+      dispatch(getBooksAdmin()), 500;
+    });
     //navigate('/admin')
   }
 
   function ShowBook(id) {
-    dispatch(showBook(id))
+    dispatch(showBook(id));
     setTimeout(function () {
-      dispatch(getBooksAdmin()), 500
-    })
+      dispatch(getBooksAdmin()), 500;
+    });
     //alert('Modificado')
     // navigate('/admin')
   }
 
   function HideBook(id) {
-    dispatch(hideBook(id))
+    dispatch(hideBook(id));
     setTimeout(function () {
-      dispatch(getBooksAdmin()), 500
-    })
+      dispatch(getBooksAdmin()), 500;
+    });
   }
 
- 
   const handleHide = (e) => {
-    dispatch(allHide()) 
-  }
+    dispatch(allHide());
+  };
 
   const handleShow = (e) => {
-    dispatch(allShow()) 
-  }
-
+    dispatch(allShow());
+  };
 
   return (
     <div className={style.containerDelete}>
-      <Link to='/delete'>
+      <Link to="/delete">
         <button className={style.btnAdmin}>↼ Back</button>
       </Link>
 
@@ -74,25 +79,27 @@ export default function DeleteBook() {
 
       <AdminRefreshBooks />
 
-      
-
       <div>
         <select
           className={style.selectOrder}
           onChange={(e) => handleOrderByName(e)}
-          defaultValue='default'
+          defaultValue="default"
         >
-          <option value='default' disabled>
+          <option value="default" disabled>
             Orden alfabético
           </option>
-          <option value='Asc'>Nombre Ascendente</option>
-          <option value='desc'>Nombre Descendente</option>
+          <option value="Asc">Nombre Ascendente</option>
+          <option value="desc">Nombre Descendente</option>
         </select>
       </div>
 
       <div>
-      <button className={style.btnAdmin} onClick={()=>handleHide()}>Ocultos</button>
-      <button className={style.btnAdmin} onClick={()=>handleShow()}>No Ocultos</button>
+        <button className={style.btnAdmin} onClick={() => handleHide()}>
+          Ocultos
+        </button>
+        <button className={style.btnAdmin} onClick={() => handleShow()}>
+          No Ocultos
+        </button>
       </div>
 
       <h1>Borrar Informacion</h1>
@@ -103,7 +110,7 @@ export default function DeleteBook() {
             ? booksAuthorNoHide.map((book) => {
                 return (
                   <li className={style.cardItem}>
-                    <img src={book.cover} alt='' />
+                    <img src={book.cover} alt="" />
                     <p>{book.title}</p>
                     <div className={style.containerButtons}>
                       {book.isHidden === true ? (
@@ -130,15 +137,15 @@ export default function DeleteBook() {
                       </button>
                     </div>
                   </li>
-                )
+                );
               })
-            : 'Resultado inexistente'}
+            : "Resultado inexistente"}
         </ul>
       </div>
 
-      <Link to='/delete'>
+      <Link to="/delete">
         <button className={style.btnAdmin}>↼ Back</button>
       </Link>
     </div>
-  )
+  );
 }

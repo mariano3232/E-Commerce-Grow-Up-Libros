@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { scroller } from 'react-scroll'
-import { BsCart } from 'react-icons/bs'
-import { BsHeart } from 'react-icons/bs'
-import axios from 'axios'
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { scroller } from "react-scroll";
+import { BsCart } from "react-icons/bs";
+import { BsHeart } from "react-icons/bs";
+import axios from "axios";
 
 import {
   getBookDetails,
@@ -18,79 +18,77 @@ import {
   purchaseOrder,
   getBookComments,
   clearComments,
-} from '../actions'
+} from "../actions";
 
-import { Link } from 'react-router-dom'
-import styles from '../Styles/bookDetails.module.css'
-import s from '../Styles/Home.module.css'
-import { animateScroll as scroll } from 'react-scroll'
-import { useAuth0 } from '@auth0/auth0-react'
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import Fav from './Fav'
+import { Link } from "react-router-dom";
+import styles from "../Styles/bookDetails.module.css";
+import s from "../Styles/Home.module.css";
+import { animateScroll as scroll } from "react-scroll";
+import { useAuth0 } from "@auth0/auth0-react";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import Fav from "./Fav";
+import Alert from "../functions/Alert";
 
 export default function BookDetails() {
-  
-  const id = useParams().id
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const productsAmount=useSelector((state)=>state.cartAmount)
-  const isLogged = useSelector(state => state.userLogged)
-  const products = useSelector(state => state.cart);
-  const { loginWithRedirect } = useAuth0()
-  const [render,setRender]=useState(0)
-  const usuario = useSelector((state) => state.userLogged)
+  const id = useParams().id;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const productsAmount = useSelector((state) => state.cartAmount);
+  const isLogged = useSelector((state) => state.userLogged);
+  const products = useSelector((state) => state.cart);
+  const { loginWithRedirect } = useAuth0();
+  const [render, setRender] = useState(0);
+  const usuario = useSelector((state) => state.userLogged);
 
-  const uBooksFav = useSelector(state=> state.userLoggedFavsBooksShowed)
+  const uBooksFav = useSelector((state) => state.userLoggedFavsBooksShowed);
   //console.log('uBooksFavs:',uBooksFav)
 
-  const bookAdded = uBooksFav.filter(e=>e._id===id)
- // console.log('bookAdded:,',bookAdded)
+  const bookAdded = uBooksFav.filter((e) => e._id === id);
+  // console.log('bookAdded:,',bookAdded)
 
- 
-
-  const [comment,setComment]=useState({
-    comment:'',
-    nickname:'',
-    title:'',
-  })
+  const [comment, setComment] = useState({
+    comment: "",
+    nickname: "",
+    title: "",
+  });
 
   useEffect(() => {
-    dispatch(getBookDetails(id))
-    dispatch(getBookComments(id))
-    scroll.scrollToTop()
-  }, [dispatch])
+    dispatch(getBookDetails(id));
+    dispatch(getBookComments(id));
+    scroll.scrollToTop();
+  }, [dispatch]);
 
   function handleClick(event, e) {
-    event.preventDefault()
-    dispatch(getBookGenre(e))
-    navigate('/home')
-    scroller.scrollTo('gaston')
+    event.preventDefault();
+    dispatch(getBookGenre(e));
+    navigate("/home");
+    scroller.scrollTo("gaston");
   }
   function handleAddToCart(e) {
-    e.preventDefault()
-    if (isLogged.length === 0) return loginWithRedirect()
-    dispatch(addToCart(id))
-    dispatch(updateAmount(productsAmount+1))
-    alert('Libro agregado al carrito!')
-    setTimeout(function(){
-      
-      dispatch(purchaseOrder({
-        email: isLogged[0].email, 
-        name: isLogged[0].name,
-        title: products[products.length-1].title,
-        unit_price: products[products.length-1].price, 
-        quantity: products[products.length-1].amount,
-      }))
-       
-    }, 200)
+    e.preventDefault();
+    if (isLogged.length === 0) return loginWithRedirect();
+    dispatch(addToCart(id));
+    dispatch(updateAmount(productsAmount + 1));
+    Alert("Libro agregado al carrito!", "success");
+    setTimeout(function () {
+      dispatch(
+        purchaseOrder({
+          email: isLogged[0].email,
+          name: isLogged[0].name,
+          title: products[products.length - 1].title,
+          unit_price: products[products.length - 1].price,
+          quantity: products[products.length - 1].amount,
+        })
+      );
+    }, 200);
   }
 
   useEffect(() => {
     return () => {
-      dispatch(clearPageBookDetails())
-      dispatch (clearComments())
-    }
-  }, [dispatch])
+      dispatch(clearPageBookDetails());
+      dispatch(clearComments());
+    };
+  }, [dispatch]);
 
   /* const handleClickFav = () => {
    
@@ -102,75 +100,85 @@ export default function BookDetails() {
     dispatch(getUsers())
   } */
 
-  function handleChange(e){
+  function handleChange(e) {
     e.preventDefault();
     setComment({
-      comment:e.target.value,
-      nickname:usuario[0].nickname,
-      title:book.title,
-    })
-    console.log('comment :',comment)
+      comment: e.target.value,
+      nickname: usuario[0].nickname,
+      title: book.title,
+    });
+    console.log("comment :", comment);
   }
-  function handlePost(e){
+  function handlePost(e) {
     e.preventDefault();
-    console.log('comment :',comment)
-    axios.post('https://ecommercehenryx.herokuapp.com/comments/addComment',comment).then((response)=>{
-        console.log('axios response',response)
-    }).then(()=>{
-      setTimeout(function () {
-        dispatch(getBookComments(id)),500
+    console.log("comment :", comment);
+    axios
+      .post(
+        "https://ecommercehenryx.herokuapp.com/comments/addComment",
+        comment
+      )
+      .then((response) => {
+        console.log("axios response", response);
       })
-    })
+      .then(() => {
+        setTimeout(function () {
+          dispatch(getBookComments(id)), 500;
+        });
+      });
   }
 
-  function handleDelete(e){
+  function handleDelete(e) {
     e.preventDefault();
-    axios.delete('https://ecommercehenryx.herokuapp.com/comments/deleteComment/'+e.target.value).then(()=>{
-      setTimeout(function () {
-        dispatch(getBookComments(id)),500
-      })
-    })
+    axios
+      .delete(
+        "https://ecommercehenryx.herokuapp.com/comments/deleteComment/" +
+          e.target.value
+      )
+      .then(() => {
+        setTimeout(function () {
+          dispatch(getBookComments(id)), 500;
+        });
+      });
   }
 
-  const book = useSelector((state) => state.bookDetails)
-  const comments=useSelector((state)=>state.comments)
-  console.log('comments:',comments)
-  const author = book.authors
-
+  const book = useSelector((state) => state.bookDetails);
+  const comments = useSelector((state) => state.comments);
+  console.log("comments:", comments);
+  const author = book.authors;
 
   return (
     <div className={styles.container}>
-      <Link to='/cart'>
+      <Link to="/cart">
         <div className={styles.containerCart}>
           <BsCart className={styles.cart} />
           <h4 className={styles.productsAmount}>{productsAmount}</h4>
         </div>
       </Link>
 
-      <Link to='/user'>
+      <Link to="/user">
         <div className={s.containerHeart}>
           <BsHeart className={s.heart} />
-          {
-            isLogged.length ?
+          {isLogged.length ? (
             <h4 className={s.productsAmount}>{uBooksFav.length}</h4>
-            : <h4 className={s.productsAmount}>{0}</h4>
-          }
+          ) : (
+            <h4 className={s.productsAmount}>{0}</h4>
+          )}
         </div>
       </Link>
 
-      <img src={book.cover} alt='Not Found ):' className={styles.img} />
+      <img src={book.cover} alt="Not Found ):" className={styles.img} />
 
       <div className={styles.info}>
         <h1 className={styles.title}>{book.title}</h1>
 
         {author ? (
-          <Link to={'/author/' + author._id}>
+          <Link to={"/author/" + author._id}>
             <h2 className={styles.title}>
-              {author?.name} {author?.surname}{' '}
+              {author?.name} {author?.surname}{" "}
             </h2>
           </Link>
         ) : (
-          'N'
+          "N"
         )}
 
         <span>Generos :</span>
@@ -183,7 +191,7 @@ export default function BookDetails() {
             >
               {e.genre}
             </button>
-          )
+          );
         })}
 
         <p>{book.review}</p>
@@ -194,30 +202,30 @@ export default function BookDetails() {
         <h4>
           Stock:
           {book.stock > 3
-            ? 'Disponible'
+            ? "Disponible"
             : book.stock === 3
-            ? '¡Quedan 3!'
+            ? "¡Quedan 3!"
             : book.stock === 2
-            ? '¡Quedan 2!'
+            ? "¡Quedan 2!"
             : book.stock === 1
-            ? '¡Ultimo disponible!'
-            : 'No hay Stock'}
+            ? "¡Ultimo disponible!"
+            : "No hay Stock"}
         </h4>
-        {
-          book.stock > 1 ?
+        {book.stock > 1 ? (
           <AddShoppingCartIcon
-            cursor='pointer'
+            cursor="pointer"
             color="action"
-            fontSize="large" 
+            fontSize="large"
             onClick={(e) => handleAddToCart(e)}
           />
-          
-          : ''
-        }
+        ) : (
+          ""
+        )}
 
-        <Fav book={book._id} painted={`${bookAdded.includes(book._id)
-                          ?'secondary'
-                        :'disabled'}`} />
+        <Fav
+          book={book._id}
+          painted={`${bookAdded.includes(book._id) ? "secondary" : "disabled"}`}
+        />
 
         {/* <button className={styles.button} onClick={() => handleClickFav()}>
           Añadir a lista de desesados
@@ -234,44 +242,50 @@ export default function BookDetails() {
       <div className={styles.space} />
 
       <div className={styles.postComments}>
-        {
-          (isLogged.length === 0)?<button className={styles.login} onClick={()=>loginWithRedirect()}>Ingresa a tu cuenta para comentar</button>:
+        {isLogged.length === 0 ? (
+          <button className={styles.login} onClick={() => loginWithRedirect()}>
+            Ingresa a tu cuenta para comentar
+          </button>
+        ) : (
           <textarea
-          cols='80'
-          rows='4'
-          placeholder='Comenta!'
-          className={styles.textArea}
-          value={comment.comment}
-          onChange={e=>handleChange(e)}
-        ></textarea>
-        }
+            cols="80"
+            rows="4"
+            placeholder="Comenta!"
+            className={styles.textArea}
+            value={comment.comment}
+            onChange={(e) => handleChange(e)}
+          ></textarea>
+        )}
 
-        {
-          (isLogged.length === 0)?null:
-          <button onClick={e=>handlePost(e)} className={styles.postButton} >{'>'}</button>
-        }
+        {isLogged.length === 0 ? null : (
+          <button onClick={(e) => handlePost(e)} className={styles.postButton}>
+            {">"}
+          </button>
+        )}
       </div>
-        {
-          comments.map(e=>{
-            if (e.users.length>0){
-              return(
-                <div className={styles.commentContainer}>
-                {
-                  (e.users[0]._id===usuario[0]?._id)?<button value={e._id} onClick={e=>handleDelete(e)} className={styles.delete}>x</button>:null
-                }
-                <span className={styles.nickname}>{e.users[0].nickname}</span>
-                <span>{e.createdAt?.slice(0,10)}</span>
-                <p>{e.comment}</p>
-                </div>
-              )
-            }
-          })
+      {comments.map((e) => {
+        if (e.users.length > 0) {
+          return (
+            <div className={styles.commentContainer}>
+              {e.users[0]._id === usuario[0]?._id ? (
+                <button
+                  value={e._id}
+                  onClick={(e) => handleDelete(e)}
+                  className={styles.delete}
+                >
+                  x
+                </button>
+              ) : null}
+              <span className={styles.nickname}>{e.users[0].nickname}</span>
+              <span>{e.createdAt?.slice(0, 10)}</span>
+              <p>{e.comment}</p>
+            </div>
+          );
         }
+      })}
     </div>
-  )
+  );
 }
-
-
 
 /* 
 <button className={styles.button} onClick={(e) => handleAddToCart(e)}>
