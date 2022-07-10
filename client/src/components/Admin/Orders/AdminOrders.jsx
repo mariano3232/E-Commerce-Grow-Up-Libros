@@ -131,7 +131,13 @@ export default function AdminOrders(props) {
 
   return orders.length > 0 ? (
     <div className={styles.containerAll}>
+
+      <Link to='/admin'>
+            <button >Panel Administrador</button>
+      </Link>
+      
       <h1>Control de Ordenes</h1>
+     
       <div>
         <div id='tableleft'></div>
         <div className={styles.containerFlex}>

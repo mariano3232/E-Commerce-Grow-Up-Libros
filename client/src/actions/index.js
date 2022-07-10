@@ -35,6 +35,43 @@ export function getBookComments(id){
     })
   }
 }
+
+export function getComments(){
+  return async (dispatch)=>{
+    var json=await axios('https://ecommercehenryx.herokuapp.com/comments');
+
+    return dispatch({
+      type:'GET_COMMENTS',
+      payload:json.data
+    })
+  }
+}
+
+export function deleteComment(payload){
+  return async (dispatch)=>{
+    var json=await axios.delete('ruta',payload);
+
+    return dispatch({
+      type:'DELETE_COMMENTS',
+   
+    })
+  }
+}
+
+
+export function hideComment(payload) {
+  return async function (dispatch) {
+    const json = await axios.post(
+      "https://ecommercehenryx.herokuapp.com/users/toggleAdminData",
+      payload
+    );
+    return dispatch({
+      type: 'HIDE_COMMENTS',
+    });
+  };
+}
+
+
 export function clearComments(){
   return (dispatch)=>{
     
@@ -446,13 +483,40 @@ export function getUserName(payload) {
   };
 }
 
+
+
 export function getUserNameOrders(payload) {
-  console.log('PP:',payload)
   return {
     type: "GET_USER_NAME_ORDERS",
     payload: payload,
   };
 }
+
+export function getUserNameComment(payload) {
+
+  return {
+    type: "GET_USER_NAME_COMMENT",
+    payload: payload,
+  };
+}
+
+
+
+export function getBookNameComment(payload) {
+  return {
+    type: "GET_BOOK_NAME_COMMENT",
+    payload: payload,
+  };
+}
+
+
+export function getWordComment(payload) {
+  return {
+    type: "GET_WORD_COMMENT",
+    payload: payload,
+  };
+}
+
 
 
 export function deleteUser(id) {
@@ -838,3 +902,11 @@ export function orderByDate(payload) {
   };
 }
 
+
+
+export function orderCommentsByDate(payload) {
+  return {
+    type: "ORDER_COMMENTS_BY_DATE",
+    payload: payload,
+  };
+}
