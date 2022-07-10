@@ -199,6 +199,9 @@ export function hideAuthor(id) {
   };
 }
 
+
+
+
 //ADMIN BORRAR DATA
 export function deleteBook(id) {
   return async function (dispatch) {
@@ -402,6 +405,21 @@ export function getUserNameOrders(payload) {
     payload: payload,
   };
 }
+
+
+export function deleteUser(id) {
+  return async function (dispatch) {
+    const json = await axios.delete(
+      `https://ecommercehenryx.herokuapp.com/users/deleteUser/${id}`
+    );
+    return dispatch({
+      type: "DELETE_USER",
+    });
+  };
+}
+
+
+
 
 //COMPRAS
 
@@ -729,3 +747,15 @@ export function getPaymentStatus(payload) {
     payload: payload,
   };
 }
+
+export function deleteOrder(id) {
+  return async function (dispatch) {
+    const json = await axios.delete(
+      `https://ecommercehenryx.herokuapp.com/orders/deleteOrder/${id}`
+    );
+    return dispatch({
+      type: "DELETE_ORDER",
+    });
+  };
+}
+

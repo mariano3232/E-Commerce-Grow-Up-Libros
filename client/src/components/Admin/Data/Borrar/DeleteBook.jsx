@@ -56,6 +56,21 @@ export default function DeleteBook() {
     //  navigate('/admin')
   }
 
+  function showHided(){
+    dispatch(allHide())
+    setTimeout(function () {
+      dispatch(getBooksAdmin()), 500
+    })
+  }
+
+  
+  function showShowed(){
+    dispatch(allShow())
+    setTimeout(function () {
+      dispatch(getBooksAdmin()), 500
+    })
+  }
+
   return (
     <div className={style.containerDelete}>
       <Link to='/delete'>
@@ -78,6 +93,11 @@ export default function DeleteBook() {
           <option value='Asc'>Nombre Ascendente</option>
           <option value='desc'>Nombre Descendente</option>
         </select>
+      </div>
+
+      <div>
+        <button onClick={()=>showHided()}>Libros Ocultos</button>
+        <button onClick={()=>showShowed()}>Libros Disponibles</button>
       </div>
 
       <h1>Borrar Informacion</h1>

@@ -554,7 +554,7 @@ function rootReducer(state = initialState, action) {
       const nameStatusOrderCopy = state.ordersCopy;
       const nameStatusOrder = nameStatusOrderCopy.filter(
         (order) =>
-          order.status.toLowerCase().includes(action.payload.toLowerCase())
+          order.status_order.toLowerCase().includes(action.payload.toLowerCase())
       );
 
       return {
@@ -567,7 +567,7 @@ function rootReducer(state = initialState, action) {
       const namePaymentStatusCopy = state.ordersCopy;
       const namePaymentStatus = namePaymentStatusCopy.filter(
         (order) =>
-          order.payment_status.toLowerCase().includes(action.payload.toLowerCase())
+          order.status.toLowerCase().includes(action.payload.toLowerCase())
       );
 
       return {
