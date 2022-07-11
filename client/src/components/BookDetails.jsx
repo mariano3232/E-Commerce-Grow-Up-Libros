@@ -18,6 +18,7 @@ import {
   purchaseOrder,
   getBookComments,
   clearComments,
+  changeGenreTitle,
 } from '../actions'
 
 import { Link } from 'react-router-dom'
@@ -63,6 +64,7 @@ export default function BookDetails() {
   function handleClick(event, e) {
     event.preventDefault()
     dispatch(getBookGenre(e))
+    dispatch(changeGenreTitle(e))
     navigate('/home')
     scroller.scrollTo('gaston')
   }
