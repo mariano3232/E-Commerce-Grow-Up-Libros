@@ -21,6 +21,7 @@ import {
 import Profile from './Profile'
 import { useAuth0 } from '@auth0/auth0-react'
 import { formControlClasses } from '@mui/material'
+import GenerosTitle from './GenerosTitle'
 //import { unstable_renderSubtreeIntoContainer } from 'react-dom'
 
 export default function Home() {
@@ -31,17 +32,18 @@ export default function Home() {
   const { user, isAuthenticated } = useAuth0()
 
   const allBooks = useSelector((state) => state.books)
+  console.log('allBooks:',allBooks)
 
   const usuario = useSelector((state) => state.userLogged)
-
-  const userFavBooksShowed = useSelector(
-    (state) => state.userLoggedFavsBooksShowed
-  )
-
-  // const usuarioAllFavBooks = usuario.favouritesBooks
+  
+  const userFavBooksShowed = useSelector(state=>state.userLoggedFavsBooksShowed)
+ 
+  const [order, setOrder] = useState(true)
+  
+ // const usuarioAllFavBooks = usuario.favouritesBooks
 
   //const usuarioFavBookNotHidden = usuarioAllFavBooks.filter(books=>books.isHidden===false)
-
+ 
   // useEffect(() => {
   //   dispatch(getBooks())
   //   console.log('HOOOOOME');
@@ -50,26 +52,27 @@ export default function Home() {
   //useEffect(()=>{dispatch(setToSuperAdmin(['62c452c8f0db62a9421601fb']))},[])
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [bookPerPage] = useState(8)
-  var lastBook = currentPage * bookPerPage
-  var firstBook = lastBook - bookPerPage
-  var currentBooks = allBooks.slice(firstBook, lastBook)
+  const [bookPerPage , setbookPerPage] = useState(15)
+  const lastBook = currentPage * bookPerPage;
+  const firstBook = lastBook - bookPerPage;
+  const currentBooks = allBooks.slice(firstBook, lastBook)
+  console.log('current:',currentBooks)
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
 
-  useEffect(() => {
-    scroll.scrollToTop()
-  }, [])
+//   function returnToFirstPage() {
+//     setCurrentPage(1)
+// }
 
-  useEffect(() => {
-    setCurrentPage(1)
-    lastBook = currentPage * bookPerPage
-    firstBook = lastBook - bookPerPage
-    currentBooks = allBooks.slice(firstBook, lastBook)
-  }, [allBooks])
+  // useEffect(() => {
+  //   setCurrentPage(1)
+  //   // lastBook = currentPage * bookPerPage
+  //   // firstBook = lastBook - bookPerPage
+  //   // currentBooks = allBooks.slice(firstBook, lastBook)
+  // }, [allBooks])
 
-  const [order, setOrder] = useState(true)
+
 
   function handleOrderByName(e) {
     //console.log('HHHHH')
@@ -100,6 +103,11 @@ export default function Home() {
       }
     }, [user])
   }
+
+  useEffect(() => {
+    scroll.scrollToTop()
+  }, [])
+
 
   return (
     <div className={styles.home}>
@@ -185,6 +193,7 @@ export default function Home() {
                     </select>
                   </p>
                 </div>
+              
                 <Element name='gaston'>
                   <Paginado
                     bookPerPage={bookPerPage}
@@ -192,6 +201,7 @@ export default function Home() {
                     paginado={paginado}
                     page={currentPage}
                   />
+                  <GenerosTitle/>
                 </Element>
               </div>
               <div className={styles.card}>

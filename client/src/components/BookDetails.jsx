@@ -18,6 +18,7 @@ import {
   purchaseOrder,
   getBookComments,
   clearComments,
+  changeGenreTitle,
 } from '../actions'
 
 import { Link } from 'react-router-dom'
@@ -63,6 +64,7 @@ export default function BookDetails() {
   function handleClick(event, e) {
     event.preventDefault()
     dispatch(getBookGenre(e))
+    dispatch(changeGenreTitle(e))
     navigate('/home')
     scroller.scrollTo('gaston')
   }
@@ -174,19 +176,19 @@ export default function BookDetails() {
           'N'
         )}
         <div className={styles.buy}>
-        <span className={styles.price}>${book.price}</span>
-        <h3>
-          Stock:
+        <h3 className={styles.price}>${book.price}</h3>
+        <h4>
+          Stock :
           {book.stock > 3
-            ? 'Disponible'
+            ? ' Disponible'
             : book.stock === 3
-            ? '¡Quedan 3!'
+            ? ' ¡Quedan 3!'
             : book.stock === 2
-            ? '¡Quedan 2!'
+            ? ' ¡Quedan 2!'
             : book.stock === 1
-            ? '¡Ultimo disponible!'
-            : 'No hay Stock'}
-        </h3>
+            ? ' ¡Ultimo disponible!'
+            : ' No hay Stock'}
+        </h4>
         {
           book.stock > 0 ?
           <div className={styles.iconBackground} onClick={(e) => handleAddToCart(e)}>
@@ -233,6 +235,7 @@ export default function BookDetails() {
         <h2 className={styles.title}>Reseña del libro</h2>
         <p >{book.review}</p>
         </div>
+        
         
         <div className={styles.separador}/>
 
