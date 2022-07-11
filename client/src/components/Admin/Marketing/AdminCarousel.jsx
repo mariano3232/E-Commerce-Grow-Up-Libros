@@ -30,7 +30,6 @@ export default function AdminCarousel() {
     formData.append('file', image[i])
     formData.append('upload_preset', 'preset_library')
     Alert("Imagen añadida al carrusel!", "success");
->>>>>>> DEVELOPMENT
 
     axios
       .post("https://api.cloudinary.com/v1_1/dflpxjove/image/upload", formData)
