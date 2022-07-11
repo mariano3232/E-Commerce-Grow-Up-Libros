@@ -195,16 +195,10 @@ router.post('/addBook', async function (req, res) {
 
 router.post('/update/:id', async (req, res) => {
   const { id } = req.params
-  const data = req.body
-
   try {
-    await Books.findByIdAndUpdate(id, data, () => {
-      if (!data) {
-        throw new Error('Failed to update books')
-      } else {
-        return res.status(200).send('Success update')
-      }
-    })
+    if (Object.keys(req.body).length === 0) throw new Error('Send propertys')
+    const book = await Books.findByIdAndUpdate(id, req.body, { new: 1 })
+    res.json(book)
   } catch (err) {
     res.status(404).send(err.message)
   }
@@ -293,16 +287,84 @@ router.post('/showBook/:id', async (req, res) => {
   }
 })
 
-router.post('/updateStock/:id/:stock', async (req, res) => {
-  const { stock, id } = req.params
+router.post('/updateStock/stockUp', async (req, res) => {
+  const booksUpdate = req.body
+  console.log('DATA', booksUpdate)
   try {
-    const book = await Books.findById(id)
-    if (!book) throw new Error('Book no encontrado')
-    book.stock = stock
-    book.save()
-    res.send('Stock actualizado')
+    const idsSinRepetirse = []
+
+    booksUpdate.forEach((book) => {
+      if (!idsSinRepetirse.includes(book.id)) idsSinRepetirse.push(book.id)
+    })
+
+    console.log('IDS SIN REPETIRSE', idsSinRepetirse)
+
+    const stockSinRepetirse = []
+
+    idsSinRepetirse.forEach((id) => {
+      const array = booksUpdate.filter((e) => e.id === id)
+      stockSinRepetirse.push(array[array.length - 1])
+    })
+
+    console.log('STOCK SIN REPETIRSE', stockSinRepetirse)
+
+    stockSinRepetirse.forEach(async (data) => {
+      const stock = Number(data.stock)
+      const id = data.id
+
+      const book = await Books.findById(id)
+      if (!book) throw new Error('libro no encontrado')
+      console.log(book)
+
+      book.stock = book.stock + stock
+
+      await book.save()
+    })
+
+    res.send('Stock agregado')
   } catch (error) {
-    res.status(404).send(error.message)
+    res.send(error.message)
   }
 })
+
+router.post('/updateStock/stock', async (req, res) => {
+  const booksUpdate = req.body
+  console.log('DATA', booksUpdate)
+  try {
+    const idsSinRepetirse = []
+
+    booksUpdate.forEach((book) => {
+      if (!idsSinRepetirse.includes(book.id)) idsSinRepetirse.push(book.id)
+    })
+
+    console.log('IDS SIN REPETIRSE', idsSinRepetirse)
+
+    const stockSinRepetirse = []
+
+    idsSinRepetirse.forEach((id) => {
+      const array = booksUpdate.filter((e) => e.id === id)
+      stockSinRepetirse.push(array[array.length - 1])
+    })
+
+    console.log('STOCK SIN REPETIRSE', stockSinRepetirse)
+
+    stockSinRepetirse.forEach(async (data) => {
+      const stock = Number(data.stock)
+      const id = data.id
+
+      const book = await Books.findById(id)
+      if (!book) throw new Error('libro no encontrado')
+      console.log(book)
+
+      book.stock = stock
+
+      await book.save()
+    })
+
+    res.send('Stock agregado')
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
 module.exports = router
