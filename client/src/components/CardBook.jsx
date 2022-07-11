@@ -20,9 +20,6 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
   const myFavsBooks = useSelector(state=>state.userLoggedFavsBooksShowed)
   const myFavsBooksIds = myFavsBooks.map(book=>book._id)
 
-  
-
-  const myFavsBooksIds = myFavsBooks.map((book) => book._id);
 
   const { loginWithRedirect } = useAuth0();
 
