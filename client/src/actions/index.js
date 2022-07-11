@@ -35,6 +35,46 @@ export function getBookComments(id){
     })
   }
 }
+
+export function getComments(){
+  return async (dispatch)=>{
+    var json=await axios('https://ecommercehenryx.herokuapp.com/comments');
+
+    return dispatch({
+      type:'GET_COMMENTS',
+      payload:json.data
+    })
+  }
+}
+
+export function deleteComment(payload){
+  console.log('ee:',payload)
+  return async (dispatch)=>{
+    var json=await axios.delete
+    ('https://ecommercehenryx.herokuapp.com/comments/adminDeleteComments',
+    {data: payload});
+
+    return dispatch({
+      type:'DELETE_COMMENTS',
+   
+    })
+  }
+}
+
+
+export function hideComment(payload) {
+  return async function (dispatch) {
+    const json = await axios.post(
+      "https://ecommercehenryx.herokuapp.com/comments/toggleComment",
+      payload
+    );
+    return dispatch({
+      type: 'HIDE_COMMENTS',
+    });
+  };
+}
+
+
 export function clearComments(){
   return (dispatch)=>{
     
@@ -337,7 +377,7 @@ export function setStockChange(payload) {
   return async function (dispatch) {
     console.log('payStock:',payload)
     const json = await axios.post(
-      "ruta",
+      "https://ecommercehenryx.herokuapp.com/books/updateStock/stock",
       payload
     );
     return dispatch({
@@ -446,13 +486,40 @@ export function getUserName(payload) {
   };
 }
 
+
+
 export function getUserNameOrders(payload) {
-  console.log('PP:',payload)
   return {
     type: "GET_USER_NAME_ORDERS",
     payload: payload,
   };
 }
+
+export function getUserNameComment(payload) {
+
+  return {
+    type: "GET_USER_NAME_COMMENT",
+    payload: payload,
+  };
+}
+
+
+
+export function getBookNameComment(payload) {
+  return {
+    type: "GET_BOOK_NAME_COMMENT",
+    payload: payload,
+  };
+}
+
+
+export function getWordComment(payload) {
+  return {
+    type: "GET_WORD_COMMENT",
+    payload: payload,
+  };
+}
+
 
 
 export function deleteUser(id) {
@@ -838,3 +905,11 @@ export function orderByDate(payload) {
   };
 }
 
+
+
+export function orderCommentsByDate(payload) {
+  return {
+    type: "ORDER_COMMENTS_BY_DATE",
+    payload: payload,
+  };
+}

@@ -6,7 +6,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Fav = ({ book , painted }) => {
 
-  console.log('painted<:',painted)
+  
 
   const allUsers = useSelector((state) => state.users)
   
