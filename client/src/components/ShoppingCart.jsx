@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector,useDispatch } from "react-redux";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import styles from '../Styles/shoppingCart.module.css'
 import { addToCart, updateAmount, addToCartPurchaseOrder, clearCart, removeAllFromCart, removeAllFromCartPurchaseOrder, removeOneFromCart, removeOneFromCartPurchaseOrder } from "../actions";
 import axios from "axios";
@@ -14,6 +14,9 @@ export default function ShoopingCart(){
     const render=useSelector(state=>state.render);
     const isLogged = useSelector(state => state.userLogged);
     const order = useSelector(state => state.purchaseOrder);
+    const allUsers = useSelector((state) => state.users);
+    const userId = allUsers.filter((u) => u._id === isLogged[0]._id);
+    const navigate = useNavigate();
     
     let price=0;
     let productsAmount=0;
@@ -49,7 +52,10 @@ export default function ShoopingCart(){
     }
 
     const handleClick = async() => {
-        
+        if(!userId[0].address || !userId[0].dni || !userId[0].postal || !userId[0].ciudad ) {
+            navigate('/user');
+            return alert('Antes de comprar favor completar todos los campos de tus datos personales');
+        }
         const json = await axios.post('https://ecommercehenryx.herokuapp.com/mercadopago/orden', order);
         location.assign(json.data.init_point);
     }

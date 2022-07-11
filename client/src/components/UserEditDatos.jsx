@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from '../Styles/UserDatos.module.css';
 import { getUsers, postUserData, setUserNews, setUserPlan } from '../actions';
 import { useNavigate } from 'react-router-dom';
-//import axios from 'axios';
 
 const UserEditDatos = () => {
 
@@ -14,7 +13,6 @@ const UserEditDatos = () => {
     const userId = allUsers.filter((u) => u._id === logged[0]._id);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [state, setState] = useState('');
     const [errors,setErrors]=useState({});
     const [input, setInput] = useState({
         name: '',
@@ -27,6 +25,21 @@ const UserEditDatos = () => {
         ciudad: '',
         postal: '',
     });
+
+    useEffect(() => {
+        setInput({
+          ...input,
+          name: userId[0].name,
+          surname: userId[0].surname,
+          birthday: userId[0].birthday,
+          country: userId[0].country,
+          dni: userId[0].dni,
+          phone: userId[0].phone,
+          address: userId[0].address,
+          ciudad: userId[0].ciudad,
+          postal: userId[0].postal,
+        })
+      }, [])
 
     const validate = (input) => {
         const errors = {};
@@ -74,7 +87,7 @@ const UserEditDatos = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (Object.values(errors).length > 0){
-            return alert(Object.values(errors))
+            return alert(Object.values(errors));
         }
         else {
             const id = logged[0]._id;
@@ -82,34 +95,9 @@ const UserEditDatos = () => {
             alert('Datos personales actualizado');
             setTimeout(function(){
                 dispatch(getUsers()), 100
-            })
+            });
         }
     }
-
-    /* const handlePlanDelete = () => {
-        const id = [logged[0]._id];
-        dispatch(setUserPlan(id));
-        alert('Desuscripción a "Soy Premium" con éxito');
-        setTimeout(function(){
-            dispatch(getUsers()), 100
-        });
-    }
-
-    const handleNewsDelete = () => {
-        const id = [logged[0]._id];
-        dispatch(setUserNews(id));
-        alert('Desuscripción a nuestro Newsletter con éxito');
-        setTimeout(function(){
-            dispatch(getUsers()), 100
-        });
-    }
-
-    const handleDeleteUser = async () => {
-        console.log('hola');
-        const id = [logged[0]._id];
-        const json = await axios.get('https://ecommercehenryx.herokuapp.com/users/deleteUser/', id);
-        navigate('/home');
-    } */
 
     return (
         <div className={styles.containerAll}>
@@ -184,12 +172,7 @@ const UserEditDatos = () => {
                                 })
                             }
                         </select>
-                        {/* <input
-                        type='text'
-                        name='country'
-                        onChange={(e) => handleChange(e)}
-                        value={input.country}
-                        /> */}
+                        
                     </div>
 
                     <div className={styles.containerInput}>
@@ -274,52 +257,6 @@ const UserEditDatos = () => {
                 </button>
 
             </form>
-
-            {/* <div className={styles.containerUserPlan}>
-                <h3>Plan</h3>
-
-                <div className={styles.userPlan}>
-                    <p>Usuario: {userId[0].nickname} </p>
-                    <p>NewsLetter: {userId[0].isSubscribeNewsLetter ? 'Si' : 'No'} </p>
-                    <p>Premium: {userId[0].isPremiun ? 'Si' : 'No'} </p>
-                </div>
-
-                <div className={styles.buttonUserContainer}>
-                    {userId[0].isSubscribeNewsLetter === false ? (
-                        <button className={styles.button} disabled>
-                            Baja al NewsLetter
-                        </button>
-                    ) : (
-                        <button className={styles.button} onClick={handleNewsDelete}>
-                            Baja al NewsLetter
-                        </button>
-                    )}
-
-                    {userId[0].isPremiun === false ? (
-                        <button className={styles.button} disabled>
-                        Baja a Soy Premium
-                        </button>
-                    ) : (
-                        <button className={styles.button} onClick={handlePlanDelete}>
-                        Baja a Soy Premium
-                        </button>
-                    )}
-                </div>
-
-                <div>
-                    <p>
-                        Si quieres modificar tu forma de pago favor escríbenos a:
-                        growup@gmail.com
-                    </p>
-                </div>
-
-                <h3>Baja de usuario</h3>
-        
-                <button className={styles.button} onClick={handleDeleteUser}>
-                    Baja como usuario
-                </button>
-            
-            </div> */}
 
         </div>
     )
