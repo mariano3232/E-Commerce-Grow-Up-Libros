@@ -50,7 +50,7 @@ export default function Home() {
   //useEffect(()=>{dispatch(setToSuperAdmin(['62c452c8f0db62a9421601fb']))},[])
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [bookPerPage] = useState(8)
+  const [bookPerPage] = useState(20)
   var lastBook = currentPage * bookPerPage
   var firstBook = lastBook - bookPerPage
   var currentBooks = allBooks.slice(firstBook, lastBook)
