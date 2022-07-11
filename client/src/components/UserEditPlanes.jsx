@@ -43,24 +43,6 @@ const UserEditPlanes = () => {
         });
     }
 
-  const handleNewsDelete = () => {
-    const id = [logged[0]._id];
-    dispatch(setUserNews(id));
-    Alert("Desuscripción a nuestro Newsletter con éxito", "success");
-    setTimeout(function () {
-      dispatch(getUsers()), 100;
-    });
-  };
-
-  const handleDeleteUser = async () => {
-    console.log("hola");
-    const id = [logged[0]._id];
-    const json = await axios.get(
-      "https://ecommercehenryx.herokuapp.com/users/deleteUser/",
-      id
-    );
-    navigate("/home");
-  };
 
   return (
     <div className={styles.containerAll}>
