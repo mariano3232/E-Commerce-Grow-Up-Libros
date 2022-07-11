@@ -96,7 +96,7 @@ router.get("/success", async (req, res) => {
       );
       const orderSave = await order.save();
       const user = await Users.findOne({_id: orderSave.usuario[0]})
-      console.log('ESTE ES EL USURIO', user.name, user.email)
+      console.log(orderSave)
       
       // enviar_mail(user.name, user.email)
       res.json(orderSave);
