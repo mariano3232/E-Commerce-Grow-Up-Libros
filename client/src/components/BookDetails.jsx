@@ -158,38 +158,22 @@ export default function BookDetails() {
         </div>
       </Link>
 
-      <img src={book.cover} alt='Not Found ):' className={styles.img} />
+    
 
-      <div className={styles.info}>
+      <div className={styles.principal}>
+        <img src={book.cover} alt='Not Found ):' className={styles.img} />
         <h1 className={styles.title}>{book.title}</h1>
-
+        <label>Autor :</label>
         {author ? (
           <Link to={'/author/' + author._id}>
-            <h2 className={styles.title}>
+            <span className={styles.author}>
               {author?.name} {author?.surname}{' '}
-            </h2>
+            </span>
           </Link>
         ) : (
           'N'
         )}
-
-        <span>Generos :</span>
-
-        {book?.genres?.map((e) => {
-          return (
-            <button
-              onClick={(event) => handleClick(event, e.genre)}
-              className={styles.genres}
-            >
-              {e.genre}
-            </button>
-          )
-        })}
-
-        <p>{book.review}</p>
-      </div>
-
-      <div className={styles.buy}>
+        <div className={styles.buy}>
         <h3 className={styles.price}>${book.price}</h3>
         <h4>
           Stock :
@@ -204,25 +188,56 @@ export default function BookDetails() {
             : ' No hay Stock'}
         </h4>
         {
-          book.stock > 1 ?
+          book.stock > 0 ?
+          <div className={styles.iconBackground} onClick={(e) => handleAddToCart(e)}>
           <AddShoppingCartIcon
             cursor='pointer'
             color="action"
             fontSize="large" 
             onClick={(e) => handleAddToCart(e)}
           />
+          </div>
           
           : ''
         }
-
+        <div className={styles.iconBackground}>
         <Fav book={book._id} painted={`${bookAdded.includes(book._id)
                           ?'secondary'
-                        :'disabled'}`} />
-
+                        :'disabled'}`} 
+                        
+                        />
+        </div>
         {/* <button className={styles.button} onClick={() => handleClickFav()}>
           Añadir a lista de desesados
         </button> */}
       </div>
+          
+        
+        <span>Generos :</span>
+
+        {book?.genres?.map((e) => {
+          return (
+            <button
+              onClick={(event) => handleClick(event, e.genre)}
+              className={styles.genres}
+            >
+              {e.genre}
+            </button>
+          )
+        })}
+      </div>
+
+      <div className={styles.separador}/>
+      
+        <div className={styles.reviewContainer}>
+        <h2 className={styles.title}>Reseña del libro</h2>
+        <p >{book.review}</p>
+        </div>
+        
+        
+        <div className={styles.separador}/>
+
+      
 
       <div className={styles.details}>
         <h4>Detalles del producto</h4>
@@ -231,7 +246,7 @@ export default function BookDetails() {
         <p className={styles.detail}>Editorial : {book.editorial}</p>
       </div>
 
-      <div className={styles.space} />
+      <div className={styles.separador}/>
 
       <div className={styles.postComments}>
         {
@@ -267,6 +282,7 @@ export default function BookDetails() {
             }
           })
         }
+        <div className={styles.space}/>
     </div>
   )
 }

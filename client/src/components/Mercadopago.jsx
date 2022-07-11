@@ -64,7 +64,21 @@ const Mercadopago = () => {
                   <Typography fontWeight={'bold'} variant='h6'>
                     Facturar A
                   </Typography>
-                  <Typography variant='p'>{successInfo.usuario[0]}</Typography>
+
+                  <Typography variant='p'>
+                    Nombre: {successInfo.usuario[0].name}{' '}
+                    {successInfo.usuario[0].surname}
+                  </Typography>
+
+                  <Typography variant='p'>
+                    Nickname: {successInfo.usuario[0].nickname}
+                  </Typography>
+                  <Typography variant='p'>
+                    Correo: {successInfo.usuario[0].email}
+                  </Typography>
+                  <Typography variant='p'>
+                    Telefono: {successInfo.usuario[0].phone}
+                  </Typography>
                 </Stack>
               </Grid>
               <Grid width={'100%'} xs={1} item>
@@ -72,7 +86,11 @@ const Mercadopago = () => {
                   <Typography fontWeight={'bold'} variant='h6'>
                     ENVIAR A
                   </Typography>
-                  <Typography variant='p'>{successInfo.usuario[0]}</Typography>
+                  <Typography variant='p'>
+                    Dirección: {successInfo.usuario[0].address} -{' '}
+                    {successInfo.usuario[0].ciudad} -{' '}
+                    {successInfo.usuario[0].country}
+                  </Typography>
                 </Stack>
               </Grid>
               <Grid width={'100%'} xs={1} item>
