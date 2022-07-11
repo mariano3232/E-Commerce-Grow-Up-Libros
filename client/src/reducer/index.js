@@ -25,7 +25,8 @@ const initialState = {
   carousel: [],
   purchaseOrder: [],
   orders:[],
-  ordersCopy:[]
+  ordersCopy:[],
+  generosTitle:''
 };
 
 function rootReducer(state = initialState, action) {
@@ -690,6 +691,12 @@ function rootReducer(state = initialState, action) {
              authorsAdmin: authorsAdminShow,
             };
   
+
+          case 'CHANGE_GENRE_TITLE':
+            return {
+              ...state,
+              generosTitle: action.payload,
+            }
 
       
 

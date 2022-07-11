@@ -913,3 +913,14 @@ export function orderCommentsByDate(payload) {
     payload: payload,
   };
 }
+
+export function changeGenreTitle(payload) {
+  return {
+    type: "CHANGE_GENRE_TITLE",
+    payload: payload,
+  };
+}
+
+
+
+
