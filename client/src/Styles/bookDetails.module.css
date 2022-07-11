@@ -207,7 +207,7 @@
     padding:0
 }
 .textArea{
-    border-radius: 6px;
+    border-radius: 3px;
     width: 70%;
     height: 5rem;
 }
@@ -217,9 +217,10 @@
 }
 .commentContainer{
     margin-left: 4rem;
-    border: 1px dashed grey;
+    border: 1px solid grey;
+    margin: 5px;
     width: 70%;
-    border-radius: 6px;
+    border-radius: 3px;
 }
 .nickname{
     font-size: larger;
