@@ -114,7 +114,7 @@ const UserEditDatos = () => {
             });
         }
     }
-  };
+  
 
     return (
         <div className={styles.containerAll}>
@@ -275,6 +275,6 @@ const UserEditDatos = () => {
 
         </div>
     )
-}
+                }
 
 export default UserEditDatos;
