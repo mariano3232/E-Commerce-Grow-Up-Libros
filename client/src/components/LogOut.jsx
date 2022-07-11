@@ -53,23 +53,16 @@ export default function LogOutButton() {
         ) : (
           ''
         )}
-        <MenuItem onClick={handleCloseUserMenu}>
-          <Typography color='#212529' textAlign={'center'}>
-            Mis compras
-          </Typography>
-        </MenuItem>
-        <MenuItem onClick={handleCloseUserMenu}>
-          <Typography color='#212529' textAlign={'center'}>
-            Libros favoritos
-          </Typography>
-        </MenuItem>
-        <Divider />
+
         {user?.isAdmin && !user.isBanned ? (
-          <MenuItem onClick={handleCloseUserMenu} as={Link} to='/admin'>
-            <Typography color='#212529' textAlign={'center'}>
-              Administrador
-            </Typography>
-          </MenuItem>
+          <div>
+            <Divider />
+            <MenuItem onClick={handleCloseUserMenu} as={Link} to='/admin'>
+              <Typography color='#212529' textAlign={'center'}>
+                Administrador
+              </Typography>
+            </MenuItem>
+          </div>
         ) : (
           ''
         )}
