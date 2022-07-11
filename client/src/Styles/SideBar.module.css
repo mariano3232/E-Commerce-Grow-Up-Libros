@@ -10,7 +10,7 @@
   gap: 1rem;
 }
 .containerTitle {
-  background: -webkit-linear-gradient(right, #77c9d4, #015249);
+  background: #22b8cf;
   color: white;
   border-radius: 5px;
   text-align: center;
@@ -53,7 +53,7 @@
   top: 0;
   left: 0;
   transform: translate(-5px, -8px);
-  background-color: #015249;
+  background-color: #0ca678;
   border: 5px solid white;
   color: white;
   border-radius: 50%;
