@@ -1,3 +1,4 @@
+
 import React from 'react'
 import axios from 'axios'
 import { useState } from 'react'
@@ -6,35 +7,37 @@ import { Image } from 'cloudinary-react'
 import { getCarouselImages } from '../../../actions'
 import styles from '../../../Styles/adminCarousel.module.css'
 import { Link } from 'react-router-dom'
+import Alert from "../../../functions/Alert";
+
 export default function AdminCarousel() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [image, setImage] = useState({ files: '' })
-  const [publicId, setPublicId] = useState('')
+  const [image, setImage] = useState({ files: "" });
+  const [publicId, setPublicId] = useState("");
 
-  let Images = useSelector((state) => state.carousel)
+  let Images = useSelector((state) => state.carousel);
 
-  console.log('Images :',Images)
+  console.log("Images :", Images);
 
   const uploadImage = () => {
     console.log('image123qsda:',image)
     if (image.length<1){
-      return alert('Ningun archivo seleccionado')
+      return Alert('Ningun archivo seleccionado', 'warning')
     }
     else
     for (let i=0; i<image.length; i++){
       const formData = new FormData()
     formData.append('file', image[i])
     formData.append('upload_preset', 'preset_library')
-    alert('Imagen añadida al carrusel!')
+    Alert("Imagen añadida al carrusel!", "success");
 
     axios
-      .post('https://api.cloudinary.com/v1_1/dflpxjove/image/upload', formData)
+      .post("https://api.cloudinary.com/v1_1/dflpxjove/image/upload", formData)
       .then((response) => {
-        setPublicId(response.data.secure_url)
+        setPublicId(response.data.secure_url);
         axios
           .post(
-            'https://ecommercehenryx.herokuapp.com/carrousel/addCarrousel',
+            "https://ecommercehenryx.herokuapp.com/carrousel/addCarrousel",
             {
               image: response.data.secure_url,
             }
@@ -53,17 +56,19 @@ export default function AdminCarousel() {
   }
 
   function handleDelete(e) {
-    e.preventDefault()
-    alert('Imagen borrada!')
-    axios.delete(
-      'https://ecommercehenryx.herokuapp.com/carrousel//deleteCarrousel/' +
-        e.target.value
-    ).then(()=>{
-      dispatch(getCarouselImages())
-      setTimeout(function(){
-        Images=useSelector(state=>state.carousel)
-      },500)
-    })
+    e.preventDefault();
+    Alert("Imagen borrada!", "success");
+    axios
+      .delete(
+        "https://ecommercehenryx.herokuapp.com/carrousel//deleteCarrousel/" +
+          e.target.value
+      )
+      .then(() => {
+        dispatch(getCarouselImages());
+        setTimeout(function () {
+          Images = useSelector((state) => state.carousel);
+        }, 500);
+      });
   }
 
   return (
@@ -92,7 +97,7 @@ export default function AdminCarousel() {
           return (
             <div className={styles.card}>
               <Image
-                cloudName='dflpxjove'
+                cloudName="dflpxjove"
                 publicId={e.image}
                 className={styles.img}
               />
@@ -104,10 +109,10 @@ export default function AdminCarousel() {
                 X
               </button>
             </div>
-          )
+          );
         })}
       </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,114 +1,114 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { postBook } from '../../../../actions/index'
-import { useDispatch, useSelector } from 'react-redux'
-import style from '../../../../Styles/addBook.module.css'
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { postBook } from "../../../../actions/index";
+import { useDispatch, useSelector } from "react-redux";
+import style from "../../../../Styles/addBook.module.css";
+import Alert from "../../../../functions/Alert";
 
 export default function AddBook() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const allBooks = useSelector((state) => state.books)
+  const allBooks = useSelector((state) => state.books);
 
   const genres = [
-    'Salud',
-    'Deportes',
-    'Biografia',
-    'Nutricion',
-    'Filosofia',
-    'Ensayo',
-    'Desarrollo Personal',
-    'Economia',
-    'Espiritualidad',
-    'Historia',
-    'Negocios',
-    'Psicologia',
-    'Neurociencia',
-  ]
+    "Salud",
+    "Deportes",
+    "Biografia",
+    "Nutricion",
+    "Filosofia",
+    "Ensayo",
+    "Desarrollo Personal",
+    "Economia",
+    "Espiritualidad",
+    "Historia",
+    "Negocios",
+    "Psicologia",
+    "Neurociencia",
+  ];
 
   const [post, setPost] = useState({
-    title: '',
-    cover: '',
-    rating: '',
-    year: '',
-    pages: '',
-    editorial: '',
-    price: '',
-    authors: { name: '', surname: '' },
+    title: "",
+    cover: "",
+    rating: "",
+    year: "",
+    pages: "",
+    editorial: "",
+    price: "",
+    authors: { name: "", surname: "" },
     genres: [],
-    stock: '',
-    review: '',
-  })
+    stock: "",
+    review: "",
+  });
 
   const [errors, setErrors] = useState({
-    title: '',
-    cover: '',
-    rating: '',
-    year: '',
-    pages: '',
-    editorial: '',
-    price: '',
-    authorsName: '',
-    authorsSurname: '',
-    genres: '',
-    stock: '',
-    review: '',
-  })
+    title: "",
+    cover: "",
+    rating: "",
+    year: "",
+    pages: "",
+    editorial: "",
+    price: "",
+    authorsName: "",
+    authorsSurname: "",
+    genres: "",
+    stock: "",
+    review: "",
+  });
 
   function validate(post) {
-    let errors = {}
-    let nameRegex = /^[a-zA-Z0-9 _]*$/g
-    let titleRegex = /^[a-zA-Z _]*$/g
+    let errors = {};
+    let nameRegex = /^[a-zA-Z0-9 _]*$/g;
+    let titleRegex = /^[a-zA-Z _]*$/g;
     if (!post.title) {
-      errors.title = 'Ingresar titulo (!)'
+      errors.title = "Ingresar titulo (!)";
     }
 
     if (post.title.length > 50) {
-      errors.title = 'El titulo es demasiado largo'
+      errors.title = "El titulo es demasiado largo";
     }
 
     if (!post.authors.name) {
-      errors.authorsName = 'Ingresar nombre del autor '
+      errors.authorsName = "Ingresar nombre del autor ";
     }
 
     if (post.authors?.name?.length > 50) {
-      errors.authorsName = 'El nombre es demasiado largo'
+      errors.authorsName = "El nombre es demasiado largo";
     }
 
     if (!post.authors.name.match(/^[a-zA-Z]*$/g)) {
-      errors.authorsName = 'El nombre solo puede contener letras'
+      errors.authorsName = "El nombre solo puede contener letras";
     }
 
     if (!post.authors.surname) {
-      errors.authorsSurname = 'Ingresar apellido del autor'
+      errors.authorsSurname = "Ingresar apellido del autor";
     }
 
     if (post.authors.surname.length > 50) {
-      errors.authorsSurname = 'El apellido es demasiado largo'
+      errors.authorsSurname = "El apellido es demasiado largo";
     }
 
     if (!post.authors.surname.match(/^[a-zA-Z]*$/g)) {
-      errors.authorsSurname = 'El apellido solo puede contener letras'
+      errors.authorsSurname = "El apellido solo puede contener letras";
     }
 
     if (!post.editorial) {
-      errors.editorial = 'Ingresar editorial'
+      errors.editorial = "Ingresar editorial";
     }
 
     if (post.editorial.length > 50) {
-      errors.editorial = 'Nombre de editorial demasiado largo'
+      errors.editorial = "Nombre de editorial demasiado largo";
     }
-
 
     if (!post.cover) {
-      errors.cover = 'Ingresar URL de la portada'
+      errors.cover = "Ingresar URL de la portada";
     }
 
     if (post.editorial.length > 50) {
-      errors.editorial = 'Nombre de editorial demasiado largo'
+      errors.editorial = "Nombre de editorial demasiado largo";
     }
 
     if (!post.rating) {
-      errors.rating = 'Ingresar el rating!'
+      errors.rating = "Ingresar el rating!";
     }
 
     if (
@@ -116,128 +116,125 @@ export default function AddBook() {
       post.rating > 10 ||
       !post.rating.match(/^[0-9]*$/g)
     ) {
-      errors.rating = 'Debe ser un numero entre 0 y 10'
+      errors.rating = "Debe ser un numero entre 0 y 10";
     }
 
     if (!post.year) {
-      errors.year = 'Ingresar año'
+      errors.year = "Ingresar año";
     }
 
     if (post.year && !post.year.match(/^[0-9]*$/g)) {
-      errors.year = 'Debe ser un numero'
+      errors.year = "Debe ser un numero";
     }
 
     if (!post.pages) {
-      errors.pages = 'Ingresar cantidad de paginas'
+      errors.pages = "Ingresar cantidad de paginas";
     }
 
     if (post.pages > 3031) {
-      errors.pages = 'La novela mas larga del mundo tiene 3.031 páginas'
+      errors.pages = "La novela mas larga del mundo tiene 3.031 páginas";
     }
 
     if (post.pages && !post.pages.match(/^[0-9]*$/g)) {
-      errors.pages = 'Debe ser un numero'
+      errors.pages = "Debe ser un numero";
     }
 
     if (!post.price) {
-      errors.price = 'Ingresar precio'
+      errors.price = "Ingresar precio";
     }
 
     if (post.price > 99999999999) {
-      errors.price = 'Muy caro'
+      errors.price = "Muy caro";
     }
 
     if (post.price && !post.price.match(/^[0-9]*$/g)) {
-      errors.price = 'Debe ser un numero'
+      errors.price = "Debe ser un numero";
     }
 
     if (!post.stock) {
-      errors.stock = 'Ingresar stock'
+      errors.stock = "Ingresar stock";
     }
 
     if (post.stock > 999999999) {
-      errors.stock = 'El numero es demasiado grande'
+      errors.stock = "El numero es demasiado grande";
     }
 
     if (post.stock && !post.stock.match(/^[0-9]*$/g)) {
-      errors.stock = 'Debe ser un numero'
+      errors.stock = "Debe ser un numero";
     }
 
     if (!post.review) {
-      errors.review = 'Ingresar una reseña/descripcion del libro'
+      errors.review = "Ingresar una reseña/descripcion del libro";
     }
 
     if (post.review.length > 10000) {
-      errors.review = 'Alcanzaste el limite de characteres'
+      errors.review = "Alcanzaste el limite de characteres";
     }
 
     if (!post.genres.length) {
-      errors.genres = 'Ingresar al menos un genero'
+      errors.genres = "Ingresar al menos un genero";
     }
 
-    return errors
+    return errors;
   }
 
   useEffect(() => {
-    setErrors(validate(post))
-  }, [post])
+    setErrors(validate(post));
+  }, [post]);
 
   function handleChange(e) {
     setPost({
       ...post,
       [e.target.name]: e.target.value,
-    })
+    });
   }
 
   function handleGenres(e) {
-    if(!post.genres.includes(e.target.value))
-    setPost({
-      ...post,
-      genres: [...post.genres, e.target.value],
-    })
+    if (!post.genres.includes(e.target.value))
+      setPost({
+        ...post,
+        genres: [...post.genres, e.target.value],
+      });
   }
 
   function handleGenreDelete(genre) {
     setPost({
       ...post,
       genres: post.genres.filter((e) => e !== genre),
-    })
+    });
   }
-
-
-
 
   function handleAuthorName(e) {
     setPost({
       ...post,
       authors: { ...post.authors, [e.target.name]: e.target.value },
-    })
+    });
   }
 
-  const [failedSubmit, setFailedSubmit] = useState(false)
+  const [failedSubmit, setFailedSubmit] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (Object.values(errors).length > 0){
-     setFailedSubmit(true);
-      return alert('Error, revisar formulario!')
+    if (Object.values(errors).length > 0) {
+      setFailedSubmit(true);
+      return Alert("Error, revisar formulario!", "error");
     } else {
-      dispatch(postBook(post))
-      console.log('soy Post:', post)
-      alert('¡Libro añadido!')
+      dispatch(postBook(post));
+      console.log("soy Post:", post);
+      Alert("¡Libro añadido!", "success");
       setPost({
-        title: '',
-        cover: '',
-        rating: '',
-        year: '',
-        pages: '',
-        editorial: '',
-        price: '',
-        authors: { name: '', surname: '' },
+        title: "",
+        cover: "",
+        rating: "",
+        year: "",
+        pages: "",
+        editorial: "",
+        price: "",
+        authors: { name: "", surname: "" },
         genres: [],
-        stock: '',
-        review: '',
-      })
+        stock: "",
+        review: "",
+      });
     }
   }
 
@@ -248,13 +245,13 @@ export default function AddBook() {
         <div>
           <label>Titulo:</label>
           <input
-            type='text'
+            type="text"
             value={post.title}
-            name='title'
+            name="title"
             onChange={(e) => handleChange(e)}
           />
           {(errors.title && failedSubmit) ||
-          !errors.title?.split(' ').includes('Ingresar') ? (
+          !errors.title?.split(" ").includes("Ingresar") ? (
             <p className={style.error}>{errors.title}</p>
           ) : null}
         </div>
@@ -262,13 +259,13 @@ export default function AddBook() {
         <div>
           <label>Nombre de Autor:</label>
           <input
-            type='text'
+            type="text"
             value={post.authors.name}
-            name='name'
+            name="name"
             onChange={(e) => handleAuthorName(e)}
           />
           {(errors.authorsName && failedSubmit) ||
-          !errors.authorsName?.split(' ').includes('Ingresar') ? (
+          !errors.authorsName?.split(" ").includes("Ingresar") ? (
             <p className={style.error}>{errors.authorsName}</p>
           ) : null}
         </div>
@@ -276,13 +273,13 @@ export default function AddBook() {
         <div>
           <label>Apellido de Autor:</label>
           <input
-            type='text'
+            type="text"
             value={post.authors.surname}
-            name='surname'
+            name="surname"
             onChange={(e) => handleAuthorName(e)}
           />
           {(errors.authorsSurname && failedSubmit) ||
-          !errors.authorsSurname?.split(' ').includes('Ingresar') ? (
+          !errors.authorsSurname?.split(" ").includes("Ingresar") ? (
             <p className={style.error}>{errors.authorsSurname}</p>
           ) : null}
         </div>
@@ -290,13 +287,13 @@ export default function AddBook() {
         <div>
           <label>Editorial:</label>
           <input
-            type='text'
+            type="text"
             value={post.editorial}
-            name='editorial'
+            name="editorial"
             onChange={(e) => handleChange(e)}
           />
           {(errors.editorial && failedSubmit) ||
-          !errors.editorial?.split(' ').includes('Ingresar') ? (
+          !errors.editorial?.split(" ").includes("Ingresar") ? (
             <p className={style.error}>{errors.editorial}</p>
           ) : null}
         </div>
@@ -304,13 +301,13 @@ export default function AddBook() {
         <div>
           <label>Imagen:</label>
           <input
-            type='text'
+            type="text"
             value={post.cover}
-            name='cover'
+            name="cover"
             onChange={(e) => handleChange(e)}
           />
           {(errors.cover && failedSubmit) ||
-          !errors.cover?.split(' ').includes('Ingresar') ? (
+          !errors.cover?.split(" ").includes("Ingresar") ? (
             <p className={style.error}>{errors.cover}</p>
           ) : null}
         </div>
@@ -318,15 +315,15 @@ export default function AddBook() {
         <div>
           <label>Rating:</label>
           <input
-            type='number'
-            min='0'
-            max='10'
+            type="number"
+            min="0"
+            max="10"
             value={post.rating}
-            name='rating'
+            name="rating"
             onChange={(e) => handleChange(e)}
           />
           {(errors.rating && failedSubmit) ||
-          !errors.rating?.split(' ').includes('Ingresar') ? (
+          !errors.rating?.split(" ").includes("Ingresar") ? (
             <p className={style.error}>{errors.rating}</p>
           ) : null}
         </div>
@@ -334,13 +331,13 @@ export default function AddBook() {
         <div>
           <label>Año:</label>
           <input
-            type='number'
+            type="number"
             value={post.year}
-            name='year'
+            name="year"
             onChange={(e) => handleChange(e)}
           />
           {(errors.year && failedSubmit) ||
-          !errors.year?.split(' ').includes('Ingresar') ? (
+          !errors.year?.split(" ").includes("Ingresar") ? (
             <p className={style.error}>{errors.year}</p>
           ) : null}
         </div>
@@ -348,13 +345,13 @@ export default function AddBook() {
         <div>
           <label>Cantidad de paginas:</label>
           <input
-            type='number'
+            type="number"
             value={post.pages}
-            name='pages'
+            name="pages"
             onChange={(e) => handleChange(e)}
           />
           {(errors.pages && failedSubmit) ||
-          !errors.pages?.split(' ').includes('Ingresar') ? (
+          !errors.pages?.split(" ").includes("Ingresar") ? (
             <p className={style.error}>{errors.pages}</p>
           ) : null}
         </div>
@@ -362,13 +359,13 @@ export default function AddBook() {
         <div>
           <label>Precio:</label>
           <input
-            type='number'
+            type="number"
             value={post.price}
-            name='price'
+            name="price"
             onChange={(e) => handleChange(e)}
           />
           {(errors.price && failedSubmit) ||
-          !errors.price?.split(' ').includes('Ingresar') ? (
+          !errors.price?.split(" ").includes("Ingresar") ? (
             <p className={style.error}>{errors.price}</p>
           ) : null}
         </div>
@@ -376,13 +373,13 @@ export default function AddBook() {
         <div>
           <label>Stock:</label>
           <input
-            type='number'
+            type="number"
             value={post.stock}
-            name='stock'
+            name="stock"
             onChange={(e) => handleChange(e)}
           />
           {(errors.stock && failedSubmit) ||
-          !errors.stock?.split(' ').includes('Ingresar') ? (
+          !errors.stock?.split(" ").includes("Ingresar") ? (
             <p className={style.error}>{errors.stock}</p>
           ) : null}
         </div>
@@ -391,11 +388,11 @@ export default function AddBook() {
           <label>Reseña</label>
           <textarea
             value={post.review}
-            name='review'
+            name="review"
             onChange={(e) => handleChange(e)}
           />
           {(errors.review && failedSubmit) ||
-          !errors.review?.split(' ').includes('Ingresar') ? (
+          !errors.review?.split(" ").includes("Ingresar") ? (
             <p className={style.error}>{errors.review}</p>
           ) : null}
         </div>
@@ -403,8 +400,9 @@ export default function AddBook() {
         <select
           className={style.select}
           onChange={(e) => handleGenres(e)}
-          defaultValue='default'>
-          <option value='default' disabled>
+          defaultValue="default"
+        >
+          <option value="default" disabled>
             Genres
           </option>
           {genres &&
@@ -415,7 +413,7 @@ export default function AddBook() {
             ))}
         </select>
         {(errors.genres && failedSubmit) ||
-        !errors.genres?.split(' ').includes('Ingresar') ? (
+        !errors.genres?.split(" ").includes("Ingresar") ? (
           <p className={style.error}>{errors.genres}</p>
         ) : null}
         {post.genres.map((genre) => (
@@ -423,20 +421,21 @@ export default function AddBook() {
             <p className={style.selectGenre}>{genre}</p>
             <button
               className={style.selectButtonDelete}
-              onClick={() => handleGenreDelete(genre)}>
+              onClick={() => handleGenreDelete(genre)}
+            >
               X
             </button>
           </div>
         ))}
 
-        <button className={style.btn} type='submit'>
+        <button className={style.btn} type="submit">
           Agregar Libro
         </button>
       </form>
 
-      <Link to='/add'>
+      <Link to="/add">
         <button className={style.btnAdmin}>↼ Back</button>
       </Link>
     </div>
-  )
+  );
 }
