@@ -17,8 +17,14 @@ export default function AdminCarousel() {
   console.log('Images :',Images)
 
   const uploadImage = () => {
-    const formData = new FormData()
-    formData.append('file', image)
+    console.log('image123qsda:',image)
+    if (image.length<1){
+      return alert('Ningun archivo seleccionado')
+    }
+    else
+    for (let i=0; i<image.length; i++){
+      const formData = new FormData()
+    formData.append('file', image[i])
     formData.append('upload_preset', 'preset_library')
     alert('Imagen añadida al carrusel!')
 
@@ -41,6 +47,9 @@ export default function AdminCarousel() {
             },500)
           })
       })
+      
+    }
+    
   }
 
   function handleDelete(e) {
@@ -65,13 +74,14 @@ export default function AdminCarousel() {
       <div>
       <input
         type='file'
+        multiple={true}
         onChange={(e) => {
-          setImage(e.target.files[0])
+          setImage(e.target.files)
         }}
         className={styles.input}
       />
       {console.log('image :', image)}
-      {image.name ? (
+      {image ? (
         <button onClick={uploadImage} className={styles.button}>
           Añadir
         </button>

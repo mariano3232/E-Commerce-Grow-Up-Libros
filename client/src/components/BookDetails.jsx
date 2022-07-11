@@ -158,21 +158,61 @@ export default function BookDetails() {
         </div>
       </Link>
 
-      <img src={book.cover} alt='Not Found ):' className={styles.img} />
+    
 
-      <div className={styles.info}>
+      <div className={styles.principal}>
+        <img src={book.cover} alt='Not Found ):' className={styles.img} />
         <h1 className={styles.title}>{book.title}</h1>
-
+        <label>Autor :</label>
         {author ? (
           <Link to={'/author/' + author._id}>
-            <h2 className={styles.title}>
+            <span className={styles.author}>
               {author?.name} {author?.surname}{' '}
-            </h2>
+            </span>
           </Link>
         ) : (
           'N'
         )}
-
+        <div className={styles.buy}>
+        <span className={styles.price}>${book.price}</span>
+        <h3>
+          Stock:
+          {book.stock > 3
+            ? 'Disponible'
+            : book.stock === 3
+            ? '¡Quedan 3!'
+            : book.stock === 2
+            ? '¡Quedan 2!'
+            : book.stock === 1
+            ? '¡Ultimo disponible!'
+            : 'No hay Stock'}
+        </h3>
+        {
+          book.stock > 0 ?
+          <div className={styles.iconBackground} onClick={(e) => handleAddToCart(e)}>
+          <AddShoppingCartIcon
+            cursor='pointer'
+            color="action"
+            fontSize="large" 
+            onClick={(e) => handleAddToCart(e)}
+          />
+          </div>
+          
+          : ''
+        }
+        <div className={styles.iconBackground}>
+        <Fav book={book._id} painted={`${bookAdded.includes(book._id)
+                          ?'secondary'
+                        :'disabled'}`} 
+                        
+                        />
+        </div>
+        {/* <button className={styles.button} onClick={() => handleClickFav()}>
+          Añadir a lista de desesados
+        </button> */}
+      </div>
+          
+        
         <span>Generos :</span>
 
         {book?.genres?.map((e) => {
@@ -185,44 +225,18 @@ export default function BookDetails() {
             </button>
           )
         })}
-
-        <p>{book.review}</p>
       </div>
 
-      <div className={styles.buy}>
-        <h3 className={styles.price}>${book.price}</h3>
-        <h4>
-          Stock:
-          {book.stock > 3
-            ? 'Disponible'
-            : book.stock === 3
-            ? '¡Quedan 3!'
-            : book.stock === 2
-            ? '¡Quedan 2!'
-            : book.stock === 1
-            ? '¡Ultimo disponible!'
-            : 'No hay Stock'}
-        </h4>
-        {
-          book.stock > 1 ?
-          <AddShoppingCartIcon
-            cursor='pointer'
-            color="action"
-            fontSize="large" 
-            onClick={(e) => handleAddToCart(e)}
-          />
-          
-          : ''
-        }
+      <div className={styles.separador}/>
+      
+        <div className={styles.reviewContainer}>
+        <h2 className={styles.title}>Reseña del libro</h2>
+        <p >{book.review}</p>
+        </div>
+        
+        <div className={styles.separador}/>
 
-        <Fav book={book._id} painted={`${bookAdded.includes(book._id)
-                          ?'secondary'
-                        :'disabled'}`} />
-
-        {/* <button className={styles.button} onClick={() => handleClickFav()}>
-          Añadir a lista de desesados
-        </button> */}
-      </div>
+      
 
       <div className={styles.details}>
         <h4>Detalles del producto</h4>
@@ -231,7 +245,7 @@ export default function BookDetails() {
         <p className={styles.detail}>Editorial : {book.editorial}</p>
       </div>
 
-      <div className={styles.space} />
+      <div className={styles.separador}/>
 
       <div className={styles.postComments}>
         {
@@ -267,6 +281,7 @@ export default function BookDetails() {
             }
           })
         }
+        <div className={styles.space}/>
     </div>
   )
 }
