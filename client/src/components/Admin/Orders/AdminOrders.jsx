@@ -14,6 +14,7 @@ import AdminOrderStatusShipped from './ManejoDeEstados/AdminOrderStatusShipped'
 import styles from '../../../Styles/AdminUser2.module.css'
 import AdminSearchBarPaymentStatus from '../SearchBars/AdminSearchBarPaymentStatus'
 import { animateScroll as scroll, Element } from 'react-scroll'
+import style from '../../../Styles/Button.module.css'
 
 
 
@@ -133,7 +134,7 @@ export default function AdminOrders(props) {
     <div className={styles.containerAll}>
 
       <Link to='/admin'>
-            <button >Panel Administrador</button>
+            <button className={style.button} >Panel Administrador</button>
       </Link>
       
       <h1>Control de Ordenes</h1>

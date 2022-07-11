@@ -29,10 +29,15 @@ const orderSchema = new Schema({
     type: String,
     default: '',
   },
- 
+  libros: {
+    type: [],
+  },
   isHidden: {
     type: Boolean,
     default: false,
   },
+  libros:{
+    type:[]
+  }
 })
 module.exports = model('Orders', orderSchema)

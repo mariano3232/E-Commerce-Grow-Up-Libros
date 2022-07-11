@@ -11,11 +11,16 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Alert from "../functions/Alert";
 
 export default function CardBook({ title, cover, price, rating, id, stock }) {
-  const dispatch = useDispatch();
-  const { userLogged } = useSelector((state) => state);
-  const productsAmount = useSelector((state) => state.cartAmount);
-  const products = useSelector((state) => state.cart);
-  const myFavsBooks = useSelector((state) => state.userLoggedFavsBooksShowed);
+
+  const dispatch = useDispatch()
+  const { userLogged } = useSelector((state) => state)
+  console.log('usuarioLogueado:',userLogged)
+  const productsAmount = useSelector((state) => state.cartAmount)
+  const products = useSelector((state) => state.cart)
+  const myFavsBooks = useSelector(state=>state.userLoggedFavsBooksShowed)
+  const myFavsBooksIds = myFavsBooks.map(book=>book._id)
+
+  
 
   const myFavsBooksIds = myFavsBooks.map((book) => book._id);
 
@@ -89,6 +94,7 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
             height="300"
           />
         </Link>
+        {userLogged?
         <span
           className={
             isBuy ? styles.comprado + " " + styles.show : styles.comprado
@@ -96,6 +102,13 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
         >
           COMPRADO
         </span>
+        : <span
+        className={
+          isBuy ? styles.comprado + " " + styles.show : styles.comprado
+        }
+      >
+        NOOOO
+      </span>}
       </div>
       <div className={styles.block}>
         <div className={styles.rating}>

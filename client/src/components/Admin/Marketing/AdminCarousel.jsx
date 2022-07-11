@@ -20,10 +20,17 @@ export default function AdminCarousel() {
   console.log("Images :", Images);
 
   const uploadImage = () => {
-    const formData = new FormData();
-    formData.append("file", image);
-    formData.append("upload_preset", "preset_library");
+    console.log('image123qsda:',image)
+    if (image.length<1){
+      return Alert('Ningun archivo seleccionado', 'warning')
+    }
+    else
+    for (let i=0; i<image.length; i++){
+      const formData = new FormData()
+    formData.append('file', image[i])
+    formData.append('upload_preset', 'preset_library')
     Alert("Imagen añadida al carrusel!", "success");
+>>>>>>> DEVELOPMENT
 
     axios
       .post("https://api.cloudinary.com/v1_1/dflpxjove/image/upload", formData)
@@ -37,14 +44,17 @@ export default function AdminCarousel() {
             }
           )
           .then(() => {
-            setImage({ files: "" });
-            dispatch(getCarouselImages());
-            setTimeout(function () {
-              Images = useSelector((state) => state.carousel);
-            }, 500);
-          });
-      });
-  };
+            setImage({ files: '' })
+            dispatch(getCarouselImages())
+            setTimeout(function(){
+              Images=useSelector(state=>state.carousel)
+            },500)
+          })
+      })
+      
+    }
+    
+  }
 
   function handleDelete(e) {
     e.preventDefault();
@@ -69,14 +79,15 @@ export default function AdminCarousel() {
       </Link>
       <div>
       <input
-        type="file"
+        type='file'
+        multiple={true}
         onChange={(e) => {
-          setImage(e.target.files[0]);
+          setImage(e.target.files)
         }}
         className={styles.input}
       />
-      {console.log("image :", image)}
-      {image.name ? (
+      {console.log('image :', image)}
+      {image ? (
         <button onClick={uploadImage} className={styles.button}>
           Añadir
         </button>

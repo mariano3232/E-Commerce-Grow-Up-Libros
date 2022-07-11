@@ -1,49 +1,53 @@
-import React from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import React from 'react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import {
   addToCart,
   clearPageAuthorDetails,
   getAuthorDetails,
   purchaseOrder,
   updateAmount,
-} from "../actions";
-import { Link } from "react-router-dom";
-import style from "../Styles/authorDetails.module.css";
-import s from "../Styles/Home.module.css";
-import styledButton from "../Styles/Button.module.css";
-import { BsCart } from "react-icons/bs";
-import { BsHeart } from "react-icons/bs";
-import { animateScroll as scroll } from "react-scroll";
-import CarrouselBookEnAuthor from "./CarrouselBooksEnAuthor";
-import Fav from "./Fav";
-import { useAuth0 } from "@auth0/auth0-react";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+} from '../actions'
+import { Link } from 'react-router-dom'
+import style from '../Styles/authorDetails.module.css'
+import s from '../Styles/Home.module.css'
+import styledButton from '../Styles/Button.module.css'
+import { BsCart } from 'react-icons/bs'
+import { BsHeart } from 'react-icons/bs'
+import { animateScroll as scroll } from 'react-scroll'
+import CarrouselBookEnAuthor from './CarrouselBooksEnAuthor'
+import Fav from './Fav'
+import { useAuth0 } from '@auth0/auth0-react'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import Alert from "../functions/Alert";
 
 const AuthorDetails = () => {
   const dispatch = useDispatch();
   const authorDetails = useSelector((state) => state.authorDetails);
   //console.log('soyAutorDetalles:',authorDetails)
-  const books = useSelector((state) => state.books);
-  const productsAmount = useSelector((state) => state.cartAmount);
-  const isLogged = useSelector((state) => state.userLogged);
-  const products = useSelector((state) => state.cart);
+  const books = useSelector((state) => state.books)
+  const productsAmount = useSelector((state) => state.cartAmount)
+  const isLogged = useSelector((state) => state.userLogged)
+  const products = useSelector((state) => state.cart)
 
-  const authorBooks = authorDetails.books;
+  const authorBooks = authorDetails.books
 
   const userFavBooksShowed = useSelector(
     (state) => state.userLoggedFavsBooksShowed
-  );
+  )
 
-  const myFavsBooksIds = userFavBooksShowed.map((book) => book._id);
+  const myFavsBooksIds = userFavBooksShowed.map((book) => book._id)
 
   // console.log('soyAllBook:',authorAllBooks)
   // const authorBooksNotHidden = authorBooks.filter( book =>{book.isHidden === false} )
   //console.log('soyBook:',authorBooks)
 
   // console.log('soyBookNoH:',authorBooksNotHidden)
+
+
+  const { loginWithRedirect } = useAuth0()
+
 
   const { loginWithRedirect } = useAuth0();
 
@@ -61,6 +65,7 @@ const AuthorDetails = () => {
   }, [dispatch]);
 
   function handleClick(e) {
+
     e.preventDefault();
     if (isLogged.length === 0) return loginWithRedirect();
     dispatch(addToCart(authorBooks[0]._id));
@@ -81,10 +86,12 @@ const AuthorDetails = () => {
 
   return (
     <div className={style.container}>
-      <Link to="/cart">
-        <div className={style.containerCart}>
-          <BsCart className={style.cart} />
-          <h4 className={style.productsAmount}>{productsAmount}</h4>
+      <Link to='/cart'>
+        <div className={s.containerCart}>
+          <BsCart className={s.cart} />
+          <div className={s.productsAmount}>
+            <p className={s.productsAmountNumber}>{productsAmount}</p>
+          </div>
         </div>
       </Link>
 
@@ -92,9 +99,15 @@ const AuthorDetails = () => {
         <div className={s.containerHeart}>
           <BsHeart className={s.heart} />
           {isLogged.length ? (
-            <h4 className={s.productsAmount}>{userFavBooksShowed.length}</h4>
+            <div className={s.productsAmount}>
+              <p className={s.productsAmountNumber}>
+                {userFavBooksShowed.length}
+              </p>
+            </div>
           ) : (
-            <h4 className={s.productsAmount}>{0}</h4>
+            <div className={s.productsAmount}>
+              <p className={s.productsAmountNumber}>{0}</p>
+            </div>
           )}
         </div>
       </Link>
@@ -166,25 +179,26 @@ const AuthorDetails = () => {
               <div className={style.containerButtonsBooks}>
                 {books[0].stock > 1 ? (
                   <AddShoppingCartIcon
-                    cursor="pointer"
-                    color="action"
-                    fontSize="large"
+                    cursor='pointer'
+                    color='action'
+                    fontSize='large'
                     onClick={(e) => handleClick(e)}
                   />
                 ) : (
-                  ""
+                  ''
                 )}
                 <Fav
                   book={book._id}
                   painted={`${
-                    myFavsBooksIds.includes(book._id) ? "secondary" : "disabled"
+
+                    myFavsBooksIds.includes(book._id) ? 'secondary' : 'disabled'
                   }`}
                 />
               </div>
             </div>
           ))
         ) : (
-          ""
+          ''
         )}
       </div>
     </div>

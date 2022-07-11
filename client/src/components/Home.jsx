@@ -16,29 +16,33 @@ import {
   orderByPrice,
   orderByRating,
   postUser,
-  setToSuperAdmin
+  setToSuperAdmin,
 } from '../actions'
 import Profile from './Profile'
 import { useAuth0 } from '@auth0/auth0-react'
 import { formControlClasses } from '@mui/material'
+import GenerosTitle from './GenerosTitle'
 //import { unstable_renderSubtreeIntoContainer } from 'react-dom'
 
 export default function Home() {
   const dispatch = useDispatch()
 
-  const productsAmount=useSelector(state=>state.cartAmount)
+  const productsAmount = useSelector((state) => state.cartAmount)
 
   const { user, isAuthenticated } = useAuth0()
 
   const allBooks = useSelector((state) => state.books)
+  console.log('allBooks:', allBooks)
 
   const usuario = useSelector((state) => state.userLogged)
-  
-  const userFavBooksShowed = useSelector(state=>state.userLoggedFavsBooksShowed)
- 
 
-  
- // const usuarioAllFavBooks = usuario.favouritesBooks
+  const userFavBooksShowed = useSelector(
+    (state) => state.userLoggedFavsBooksShowed
+  )
+
+  const [order, setOrder] = useState(true)
+
+  // const usuarioAllFavBooks = usuario.favouritesBooks
 
   //const usuarioFavBookNotHidden = usuarioAllFavBooks.filter(books=>books.isHidden===false)
 
@@ -50,26 +54,25 @@ export default function Home() {
   //useEffect(()=>{dispatch(setToSuperAdmin(['62c452c8f0db62a9421601fb']))},[])
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [bookPerPage] = useState(8)
-  var lastBook = currentPage * bookPerPage
-  var firstBook = lastBook - bookPerPage
-  var currentBooks = allBooks.slice(firstBook, lastBook)
+  const [bookPerPage, setbookPerPage] = useState(15)
+  const lastBook = currentPage * bookPerPage
+  const firstBook = lastBook - bookPerPage
+  const currentBooks = allBooks.slice(firstBook, lastBook)
+  console.log('current:', currentBooks)
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
 
-  useEffect(() => {
-    scroll.scrollToTop()
-  }, [])
+  //   function returnToFirstPage() {
+  //     setCurrentPage(1)
+  // }
 
-  useEffect(() => {
-    setCurrentPage(1)
-    lastBook = currentPage * bookPerPage
-    firstBook = lastBook - bookPerPage
-    currentBooks = allBooks.slice(firstBook, lastBook)
-  }, [allBooks])
-
-  const [order, setOrder] = useState(true)
+  // useEffect(() => {
+  //   setCurrentPage(1)
+  //   // lastBook = currentPage * bookPerPage
+  //   // firstBook = lastBook - bookPerPage
+  //   // currentBooks = allBooks.slice(firstBook, lastBook)
+  // }, [allBooks])
 
   function handleOrderByName(e) {
     //console.log('HHHHH')
@@ -101,31 +104,42 @@ export default function Home() {
     }, [user])
   }
 
+  useEffect(() => {
+    scroll.scrollToTop()
+  }, [])
+
   return (
     <div className={styles.home}>
       <Link to='/cart'>
         <div className={styles.containerCart}>
           <BsCart className={styles.cart} />
-          <h4 className={styles.productsAmount}>{productsAmount}</h4>
+          <div className={styles.productsAmount}>
+            <p className={styles.productsAmountNumber}>{productsAmount}</p>
+          </div>
         </div>
       </Link>
 
       <Link to='/user'>
         <div className={styles.containerHeart}>
           <BsHeart className={styles.heart} />
-          {
-            usuario.length ?
-            <h4 className={styles.productsAmount}>{userFavBooksShowed.length}</h4>
-            : <h4 className={styles.productsAmount}>{0}</h4>
-          }
+          {usuario.length ? (
+            <div className={styles.productsAmount}>
+              <p className={styles.productsAmountNumber}>
+                {userFavBooksShowed.length}
+              </p>
+            </div>
+          ) : (
+            <div className={styles.productsAmount}>
+              <p className={styles.productsAmountNumber}>{0}</p>
+            </div>
+          )}
         </div>
       </Link>
 
       <div className={styles.color}>
-        <Carousel />
-
-        <div>
-          <div className={styles.sideBar_containerCard}>
+        <div className={styles.container__components}>
+          <div className={styles.carrousel__containerCards}>
+            <Carousel />
             <div className={styles.containerActionsAndCards}>
               <div className={styles.containerOrderAndPaginado}>
                 <div className={styles.ubiOptions}>
@@ -178,6 +192,7 @@ export default function Home() {
                     </select>
                   </p>
                 </div>
+
                 <Element name='gaston'>
                   <Paginado
                     bookPerPage={bookPerPage}
@@ -185,6 +200,7 @@ export default function Home() {
                     paginado={paginado}
                     page={currentPage}
                   />
+                  <GenerosTitle />
                 </Element>
               </div>
               <div className={styles.card}>
@@ -216,8 +232,8 @@ export default function Home() {
                 page={currentPage}
               />
             </div>
-            <SideBar />
           </div>
+          <SideBar />
         </div>
       </div>
     </div>
