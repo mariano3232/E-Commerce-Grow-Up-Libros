@@ -16,6 +16,11 @@ export default function AdminCarousel() {
   console.log('Images :',Images)
 
   const uploadImage = () => {
+    console.log('image123qsda:',image)
+    if (image.length<1){
+      return alert('Ningun archivo seleccionado')
+    }
+    else
     for (let i=0; i<image.length; i++){
       const formData = new FormData()
     formData.append('file', image[i])
