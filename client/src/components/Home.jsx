@@ -16,7 +16,7 @@ import {
   orderByPrice,
   orderByRating,
   postUser,
-  setToSuperAdmin
+  setToSuperAdmin,
 } from '../actions'
 import Profile from './Profile'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -26,19 +26,19 @@ import { formControlClasses } from '@mui/material'
 export default function Home() {
   const dispatch = useDispatch()
 
-  const productsAmount=useSelector(state=>state.cartAmount)
+  const productsAmount = useSelector((state) => state.cartAmount)
 
   const { user, isAuthenticated } = useAuth0()
 
   const allBooks = useSelector((state) => state.books)
 
   const usuario = useSelector((state) => state.userLogged)
-  
-  const userFavBooksShowed = useSelector(state=>state.userLoggedFavsBooksShowed)
- 
 
-  
- // const usuarioAllFavBooks = usuario.favouritesBooks
+  const userFavBooksShowed = useSelector(
+    (state) => state.userLoggedFavsBooksShowed
+  )
+
+  // const usuarioAllFavBooks = usuario.favouritesBooks
 
   //const usuarioFavBookNotHidden = usuarioAllFavBooks.filter(books=>books.isHidden===false)
 
@@ -106,26 +106,33 @@ export default function Home() {
       <Link to='/cart'>
         <div className={styles.containerCart}>
           <BsCart className={styles.cart} />
-          <h4 className={styles.productsAmount}>{productsAmount}</h4>
+          <div className={styles.productsAmount}>
+            <p className={styles.productsAmountNumber}>{productsAmount}</p>
+          </div>
         </div>
       </Link>
 
       <Link to='/user'>
         <div className={styles.containerHeart}>
           <BsHeart className={styles.heart} />
-          {
-            usuario.length ?
-            <h4 className={styles.productsAmount}>{userFavBooksShowed.length}</h4>
-            : <h4 className={styles.productsAmount}>{0}</h4>
-          }
+          {usuario.length ? (
+            <div className={styles.productsAmount}>
+              <p className={styles.productsAmountNumber}>
+                {userFavBooksShowed.length}
+              </p>
+            </div>
+          ) : (
+            <div className={styles.productsAmount}>
+              <p className={styles.productsAmountNumber}>{0}</p>
+            </div>
+          )}
         </div>
       </Link>
 
       <div className={styles.color}>
-        <Carousel />
-
-        <div>
-          <div className={styles.sideBar_containerCard}>
+        <div className={styles.container__components}>
+          <div className={styles.carrousel__containerCards}>
+            <Carousel />
             <div className={styles.containerActionsAndCards}>
               <div className={styles.containerOrderAndPaginado}>
                 <div className={styles.ubiOptions}>
@@ -216,8 +223,8 @@ export default function Home() {
                 page={currentPage}
               />
             </div>
-            <SideBar />
           </div>
+          <SideBar />
         </div>
       </div>
     </div>
