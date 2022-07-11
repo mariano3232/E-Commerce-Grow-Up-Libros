@@ -49,8 +49,6 @@ const AuthorDetails = () => {
   const { loginWithRedirect } = useAuth0()
 
 
-  const { loginWithRedirect } = useAuth0();
-
   const { id } = useParams();
 
   useEffect(() => {
