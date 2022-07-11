@@ -19,8 +19,8 @@ this.enviar_mail_completed = async (name, email) => {
     html: `<table border="0" cellpadding="0" cellspacing="0" width="600px" background-color="#2d3436" bgcolor="#2d3436">
         <tr height="200px">
             <td bgcolor="" width="600px">
-                <h1 style="color: #fff; text-align: center;">Gracias ${name}</h1>
-                <p style="color: #fff; text-align: center;"> <span style="color:#e84393;">Tu paquete ha sido entregado exitosamente</span> </p>
+                <h1 style="color: #fff; text-align: center;">Buenos dias ${name}:</h1>
+                <p style="color: #fff; text-align: center;"> <span style="color:#e84393;">Queremos informarle que tu paquete ha sido entregada en tu domicilio. Muchas gracias por tu compra y esperamos que disfrutes tu libro.</span> </p>
     
             </td>
         </tr>
