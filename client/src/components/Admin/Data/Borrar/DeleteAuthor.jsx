@@ -1,71 +1,75 @@
-import React from 'react'
-import style from '../../../../Styles/DeleteData.module.css'
-import styleButton from '../../../../Styles/Button.module.css'
-import { deleteAuthor, getAuthors , getAuthorsAdmin , allAuthorShow ,allAuthorHide} from '../../../../actions'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
-import { orderByNameAdminAuthor } from '../../../../actions'
-import AdminSearchBarAuthor from '../../SearchBars/AdminSearchBarAuthor'
-import AdminRefreshAuthor from '../../RefreshButtons/AdminRefreshAuthor'
-import { showAuthor, hideAuthor } from '../../../../actions'
+import React from "react";
+import style from "../../../../Styles/DeleteData.module.css";
+import styleButton from "../../../../Styles/Button.module.css";
+import {
+  deleteAuthor,
+  getAuthors,
+  getAuthorsAdmin,
+  allAuthorShow,
+  allAuthorHide,
+} from "../../../../actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { orderByNameAdminAuthor } from "../../../../actions";
+import AdminSearchBarAuthor from "../../SearchBars/AdminSearchBarAuthor";
+import AdminRefreshAuthor from "../../RefreshButtons/AdminRefreshAuthor";
+import { showAuthor, hideAuthor } from "../../../../actions";
+import Alert from "../../../../functions/Alert";
 
 export default function DeleteAuthor() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const allAuthors = useSelector((state) => state.authorsAdmin)
+  const allAuthors = useSelector((state) => state.authorsAdmin);
 
-  const [order, setOrder] = useState(true)
+  const [order, setOrder] = useState(true);
 
   function handleOrderByName(e) {
     // e.preventDefault()
-    dispatch(orderByNameAdminAuthor(e.target.value))
-    setOrder(`Ordenado ${e.target.value}`)
+    dispatch(orderByNameAdminAuthor(e.target.value));
+    setOrder(`Ordenado ${e.target.value}`);
   }
 
-
   function handleDeleteAuthor(id) {
-    dispatch(deleteAuthor(id))
-    alert('Escritor Eliminado')
+    dispatch(deleteAuthor(id));
+    Alert("Escritor Eliminado", "success");
     setTimeout(function () {
-      dispatch(getAuthorsAdmin()), 800
-    })
-   // navigate('/admin')
+      dispatch(getAuthorsAdmin()), 800;
+    });
+    // navigate('/admin')
   }
 
   function ShowAuthor(id) {
-    dispatch(showAuthor(id))
+    dispatch(showAuthor(id));
     setTimeout(function () {
-      dispatch(getAuthorsAdmin()), 800
-    })
+      dispatch(getAuthorsAdmin()), 800;
+    });
     //getAuthors()
     // navigate('/admin')
   }
 
   function HideAuthor(id) {
-    dispatch(hideAuthor(id))
+    dispatch(hideAuthor(id));
     setTimeout(function () {
-      dispatch(getAuthorsAdmin()), 800
-    })
+      dispatch(getAuthorsAdmin()), 800;
+    });
     //getAuthors()
     //navigate('/admin')
   }
 
-   
   const handleAHide = (e) => {
-    dispatch(allAuthorHide()) 
-  }
+    dispatch(allAuthorHide());
+  };
 
   const handleAShow = (e) => {
-    dispatch(allAuthorShow()) 
-  }
-
+    dispatch(allAuthorShow());
+  };
 
   return (
     <div className={style.containerDelete}>
-      <Link to='/delete'>
+      <Link to="/delete">
         <button className={style.btnAdmin}>↼ Back</button>
       </Link>
 
@@ -78,21 +82,24 @@ export default function DeleteAuthor() {
         <select
           className={style.selectOrder}
           onChange={(e) => handleOrderByName(e)}
-          defaultValue='default'
+          defaultValue="default"
         >
-          <option value='default' disabled>
+          <option value="default" disabled>
             Orden alfabético
           </option>
-          <option value='Asc'>Nombre Ascendente</option>
-          <option value='desc'>Nombre Descendente</option>
+          <option value="Asc">Nombre Ascendente</option>
+          <option value="desc">Nombre Descendente</option>
         </select>
       </div>
 
       <div>
-      <button className={style.btnAdmin} onClick={()=>handleAHide()}>Ocultos</button>
-      <button className={style.btnAdmin} onClick={()=>handleAShow()}>No Ocultos</button>
+        <button className={style.btnAdmin} onClick={() => handleAHide()}>
+          Ocultos
+        </button>
+        <button className={style.btnAdmin} onClick={() => handleAShow()}>
+          No Ocultos
+        </button>
       </div>
-
 
       <h1>Borrar Informacion</h1>
       <div className={style.containerItems}>
@@ -102,7 +109,7 @@ export default function DeleteAuthor() {
             ? allAuthors.map((author) => {
                 return (
                   <li className={style.cardItem}>
-                    <img src={author.picture} alt='' />
+                    <img src={author.picture} alt="" />
                     <p>
                       {author.name} {author.surname}
                     </p>
@@ -136,15 +143,15 @@ export default function DeleteAuthor() {
                       </button>
                     </div>
                   </li>
-                )
+                );
               })
-            : 'Resultado no encontrado'}
+            : "Resultado no encontrado"}
         </ul>
       </div>
 
-      <Link to='/delete'>
+      <Link to="/delete">
         <button className={style.btnAdmin}>↼ Back</button>
       </Link>
     </div>
-  )
+  );
 }

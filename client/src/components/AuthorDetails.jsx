@@ -20,10 +20,11 @@ import CarrouselBookEnAuthor from './CarrouselBooksEnAuthor'
 import Fav from './Fav'
 import { useAuth0 } from '@auth0/auth0-react'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
+import Alert from "../functions/Alert";
 
 const AuthorDetails = () => {
-  const dispatch = useDispatch()
-  const authorDetails = useSelector((state) => state.authorDetails)
+  const dispatch = useDispatch();
+  const authorDetails = useSelector((state) => state.authorDetails);
   //console.log('soyAutorDetalles:',authorDetails)
   const books = useSelector((state) => state.books)
   const productsAmount = useSelector((state) => state.cartAmount)
@@ -44,27 +45,30 @@ const AuthorDetails = () => {
 
   // console.log('soyBookNoH:',authorBooksNotHidden)
 
+
   const { loginWithRedirect } = useAuth0()
 
-  const { id } = useParams()
+
+  const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getAuthorDetails(id))
-    scroll.scrollToTop()
-  }, [dispatch])
+    dispatch(getAuthorDetails(id));
+    scroll.scrollToTop();
+  }, [dispatch]);
 
   useEffect(() => {
     return () => {
-      dispatch(clearPageAuthorDetails())
-    }
-  }, [dispatch])
+      dispatch(clearPageAuthorDetails());
+    };
+  }, [dispatch]);
 
   function handleClick(e) {
-    e.preventDefault()
-    if (isLogged.length === 0) return loginWithRedirect()
-    dispatch(addToCart(authorBooks[0]._id))
-    dispatch(updateAmount(productsAmount + 1))
-    alert('Libro añadido al carrito!')
+
+    e.preventDefault();
+    if (isLogged.length === 0) return loginWithRedirect();
+    dispatch(addToCart(authorBooks[0]._id));
+    dispatch(updateAmount(productsAmount + 1));
+    Alert("Libro añadido al carrito!", "success");
     setTimeout(function () {
       dispatch(
         purchaseOrder({
@@ -74,8 +78,8 @@ const AuthorDetails = () => {
           unit_price: products[products.length - 1].price,
           quantity: products[products.length - 1].amount,
         })
-      )
-    }, 200)
+      );
+    }, 200);
   }
 
   return (
@@ -89,7 +93,7 @@ const AuthorDetails = () => {
         </div>
       </Link>
 
-      <Link to='/user'>
+      <Link to="/user">
         <div className={s.containerHeart}>
           <BsHeart className={s.heart} />
           {isLogged.length ? (
@@ -107,7 +111,7 @@ const AuthorDetails = () => {
       </Link>
 
       <div className={style.btnUbi}>
-        <Link to='/author'>
+        <Link to="/author">
           <button className={styledButton.button}>Volver</button>
         </Link>
       </div>
@@ -126,7 +130,7 @@ const AuthorDetails = () => {
               <img
                 className={style.image}
                 src={authorDetails.picture}
-                alt='buscando img'
+                alt="buscando img"
               />
             </div>
 
@@ -158,15 +162,15 @@ const AuthorDetails = () => {
           authorBooks[0].isHidden === false ? (
           authorBooks.map((book) => (
             <div className={style.libro}>
-              <Link className={style.Link} to={'/book/' + book._id}>
+              <Link className={style.Link} to={"/book/" + book._id}>
                 <li>
                   <h3>{book.title}</h3>
                   <img
                     className={style.img}
                     src={book.cover}
-                    alt='Not Found ):'
-                    width='200x'
-                    height='300'
+                    alt="Not Found ):"
+                    width="200x"
+                    height="300"
                   ></img>
                 </li>
               </Link>
@@ -184,6 +188,7 @@ const AuthorDetails = () => {
                 <Fav
                   book={book._id}
                   painted={`${
+
                     myFavsBooksIds.includes(book._id) ? 'secondary' : 'disabled'
                   }`}
                 />
@@ -195,10 +200,10 @@ const AuthorDetails = () => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AuthorDetails
+export default AuthorDetails;
 
 /* 
 <button

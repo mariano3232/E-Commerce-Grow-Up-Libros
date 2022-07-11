@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styles from '../../../Styles/adminUserProfile.module.css'
+import styles from "../../../Styles/adminUserProfile.module.css";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
@@ -11,6 +11,7 @@ import AdminOrderStatusProcessing from "./ManejoDeEstados/AdminOrderStatusProces
 import { useState } from "react";
 import { setOrderStatus , getAllOrders , deleteOrder} from "../../../actions";
 import { animateScroll as scroll, Element } from 'react-scroll'
+import Alert from "../../../functions/Alert";
 
 export default function AdminOrderDetails(){
 
@@ -77,7 +78,7 @@ export default function AdminOrderDetails(){
   
     function handleDeleteOrder(id) {
       dispatch(deleteOrder(id))
-      alert('Orden Eliminada')
+      Alert('Orden Eliminada', 'success')
       navigate('/admin')
       dispatch(getAllOrders())
     }

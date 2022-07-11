@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../Styles/UserDatos.module.css';
@@ -71,17 +70,34 @@ const UserEditDatos = () => {
 
         return errors;
     }
-
-    useEffect(()=>{
-        setErrors(validate(input));
-        
-    },[input])
-    
-    const handleChange = (e) => {
-        setInput({
-            ...input,
-            [e.target.name]: e.target.value,
-        })   
+    if (input.surname && !input.surname.match(/^[a-zA-Z]*$/g)) {
+      errors.surname = "Solo puede contener letras*";
+    }
+    if (
+      input.birthday &&
+      !input.birthday.match(
+        /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/
+      )
+    ) {
+      errors.birthday = "Debe ser una fecha valida*";
+    }
+    if (input.dni && !input.dni.match(/^[\d]{1,3}\.?[\d]{3,3}\.?[\d]{3,3}$/)) {
+      errors.dni = "Ingresar un numero de documento valido*";
+    }
+    if (
+      input.phone &&
+      !input.phone.match(/^\(?\d{2}\)?[\s\.-]?\d{4}[\s\.-]?\d{4}$/)
+    ) {
+      errors.phone = "Ingresar un numero de telefono valido*";
+    }
+    if (!input.address.match(/^[A-Za-z0-9\s]+$/g) && input.address) {
+      errors.address = "No se admiten simbolos*";
+    }
+    if (!input.ciudad.match(/^[A-Za-z\s]+$/g) && input.ciudad) {
+      errors.ciudad = "No se admiten numeros o simbolos*";
+    }
+    if (input.postal && !input.postal.match(/^(\d{4})$/g)) {
+      errors.postal = "Ingresar un CP valido*";
     }
 
     const handleSubmit = (e) => {
@@ -92,12 +108,13 @@ const UserEditDatos = () => {
         else {
             const id = logged[0]._id;
             dispatch(postUserData(id, input));
-            alert('Datos personales actualizado');
+            Alert("Datos personales actualizado", "success");
             setTimeout(function(){
                 dispatch(getUsers()), 100
             });
         }
     }
+  
 
     return (
         <div className={styles.containerAll}>
@@ -249,17 +266,15 @@ const UserEditDatos = () => {
                             onChange={(e) => handleChange(e)}
                         />
                     </div>} */}
+        </div>
 
-                </div>
-
-                <button className={styles.button} type='submit'>
-                Actualizar
-                </button>
-
-            </form>
+        <button className={styles.button} type="submit">
+          Actualizar
+        </button>
+      </form>
 
         </div>
     )
-}
+                }
 
 export default UserEditDatos;
