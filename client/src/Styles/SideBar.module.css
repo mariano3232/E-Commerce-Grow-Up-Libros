@@ -25,17 +25,27 @@
   flex-direction: column;
   gap: 1rem;
 }
+
 .card {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 500ms;
-  color: #015249;
-  border-radius: 2px;
+  width: 200px;
+  height: 250px;
 }
 
-.card h3 {
+.card .face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  transition: 0.5s;
+}
+
+.card .face_front {
+  transform: perspective(600px) rotateY(0deg);
+}
+
+.card .face_front h3 {
   margin: 0;
   position: absolute;
   font-size: 16px;
@@ -49,25 +59,25 @@
   border-radius: 50%;
   padding: 5px;
 }
-
-.card:hover {
-  /* transform: translateY(-3px); */
-  box-shadow: 0px 0px 5px black;
-  background-color: #77c9d4;
-}
-
-.img {
-  width: 200px;
-  height: 250px;
+.card .face_front img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border-radius: 5px;
 }
 
-.price {
-  color: #57bc90;
+.card .face_back {
+  transform: perspective(600px) rotateY(180deg);
+  background: rgb(3, 35, 54);
+  color: #f3f3f3;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 
-.link {
-  text-decoration: none;
-  color: black;
+.card:hover .face_front {
+  transform: perspective(600px) rotateY(180deg);
+}
+.card:hover .face_back {
+  transform: perspective(600px) rotateY(360deg);
 }

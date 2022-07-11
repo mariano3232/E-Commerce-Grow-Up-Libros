@@ -13,12 +13,15 @@ const userSchema = new Schema({
   },
   birthday: {
     type: String,
+    default: '',
   },
   dni: {
     type: String,
+    default: '',
   },
   country: {
     type: String,
+    default: '',
   },
   email: {
     type: String,
@@ -31,9 +34,19 @@ const userSchema = new Schema({
   },
   phone: {
     type: String,
+    default: '',
   },
   address: {
     type: String,
+    default: '',
+  },
+  ciudad: {
+    type: String,
+    default: '',
+  },
+  postal: {
+    type: String,
+    default: '',
   },
   isAdmin: {
     type: Boolean,
@@ -74,6 +87,14 @@ const userSchema = new Schema({
     default: false,
   },
   isAdminMarketing: {
+    type: Boolean,
+    default: false,
+  },
+  isAdminComments: {
+    type: Boolean,
+    default: false,
+  },
+  isAdminVentas: {
     type: Boolean,
     default: false,
   },

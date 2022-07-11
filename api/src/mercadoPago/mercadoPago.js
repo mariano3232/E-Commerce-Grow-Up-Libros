@@ -1,7 +1,7 @@
-require("dotenv").config();
-const { Router } = require("express");
-const router = Router();
-const { ACCESS_TOKEN } = process.env;
+require('dotenv').config()
+const { Router } = require('express')
+const router = Router()
+const { ACCESS_TOKEN } = process.env
 
 // SDK de Mercado Pago
 const mercadopago = require("mercadopago");
@@ -13,21 +13,21 @@ const mail = require("./util/successEmail");
 
 mercadopago.configure({
   access_token: `${ACCESS_TOKEN}`,
-});
+})
 
-router.post("/orden", async (req, res) => {
-  const carrito = req.body;
-  const email = carrito.map((e) => e.email);
+router.post('/orden', async (req, res) => {
+  const carrito = req.body
+  const email = carrito.map((e) => e.email)
   // const user = carrito.map((e) => e.name);
 
   const monto = carrito
     .map((e) => {
-      const montoTem = e.unit_price * e.quantity;
-      return montoTem;
+      const montoTem = e.unit_price * e.quantity
+      return montoTem
     })
-    .reduce((a, b) => a + b);
+    .reduce((a, b) => a + b)
 
-  const userDB = await Users.findOne({ email: email[0] });
+  const userDB = await Users.findOne({ email: email[0] })
 
   const newOrder = new Orders({
     status: EnumStatus.PENDING,
@@ -42,16 +42,16 @@ router.post("/orden", async (req, res) => {
     }),
   });
 
-  await newOrder.save();
-  userDB.buyBooks = userDB.buyBooks.concat(newOrder._id);
-  await userDB.save();
+  await newOrder.save()
+  userDB.buyBooks = userDB.buyBooks.concat(newOrder._id)
+  await userDB.save()
 
   try {
     const itemsMp = carrito?.map((e) => ({
       title: e.title,
       unit_price: Number(e.unit_price),
       quantity: Number(e.quantity),
-    }));
+    }))
 
     let preference = {
       items: itemsMp,
@@ -61,29 +61,29 @@ router.post("/orden", async (req, res) => {
       payment_methods: {
         excluded_payment_type: [
           {
-            id: "atm",
+            id: 'atm',
           },
         ],
         installments: 4,
       },
 
       back_urls: {
-        success: "https://ecommercehenryx.herokuapp.com/mercadopago/success",
-        failure: "https://ecommercehenryx.herokuapp.com/mercadopago/success",
-        pending: "https://ecommercehenryx.herokuapp.com/mercadopago/success",
+        success: 'http://localhost:3000/mercadopago/success',
+        failure: 'http://localhost:3000/mercadopago/success',
+        pending: 'http://localhost:3000/mercadopago/success',
       },
-      auto_return: "approved",
-    };
+      auto_return: 'approved',
+    }
     const saveOrder = await Orders.findById({ _id: newOrder._id }).populate({
-      path: "usuario",
-    });
+      path: 'usuario',
+    })
 
-    const respuesta = await mercadopago.preferences.create(preference);
+    const respuesta = await mercadopago.preferences.create(preference)
 
-    const globalInitPoint = respuesta.body.init_point;
-    return res.json({ init_point: globalInitPoint, order: saveOrder });
+    const globalInitPoint = respuesta.body.init_point
+    return res.json({ init_point: globalInitPoint, order: saveOrder })
   } catch (error) {
-    return console.log("FALLO MERCADO PAGO", error);
+    return console.log('FALLO MERCADO PAGO', error)
   }
 });
 
@@ -116,7 +116,7 @@ router.get("/success", async (req, res) => {
   } catch (error) {
     return res.json({ msg: "FALLO SUCCESS ", error: error });
   }
-});
+})
 
 //http://localhost:8080/feedback?collection_id=1290273508&collection_status=approved&payment_id=1290273508&status=approved&external_reference=a59b17&payment_type=credit_card&merchant_order_id=5143913058&preference_id=1152954796-49f441b2-e9d1-494f-8bdc-571a606e2a63&site_id=MCO&processing_mode=aggregator&merchant_account_id=null
 
