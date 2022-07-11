@@ -32,18 +32,20 @@ export default function Home() {
   const { user, isAuthenticated } = useAuth0()
 
   const allBooks = useSelector((state) => state.books)
-  console.log('allBooks:',allBooks)
+  console.log('allBooks:', allBooks)
 
   const usuario = useSelector((state) => state.userLogged)
-  
-  const userFavBooksShowed = useSelector(state=>state.userLoggedFavsBooksShowed)
- 
+
+  const userFavBooksShowed = useSelector(
+    (state) => state.userLoggedFavsBooksShowed
+  )
+
   const [order, setOrder] = useState(true)
-  
- // const usuarioAllFavBooks = usuario.favouritesBooks
+
+  // const usuarioAllFavBooks = usuario.favouritesBooks
 
   //const usuarioFavBookNotHidden = usuarioAllFavBooks.filter(books=>books.isHidden===false)
- 
+
   // useEffect(() => {
   //   dispatch(getBooks())
   //   console.log('HOOOOOME');
@@ -52,18 +54,18 @@ export default function Home() {
   //useEffect(()=>{dispatch(setToSuperAdmin(['62c452c8f0db62a9421601fb']))},[])
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [bookPerPage , setbookPerPage] = useState(15)
-  const lastBook = currentPage * bookPerPage;
-  const firstBook = lastBook - bookPerPage;
+  const [bookPerPage, setbookPerPage] = useState(15)
+  const lastBook = currentPage * bookPerPage
+  const firstBook = lastBook - bookPerPage
   const currentBooks = allBooks.slice(firstBook, lastBook)
-  console.log('current:',currentBooks)
+  console.log('current:', currentBooks)
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
 
-//   function returnToFirstPage() {
-//     setCurrentPage(1)
-// }
+  //   function returnToFirstPage() {
+  //     setCurrentPage(1)
+  // }
 
   // useEffect(() => {
   //   setCurrentPage(1)
@@ -71,8 +73,6 @@ export default function Home() {
   //   // firstBook = lastBook - bookPerPage
   //   // currentBooks = allBooks.slice(firstBook, lastBook)
   // }, [allBooks])
-
-
 
   function handleOrderByName(e) {
     //console.log('HHHHH')
@@ -107,7 +107,6 @@ export default function Home() {
   useEffect(() => {
     scroll.scrollToTop()
   }, [])
-
 
   return (
     <div className={styles.home}>
@@ -193,7 +192,7 @@ export default function Home() {
                     </select>
                   </p>
                 </div>
-              
+
                 <Element name='gaston'>
                   <Paginado
                     bookPerPage={bookPerPage}
@@ -201,7 +200,7 @@ export default function Home() {
                     paginado={paginado}
                     page={currentPage}
                   />
-                  <GenerosTitle/>
+                  <GenerosTitle />
                 </Element>
               </div>
               <div className={styles.card}>
