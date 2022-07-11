@@ -7,17 +7,18 @@ import { addToCart, purchaseOrder, putRating, updateAmount } from "../actions";
 import { Rating } from "@mui/material";
 import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import Alert from "../functions/Alert";
 
 export default function CardBook({ title, cover, price, rating, id, stock }) {
+
   const dispatch = useDispatch()
   const { userLogged } = useSelector((state) => state)
+  console.log('usuarioLogueado:',userLogged)
   const productsAmount = useSelector((state) => state.cartAmount)
   const products = useSelector((state) => state.cart)
   const myFavsBooks = useSelector(state=>state.userLoggedFavsBooksShowed)
-
   const myFavsBooksIds = myFavsBooks.map(book=>book._id)
-  
 
 
   const { loginWithRedirect } = useAuth0();
@@ -64,7 +65,7 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
     if (userLogged.length === 0) return loginWithRedirect();
     dispatch(addToCart(id));
     dispatch(updateAmount(productsAmount + 1));
-    alert("Libro agregado al carrito!");
+    Alert("Libro agregado al carrito!", "success");
     setTimeout(function () {
       dispatch(
         purchaseOrder({
@@ -90,6 +91,7 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
             height="300"
           />
         </Link>
+        {userLogged?
         <span
           className={
             isBuy ? styles.comprado + " " + styles.show : styles.comprado
@@ -97,6 +99,13 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
         >
           COMPRADO
         </span>
+        : <span
+        className={
+          isBuy ? styles.comprado + " " + styles.show : styles.comprado
+        }
+      >
+        NOOOO
+      </span>}
       </div>
       <div className={styles.block}>
         <div className={styles.rating}>
@@ -122,36 +131,33 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
         <div className={styles.info}>
           <div className={styles.containerRating}>
             <span>
-              
-              <Fav book={id} painted={`${myFavsBooksIds.includes(id)
-                          ?'secondary'
-                        :'disabled'}`}/>
+              <Fav
+                book={id}
+                painted={`${
+                  myFavsBooksIds.includes(id) ? "secondary" : "disabled"
+                }`}
+              />
             </span>
             <p className={styles.price}>${price}</p>
           </div>
 
           <div>
-            {
-              stock > 1 ? (
-                <AddShoppingCartIcon
-                  cursor='pointer'
-                  color="action"
-                  fontSize="large" 
-                  onClick={(e) => handleAddToCart(e)}
-                />
-              ) : (
-                ""
-              )
-            }
+            {stock > 1 ? (
+              <AddShoppingCartIcon
+                cursor="pointer"
+                color="action"
+                fontSize="large"
+                onClick={(e) => handleAddToCart(e)}
+              />
+            ) : (
+              ""
+            )}
           </div>
-
         </div>
-
       </div>
     </div>
   );
 }
-
 
 /* 
 <button

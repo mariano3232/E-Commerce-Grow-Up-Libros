@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styles from '../../../Styles/adminUserProfile.module.css'
+import styles from "../../../Styles/adminUserProfile.module.css";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
@@ -11,6 +11,7 @@ import AdminOrderStatusProcessing from "./ManejoDeEstados/AdminOrderStatusProces
 import { useState } from "react";
 import { setOrderStatus , getAllOrders , deleteOrder} from "../../../actions";
 import { animateScroll as scroll, Element } from 'react-scroll'
+import Alert from "../../../functions/Alert";
 
 export default function AdminOrderDetails(){
 
@@ -77,7 +78,7 @@ export default function AdminOrderDetails(){
   
     function handleDeleteOrder(id) {
       dispatch(deleteOrder(id))
-      alert('Orden Eliminada')
+      Alert('Orden Eliminada', 'success')
       navigate('/admin')
       dispatch(getAllOrders())
     }
@@ -91,15 +92,16 @@ export default function AdminOrderDetails(){
         </NavLink>
 
         <h2>Cambiar el Estado de la orden</h2>
-
-        <button onClick={()=>changeCreated(ordersIds)}>Creada</button>
-        <button onClick={()=>changeProcessing(ordersIds)}>Procesando</button>
-        <button onClick={()=>changeShipped(ordersIds)}>Enviada</button>
-        <button onClick={()=>changeCompletada(ordersIds)}>Completada</button>
-        <button onClick={()=>changeCancelled(ordersIds)}>Cancelada</button>
-
         <div className={styles.containerAdmin}>
+        <button className={`${styles.button} `} onClick={()=>changeCreated(ordersIds)}>Creada</button>
+        <button  className={`${styles.button} `} onClick={()=>changeProcessing(ordersIds)}>Procesando</button>
+        <button className={`${styles.button} `} onClick={()=>changeShipped(ordersIds)}>Enviada</button>
+        <button className={`${styles.button} `} onClick={()=>changeCompletada(ordersIds)}>Completada</button>
+        <button className={`${styles.button} `} onClick={()=>changeCancelled(ordersIds)}>Cancelada</button>
+        </div>
+        <div>
          <h1>Detalles de Orden</h1>
+         <div  className={styles.containerAdmin}>
             <p className={styles.h2}>Orden Id: {order._id}</p>
            
                  <Link to={`/adminuserprofile/${order.usuario[0]._id}`}>
@@ -114,11 +116,15 @@ export default function AdminOrderDetails(){
             </p>
             <p className={styles.h2}>Cantidad: {order.quantity}</p>
             <p className={styles.h2}>Direccion: {order.usuario[0].address}</p>
+            <p className={styles.h2}>Codigo Postal: {order.usuario[0].postal}</p>
+            <p className={styles.h2}>Ciudad: {order.usuario[0].ciudad}</p>
+            <p className={styles.h2}>Pais: {order.usuario[0].country}</p>
+            <p className={styles.h2}>Telefono: {order.usuario[0].phone}</p>
             <p className={styles.h2}>Estado de Pago: {order.status}</p>
             <p className={styles.h2}>Estado de Orden: {order.status_order}</p>
-      
             </div>
-            <button onClick={()=>handleDeleteOrder(id)}>Borrar Orden</button>
+            </div>
+            <button className={`${styles.button} `} onClick={()=>handleDeleteOrder(id)}>Borrar Orden</button>
         </div>
     )
 }

@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { getBookGenre, getBooks } from '../actions'
+import { getBookGenre, getBooks , changeGenreTitle } from '../actions'
 import { scroller } from 'react-scroll'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-
 import SearchBar from './SearchBar'
 import LogInButton from './LogIn'
 import LogOutButton from './LogOut'
@@ -34,6 +33,7 @@ const NavBar = () => {
   const handleClick = (e) => {
     e.preventDefault()
     dispatch(getBooks())
+    dispatch(changeGenreTitle(''))
     navigate('/home/')
     setTimeout(() => {
       scroller.scrollTo('gaston')
@@ -43,6 +43,7 @@ const NavBar = () => {
   const handleSelectGenre = (e) => {
     e.preventDefault()
     dispatch(getBookGenre(e.target.value))
+    dispatch(changeGenreTitle(e.target.value))
     navigate('/home/')
     setTimeout(() => {
       scroller.scrollTo('gaston')

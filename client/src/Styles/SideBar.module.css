@@ -7,6 +7,7 @@
   box-shadow: 0 5px 25px grey;
   display: flex;
   flex-direction: column;
+  align-self: flex-start;
   gap: 1rem;
 }
 .containerTitle {

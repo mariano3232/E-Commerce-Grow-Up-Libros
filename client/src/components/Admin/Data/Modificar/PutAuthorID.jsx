@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 //import { postBook } from '../actions/index';
-import { useDispatch, useSelector } from 'react-redux'
-import { postAuthor } from '../../../../actions/index'
-import style from '../../../../Styles/PutAuthorID.module.css'
-import { putAuthor } from '../../../../actions/index'
+import { useDispatch, useSelector } from "react-redux";
+import { postAuthor } from "../../../../actions/index";
+import style from "../../../../Styles/PutAuthorID.module.css";
+import { putAuthor } from "../../../../actions/index";
+import Alert from "../../../../functions/Alert";
 
 export default function PutAuthorID() {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const id = useParams().id
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const id = useParams().id;
   // console.log('soy id:',id)
-  const allAuthors = useSelector((state) => state.authors)
+  const allAuthors = useSelector((state) => state.authors);
 
-  const authorId = allAuthors.filter((author) => author._id === id)
-  console.log('aaaa:', authorId)
+  const authorId = allAuthors.filter((author) => author._id === id);
+  console.log("aaaa:", authorId);
 
   const [post, setPost] = useState({
     name: '',
@@ -34,21 +35,21 @@ export default function PutAuthorID() {
       country: authorId[0].country,
       biography: authorId[0].biography,
       picture: authorId[0].picture,
-    })
-  }, [])
+    });
+  }, []);
 
   function handleChange(e) {
     setPost({
       ...post,
       [e.target.name]: e.target.value,
-    })
+    });
   }
 
   function handleSubmit(e) {
-    e.preventDefault()
-    dispatch(putAuthor(post, id))
-    alert('¡Autor Modificado!')
-    navigate('/put')
+    e.preventDefault();
+    dispatch(putAuthor(post, id));
+    Alert("¡Autor Modificado!", "success");
+    navigate("/put");
   }
 
   return (
@@ -58,9 +59,9 @@ export default function PutAuthorID() {
         <div>
           <label>Nombre:</label>
           <input
-            type='text'
+            type="text"
             value={post.name}
-            name='name'
+            name="name"
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -68,9 +69,9 @@ export default function PutAuthorID() {
         <div>
           <label>Apellido:</label>
           <input
-            type='text'
+            type="text"
             value={post.surname}
-            name='surname'
+            name="surname"
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -78,10 +79,11 @@ export default function PutAuthorID() {
         <div>
           <label>Fecha de nacimiento:</label>
           <input
-            type='date'
+            type="date"
             value={post.date}
-            name='birth'
-            max='2022-12-12'
+            name="date"
+            max="2022-12-12"
+
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -89,9 +91,9 @@ export default function PutAuthorID() {
         <div>
           <label>Pais:</label>
           <input
-            type='text'
+            type="text"
             value={post.country}
-            name='country'
+            name="country"
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -99,9 +101,9 @@ export default function PutAuthorID() {
         <div>
           <label>Biografia:</label>
           <textarea
-            type='text'
+            type="text"
             value={post.biography}
-            name='biography'
+            name="biography"
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -109,21 +111,21 @@ export default function PutAuthorID() {
         <div>
           <label>Imagen:</label>
           <input
-            type='text'
+            type="text"
             value={post.picture}
-            name='picture'
+            name="picture"
             onChange={(e) => handleChange(e)}
           />
         </div>
 
-        <button className={style.btn} type='submit'>
+        <button className={style.btn} type="submit">
           Modificar Autor
         </button>
       </form>
 
-      <Link to='/putauthor'>
+      <Link to="/putauthor">
         <button className={style.btnAdmin}>↼ Back</button>
       </Link>
     </div>
-  )
+  );
 }
