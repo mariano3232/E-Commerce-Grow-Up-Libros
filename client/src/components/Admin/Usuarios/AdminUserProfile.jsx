@@ -21,7 +21,7 @@ import AdminSearchBarStatusOrders from "../SearchBars/AdminSearchBarStatusOrders
 import AdminSearchBarPaymentStatus from "../SearchBars/AdminSearchBarPaymentStatus";
 import AdminRefreshOrders from "../RefreshButtons/AdminRefreshOrders";
 import { animateScroll as scroll, Element } from "react-scroll";
-import Alert from "../../../functions/Alert";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminUserProfile() {
   const id = useParams().id;
@@ -47,6 +47,8 @@ export default function AdminUserProfile() {
   //console.log('userOrders:',userOrders)
 
   const userL = useSelector((state) => state.userLogged);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     scroll.scrollToTop();
@@ -136,10 +138,11 @@ export default function AdminUserProfile() {
 
   function handleDeleteUser(id) {
     dispatch(deleteUser(id));
-    Alert("Usuario Eliminado", "success");
+    alert("Usuario Eliminado");
     navigate("/admin");
     dispatch(getUsers());
   }
+
   const [order, setOrder] = useState(true);
 
   function handleOrderByDate(e) {
