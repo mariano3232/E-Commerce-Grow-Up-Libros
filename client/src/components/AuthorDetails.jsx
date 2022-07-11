@@ -2,7 +2,13 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { addToCart, clearPageAuthorDetails, getAuthorDetails,purchaseOrder,updateAmount } from '../actions'
+import {
+  addToCart,
+  clearPageAuthorDetails,
+  getAuthorDetails,
+  purchaseOrder,
+  updateAmount,
+} from '../actions'
 import { Link } from 'react-router-dom'
 import style from '../Styles/authorDetails.module.css'
 import s from '../Styles/Home.module.css'
@@ -13,30 +19,31 @@ import { animateScroll as scroll } from 'react-scroll'
 import CarrouselBookEnAuthor from './CarrouselBooksEnAuthor'
 import Fav from './Fav'
 import { useAuth0 } from '@auth0/auth0-react'
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 
 const AuthorDetails = () => {
   const dispatch = useDispatch()
   const authorDetails = useSelector((state) => state.authorDetails)
   //console.log('soyAutorDetalles:',authorDetails)
   const books = useSelector((state) => state.books)
-  const productsAmount=useSelector((state)=>state.cartAmount)
-  const isLogged = useSelector(state => state.userLogged)
-  const products = useSelector(state => state.cart)
-  
+  const productsAmount = useSelector((state) => state.cartAmount)
+  const isLogged = useSelector((state) => state.userLogged)
+  const products = useSelector((state) => state.cart)
+
   const authorBooks = authorDetails.books
 
-  const userFavBooksShowed = useSelector(state=>state.userLoggedFavsBooksShowed)
+  const userFavBooksShowed = useSelector(
+    (state) => state.userLoggedFavsBooksShowed
+  )
 
-  const myFavsBooksIds = userFavBooksShowed.map(book=>book._id)
+  const myFavsBooksIds = userFavBooksShowed.map((book) => book._id)
 
-  
   // console.log('soyAllBook:',authorAllBooks)
   // const authorBooksNotHidden = authorBooks.filter( book =>{book.isHidden === false} )
-   //console.log('soyBook:',authorBooks)
-  
+  //console.log('soyBook:',authorBooks)
+
   // console.log('soyBookNoH:',authorBooksNotHidden)
-  
+
   const { loginWithRedirect } = useAuth0()
 
   const { id } = useParams()
@@ -53,43 +60,49 @@ const AuthorDetails = () => {
   }, [dispatch])
 
   function handleClick(e) {
-    e.preventDefault();
+    e.preventDefault()
     if (isLogged.length === 0) return loginWithRedirect()
     dispatch(addToCart(authorBooks[0]._id))
-    dispatch(updateAmount(productsAmount+1))
+    dispatch(updateAmount(productsAmount + 1))
     alert('Libro añadido al carrito!')
-    setTimeout(function(){
-      
-      dispatch(purchaseOrder({
-        email: isLogged[0].email, 
-        name: isLogged[0].name,
-        title: products[products.length-1].title,
-        unit_price: products[products.length-1].price, 
-        quantity: products[products.length-1].amount,
-      }))
-       
+    setTimeout(function () {
+      dispatch(
+        purchaseOrder({
+          email: isLogged[0].email,
+          name: isLogged[0].name,
+          title: products[products.length - 1].title,
+          unit_price: products[products.length - 1].price,
+          quantity: products[products.length - 1].amount,
+        })
+      )
     }, 200)
-    
   }
-  
 
   return (
     <div className={style.container}>
       <Link to='/cart'>
-        <div className={style.containerCart}>
-          <BsCart className={style.cart} />
-          <h4 className={style.productsAmount}>{productsAmount}</h4>
+        <div className={s.containerCart}>
+          <BsCart className={s.cart} />
+          <div className={s.productsAmount}>
+            <p className={s.productsAmountNumber}>{productsAmount}</p>
+          </div>
         </div>
       </Link>
 
       <Link to='/user'>
         <div className={s.containerHeart}>
           <BsHeart className={s.heart} />
-          {
-            isLogged.length ?
-            <h4 className={s.productsAmount}>{userFavBooksShowed.length}</h4>
-            : <h4 className={s.productsAmount}>{0}</h4>
-          }
+          {isLogged.length ? (
+            <div className={s.productsAmount}>
+              <p className={s.productsAmountNumber}>
+                {userFavBooksShowed.length}
+              </p>
+            </div>
+          ) : (
+            <div className={s.productsAmount}>
+              <p className={s.productsAmountNumber}>{0}</p>
+            </div>
+          )}
         </div>
       </Link>
 
@@ -138,14 +151,12 @@ const AuthorDetails = () => {
                             
                         )    
                     } */}
-        {authorBooks && authorBooks.length > 1 
-        ? (
+        {authorBooks && authorBooks.length > 1 ? (
           <CarrouselBookEnAuthor booksEscritor={authorBooks} />
-          ) 
-        :( authorBooks && authorBooks.length && authorBooks[0].isHidden === false
-        ? (
-            authorBooks.map((book) => (
-            
+        ) : authorBooks &&
+          authorBooks.length &&
+          authorBooks[0].isHidden === false ? (
+          authorBooks.map((book) => (
             <div className={style.libro}>
               <Link className={style.Link} to={'/book/' + book._id}>
                 <li>
@@ -160,26 +171,28 @@ const AuthorDetails = () => {
                 </li>
               </Link>
               <div className={style.containerButtonsBooks}>
-                {  
-
-                  books[0].stock > 1 ?
+                {books[0].stock > 1 ? (
                   <AddShoppingCartIcon
                     cursor='pointer'
-                    color="action"
-                    fontSize="large" 
+                    color='action'
+                    fontSize='large'
                     onClick={(e) => handleClick(e)}
                   />
-                   : ''
-                }
-                <Fav book={book._id} painted={`${myFavsBooksIds.includes(book._id)
-                          ?'secondary'
-                        :'disabled'}`} />
+                ) : (
+                  ''
+                )}
+                <Fav
+                  book={book._id}
+                  painted={`${
+                    myFavsBooksIds.includes(book._id) ? 'secondary' : 'disabled'
+                  }`}
+                />
               </div>
             </div>
           ))
         ) : (
           ''
-          ))}
+        )}
       </div>
     </div>
   )

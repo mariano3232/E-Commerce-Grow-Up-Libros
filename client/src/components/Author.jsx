@@ -19,10 +19,12 @@ const Author = () => {
   const dispatch = useDispatch()
   const authors = useSelector((state) => state.authors)
   const [order, setOrder] = useState(true)
-  const isLogged = useSelector(state => state.userLogged)
-  const productsAmount=useSelector((state)=>state.cartAmount)
+  const isLogged = useSelector((state) => state.userLogged)
+  const productsAmount = useSelector((state) => state.cartAmount)
 
-  const userFavBooksShowed = useSelector(state=>state.userLoggedFavsBooksShowed)
+  const userFavBooksShowed = useSelector(
+    (state) => state.userLoggedFavsBooksShowed
+  )
 
   // const orderedAuthors = authors.sort(function (a, b) {
   //     if (a.name.toLowerCase() > b.name.toLowerCase()) {
@@ -35,7 +37,7 @@ const Author = () => {
   // })
   useEffect(() => {
     dispatch(getAuthors())
-  }, []);
+  }, [])
 
   useEffect(() => {
     scroll.scrollToTop()
@@ -79,23 +81,30 @@ const Author = () => {
         </div>
 
         <Link to='/cart'>
-        <div className={style.containerCart}>
-          <BsCart className={style.cart} />
-          <h4 className={style.productsAmount}>{productsAmount}</h4>
-        </div>
-      </Link>
+          <div className={s.containerCart}>
+            <BsCart className={s.cart} />
+            <div className={s.productsAmount}>
+              <p className={s.productsAmountNumber}>{productsAmount}</p>
+            </div>
+          </div>
+        </Link>
 
-      <Link to='/user'>
-        <div className={s.containerHeart}>
-          <BsHeart className={s.heart} />
-          {
-            isLogged.length ?
-            <h4 className={s.productsAmount}>{userFavBooksShowed.length}</h4>
-            : <h4 className={s.productsAmount}>{0}</h4>
-          }
-        </div>
-      </Link>
-
+        <Link to='/user'>
+          <div className={s.containerHeart}>
+            <BsHeart className={s.heart} />
+            {isLogged.length ? (
+              <div className={s.productsAmount}>
+                <p className={s.productsAmountNumber}>
+                  {userFavBooksShowed.length}
+                </p>
+              </div>
+            ) : (
+              <div className={s.productsAmount}>
+                <p className={s.productsAmountNumber}>{0}</p>
+              </div>
+            )}
+          </div>
+        </Link>
       </div>
 
       <ol className={styles.container}>
