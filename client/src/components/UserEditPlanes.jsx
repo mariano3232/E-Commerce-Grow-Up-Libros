@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deleteUser, getUsers, setUserNews, setUserPlan } from '../actions';
+import { useAuth0 } from '@auth0/auth0-react';
 import styles from '../Styles/UserDatos.module.css';
 
 const UserEditPlanes = () => {
@@ -12,6 +13,7 @@ const UserEditPlanes = () => {
     const userId = allUsers.filter((u) => u._id === logged[0]._id);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { logout } = useAuth0();
     
     const handlePlanDelete = () => {
         const id = [logged[0]._id];
@@ -35,7 +37,7 @@ const UserEditPlanes = () => {
         const id = [logged[0]._id];
         dispatch(deleteUser(id));
         alert('Usuario Eliminado');
-        navigate('/');
+        logout({ returnTo: window.location.origin });
         setTimeout(function(){
             dispatch(getUsers()), 100
         });
