@@ -192,16 +192,16 @@ export default function BookDetails() {
       <div className={styles.buy}>
         <h3 className={styles.price}>${book.price}</h3>
         <h4>
-          Stock:
+          Stock :
           {book.stock > 3
-            ? 'Disponible'
+            ? ' Disponible'
             : book.stock === 3
-            ? '¡Quedan 3!'
+            ? ' ¡Quedan 3!'
             : book.stock === 2
-            ? '¡Quedan 2!'
+            ? ' ¡Quedan 2!'
             : book.stock === 1
-            ? '¡Ultimo disponible!'
-            : 'No hay Stock'}
+            ? ' ¡Ultimo disponible!'
+            : ' No hay Stock'}
         </h4>
         {
           book.stock > 1 ?
