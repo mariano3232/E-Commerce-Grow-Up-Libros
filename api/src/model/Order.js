@@ -36,5 +36,8 @@ const orderSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  libros:{
+    type:[]
+  }
 })
 module.exports = model('Orders', orderSchema)
