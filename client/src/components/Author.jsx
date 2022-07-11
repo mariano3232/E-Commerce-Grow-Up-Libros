@@ -9,7 +9,6 @@ import SearchBarAuthor from './SearchBarAuthor'
 import { useState } from 'react'
 import { orderByNameAuthor } from '../actions'
 import styles from '../Styles/author.module.css'
-import styledButton from '../Styles/Button.module.css'
 import { BsCart } from 'react-icons/bs'
 import { BsHeart } from 'react-icons/bs'
 import s from '../Styles/Home.module.css'
@@ -56,10 +55,10 @@ const Author = () => {
   return (
     <div className={styles.authors}>
       <div className={styles.containerActions}>
-        <Link to='/admin'>
-          <button className={styledButton.button} onClick={handleClickAuthors}>
+        <Link to='/admin' className={styles.link}>
+          <h3 className={styles.button} onClick={handleClickAuthors}>
             Todos los Autores
-          </button>
+          </h3>
         </Link>
 
         <SearchBarAuthor />
