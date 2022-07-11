@@ -29,7 +29,9 @@ const orderSchema = new Schema({
     type: String,
     default: '',
   },
- 
+  libros: {
+    type: [],
+  },
   isHidden: {
     type: Boolean,
     default: false,

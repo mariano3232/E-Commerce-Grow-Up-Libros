@@ -2,8 +2,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getUsers, setUserNews, setUserPlan } from '../actions';
-import axios from 'axios';
+import { deleteUser, getUsers, setUserNews, setUserPlan } from '../actions';
+import { useAuth0 } from '@auth0/auth0-react';
 import styles from '../Styles/UserDatos.module.css';
 
 const UserEditPlanes = () => {
@@ -13,6 +13,7 @@ const UserEditPlanes = () => {
     const userId = allUsers.filter((u) => u._id === logged[0]._id);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { logout } = useAuth0();
     
     const handlePlanDelete = () => {
         const id = [logged[0]._id];
@@ -32,11 +33,14 @@ const UserEditPlanes = () => {
         });
     }
     
-    const handleDeleteUser = async () => {
-        console.log('hola');
+    const handleDeleteUser = () => {
         const id = [logged[0]._id];
-        const json = await axios.get('https://ecommercehenryx.herokuapp.com/users/deleteUser/', id);
-        navigate('/home');
+        dispatch(deleteUser(id));
+        alert('Usuario Eliminado');
+        logout({ returnTo: window.location.origin });
+        setTimeout(function(){
+            dispatch(getUsers()), 100
+        });
     }
 
     return (
@@ -85,6 +89,14 @@ const UserEditPlanes = () => {
                 <button className={styles.button} onClick={handleDeleteUser}>
                     Baja como usuario
                 </button>
+
+                <div>
+                    <p>
+                        Al clikear en el boton de Baja Usuario, estarias eliminando tu
+                        historial de Grow-Up Libros, <br /> eliminando tus datos y preferencias, 
+                        pero manteniendo tu usario de login.
+                    </p>
+                </div>
             
             </div>
 

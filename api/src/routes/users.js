@@ -38,8 +38,14 @@ router.get('/:id', async (req, res) => {
 router.post('/addUser', async (req, res) => {
   const { nickname, name, email, picture, phone, address } = req.body
   try {
-    const isExistUser = await Users.findOne({ email })
-    if (isExistUser) return res.json(isExistUser)
+    const isExistUser = await Users.findOne({ email }).populate([
+      'comments',
+      'readBooks',
+      'favouritesBooks',
+      'buyBooks',
+    ])
+
+    if (isExistUser) return res.json([isExistUser])
 
     let isSuperAdmin = false
     if (email === 'guillermobr88@gmail.com') isSuperAdmin = true
@@ -53,10 +59,16 @@ router.post('/addUser', async (req, res) => {
       address,
       isSuperAdmin,
     })
+    await newUser.save()
 
-    const user = await newUser.save()
+    const user = await Users.find({ email }).populate([
+      'comments',
+      'readBooks',
+      'favouritesBooks',
+      'buyBooks',
+    ])
 
-    res.send(user)
+    res.json([user])
   } catch (error) {
     res.status(404).send(error.message)
   }
@@ -191,18 +203,33 @@ router.post('/addDesiredBooks/:idBook/:idUser', async (req, res) => {
   const { idBook, idUser } = req.params
   try {
     const book = await Books.findById(idBook)
-    const user = await Users.findById(idUser)
+    const user = await Users.findById(idUser).populate([
+      'comments',
+      'readBooks',
+      'favouritesBooks',
+      'buyBooks',
+    ])
 
     const userBooksFavourites = user.favouritesBooks
     userBooksFavourites.forEach((bookFav) => {
-      if (bookFav.toString() === book._id.toString()) return res.json(user)
+      console.log(bookFav._id.toString())
+      if (bookFav._id.toString() === book._id.toString()) {
+        return res.json([user])
+      }
     })
 
     user.favouritesBooks.push(book._id)
 
-    const userUpdated = await user.save()
+    await user.save()
 
-    res.json(userUpdated)
+    const userUpdated = await Users.findById(idUser).populate([
+      'comments',
+      'readBooks',
+      'favouritesBooks',
+      'buyBooks',
+    ])
+
+    res.json([userUpdated])
   } catch (error) {
     res.send(error.message)
   }
@@ -213,7 +240,12 @@ router.post('/deleteDesiredBooks/:idBook/:idUser', async (req, res) => {
   try {
     if (!idBook || !idUser) throw new Error('Please insert complete data')
     const book = await Books.findById(idBook)
-    const user = await Users.findById(idUser)
+    const user = await Users.findById(idUser).populate([
+      'comments',
+      'readBooks',
+      'favouritesBooks',
+      'buyBooks',
+    ])
 
     user.favouritesBooks = user.favouritesBooks.filter((b) => {
       return b._id.toString() !== book._id.toString()
@@ -221,7 +253,7 @@ router.post('/deleteDesiredBooks/:idBook/:idUser', async (req, res) => {
 
     const userUpdate = await user.save()
 
-    res.send(userUpdate)
+    res.send([userUpdate])
   } catch (error) {
     res.send(error.message)
   }
@@ -480,6 +512,82 @@ router.post('/toggleAdminMarketing', async (req, res) => {
         return res.send('The user now is not admin')
       } else {
         user.isAdminMarketing = true
+        await user.save()
+        return res.send('The user is now admin')
+      }
+    }
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
+router.post('/toggleAdminComments', async (req, res) => {
+  const { id } = req.query
+  const userIds = req.body
+  try {
+    if (userIds) {
+      userIds.forEach(async (id) => {
+        const user = await Users.findById(id)
+
+        if (!user) throw new Error('The user not exists')
+        if (user.isAdminComments) {
+          user.isAdminComments = false
+          await user.save()
+        } else {
+          user.isAdminComments = true
+          await user.save()
+        }
+      })
+
+      res.json('Usuarios actualizados!')
+    } else {
+      const user = await Users.findById(id)
+      if (!user) throw new Error('The user not exists')
+
+      if (user.isAdminComments) {
+        user.isAdminComments = false
+        await user.save()
+        return res.send('The user now is not admin')
+      } else {
+        user.isAdminComments = true
+        await user.save()
+        return res.send('The user is now admin')
+      }
+    }
+  } catch (error) {
+    res.send(error.message)
+  }
+})
+
+router.post('/toggleAdminVentas', async (req, res) => {
+  const { id } = req.query
+  const userIds = req.body
+  try {
+    if (userIds) {
+      userIds.forEach(async (id) => {
+        const user = await Users.findById(id)
+
+        if (!user) throw new Error('The user not exists')
+        if (user.isAdminVentas) {
+          user.isAdminVentas = false
+          await user.save()
+        } else {
+          user.isAdminVentas = true
+          await user.save()
+        }
+      })
+
+      res.json('Usuarios actualizados!')
+    } else {
+      const user = await Users.findById(id)
+      if (!user) throw new Error('The user not exists')
+
+      if (user.isAdminVentas) {
+        user.isAdminVentas = false
+        await user.save()
+        return res.send('The user now is not admin')
+      } else {
+        user.isAdminVentas = true
         await user.save()
         return res.send('The user is now admin')
       }

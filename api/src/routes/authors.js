@@ -90,24 +90,14 @@ router.post('/addAuthor', async (req, res) => {
     res.status(404).send(err.message)
   }
 })
+
 router.post('/update/:id', async (req, res) => {
-  const data = req.body
   const { id } = req.params
 
   try {
-    const authorUpDte = await Author.findByIdAndUpdate(
-      { _id: id },
-      data,
-      () => {
-        if (!data) {
-          return res.json({ msg: 'no realizaste acctualizacion' })
-        } else {
-          return res.json({ msg: 'actualizacion exitosa' })
-        }
-      }
-    )
-
-    return res.json(authorUpDte)
+    if (Object.keys(req.body).length === 0) throw new Error('Send propertys')
+    const author = await Author.findByIdAndUpdate(id, req.body, { new: 1 })
+    res.json(author)
   } catch (error) {
     console.log('FALLO EL UPDATE', error)
   }

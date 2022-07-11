@@ -15,8 +15,8 @@ export default function SideBar() {
   const top5Rating = orderBooksByRating.slice(0, 5)
 
   const orderBooksBySold = allBooks.sort((a, b) => {
-    if (a.price > b.price) return -1
-    if (b.price > a.price) return 1
+    if (a.soldCount > b.soldCount) return -1
+    if (b.soldCount > a.soldCount) return 1
     return 0
   })
 
@@ -34,8 +34,14 @@ export default function SideBar() {
               return (
                 <Link className={styles.link} to={'/book/' + book._id}>
                   <div className={styles.card}>
-                    <h3>#{i + 1}</h3>
-                    <img src={book.cover} className={styles.img}></img>
+                    <div className={`${styles.face} ${styles.face_front}`}>
+                      <h3>#{i + 1}</h3>
+                      <img src={book.cover} className={styles.img}></img>
+                    </div>
+                    <div className={`${styles.face} ${styles.face_back}`}>
+                      <p> {book.pages}</p>
+                      <p> {book.title}</p>
+                    </div>
                   </div>
                 </Link>
               )
@@ -55,8 +61,14 @@ export default function SideBar() {
               return (
                 <Link className={styles.link} to={'/book/' + book._id}>
                   <div className={styles.card}>
-                    <h3>#{i + 1}</h3>
-                    <img src={book.cover} className={styles.img}></img>
+                    <div className={`${styles.face} ${styles.face_front}`}>
+                      <h3>#{i + 1}</h3>
+                      <img src={book.cover} className={styles.img}></img>
+                    </div>
+                    <div className={`${styles.face} ${styles.face_back}`}>
+                      <p> {book.pages}</p>
+                      <p> {book.title}</p>
+                    </div>
                   </div>
                 </Link>
               )

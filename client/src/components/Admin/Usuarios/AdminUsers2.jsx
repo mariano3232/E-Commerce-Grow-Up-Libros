@@ -79,7 +79,7 @@ export default function AdminUsers2(props) {
       <h1>Control de usuarios</h1>
       <div>
         <Link to='/admin'>
-          <button className={style.btnAdmin}>↼ Back</button>
+          <button className={style.btnAdmin}>Panel de Administrador</button>
         </Link>
         <br />
         <br />

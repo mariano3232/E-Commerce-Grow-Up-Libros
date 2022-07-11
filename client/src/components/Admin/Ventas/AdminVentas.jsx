@@ -42,7 +42,7 @@ export default function AdminVentas() {
     },
     {
       name: 'Ventas',
-      selector: 'soldCount',
+      selector: 'stock',
       sortable: true,
     },
   ]
