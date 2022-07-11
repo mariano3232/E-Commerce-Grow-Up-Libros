@@ -130,10 +130,9 @@ export default function Home() {
       </Link>
 
       <div className={styles.color}>
-        <Carousel />
-
-        <div>
-          <div className={styles.sideBar_containerCard}>
+        <div className={styles.container__components}>
+          <div className={styles.carrousel__containerCards}>
+            <Carousel />
             <div className={styles.containerActionsAndCards}>
               <div className={styles.containerOrderAndPaginado}>
                 <div className={styles.ubiOptions}>
@@ -224,8 +223,8 @@ export default function Home() {
                 page={currentPage}
               />
             </div>
-            <SideBar />
           </div>
+          <SideBar />
         </div>
       </div>
     </div>

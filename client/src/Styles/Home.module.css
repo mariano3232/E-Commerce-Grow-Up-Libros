@@ -73,12 +73,17 @@
   width: 100%;
 }
 
-.sideBar_containerCard {
+.carrousel__containerCards {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 5rem;
+}
+.container__components {
   display: flex;
   justify-content: space-between;
-  padding: 5rem 0;
+  gap: 1rem;
 }
-
 .content {
   display: flex;
   flex-direction: row-reverse;
