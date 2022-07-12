@@ -17,6 +17,7 @@ import style from '../Styles/bookDetails.module.css'
 import UserEditDatos from './UserEditDatos'
 import UserEditPlanes from './UserEditPlanes'
 import { animateScroll as scroll } from 'react-scroll'
+import { Button } from '@mui/material'
 
 const UserPerfil = () => {
   const dispatch = useDispatch()
@@ -56,92 +57,101 @@ const UserPerfil = () => {
       {isAuthenticated && (
         <div className={styles.containerTitle}>
           <h1 className={styles.titlePerfil}>Bienvenido:</h1>
-          <h2 className={styles.nicknamePerfil}>{user.nickname}</h2>
+          <h3 className={styles.nicknamePerfil}>
+            {user.name} {user.surname}
+          </h3>
         </div>
       )}
-      <div className={styles.containerUserGrid}>
-        <Link to='/cart'>
-          <div className={s.containerCart}>
-            <BsCart className={s.cart} />
+      <Link to='/cart'>
+        <div className={s.containerCart}>
+          <BsCart className={s.cart} />
+          <div className={s.productsAmount}>
+            <p className={s.productsAmountNumber}>{productsAmount}</p>
+          </div>
+        </div>
+      </Link>
+
+      <Link to='/user'>
+        <div className={s.containerHeart}>
+          <BsHeart className={s.heart} />
+          {isLogged.length ? (
             <div className={s.productsAmount}>
-              <p className={s.productsAmountNumber}>{productsAmount}</p>
+              <p className={s.productsAmountNumber}>
+                {userFavBooksShowed.length}
+              </p>
             </div>
-          </div>
-        </Link>
+          ) : (
+            <div className={s.productsAmount}>
+              <p className={s.productsAmountNumber}>{0}</p>
+            </div>
+          )}
+        </div>
+      </Link>
 
-        <Link to='/user'>
-          <div className={s.containerHeart}>
-            <BsHeart className={s.heart} />
-            {isLogged.length ? (
-              <div className={s.productsAmount}>
-                <p className={s.productsAmountNumber}>
-                  {userFavBooksShowed.length}
-                </p>
-              </div>
-            ) : (
-              <div className={s.productsAmount}>
-                <p className={s.productsAmountNumber}>{0}</p>
-              </div>
-            )}
-          </div>
-        </Link>
-
+      <div className={styles.containerUserGrid}>
         <div className={styles.containerButtons}>
-          <button
+          <Button
+            sx={{ fontWeight: 'bold' }}
             className={styles.button}
             name='userData'
             onClick={handleInput}
           >
             Datos personales
-          </button>
+          </Button>
 
-          <button
+          <Button
+            sx={{ fontWeight: 'bold' }}
             className={styles.button}
             name='userEditData'
             onClick={handleInput}
           >
             Editar Datos personales
-          </button>
+          </Button>
 
-          <button
+          <Button
+            sx={{ fontWeight: 'bold' }}
             className={styles.button}
             onClick={handleInput}
             name='userSubscripcion'
           >
             Plan de suscripcion
-          </button>
+          </Button>
 
-          <button
+          <Button
+            sx={{ fontWeight: 'bold' }}
             className={styles.button}
             onClick={handleInput}
             name='userEditPlan'
           >
             Editar Planes
-          </button>
+          </Button>
 
-          <button
+          <Button
+            sx={{ fontWeight: 'bold' }}
             className={styles.button}
             onClick={handleInput}
             name='userFav'
           >
             Libros deseados
-          </button>
+          </Button>
 
-          <button
+          <Button
+            sx={{ fontWeight: 'bold' }}
             className={styles.button}
             onClick={handleInput}
             name='userPlanLectura'
           >
             Plan de lectura
-          </button>
+          </Button>
 
-          <button
+          <Button
+            sx={{ fontWeight: 'bold' }}
             className={styles.button}
             onClick={handleInput}
             name='userHistory'
           >
             Mis compras
-          </button>
+          </Button>
         </div>
         <div className={styles.containerSection}>{component}</div>
       </div>
