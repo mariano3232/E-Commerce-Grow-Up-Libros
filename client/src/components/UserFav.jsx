@@ -73,7 +73,7 @@ const UserFav = () => {
       <div className={style.containerCards}>
         <Swiper
           slidesPerView={4}
-          spaceBetween={0}
+          spaceBetween={50}
           pagination={{ clickable: true }}
           modules={[Pagination]}
           className={style.mySwipper}
@@ -89,6 +89,12 @@ const UserFav = () => {
                   price={book.price}
                   stock={book.stock}
                 />
+                <button
+                  className={style.buttonDelete}
+                  onClick={() => handleDeleteFav(book._id)}
+                >
+                  X
+                </button>
               </div>
             </SwiperSlide>
           ))}
