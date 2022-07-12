@@ -21,12 +21,10 @@ const CardPremium = ({ mes, trimestral, anual }) => {
 
   return (
     <div
-      className={mes ? style.container : trimestral ? style.gas : style.gaston}
+      className={`${style.card} ${
+        mes ? style.container : trimestral ? style.gas : style.gaston
+      }`}
     >
-      <h3>Plan: Soy Premium</h3>
-
-      <p>Herramientas para empezar a potencial tu desarrollo al máximo</p>
-
       <h1>
         Ars {mes} {trimestral} {anual}
       </h1>
@@ -54,8 +52,6 @@ const CardPremium = ({ mes, trimestral, anual }) => {
       ) : (
         ''
       )}
-
-      <br />
 
       {userId[0].isPremiun === false ? (
         <button className={style.button} onClick={() => handleSubmit()}>
