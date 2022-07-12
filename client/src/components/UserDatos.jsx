@@ -7,14 +7,12 @@ import styles from '../Styles/UserDatos.module.css'
 //import axios from 'axios'
 
 const UserDatos = () => {
-
   /* const paises=["Afganistán","Albania","Alemania","Andorra","Angola","Antigua y Barbuda","Arabia Saudita","Argelia","Argentina","Armenia","Australia","Austria","Azerbaiyán","Bahamas","Bangladés","Barbados","Baréin","Bélgica","Belice","Benín","Bielorrusia","Birmania","Bolivia","Bosnia y Herzegovina","Botsuana","Brasil","Brunéi","Bulgaria","Burkina Faso","Burundi","Bután","Cabo Verde","Camboya","Camerún","Canadá","Catar","Chad","Chile","China","Chipre","Ciudad del Vaticano","Colombia","Comoras","Corea del Norte","Corea del Sur","Costa de Marfil","Costa Rica","Croacia","Cuba","Dinamarca","Dominica","Ecuador","Egipto","El Salvador","Emiratos Árabes Unidos","Eritrea","Eslovaquia","Eslovenia","España","Estados Unidos","Estonia","Etiopía","Filipinas","Finlandia","Fiyi","Francia","Gabón","Gambia","Georgia","Ghana","Granada","Grecia","Guatemala","Guyana","Guinea","Guinea ecuatorial","Guinea-Bisáu","Haití","Honduras","Hungría","India","Indonesia","Irak","Irán","Irlanda","Islandia","Islas Marshall","Islas Salomón","Israel","Italia","Jamaica","Japón","Jordania","Kazajistán","Kenia","Kirguistán","Kiribati","Kuwait","Laos","Lesoto","Letonia","Líbano","Liberia","Libia","Liechtenstein","Lituania","Luxemburgo","Madagascar","Malasia","Malaui","Maldivas","Malí","Malta","Marruecos","Mauricio","Mauritania","México","Micronesia","Moldavia","Mónaco","Mongolia","Montenegro","Mozambique","Namibia","Nauru","Nepal","Nicaragua","Níger","Nigeria","Noruega","Nueva Zelanda","Omán","Países Bajos","Pakistán","Palaos","Palestina","Panamá","Papúa Nueva Guinea","Paraguay","Perú","Polonia","Portugal","Reino Unido","República Centroafricana","República Checa","República de Macedonia","República del Congo","República Democrática del Congo","República Dominicana","República Sudafricana","Ruanda","Rumanía","Rusia","Samoa","San Cristóbal y Nieves","San Marino","San Vicente y las Granadinas","Santa Lucía","Santo Tomé y Príncipe","Senegal","Serbia","Seychelles","Sierra Leona","Singapur","Siria","Somalia","Sri Lanka","Suazilandia","Sudán","Sudán del Sur","Suecia","Suiza","Surinam","Tailandia","Tanzania","Tayikistán","Timor Oriental","Togo","Tonga","Trinidad y Tobago","Túnez","Turkmenistán","Turquía","Tuvalu","Ucrania","Uganda","Uruguay","Uzbekistán","Vanuatu","Venezuela","Vietnam","Yemen","Yibuti","Zambia","Zimbabue"] */
 
   const allUsers = useSelector((state) => state.users)
   const logged = useSelector((state) => state.userLogged)
   const userId = allUsers.filter((u) => u._id === logged[0]._id)
-  /* const dispatch = useDispatch()
-  const navigate = useNavigate() */
+  const dispatch = useDispatch()
 
   /* const [state, setState] = useState('')
   const [input, setInput] = useState({
@@ -96,10 +94,6 @@ const UserDatos = () => {
     }
   } */
 
-  const handleClick = () => {
-    setState(!state);
-  }
-
   /* const handlePlanDelete = () => {
     const id = [logged[0]._id];
     dispatch(setUserPlan(id));
@@ -129,7 +123,7 @@ const UserDatos = () => {
     <div className={styles.containerAll}>
       <form className={styles.userForm} onSubmit={(e) => handleSubmit(e)}>
         <legend className={styles.legendForm}>Datos personales</legend>
-
+        <img className={styles.userimage} src={userId[0].picture} alt='' />
         <div className={styles.containerInputsGrid}>
           <div className={styles.containerInput}>
             <label htmlFor='nickname'>Usuario:</label>
@@ -146,12 +140,7 @@ const UserDatos = () => {
           </div>
           <div className={styles.containerInput}>
             <label htmlFor='name'>Nombre:</label>
-            <input
-              type='text'
-              name='name'
-              value={userId[0].name}
-              readOnly
-            />
+            <input type='text' name='name' value={userId[0].name} readOnly />
             {/* {
               errors?.name?<p className={styles.error}>{errors.name}</p>:null
             } */}
@@ -206,24 +195,14 @@ const UserDatos = () => {
           </div>
           <div className={styles.containerInput}>
             <label htmlFor='dni'>Nº de Documento:</label>
-            <input
-              type='text'
-              name='dni'
-              value={userId[0].dni}
-              readOnly
-            />
+            <input type='text' name='dni' value={userId[0].dni} readOnly />
             {/* {
               errors.dni&&input.dni?<p className={styles.error}>{errors.dni}</p>:null
             } */}
           </div>
           <div className={styles.containerInput}>
             <label htmlFor='phone'>Telofono:</label>
-            <input
-              type='text'
-              name='phone'
-              value={userId[0].phone}
-              readOnly
-            />
+            <input type='text' name='phone' value={userId[0].phone} readOnly />
             {/* {
               errors.phone&&input.phone?<p className={styles.error}>{errors.phone}</p>:null
             } */}
@@ -266,8 +245,6 @@ const UserDatos = () => {
               errors?.postal?<p className={styles.error}>{errors.postal}</p>:null
             } */}
           </div>
-          
-
         </div>
         {/* <button className={styles.button} type='submit'>
           Actualizar
@@ -317,7 +294,6 @@ const UserDatos = () => {
           
       </div> */}
 
-      
       {/* <button onClick={handleClick} className={styles.button}>
         Ver mis datos
       </button> */}
