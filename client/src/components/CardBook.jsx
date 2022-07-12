@@ -35,7 +35,7 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
       }
     }
     if (userLogged.length === 0) {
-      return false;
+      return false
     }
   }
 
@@ -74,7 +74,7 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
           quantity: products[products.length - 1].amount,
         })
       )
-    }, 200)
+    }, 500)
   }
 
   return (

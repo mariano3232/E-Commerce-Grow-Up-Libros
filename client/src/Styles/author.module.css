@@ -5,15 +5,13 @@
     rgba(27, 163, 168, 0.85) 26.91%,
     rgba(55, 61, 81, 0.85) 98.72%
   );
-  
-  
 }
 .container {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
   width: 95%;
-  height: fit-content;
+  height: 100%;
 }
 .Link {
   text-decoration: none;
@@ -72,6 +70,6 @@
 .button:hover::after {
   width: 100%;
 }
-.link{
+.link {
   text-decoration: none;
 }

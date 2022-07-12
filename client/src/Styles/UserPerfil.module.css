@@ -1,16 +1,21 @@
 .containerUserPerfil {
-  padding: 1rem 2rem;
 }
 
 .containerTitle {
   display: flex;
   align-items: center;
   gap: 2rem;
+  padding: 2rem 1rem;
 }
 
 .nicknamePerfil {
   color: black;
   font-size: 1.8rem;
+  margin: 0;
+}
+
+.titlePerfil {
+  margin: 0;
 }
 
 .containerUserGrid {
@@ -22,9 +27,9 @@
 .containerButtons {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 2rem;
-  align-items: center;
-  padding: 2rem;
+  padding: 0 2rem;
   border-right: 1px solid black;
 }
 
@@ -35,8 +40,6 @@
   z-index: 1;
   position: relative;
   font-size: 18px;
-  background-color: #2e9caa;
-  color: white;
   height: 3rem;
   border-radius: 10px;
   transition: 500ms;

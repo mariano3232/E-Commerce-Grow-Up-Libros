@@ -1,31 +1,33 @@
 .containerAll {
-  width: 100%;
 }
 
 .userForm {
-  background: -webkit-linear-gradient(70deg, #77c9d4, #015249);
+  background: #22b8cf;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px 0;
+  width: max-content;
 }
-
+.userimage {
+  border-radius: 50%;
+}
 .legendForm {
   font-size: 2rem;
   color: white;
+  margin-bottom: 20px;
 }
 .containerInputsGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-items: flex-end;
-  gap: 2rem;
-
+  gap: 0.5rem;
   padding: 2rem;
 }
 
 .containerInput {
-  /* display: flex; */
-  /* flex-direction: column; */
+  display: flex;
+
   align-items: center;
   gap: 1rem;
 }
@@ -80,6 +82,8 @@
   border-radius: 4px;
   transition: 500ms;
   color: white;
+
+  justify-self: end;
 }
 
 .button::after {
@@ -102,7 +106,7 @@
   transform-origin: left;
 }
 
-.select{
+.select {
   font-size: 1.2rem;
   width: 14rem;
   border: none;
@@ -115,7 +119,7 @@
   outline: 5px solid rgba(0, 255, 255, 0.5);
 }
 
-.error{
+.error {
   color: red;
   position: absolute;
 }

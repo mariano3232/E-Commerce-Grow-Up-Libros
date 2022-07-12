@@ -71,7 +71,6 @@ export default function BookDetails() {
     if (isLogged.length === 0) return loginWithRedirect()
     dispatch(addToCart(id))
     dispatch(updateAmount(productsAmount + 1))
-    Alert('Libro agregado al carrito!', 'cart')
     setTimeout(function () {
       dispatch(
         purchaseOrder({
@@ -82,7 +81,7 @@ export default function BookDetails() {
           quantity: products[products.length - 1].amount,
         })
       )
-    }, 200)
+    }, 500)
   }
 
   useEffect(() => {
@@ -201,10 +200,7 @@ export default function BookDetails() {
               : ' No hay Stock'}
           </h4>
           {book.stock > 0 ? (
-            <div
-              className={styles.iconBackground}
-              onClick={(e) => handleAddToCart(e)}
-            >
+            <div className={styles.iconBackground}>
               <AddShoppingCartIcon
                 cursor='pointer'
                 color='action'

@@ -100,7 +100,9 @@ const UserPlanLectura = () => {
           budget={state.budget}
         />
       ) : (
-        <p>..."No dejes para mañana lo que puedas leer hoy"...</p>
+        <p className={styles.frase}>
+          ..."No dejes para mañana lo que puedas leer hoy"...
+        </p>
       )}
     </div>
   )
