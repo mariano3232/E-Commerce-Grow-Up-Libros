@@ -395,6 +395,8 @@ function rootReducer(state = initialState, action) {
       }
 
     case 'PURCHASE_ORDER':
+      //const filerTwoBooks = state.purchaseOrder.includes(action.payload.title);
+
       return {
         ...state,
         purchaseOrder: [...state.purchaseOrder, action.payload],
