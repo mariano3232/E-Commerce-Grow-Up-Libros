@@ -6,7 +6,9 @@ import styles from '../../Styles/SideBar.module.css'
 export default function SideBar() {
   const allBooks = useSelector((state) => state.booksTop)
 
-  const orderBooksByRating = allBooks.sort((a, b) => {
+  const topBooks = [...allBooks]
+
+  const orderBooksByRating = topBooks.sort((a, b) => {
     if (a.rating > b.rating) return -1
     if (b.rating > a.rating) return 1
     return 0
@@ -14,7 +16,7 @@ export default function SideBar() {
 
   const top5Rating = orderBooksByRating.slice(0, 5)
 
-  const orderBooksBySold = allBooks.sort((a, b) => {
+  const orderBooksBySold = topBooks.sort((a, b) => {
     if (a.soldCount > b.soldCount) return -1
     if (b.soldCount > a.soldCount) return 1
     return 0
