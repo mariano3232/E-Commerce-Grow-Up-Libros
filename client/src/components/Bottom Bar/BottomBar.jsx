@@ -53,16 +53,13 @@ export default function BottomBar() {
       return Alert("Ya estas subscipto!!", "success");
     }
 
-    const id = [isLogged[0]._id];
-    dispatch(setUserNews(id));
-    Alert(
-      `Gracias ${input} Suscripción exitosa a nuestro newsletters.`,
-      "success"
-    );
-    setInput("");
-    navigate("/user");
-    dispatch(getUsers());
-  };
+    const id = [isLogged[0]._id]
+    dispatch(setUserNews(id))
+    alert(`Gracias ${usuario[0].nickname} Suscripción exitosa a nuestro newsletters.`)
+    setInput('')
+    navigate('/user')
+    dispatch(getUsers())
+  }
 
   return (
     <Grid
@@ -124,11 +121,15 @@ export default function BottomBar() {
       <Grid item xs={1}>
         <img style={{ maxWidth: "50%" }} src={mercado} alt="mercadopago-logo" />
       </Grid>
-      <Grid width={"100%"} xs={1} item>
-        <Stack direction={"row"} spacing="2">
-          <Input
-            type="text"
-            placeholder="Email"
+      <Grid width={'100%'} xs={1} item>
+        <Stack direction={'row'} spacing='2'>
+
+        <Typography sx={{ textDecoration: 'inherit', color: 'white', fontSize: '20px' }}>
+              NewsLetters
+            </Typography>
+          {/* <Input
+            type='text'
+            placeholder='Email'
             value={input}
             onChange={(e) => handleChange(e)}
             sx={{
@@ -147,14 +148,23 @@ export default function BottomBar() {
                 borderColor: "transparent",
               },
             }}
-          />
-          <Button
-            sx={{ fontWeight: "bold" }}
+          /> */}
+
+          {
+            isLogged.lenght === 0 ?
+            <Typography sx={{ textDecoration: 'inherit', color: 'white', fontSize: '15px' }}>
+              Para suscribirse a nuestro NewsLetter debes estar logeado
+            </Typography> :
+            <Button
+            sx={{ fontWeight: 'bold' }}
             onClick={handleSubmit}
             color="secondary"
           >
             Suscribete
           </Button>
+          }
+
+          
         </Stack>
       </Grid>
     </Grid>

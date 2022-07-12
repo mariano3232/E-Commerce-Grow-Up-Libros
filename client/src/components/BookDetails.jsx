@@ -44,7 +44,8 @@ export default function BookDetails() {
   const uBooksFav = useSelector((state) => state.userLoggedFavsBooksShowed)
   //console.log('uBooksFavs:',uBooksFav)
 
-  const bookAdded = uBooksFav.filter((e) => e._id === id)
+  //const bookAdded = uBooksFav.filter((e) => e._id === id)
+  const bookAdded = uBooksFav.map((book) => book._id) 
   // console.log('bookAdded:,',bookAdded)
 
   const [comment, setComment] = useState({
@@ -127,6 +128,11 @@ export default function BookDetails() {
           dispatch(getBookComments(id)), 500
         })
       })
+      setComment({
+        comment: '',
+        nickname: '',
+        title: '',
+      })
   }
 
   function handleDelete(e) {
@@ -148,9 +154,13 @@ export default function BookDetails() {
   console.log('comments:', comments)
   const author = book.authors
 
+  const hola = () => {
+    loginWithRedirect();
+  }
+
   return (
     <div className={s.container}>
-      <Link to='/cart'>
+      <Link  to='/cart'>
         <div className={s.containerCart}>
           <BsCart className={s.cart} />
           <div className={s.productsAmount}>
@@ -159,20 +169,26 @@ export default function BookDetails() {
         </div>
       </Link>
 
-      <Link to='/user'>
+      {
+        isLogged.length === 0 ?
+        <div></div> :
+        <Link to='/user'>
         <div className={s.containerHeart}>
-          <BsHeart className={s.heart} />
+          <BsHeart className={s.heart}/>
           {isLogged.length ? (
             <div className={s.productsAmount}>
               <p className={s.productsAmountNumber}>{uBooksFav.length}</p>
             </div>
           ) : (
-            <div className={s.productsAmount}>
+            <div className={s.productsAmount} >
               <p className={s.productsAmountNumber}>{0}</p>
             </div>
           )}
         </div>
       </Link>
+        
+      }
+
       <div className={styles.principal}>
         <img src={book.cover} alt='Not Found ):' className={styles.img} />
         <h1 className={styles.title}>{book.title}</h1>
@@ -189,16 +205,16 @@ export default function BookDetails() {
         <div className={styles.buy}>
           <h3 className={styles.price}>${book.price}</h3>
           <h4>
-            Stock :
+            Stock:
             {book.stock > 3
-              ? ' Disponible'
+              ? '  Disponible'
               : book.stock === 3
-              ? ' ¡Quedan 3!'
+              ? '  ¡Quedan 3!'
               : book.stock === 2
-              ? ' ¡Quedan 2!'
+              ? '  ¡Quedan 2!'
               : book.stock === 1
-              ? ' ¡Ultimo disponible!'
-              : ' No hay Stock'}
+              ? '  ¡Ultimo disponible!'
+              : '  No hay Stock'}
           </h4>
           {book.stock > 0 ? (
             <div
