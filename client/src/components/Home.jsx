@@ -200,9 +200,9 @@ export default function Home() {
                     paginado={paginado}
                     page={currentPage}
                   />
-                  <GenerosTitle />
                 </Element>
               </div>
+              <GenerosTitle />
               <div className={styles.card}>
                 {currentBooks.length ? (
                   currentBooks.map((book, index) => {

@@ -1,10 +1,10 @@
 .authors {
   background: linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.5) 100%,
-      rgba(0, 0, 0, 0.23571435410101538) 100%
-    ),
-    url('../imgs/Landing.jpg');
+    298.8deg,
+    rgba(204, 214, 38, 0.85) -59.75%,
+    rgba(27, 163, 168, 0.85) 26.91%,
+    rgba(55, 61, 81, 0.85) 98.72%
+  );
   width: 100%;
   padding: 50px 0;
 }
@@ -28,8 +28,8 @@
 }
 
 .containerActions {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  justify-items: center;
+  display: flex;
+  gap: 2rem;
   align-items: center;
+  justify-content: center;
 }
