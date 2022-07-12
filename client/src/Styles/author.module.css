@@ -5,26 +5,25 @@
     rgba(27, 163, 168, 0.85) 26.91%,
     rgba(55, 61, 81, 0.85) 98.72%
   );
-  width: 100%;
-  padding: 50px 0;
+  
+  
 }
 .container {
-  display: grid;
-  justify-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 95%;
+  height: fit-content;
 }
 .Link {
   text-decoration: none;
 }
 
 .selectOrder {
-  padding: 5px 10px;
-  font-size: 18px;
+  padding: 1em 1.5em;
   border-radius: 5px;
-  border: 2px solid #77c9d4;
   color: white;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #468ea2;
 }
 
 .containerActions {
@@ -32,4 +31,47 @@
   gap: 2rem;
   align-items: center;
   justify-content: center;
+}
+
+.button {
+  text-decoration: none;
+  font-size: xx-large;
+  color: white;
+  margin: 15px;
+  position: relative;
+  opacity: 0.9;
+}
+
+.button:hover {
+  text-decoration: none;
+}
+
+.button::before {
+  content: '';
+  background: white;
+  height: 3px;
+  width: 0;
+  position: absolute;
+  bottom: 0;
+  transition: 0.3s;
+}
+.button:hover::before {
+  width: 100%;
+}
+
+.button::after {
+  content: '';
+  background: white;
+  height: 3px;
+  width: 0;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transition: 0.3s;
+}
+.button:hover::after {
+  width: 100%;
+}
+.link{
+  text-decoration: none;
 }
