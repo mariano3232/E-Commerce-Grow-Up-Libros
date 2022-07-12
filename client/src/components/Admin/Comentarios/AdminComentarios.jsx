@@ -189,7 +189,10 @@ export default function AdminComentarios(){
                                 </Link>
                                 :'No tiene user'}
                             </td> 
+                            {comment.books.length>0
+                            ?
                             <td>{comment.books[0].title}</td>
+                            : 'No tiene Libro'}
                             <td>{comment.comment}</td>
                             <td>{comment.createdAt}</td>
                             <td> {comment.isHidden?
