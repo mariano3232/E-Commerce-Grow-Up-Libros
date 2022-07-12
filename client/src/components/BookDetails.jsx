@@ -29,6 +29,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import Fav from './Fav'
 import Alert from '../functions/Alert'
+import Cart from './Cart'
 
 export default function BookDetails() {
   const id = useParams().id
@@ -40,14 +41,15 @@ export default function BookDetails() {
   const { loginWithRedirect } = useAuth0()
   const [render, setRender] = useState(0)
   const usuario = useSelector((state) => state.userLogged)
-
+  
   const uBooksFav = useSelector((state) => state.userLoggedFavsBooksShowed)
   //console.log('uBooksFavs:',uBooksFav)
-
+  
   //const bookAdded = uBooksFav.filter((e) => e._id === id)
   const bookAdded = uBooksFav.map((book) => book._id) 
   // console.log('bookAdded:,',bookAdded)
-
+  
+  
   const [comment, setComment] = useState({
     comment: '',
     nickname: '',
@@ -215,7 +217,12 @@ export default function BookDetails() {
               ? '  ¡Ultimo disponible!'
               : '  No hay Stock'}
           </h4>
-          {book.stock > 0 ? (
+
+          <div>
+            <Cart title={book.title} stock={book.stock} id={id}/>
+          </div>
+
+          {/* {book.stock > 0 ? (
             <div className={styles.iconBackground}>
               <AddShoppingCartIcon
                 cursor='pointer'
@@ -226,7 +233,7 @@ export default function BookDetails() {
             </div>
           ) : (
             ''
-          )}
+          )} */}
           <div className={styles.iconBackground}>
             <Fav
               book={book._id}
