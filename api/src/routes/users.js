@@ -3,7 +3,7 @@ const router = Router()
 const Books = require('../model/Books')
 const Order = require('../model/Order')
 const Users = require('../model/Users')
-
+const mail = require('../mercadoPago/util/premiumEmail')
 router.get('/', async (req, res) => {
   try {
     const users = await Users.find().populate([
@@ -98,6 +98,7 @@ router.post('/toggleAdmin', async (req, res) => {
           user.isAdmin = false
           await user.save()
         } else {
+          mail.enviar_mail_premium(user.name, user.email)
           user.isAdmin = true
           await user.save()
         }
