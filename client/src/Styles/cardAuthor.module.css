@@ -1,7 +1,7 @@
 .container {
   position:relative;
-  width: 17rem;
-  height: 30rem;
+  width: 15rem;
+  height: 27rem;
   margin:1rem;
   border-radius: 6px;
   transition: 500ms;
@@ -16,7 +16,7 @@
 
 .content{
   padding: 1.5rem;
-  width: 15em;
+  width: 13em;
   position:absolute;
   bottom:0;
   background:linear-gradient(0deg,rgba(254, 28, 28, 0),#2c6170);
@@ -25,7 +25,7 @@
   color: white;
   font-family: sans-serif;
   font-weight: 100;
-  font-size: xx-large;
+  font-size: x-large;
   height: 60px;
   margin: 0;
 }

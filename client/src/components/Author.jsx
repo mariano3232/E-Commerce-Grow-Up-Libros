@@ -58,13 +58,13 @@ const Author = () => {
     <div className={styles.authors}>
       <div>
         <div className={styles.containerActions}>
-          <Link to='/admin'>
-            <button
-              className={styledButton.button}
+          <Link to='/admin' className={styles.link}>
+            <h3
+              className={styles.button}
               onClick={handleClickAuthors}
             >
               Todos los Autores
-            </button>
+            </h3>
           </Link>
 
           <SearchBarAuthor />
