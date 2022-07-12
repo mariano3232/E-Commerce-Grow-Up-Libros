@@ -1,11 +1,12 @@
 .containerBooksRecommended {
-  padding: 2rem 0;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  justify-items: center;
+  width: 1000px;
+  background-color: #22b8cf;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
 }
 
-.containerBooksRecommended li img {
-  max-width: 200px;
-  height: 300px;
+.frase {
+  font-size: 24px;
+  padding: 0 20px;
+  color: white;
 }

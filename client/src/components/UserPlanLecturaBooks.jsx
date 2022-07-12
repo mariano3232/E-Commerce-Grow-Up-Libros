@@ -7,6 +7,12 @@ import Fav from './Fav'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import Alert from '../functions/Alert'
 
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import { Pagination } from 'swiper'
+import CardBook from './CardBook'
+
 const UserPlanLecturaBooks = ({ size, genre, budget }) => {
   const dispatch = useDispatch()
   const allBooks = useSelector((state) => state.books)
@@ -96,241 +102,137 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
 
   return (
     <div className={style.containerBooksRecommended}>
-      {size == 'cortos' &&
-      budget == 'Menos de $3.500' &&
-      genre == 'Desarrollo Personal' ? (
-        roundOne?.map((e) => (
-          <li>
-            <Link to={'/book/' + e._id}>
-              <img className={style.container} src={e.cover} alt='buscando' />
-            </Link>
-            <div>
-              {e.stock > 1 ? (
-                <AddShoppingCartIcon
-                  cursor='pointer'
-                  color='action'
-                  fontSize='large'
-                  id={e._id}
-                  onClick={(e) => handleAddToCart(e)}
-                />
-              ) : (
-                ''
-              )}
-              <Fav
-                book={e._id}
-                painted={`${
-                  myFavsBooksIds.includes(e._id) ? 'secondary' : 'disabled'
-                }`}
-              />
-            </div>
-          </li>
-        ))
-      ) : size == 'largos' &&
-        budget == 'Más de $3.500' &&
-        genre == 'Desarrollo Personal' ? (
-        roundTwo?.map((e) => (
-          <li>
-            <Link to={'/book/' + e._id}>
-              <img className={style.container} src={e.cover} alt='buscando' />
-            </Link>
-            {e.stock > 1 ? (
-              <AddShoppingCartIcon
-                cursor='pointer'
-                color='action'
-                fontSize='large'
-                id={e._id}
-                onClick={(e) => handleAddToCart(e)}
-              />
-            ) : (
-              ''
-            )}
-            <span>
-              <Fav
-                book={e._id}
-                painted={`${
-                  myFavsBooksIds.includes(e._id) ? 'secondary' : 'disabled'
-                }`}
-              />
-            </span>
-          </li>
-        ))
-      ) : size == 'cortos' &&
-        budget == 'Más de $3.500' &&
-        genre == 'Desarrollo Personal' ? (
-        roundThree?.map((e) => (
-          <li>
-            <Link to={'/book/' + e._id}>
-              <img className={style.container} src={e.cover} alt='buscando' />
-            </Link>
-            {e.stock > 1 ? (
-              <AddShoppingCartIcon
-                cursor='pointer'
-                color='action'
-                fontSize='large'
-                id={e._id}
-                onClick={(e) => handleAddToCart(e)}
-              />
-            ) : (
-              ''
-            )}
-            <span>
-              <Fav
-                book={e._id}
-                painted={`${
-                  myFavsBooksIds.includes(e._id) ? 'secondary' : 'disabled'
-                }`}
-              />
-            </span>
-          </li>
-        ))
-      ) : size == 'largos' &&
+      <Swiper
+        slidesPerView={4}
+        spaceBetween={0}
+        pagination={{ clickable: true }}
+        modules={[Pagination]}
+        className={style.mySwipper}
+      >
+        {size == 'cortos' &&
         budget == 'Menos de $3.500' &&
         genre == 'Desarrollo Personal' ? (
-        roundFour?.map((e) => (
-          <li>
-            <Link to={'/book/' + e._id}>
-              <img className={style.container} src={e.cover} alt='buscando' />
-            </Link>
-            {e.stock > 1 ? (
-              <AddShoppingCartIcon
-                cursor='pointer'
-                color='action'
-                fontSize='large'
+          roundOne?.map((e) => (
+            <SwiperSlide>
+              <CardBook
                 id={e._id}
-                onClick={(e) => handleAddToCart(e)}
+                title={e.title}
+                rating={e.rating}
+                stock={e.stock}
+                cover={e.cover}
+                price={e.price}
               />
-            ) : (
-              ''
-            )}
-            <span>
-              <Fav
-                book={e._id}
-                painted={`${
-                  myFavsBooksIds.includes(e._id) ? 'secondary' : 'disabled'
-                }`}
-              />
-            </span>
-          </li>
-        ))
-      ) : size == 'cortos' &&
-        budget == 'Menos de $3.500' &&
-        genre == 'Negocios y Biografía' ? (
-        roundFive?.map((e) => (
-          <li>
-            <Link to={'/book/' + e._id}>
-              <img className={style.container} src={e.cover} alt='buscando' />
-            </Link>
-            {e.stock > 1 ? (
-              <AddShoppingCartIcon
-                cursor='pointer'
-                color='action'
-                fontSize='large'
+            </SwiperSlide>
+          ))
+        ) : size == 'largos' &&
+          budget == 'Más de $3.500' &&
+          genre == 'Desarrollo Personal' ? (
+          roundTwo?.map((e) => (
+            <SwiperSlide>
+              <CardBook
                 id={e._id}
-                onClick={(e) => handleAddToCart(e)}
+                title={e.title}
+                rating={e.rating}
+                stock={e.stock}
+                cover={e.cover}
+                price={e.price}
               />
-            ) : (
-              ''
-            )}
-            <span>
-              <Fav
-                book={e._id}
-                painted={`${
-                  myFavsBooksIds.includes(e._id) ? 'secondary' : 'disabled'
-                }`}
-              />
-            </span>
-          </li>
-        ))
-      ) : size == 'largos' &&
-        budget == 'Más de $3.500' &&
-        genre == 'Negocios y Biografía' ? (
-        roundSix?.map((e) => (
-          <li>
-            <Link to={'/book/' + e._id}>
-              <img className={style.container} src={e.cover} alt='buscando' />
-            </Link>
-            {e.stock > 1 ? (
-              <AddShoppingCartIcon
-                cursor='pointer'
-                color='action'
-                fontSize='large'
+            </SwiperSlide>
+          ))
+        ) : size == 'cortos' &&
+          budget == 'Más de $3.500' &&
+          genre == 'Desarrollo Personal' ? (
+          roundThree?.map((e) => (
+            <SwiperSlide>
+              <CardBook
                 id={e._id}
-                onClick={(e) => handleAddToCart(e)}
+                title={e.title}
+                rating={e.rating}
+                stock={e.stock}
+                cover={e.cover}
+                price={e.price}
               />
-            ) : (
-              ''
-            )}
-            <span>
-              <Fav
-                book={e._id}
-                painted={`${
-                  myFavsBooksIds.includes(e._id) ? 'secondary' : 'disabled'
-                }`}
-              />
-            </span>
-          </li>
-        ))
-      ) : size == 'cortos' &&
-        budget == 'Más de $3.500' &&
-        genre == 'Negocios y Biografía' ? (
-        roundSeven?.map((e) => (
-          <li>
-            <Link to={'/book/' + e._id}>
-              <img className={style.container} src={e.cover} alt='buscando' />
-            </Link>
-            {e.stock > 1 ? (
-              <AddShoppingCartIcon
-                cursor='pointer'
-                color='action'
-                fontSize='large'
+            </SwiperSlide>
+          ))
+        ) : size == 'largos' &&
+          budget == 'Menos de $3.500' &&
+          genre == 'Desarrollo Personal' ? (
+          roundFour?.map((e) => (
+            <SwiperSlide>
+              <CardBook
                 id={e._id}
-                onClick={(e) => handleAddToCart(e)}
+                title={e.title}
+                rating={e.rating}
+                stock={e.stock}
+                cover={e.cover}
+                price={e.price}
               />
-            ) : (
-              ''
-            )}
-            <span>
-              <Fav
-                book={e._id}
-                painted={`${
-                  myFavsBooksIds.includes(e._id) ? 'secondary' : 'disabled'
-                }`}
-              />
-            </span>
-          </li>
-        ))
-      ) : size == 'largos' &&
-        budget == 'Menos de $3.500' &&
-        genre == 'Negocios y Biografía' ? (
-        roundEight?.map((e) => (
-          <li>
-            <Link to={'/book/' + e._id}>
-              <img className={style.container} src={e.cover} alt='buscando' />
-            </Link>
-            {e.stock > 1 ? (
-              <AddShoppingCartIcon
-                cursor='pointer'
-                color='action'
-                fontSize='large'
+            </SwiperSlide>
+          ))
+        ) : size == 'cortos' &&
+          budget == 'Menos de $3.500' &&
+          genre == 'Negocios y Biografía' ? (
+          roundFive?.map((e) => (
+            <SwiperSlide>
+              <CardBook
                 id={e._id}
-                onClick={(e) => handleAddToCart(e)}
+                title={e.title}
+                rating={e.rating}
+                stock={e.stock}
+                cover={e.cover}
+                price={e.price}
               />
-            ) : (
-              ''
-            )}
-            <span>
-              <Fav
-                book={e._id}
-                painted={`${
-                  myFavsBooksIds.includes(e._id) ? 'secondary' : 'disabled'
-                }`}
+            </SwiperSlide>
+          ))
+        ) : size == 'largos' &&
+          budget == 'Más de $3.500' &&
+          genre == 'Negocios y Biografía' ? (
+          roundSix?.map((e) => (
+            <SwiperSlide>
+              <CardBook
+                id={e._id}
+                title={e.title}
+                rating={e.rating}
+                stock={e.stock}
+                cover={e.cover}
+                price={e.price}
               />
-            </span>
-          </li>
-        ))
-      ) : (
-        <p>No se encontraron libros sugeridos</p>
-      )}
+            </SwiperSlide>
+          ))
+        ) : size == 'cortos' &&
+          budget == 'Más de $3.500' &&
+          genre == 'Negocios y Biografía' ? (
+          roundSeven?.map((e) => (
+            <SwiperSlide>
+              <CardBook
+                id={e._id}
+                title={e.title}
+                rating={e.rating}
+                stock={e.stock}
+                cover={e.cover}
+                price={e.price}
+              />
+            </SwiperSlide>
+          ))
+        ) : size == 'largos' &&
+          budget == 'Menos de $3.500' &&
+          genre == 'Negocios y Biografía' ? (
+          roundEight?.map((e) => (
+            <SwiperSlide>
+              <CardBook
+                id={e._id}
+                title={e.title}
+                rating={e.rating}
+                stock={e.stock}
+                cover={e.cover}
+                price={e.price}
+              />
+            </SwiperSlide>
+          ))
+        ) : (
+          <p className={style.frase}>No se encontraron libros sugeridos...</p>
+        )}
+      </Swiper>
     </div>
   )
 }

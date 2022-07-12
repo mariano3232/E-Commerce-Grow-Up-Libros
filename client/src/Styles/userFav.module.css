@@ -2,12 +2,7 @@
 }
 
 .titleFavouritesBooks {
-}
-
-.containerGridBooks {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  font-size: 36px;
 }
 
 .itemBook {
@@ -60,4 +55,37 @@
 .button:hover::after {
   transform: scaleX(1);
   transform-origin: left;
+}
+
+.containerCards {
+  width: 1200px;
+  height: 500px;
+  background-color: #22b8cf;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+
+.cardBookFav {
+  position: relative;
+}
+
+.buttonDelete {
+  position: absolute;
+  top: 10px;
+  right: 40px;
+
+  border: none;
+  background-color: red;
+  color: white;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 1);
+  transition: all 1s;
+}
+
+.buttonDelete:hover {
+  transform: scale(1.1);
 }

@@ -45,6 +45,13 @@
   border: 2px solid #93dbfc;
   transition: all 0.2s;
 }
+
 .containerInputs input:focus {
   outline: 5px solid #93dbfc;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
