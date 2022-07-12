@@ -1,18 +1,31 @@
 .container {
-  width: 10rem;
-  height: 15rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 15px;
-  padding: 10px;
-  border-radius: 8px;
+  position:relative;
+  width: 15rem;
+  height: 27rem;
+  margin:1rem;
+  border-radius: 6px;
   transition: 500ms;
-  background-color: white;
+  box-shadow: 1px 1px 1px black;
+  overflow: hidden;
+}
+.container:hover {
+  transform: scale(1.02);
+  box-shadow: 1px 1px 5px black;
+}
+
+
+.content{
+  padding: 1.5rem;
+  width: 13em;
+  position:absolute;
+  bottom:0;
+  background:linear-gradient(0deg,rgba(254, 28, 28, 0),#2c6170);
 }
 .name {
-  color: #212529;
-  text-decoration: none;
+  color: white;
+  font-family: sans-serif;
+  font-weight: 100;
+  font-size: x-large;
   height: 60px;
   margin: 0;
 }
@@ -21,6 +34,4 @@
   height: 10rem;
   border-radius: 5px;
 }
-.container:hover {
-  transform: scale(1.05);
-}
+

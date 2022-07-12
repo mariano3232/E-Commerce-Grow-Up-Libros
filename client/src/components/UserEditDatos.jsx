@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from '../Styles/UserDatos.module.css';
 import { getUsers, postUserData, setUserNews, setUserPlan } from '../actions';
 import { useNavigate } from 'react-router-dom';
+import Alert from '../functions/Alert'
 
 const UserEditDatos = () => {
 
@@ -40,13 +41,17 @@ const UserEditDatos = () => {
         })
       }, [])
 
+      useEffect(()=>{
+        setErrors(validate(input))
+      },[input])
+
     const validate = (input) => {
         const errors = {};
 
-        if (input.name && !input.name.match(/^[a-zA-Z]*$/g)){
+        if (input.name && !input.name.match(/^[a-zA-Z ]*$/g)){
         errors.name='Solo puede contener letras*'
         }
-        if (input.surname && !input.surname.match(/^[a-zA-Z]*$/g)){
+        if (input.surname && !input.surname.match(/^[a-zA-Z ]*$/g)){
         errors.surname='Solo puede contener letras*'
         }
         if (input.birthday&&!input.birthday.match(/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/)){
@@ -99,6 +104,14 @@ const UserEditDatos = () => {
     if (input.postal && !input.postal.match(/^(\d{4})$/g)) {
       errors.postal = "Ingresar un CP valido*";
     }
+
+    const handleChange = (e) => {
+        setInput({
+          ...input,
+          [e.target.name]: e.target.value,
+        })
+        console.log('input:', input)
+      } 
 
     const handleSubmit = (e) => {
         e.preventDefault();

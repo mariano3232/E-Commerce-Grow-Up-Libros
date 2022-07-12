@@ -7,7 +7,8 @@ import {getBookTitleAdmin} from '../actions';
 import styles from '../Styles/searchBar.module.css'
 import {scroller} from "react-scroll";
 import { getAuthorName } from '../actions';
-
+import { Box, Input, Button, IconButton } from '@mui/material'
+import { Search } from '@mui/icons-material'
 
 const SearchBarAuthor = () => {
 
@@ -36,12 +37,37 @@ const SearchBarAuthor = () => {
     }
 
     return (
-        <div className={styles.container}>
+        <Box display={'flex'} alignItems='center'>
 
-            <input type="text" placeholder='Name' value={input} onChange={(e) => handleChange(e)} className={styles.input} onKeyPress={(e) => handleKeyPress(e)}/>
-            <button type='submit' onClick={(e) => handleSubmit(e)} className={styles.button}>Buscar</button>
+            <Input 
+            type="text"
+            placeholder='Nombre de autor'
+            value={input}
+            onChange={(e) => handleChange(e)}
+            onKeyPress={(e) => handleKeyPress(e)}
+            sx={{
+                color: 'white',
+                fontSize: '20px',
+                '::placeholder': {
+                  color: 'white',
+                },
+                ':hover:not(.Mui-disabled):before': {
+                  borderColor: 'white',
+                },
+                ':before': {
+                  borderColor: 'white',
+                },
+                ':after': {
+                  borderColor: 'transparent',
+                },
+              }}
+              />
+              
+            <IconButton onClick={(e) => handleSubmit(e)}>
+                <Search sx={{ fontSize: '32px', color: 'white' }} />
+            </IconButton>
       
-        </div>
+        </Box>
     )
 }
 
