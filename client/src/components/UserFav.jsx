@@ -12,7 +12,11 @@ import {
 import style from '../Styles/userFav.module.css'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import Alert from '../functions/Alert'
-
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Pagination } from 'swiper'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import CardBook from './CardBook'
 const UserFav = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -66,75 +70,62 @@ const UserFav = () => {
   return (
     <div className={style.containerFavouritesBooks}>
       <h1 className={style.titleFavouritesBooks}>Mis libros favoritos:</h1>
-
-      <ol className={style.containerGridBooks}>
-        {userFavBooksShowed?.map((book) => (
-          <li className={style.itemBook}>
-            <p className={style.titleBook}>{book.title}</p>
-            <Link to={'/book/' + book._id}>
-              <img className={style.imgBook} src={book.cover} alt='buscando' />
-            </Link>
-            {book.stock > 1 ? (
-              <AddShoppingCartIcon
-                cursor='pointer'
-                color='action'
-                fontSize='large'
-                id={book._id}
-                onClick={(e) => handleAddToCart(e)}
-              />
-            ) : (
-              ''
-            )}
-            <button
-              className={style.button}
-              onClick={() => handleDeleteFav(book._id)}
-            >
-              X
-            </button>
-          </li>
-        ))}
-      </ol>
+      <div className={style.containerCards}>
+        <Swiper
+          slidesPerView={4}
+          spaceBetween={0}
+          pagination={{ clickable: true }}
+          modules={[Pagination]}
+          className={style.mySwipper}
+        >
+          {userFavBooksShowed?.map((book) => (
+            <SwiperSlide>
+              <div className={style.cardBookFav}>
+                <CardBook
+                  id={book._id}
+                  title={book.title}
+                  cover={book.cover}
+                  rating={book.rating}
+                  price={book.price}
+                  stock={book.stock}
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
     </div>
   )
 }
 
 export default UserFav
 
-//---
-/*
-return (
-  <div className={style.containerFavouritesBooks}>
-    <h1 className={style.titleFavouritesBooks}>Mis libros favoritos:</h1>
-
-    <ol className={style.containerGridBooks}>
-      {userId[0].favouritesBooks?.map((book) => (
-        <li className={style.itemBook}>
-          <p className={style.titleBook}>{book.title}</p>
-          <Link to={'/book/' + book._id}>
-            <img className={style.imgBook} src={book.cover} alt='buscando' />
-          </Link>
-          {
-            book.stock > 1 ?
-            <button value={book._id} onClick={(e) => handleAddToCart(e)}>
-              Añadir al carrito
-            </button> : ''
-          }
-          <button
-            className={style.button}
-            onClick={() => handleDeleteFav(book._id)}
-          >
-            X
-          </button>
-        </li>
-      ))}
-    </ol>
-  </div>
-)
-}
-*/
-
-/* 
-<button value={book._id} onClick={(e) => handleAddToCart(e)}>
-                Añadir al carrito
+{
+  /* <li className={style.itemBook}>
+              <p className={style.titleBook}>{book.title}</p>
+              <Link to={'/book/' + book._id}>
+                <img
+                  className={style.imgBook}
+                  src={book.cover}
+                  alt='buscando'
+                />
+              </Link>
+              {book.stock > 1 ? (
+                <AddShoppingCartIcon
+                  cursor='pointer'
+                  color='action'
+                  fontSize='large'
+                  id={book._id}
+                  onClick={(e) => handleAddToCart(e)}
+                />
+              ) : (
+                ''
+              )}
+              <button
+                className={style.button}
+                onClick={() => handleDeleteFav(book._id)}
+              >
+                X
               </button>
-*/
+            </li> */
+}
