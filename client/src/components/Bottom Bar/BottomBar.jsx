@@ -54,7 +54,7 @@ export default function BottomBar() {
 
     const id = [isLogged[0]._id]
     dispatch(setUserNews(id))
-    alert(`Gracias ${input} Suscripción exitosa a nuestro newsletters.`)
+    alert(`Gracias ${usuario[0].nickname} Suscripción exitosa a nuestro newsletters.`)
     setInput('')
     navigate('/user')
     dispatch(getUsers())
@@ -122,7 +122,11 @@ export default function BottomBar() {
       </Grid>
       <Grid width={'100%'} xs={1} item>
         <Stack direction={'row'} spacing='2'>
-          <Input
+
+        <Typography sx={{ textDecoration: 'inherit', color: 'white', fontSize: '20px' }}>
+              NewsLetters
+            </Typography>
+          {/* <Input
             type='text'
             placeholder='Email'
             value={input}
@@ -143,14 +147,23 @@ export default function BottomBar() {
                 borderColor: 'transparent',
               },
             }}
-          />
-          <Button
+          /> */}
+
+          {
+            isLogged.lenght === 0 ?
+            <Typography sx={{ textDecoration: 'inherit', color: 'white', fontSize: '15px' }}>
+              Para suscribirse a nuestro NewsLetter debes estar logeado
+            </Typography> :
+            <Button
             sx={{ fontWeight: 'bold' }}
             onClick={handleSubmit}
             color='secondary'
           >
             Suscribete
           </Button>
+          }
+
+          
         </Stack>
       </Grid>
     </Grid>
