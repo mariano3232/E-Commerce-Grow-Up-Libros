@@ -35,7 +35,7 @@ const UserEditPlanes = () => {
   const handleDeleteUser = () => {
     const id = [logged[0]._id]
     dispatch(deleteUser(id))
-    Alert('Usuario Eliminado', 'success')
+    Alert('Usuario Eliminado', 'delete')
     logout({ returnTo: window.location.origin })
     setTimeout(function () {
       dispatch(getUsers()), 100

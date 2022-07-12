@@ -1,23 +1,23 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getUsers, setUserPlan } from "../actions";
-import style from "../Styles/cardPremium.module.css";
-import Alert from "../functions/Alert";
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUsers, setUserPlan } from '../actions'
+import style from '../Styles/cardPremium.module.css'
+import Alert from '../functions/Alert'
 
 const CardPremium = ({ mes, trimestral, anual }) => {
-  const dispatch = useDispatch();
-  const allUsers = useSelector((state) => state.users);
-  const logged = useSelector((state) => state.userLogged);
-  const userId = allUsers.filter((u) => u._id === logged[0]._id);
+  const dispatch = useDispatch()
+  const allUsers = useSelector((state) => state.users)
+  const logged = useSelector((state) => state.userLogged)
+  const userId = allUsers.filter((u) => u._id === logged[0]._id)
 
   const handleSubmit = () => {
-    const id = [logged[0]._id];
-    dispatch(setUserPlan(id));
-    Alert("Felicidades ya Sos Premium", "success");
+    const id = [logged[0]._id]
+    dispatch(setUserPlan(id))
+    Alert('Felicidades ya sos Premium', 'success')
     setTimeout(function () {
-      dispatch(getUsers()), 100;
-    });
-  };
+      dispatch(getUsers()), 100
+    })
+  }
 
   return (
     <div
@@ -52,7 +52,7 @@ const CardPremium = ({ mes, trimestral, anual }) => {
           <li>Novedades de los ultimos libros de desarrollo personal</li>
         </ol>
       ) : (
-        ""
+        ''
       )}
 
       <br />
@@ -65,7 +65,7 @@ const CardPremium = ({ mes, trimestral, anual }) => {
         <button disabled>Lo quiero</button>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default CardPremium;
+export default CardPremium
