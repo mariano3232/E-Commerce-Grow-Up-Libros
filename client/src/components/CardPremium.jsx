@@ -1,32 +1,30 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getUsers, setUserPlan } from "../actions";
-import style from "../Styles/cardPremium.module.css";
-import Alert from "../functions/Alert";
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUsers, setUserPlan } from '../actions'
+import style from '../Styles/cardPremium.module.css'
+import Alert from '../functions/Alert'
 
 const CardPremium = ({ mes, trimestral, anual }) => {
-  const dispatch = useDispatch();
-  const allUsers = useSelector((state) => state.users);
-  const logged = useSelector((state) => state.userLogged);
-  const userId = allUsers.filter((u) => u._id === logged[0]._id);
+  const dispatch = useDispatch()
+  const allUsers = useSelector((state) => state.users)
+  const logged = useSelector((state) => state.userLogged)
+  const userId = allUsers.filter((u) => u._id === logged[0]._id)
 
   const handleSubmit = () => {
-    const id = [logged[0]._id];
-    dispatch(setUserPlan(id));
-    Alert("Felicidades ya Sos Premium", "success");
+    const id = [logged[0]._id]
+    dispatch(setUserPlan(id))
+    Alert('Felicidades ya sos Premium', 'success')
     setTimeout(function () {
-      dispatch(getUsers()), 100;
-    });
-  };
+      dispatch(getUsers()), 100
+    })
+  }
 
   return (
     <div
-      className={mes ? style.container : trimestral ? style.gas : style.gaston}
+      className={`${style.card} ${
+        mes ? style.container : trimestral ? style.gas : style.gaston
+      }`}
     >
-      <h3>Plan: Soy Premium</h3>
-
-      <p>Herramientas para empezar a potencial tu desarrollo al máximo</p>
-
       <h1>
         Ars {mes} {trimestral} {anual}
       </h1>
@@ -52,10 +50,8 @@ const CardPremium = ({ mes, trimestral, anual }) => {
           <li>Novedades de los ultimos libros de desarrollo personal</li>
         </ol>
       ) : (
-        ""
+        ''
       )}
-
-      <br />
 
       {userId[0].isPremiun === false ? (
         <button className={style.button} onClick={() => handleSubmit()}>
@@ -65,7 +61,7 @@ const CardPremium = ({ mes, trimestral, anual }) => {
         <button disabled>Lo quiero</button>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default CardPremium;
+export default CardPremium

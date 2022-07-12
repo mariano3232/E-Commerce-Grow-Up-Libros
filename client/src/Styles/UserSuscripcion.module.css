@@ -4,34 +4,20 @@
 }
 
 .button {
-  z-index: 1;
-  position: relative;
-  font-size: 32px;
-  background-color: #2e9caa;
+  border: none;
+  background-color: #22b8cf;
   color: white;
-  height: 3rem;
-  border-radius: 10px;
-  transition: 500ms;
-  overflow: hidden;
+  border-radius: 5px;
+  padding: 5px 10px;
   cursor: pointer;
 }
 
-.button::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #285874;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  transition: transform 200ms ease-in;
+.frasepromocional {
+  font-size: 24px;
+  margin: 0;
 }
-.button::after {
-  transform: scaleX(0);
-  transform-origin: right;
-}
-.button:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
+
+.containerCards {
+  display: flex;
+  gap: 2rem;
 }

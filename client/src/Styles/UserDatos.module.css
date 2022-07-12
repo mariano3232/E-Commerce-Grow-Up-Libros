@@ -123,3 +123,29 @@
   color: red;
   position: absolute;
 }
+
+.buttonDelete {
+  font-size: 24px;
+  border: none;
+  background-color: #f03e3e;
+  padding: 4px 10px;
+  border-radius: 6px;
+  color: white;
+}
+
+.titlesEditPlanes {
+  font-size: 32px;
+}
+.containerUserPlan p {
+  font-size: 24px;
+}
+
+.buttonUserContainer p {
+  font-size: 24px;
+}
+
+.containerUserPlan button[disabled] {
+  filter: grayscale(1);
+  box-shadow: none;
+  cursor: no-drop;
+}
