@@ -37,7 +37,7 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
       }
     }
     if (userLogged.length === 0) {
-      return true;
+      return false;
     }
   }
 
