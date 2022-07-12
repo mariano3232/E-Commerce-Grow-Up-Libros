@@ -56,27 +56,32 @@ const Author = () => {
 
   return (
     <div className={styles.authors}>
-      <div className={styles.containerActions}>
-        <Link to='/admin' className={styles.link}>
-          <h3 className={styles.button} onClick={handleClickAuthors}>
-            Todos los Autores
-          </h3>
-        </Link>
+      <div>
+        <div className={styles.containerActions}>
+          <Link to='/admin'>
+            <button
+              className={styledButton.button}
+              onClick={handleClickAuthors}
+            >
+              Todos los Autores
+            </button>
+          </Link>
 
-        <SearchBarAuthor />
+          <SearchBarAuthor />
 
-        <div>
-          <select
-            className={styles.selectOrder}
-            onChange={(e) => handleOrderByName(e)}
-            defaultValue='default'
-          >
-            <option value='default' disabled>
-              Orden alfabético
-            </option>
-            <option value='Asc'>Nombre Ascendente</option>
-            <option value='desc'>Nombre Descendente</option>
-          </select>
+          <div>
+            <select
+              className={styles.selectOrder}
+              onChange={(e) => handleOrderByName(e)}
+              defaultValue='default'
+            >
+              <option value='default' disabled>
+                Orden alfabético
+              </option>
+              <option value='Asc'>Nombre Ascendente</option>
+              <option value='desc'>Nombre Descendente</option>
+            </select>
+          </div>
         </div>
 
         <Link to='/cart'>

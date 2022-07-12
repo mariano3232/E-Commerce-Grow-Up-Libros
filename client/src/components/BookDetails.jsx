@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { scroller } from "react-scroll";
-import { BsCart } from "react-icons/bs";
-import { BsHeart } from "react-icons/bs";
-import axios from "axios";
+import React, { useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { scroller } from 'react-scroll'
+import { BsCart } from 'react-icons/bs'
+import { BsHeart } from 'react-icons/bs'
+import axios from 'axios'
 
 import {
   getBookDetails,
@@ -28,7 +28,7 @@ import { animateScroll as scroll } from 'react-scroll'
 import { useAuth0 } from '@auth0/auth0-react'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import Fav from './Fav'
-import Alert from "../functions/Alert";
+import Alert from '../functions/Alert'
 
 export default function BookDetails() {
   const id = useParams().id
@@ -54,10 +54,10 @@ export default function BookDetails() {
   })
 
   useEffect(() => {
-    dispatch(getBookDetails(id));
-    dispatch(getBookComments(id));
-    scroll.scrollToTop();
-  }, [dispatch]);
+    dispatch(getBookDetails(id))
+    dispatch(getBookComments(id))
+    scroll.scrollToTop()
+  }, [dispatch])
 
   function handleClick(event, e) {
     event.preventDefault()
@@ -71,7 +71,7 @@ export default function BookDetails() {
     if (isLogged.length === 0) return loginWithRedirect()
     dispatch(addToCart(id))
     dispatch(updateAmount(productsAmount + 1))
-    Alert("Libro agregado al carrito!", "success");
+    Alert('Libro agregado al carrito!', 'cart')
     setTimeout(function () {
       dispatch(
         purchaseOrder({
@@ -159,7 +159,7 @@ export default function BookDetails() {
         </div>
       </Link>
 
-      <Link to="/user">
+      <Link to='/user'>
         <div className={s.containerHeart}>
           <BsHeart className={s.heart} />
           {isLogged.length ? (
@@ -184,7 +184,7 @@ export default function BookDetails() {
             </span>
           </Link>
         ) : (
-          "N"
+          'N'
         )}
         <div className={styles.buy}>
           <h3 className={styles.price}>${book.price}</h3>
@@ -238,7 +238,7 @@ export default function BookDetails() {
             >
               {e.genre}
             </button>
-          );
+          )
         })}
       </div>
 
@@ -279,7 +279,6 @@ export default function BookDetails() {
         {isLogged.length === 0 ? null : (
           <button onClick={(e) => handlePost(e)} className={styles.postButton}>
             {'>'}
-
           </button>
         )}
       </div>
@@ -305,7 +304,7 @@ export default function BookDetails() {
       })}
       <div className={styles.space} />
     </div>
-  );
+  )
 }
 
 /* 

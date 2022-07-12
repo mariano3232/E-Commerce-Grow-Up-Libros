@@ -27,10 +27,10 @@
 }
 
 .containerActions {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  justify-items: center;
+  display: flex;
+  gap: 2rem;
   align-items: center;
+  justify-content: center;
 }
 
 .button {
