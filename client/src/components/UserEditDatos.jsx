@@ -294,7 +294,7 @@ const UserEditDatos = () => {
     } else {
       const id = logged[0]._id
       dispatch(postUserData(id, input))
-      Alert('Datos personales actualizado', 'fav')
+      Alert('Datos personales actualizado', 'updateInfo')
       setTimeout(function () {
         dispatch(getUsers())
       }, 500)

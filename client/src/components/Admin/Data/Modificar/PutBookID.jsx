@@ -1,36 +1,36 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { putBook } from "../../../../actions";
-import { Link } from "react-router-dom";
-import { Navigate } from "react-router-dom";
-import style from "../../../../Styles/PutBookID.module.css";
-import { getBooks } from "../../../../actions";
-import Alert from "../../../../functions/Alert";
+import React from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
+import { putBook } from '../../../../actions'
+import { Link } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
+import style from '../../../../Styles/PutBookID.module.css'
+import { getBooks } from '../../../../actions'
+import Alert from '../../../../functions/Alert'
 
 export default function PutBookId() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const id = useParams().id;
+  const id = useParams().id
 
-  const allBooks = useSelector((state) => state.books);
+  const allBooks = useSelector((state) => state.books)
 
-  const bookId = allBooks.filter((book) => book._id === id);
+  const bookId = allBooks.filter((book) => book._id === id)
 
   const [post, setPost] = useState({
-    title: "",
-    cover: "",
-    rating: "",
-    year: "",
-    pages: "",
-    editorial: "",
-    price: "",
-    stock: "",
-    review: "",
-  });
+    title: '',
+    cover: '',
+    rating: '',
+    year: '',
+    pages: '',
+    editorial: '',
+    price: '',
+    stock: '',
+    review: '',
+  })
 
   useEffect(() => {
     setPost({
@@ -44,24 +44,24 @@ export default function PutBookId() {
       price: bookId[0].price,
       stock: bookId[0].stock,
       review: bookId[0].review,
-    });
-  }, []);
+    })
+  }, [])
 
   function handleChange(e) {
     setPost({
       ...post,
       [e.target.name]: e.target.value,
-    });
+    })
   }
 
   function handleSubmit(e) {
-    e.preventDefault();
-    dispatch(putBook(post, id));
-    Alert("¡Libro Modificado!", "success");
+    e.preventDefault()
+    dispatch(putBook(post, id))
+    Alert('¡Libro Modificado!', 'updateBook')
     setTimeout(function () {
-      dispatch(getBooks());
-    }, 1000);
-    navigate("/put");
+      dispatch(getBooks())
+    }, 1000)
+    navigate('/put')
   }
 
   return (
@@ -71,9 +71,9 @@ export default function PutBookId() {
         <div>
           <label>Titulo:</label>
           <input
-            type="text"
+            type='text'
             value={post.title}
-            name="title"
+            name='title'
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -81,9 +81,9 @@ export default function PutBookId() {
         <div>
           <label>Editorial:</label>
           <input
-            type="text"
+            type='text'
             value={post.editorial}
-            name="editorial"
+            name='editorial'
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -91,9 +91,9 @@ export default function PutBookId() {
         <div>
           <label>Imagen:</label>
           <input
-            type="text"
+            type='text'
             value={post.cover}
-            name="cover"
+            name='cover'
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -101,11 +101,11 @@ export default function PutBookId() {
         <div>
           <label>Rating:</label>
           <input
-            type="number"
-            min="0"
-            max="10"
+            type='number'
+            min='0'
+            max='10'
             value={post.rating}
-            name="rating"
+            name='rating'
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -113,9 +113,9 @@ export default function PutBookId() {
         <div>
           <label>Año:</label>
           <input
-            type="number"
+            type='number'
             value={post.year}
-            name="year"
+            name='year'
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -123,9 +123,9 @@ export default function PutBookId() {
         <div>
           <label>Cantidad de paginas:</label>
           <input
-            type="number"
+            type='number'
             value={post.pages}
-            name="pages"
+            name='pages'
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -133,9 +133,9 @@ export default function PutBookId() {
         <div>
           <label>Precio:</label>
           <input
-            type="number"
+            type='number'
             value={post.price}
-            name="price"
+            name='price'
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -143,9 +143,9 @@ export default function PutBookId() {
         <div>
           <label>Stock:</label>
           <input
-            type="number"
+            type='number'
             value={post.stock}
-            name="stock"
+            name='stock'
             onChange={(e) => handleChange(e)}
           />
         </div>
@@ -154,19 +154,19 @@ export default function PutBookId() {
           <label>Reseña</label>
           <textarea
             value={post.review}
-            name="review"
+            name='review'
             onChange={(e) => handleChange(e)}
           />
         </div>
 
-        <button className={style.btn} type="submit">
+        <button className={style.btn} type='submit'>
           Modificar Libro
         </button>
       </form>
 
-      <Link to="/putBook">
+      <Link to='/putBook'>
         <button className={`${style.btnAdmin}`}>↼ Back</button>
       </Link>
     </div>
-  );
+  )
 }

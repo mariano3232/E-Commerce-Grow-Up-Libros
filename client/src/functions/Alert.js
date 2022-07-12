@@ -26,15 +26,60 @@ const Alert = (title, type) => {
       }
       break
     }
-    case 'warning': {
-      color = '#F57C00'
+    case 'updateInfo': {
+      color = '#22b8cf'
+      icon = '<img src="src/assets/imgs/updateUser.png">'
+      customClass = {
+        icon: 'sweet-icon-cart',
+        image: 'sweet-icon-cart',
+        title: 'sweet-text-cart',
+      }
       break
     }
-    case 'info': {
-      color = '#0288D1'
-      break
+    case 'delete': {
+      color = '#e03131'
+      icon = '<img src="src/assets/imgs/delete-account.png">'
+      customClass = {
+        icon: 'sweet-icon-cart',
+        image: 'sweet-icon-cart',
+        title: 'sweet-text-cart',
+      }
     }
-    case 'cart': {
+    case 'updateBook': {
+      color = '#22b8cf'
+      icon = '<img src="src/assets/imgs/books.png">'
+      customClass = {
+        icon: 'sweet-icon-cart',
+        image: 'sweet-icon-cart',
+        title: 'sweet-text-cart',
+      }
+    }
+    case 'updateCarrousel': {
+      color = '#22b8cf'
+      icon = '<img src="src/assets/imgs/image-files.png">'
+      customClass = {
+        icon: 'sweet-icon-cart',
+        image: 'sweet-icon-cart',
+        title: 'sweet-text-cart',
+      }
+    }
+    case 'updateOrder': {
+      color = '#22b8cf'
+      icon = '<img src="src/assets/imgs/order.png">'
+      customClass = {
+        icon: 'sweet-icon-cart',
+        image: 'sweet-icon-cart',
+        title: 'sweet-text-cart',
+      }
+    }
+    case 'email': {
+      color = '#22b8cf'
+      icon = '<img src="src/assets/imgs/email.png">'
+      customClass = {
+        icon: 'sweet-icon-cart',
+        image: 'sweet-icon-cart',
+        title: 'sweet-text-cart',
+      }
     }
   }
 
