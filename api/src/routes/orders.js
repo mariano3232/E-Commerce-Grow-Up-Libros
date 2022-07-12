@@ -1,6 +1,9 @@
 const { Router } = require('express')
 const Orders = require('../model/Order')
-
+const processEmail = require('../mercadoPago/util/processEmail')
+const shippedEmail = require('../mercadoPago/util/shippedEmail')
+const completedEmail = require('../mercadoPago/util/completedEmail')
+const canceledEmail = require('../mercadoPago/util/canceledEmail')
 const router = Router()
 
 router.get('/getAllOrders', async (req, res) => {
@@ -24,8 +27,19 @@ router.post('/changeStatus', async (req, res) => {
   try {
     if (ordersIds.length === 0) throw new Error('Please agregar data')
     ordersIds.forEach(async (orders) => {
-      const order = await Orders.findById(orders)
+      const order = await Orders.findById(orders).populate('usuario')
       if (!order) throw new Error('The order not exists')
+
+      const name = order.usuario[0].name
+      const email = order.usuario[0].email
+
+      if (status === 'Procesada') processEmail.enviar_mail_process(name, email)
+      if (status === 'Completada')
+        completedEmail.enviar_mail_completed(name, email)
+      if (status === 'Cancelada')
+        canceledEmail.enviar_mail_canceled(name, email)
+      if (status === 'Enviada') shippedEmail.enviar_mail_shipped(name, email)
+
       order.status_order = status
       await order.save()
     })

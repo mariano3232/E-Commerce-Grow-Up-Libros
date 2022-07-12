@@ -1,43 +1,62 @@
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2'
 
 const Alert = (title, type) => {
-  let color;
+  let color
+  let icon
+  let customClass
   switch (type) {
-    case "success": {
-      color = "#388E3C";
-      break;
+    case 'fav': {
+      color = '#ff6b6b'
+      icon = '<img src="/src/assets/imgs/favorito.png">'
+      customClass = {
+        icon: 'sweet-icon-fav',
+        image: 'sweet-icon-fav',
+        title: 'sweet-text-fav',
+        container: 'sweet-text',
+      }
+      break
     }
-    case "error": {
-      color = "#D32F2F";
-      break;
+    case 'cart': {
+      color = '#22b8cf'
+      icon = '<img src="/src/assets/imgs/carrito.png">'
+      customClass = {
+        icon: 'sweet-icon-cart',
+        image: 'sweet-icon-cart',
+        title: 'sweet-text-cart',
+      }
+      break
     }
-    case "warning": {
-      color = "#F57C00";
-      break;
+    case 'warning': {
+      color = '#F57C00'
+      break
     }
-    case "info": {
-      color = "#0288D1";
-      break;
+    case 'info': {
+      color = '#0288D1'
+      break
+    }
+    case 'cart': {
     }
   }
+
   const Toast = Swal.mixin({
     toast: true,
-    position: "bottom-start",
+    position: 'bottom',
     showConfirmButton: false,
-    timer: 4000,
+    timer: 2000,
     background: color,
-    iconColor: "white",
-    color: "white",
+    color: 'white',
     timerProgressBar: true,
+    iconHtml: icon,
+    customClass: customClass,
     didOpen: (toast) => {
-      toast.addEventListener("mouseenter", Swal.stopTimer);
-      toast.addEventListener("mouseleave", Swal.resumeTimer);
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
     },
-  });
-  Toast.fire({
-    icon: type,
-    title: title,
-  });
-};
+  })
 
-export default Alert;
+  Toast.fire({
+    title: title,
+  })
+}
+
+export default Alert
