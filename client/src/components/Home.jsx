@@ -67,12 +67,12 @@ export default function Home() {
   //     setCurrentPage(1)
   // }
 
-  // useEffect(() => {
-  //   setCurrentPage(1)
-  //   // lastBook = currentPage * bookPerPage
-  //   // firstBook = lastBook - bookPerPage
-  //   // currentBooks = allBooks.slice(firstBook, lastBook)
-  // }, [allBooks])
+  useEffect(() => {
+    setCurrentPage(1)
+    // lastBook = currentPage * bookPerPage
+    // firstBook = lastBook - bookPerPage
+    // currentBooks = allBooks.slice(firstBook, lastBook)
+  }, [allBooks])
 
   function handleOrderByName(e) {
     //console.log('HHHHH')
@@ -153,10 +153,10 @@ export default function Home() {
                       <option value='default' disabled>
                         Orden alfabético
                       </option>
-                      <option className={styles.options} value='Asc'>
+                      <option className={styles.options} value='AscAlf'>
                         Nombre Ascendente
                       </option>{' '}
-                      <option className={styles.options} value='desc'>
+                      <option className={styles.options} value='descAlf'>
                         Nombre Descendente
                       </option>
                     </select>
@@ -168,10 +168,10 @@ export default function Home() {
                       <option value='default' disabled>
                         Orden por precio
                       </option>
-                      <option className={styles.options} value='desc'>
+                      <option className={styles.options} value='descPrice'>
                         Precio mas Bajo
                       </option>
-                      <option className={styles.options} value='Asc'>
+                      <option className={styles.options} value='AscPrice'>
                         Precio mas Alto
                       </option>
                     </select>
@@ -183,10 +183,10 @@ export default function Home() {
                       <option value='default' disabled>
                         Orden por Rating
                       </option>
-                      <option className={styles.options} value='desc'>
+                      <option className={styles.options} value='descRat'>
                         Rating mas Bajo
                       </option>
-                      <option className={styles.options} value='Asc'>
+                      <option className={styles.options} value='AscRat'>
                         Rating mas Alto
                       </option>
                     </select>
