@@ -20,11 +20,16 @@ import CarrouselBookEnAuthor from './CarrouselBooksEnAuthor'
 import Fav from './Fav'
 import { useAuth0 } from '@auth0/auth0-react'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
-import Alert from "../functions/Alert";
+import Alert from '../functions/Alert'
+import CardBook from './CardBook'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Pagination } from 'swiper'
+import 'swiper/css'
+import 'swiper/css/pagination'
 
 const AuthorDetails = () => {
-  const dispatch = useDispatch();
-  const authorDetails = useSelector((state) => state.authorDetails);
+  const dispatch = useDispatch()
+  const authorDetails = useSelector((state) => state.authorDetails)
   //console.log('soyAutorDetalles:',authorDetails)
   const books = useSelector((state) => state.books)
   const productsAmount = useSelector((state) => state.cartAmount)
@@ -45,30 +50,27 @@ const AuthorDetails = () => {
 
   // console.log('soyBookNoH:',authorBooksNotHidden)
 
-
   const { loginWithRedirect } = useAuth0()
 
-
-  const { id } = useParams();
+  const { id } = useParams()
 
   useEffect(() => {
-    dispatch(getAuthorDetails(id));
-    scroll.scrollToTop();
-  }, [dispatch]);
+    dispatch(getAuthorDetails(id))
+    scroll.scrollToTop()
+  }, [dispatch])
 
   useEffect(() => {
     return () => {
-      dispatch(clearPageAuthorDetails());
-    };
-  }, [dispatch]);
+      dispatch(clearPageAuthorDetails())
+    }
+  }, [dispatch])
 
   function handleClick(e) {
-
-    e.preventDefault();
-    if (isLogged.length === 0) return loginWithRedirect();
-    dispatch(addToCart(authorBooks[0]._id));
-    dispatch(updateAmount(productsAmount + 1));
-    Alert("Libro añadido al carrito!", "success");
+    e.preventDefault()
+    if (isLogged.length === 0) return loginWithRedirect()
+    dispatch(addToCart(authorBooks[0]._id))
+    dispatch(updateAmount(productsAmount + 1))
+    Alert('Libro añadido al carrito!', 'success')
     setTimeout(function () {
       dispatch(
         purchaseOrder({
@@ -78,8 +80,8 @@ const AuthorDetails = () => {
           unit_price: products[products.length - 1].price,
           quantity: products[products.length - 1].amount,
         })
-      );
-    }, 200);
+      )
+    }, 200)
   }
 
   return (
@@ -93,7 +95,7 @@ const AuthorDetails = () => {
         </div>
       </Link>
 
-      <Link to="/user">
+      <Link to='/user'>
         <div className={s.containerHeart}>
           <BsHeart className={s.heart} />
           {isLogged.length ? (
@@ -111,99 +113,62 @@ const AuthorDetails = () => {
       </Link>
 
       <div className={style.btnUbi}>
-        <Link to="/author">
+        <Link to='/author'>
           <button className={styledButton.button}>Volver</button>
         </Link>
       </div>
       <div className={style.widthScreen}>
-        <div className={style.content}>
-          <div>
-            <div>
-              <h1 className={style.authorName}>
-                {authorDetails.name} {authorDetails.surname}
-              </h1>
+        <div className={style.containerInfo}>
+          <div className={style.contentData}>
+            <div className={style.info}>
+              <div className={style.containerAuthorData}>
+                <h1 className={style.authorName}>
+                  {authorDetails.name} {authorDetails.surname}
+                </h1>
+              </div>
+              <div className={style.imageContainer}>
+                <img
+                  className={style.image}
+                  src={authorDetails.picture}
+                  alt='buscando img'
+                />
+                <p>País: {authorDetails.country}</p>
+                <p>Fecha de nacimiento: {authorDetails.birth}</p>
+              </div>
             </div>
-            <p>{authorDetails.biography}</p>
+            <div className={style.containerBiography}>
+              <p className={style.biography}>{authorDetails.biography}</p>
+            </div>
           </div>
-          <div className={style.info}>
-            <div className={style.imageContainer}>
-              <img
-                className={style.image}
-                src={authorDetails.picture}
-                alt="buscando img"
-              />
-            </div>
-
-            <div>
-              <p>País: {authorDetails.country}</p>
-              <p>Fecha de nacimiento: {authorDetails.birth}</p>
-            </div>
+          <div className={style.containerSlide}>
+            <Swiper
+              slidesPerView={4}
+              spaceBetween={10}
+              pagination={{ clickable: true }}
+              modules={[Pagination]}
+              className={style.mySwipper}
+            >
+              {authorBooks?.map((book) => (
+                <SwiperSlide>
+                  <CardBook
+                    id={book._id}
+                    title={book.title}
+                    cover={book.cover}
+                    rating={book.rating}
+                    price={book.price}
+                    stock={book.stock}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
       </div>
-      <div className={style.carrusel}>
-        {/* <h5>DEJO CODIGO SIN CARRUSEL POR LAS DUDAS(GUILLE)</h5> */}
-        {/* Libros:
-                    {
-                        authorBooks?.map(book => 
-                            <Link to={'/book/' + book._id}>
-                                <li>
-                                   <h4>{book.title}</h4>
-                                   <img src={book.cover}></img>
-                                </li>
-                            </Link>
-                            
-                        )    
-                    } */}
-        {authorBooks && authorBooks.length > 1 ? (
-          <CarrouselBookEnAuthor booksEscritor={authorBooks} />
-        ) : authorBooks &&
-          authorBooks.length &&
-          authorBooks[0].isHidden === false ? (
-          authorBooks.map((book) => (
-            <div className={style.libro}>
-              <Link className={style.Link} to={"/book/" + book._id}>
-                <li>
-                  <h3>{book.title}</h3>
-                  <img
-                    className={style.img}
-                    src={book.cover}
-                    alt="Not Found ):"
-                    width="200x"
-                    height="300"
-                  ></img>
-                </li>
-              </Link>
-              <div className={style.containerButtonsBooks}>
-                {books[0].stock > 1 ? (
-                  <AddShoppingCartIcon
-                    cursor='pointer'
-                    color='action'
-                    fontSize='large'
-                    onClick={(e) => handleClick(e)}
-                  />
-                ) : (
-                  ''
-                )}
-                <Fav
-                  book={book._id}
-                  painted={`${
-
-                    myFavsBooksIds.includes(book._id) ? 'secondary' : 'disabled'
-                  }`}
-                />
-              </div>
-            </div>
-          ))
-        ) : (
-          ''
-        )}
-      </div>
     </div>
-  );
-};
+  )
+}
 
-export default AuthorDetails;
+export default AuthorDetails
 
 /* 
 <button
