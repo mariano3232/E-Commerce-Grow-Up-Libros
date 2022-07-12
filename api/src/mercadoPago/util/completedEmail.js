@@ -15,7 +15,7 @@ this.enviar_mail_completed = async (name, email) => {
   let mail_options = {
     from: 'growup-libros',
     to: email,
-    subject: 'Confirmacion de pago',
+    subject: 'GROW-UP LIBROS TU ORDEN HA SIDO ENTREGADA A TU DOMICILIO',
     html: `<table border="0" cellpadding="0" cellspacing="0" width="600px" background-color="#2d3436" bgcolor="#2d3436">
         <tr height="200px">
             <td bgcolor="" width="600px">
