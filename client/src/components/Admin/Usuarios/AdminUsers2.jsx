@@ -123,7 +123,7 @@ export default function AdminUsers2(props) {
                           type="checkbox"
                           value={usuario._id}
                           onChange={(e) => changePlan(e)}
-                          defaultChecked={false}
+                          defaultChecked={true}
                            />
                          <span class="slider round"></span>
                          
@@ -134,7 +134,7 @@ export default function AdminUsers2(props) {
                           type="checkbox"
                           value={usuario._id}
                           onChange={(e) => changePlan(e)}
-                          defaultChecked={true}
+                          defaultChecked={false}
                            />
                          <span class="slider round"></span>
                          
@@ -171,7 +171,7 @@ export default function AdminUsers2(props) {
                           type="checkbox"
                           value={usuario._id}
                           onChange={(e) => changeNews(e)}
-                          defaultChecked={false}
+                          defaultChecked={true}
                            />
                          <span class="slider round"></span>
                     
@@ -182,7 +182,7 @@ export default function AdminUsers2(props) {
                           type="checkbox"
                           value={usuario._id}
                           onChange={(e) => changeNews(e)}
-                          defaultChecked={true}
+                          defaultChecked={false}
                            />
                          <span class="slider round"></span>
                          
