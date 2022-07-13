@@ -74,6 +74,7 @@
   display: flex;
   flex-direction: column;
   text-align: center;
+  justify-content: center;
 }
 
 .card:hover .face_front {
@@ -81,4 +82,10 @@
 }
 .card:hover .face_back {
   transform: perspective(600px) rotateY(360deg);
+}
+
+.cardRating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

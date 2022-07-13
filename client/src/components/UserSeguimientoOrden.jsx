@@ -17,7 +17,7 @@ const UserSeguimientoOrden = () => {
     <div>
       {userOrders.length !== 0 ? (
         <div>
-          <h1>Detalles de Orden</h1>
+          <h1>Detalles de tu Compra</h1>
           <p>Orden Id: {userOrders.pop()._id}</p>
 
           {userOrders.pop().usuario[0].email}
@@ -37,7 +37,7 @@ const UserSeguimientoOrden = () => {
           <p>Pais: {userOrders.pop().usuario[0].country}</p>
           <p>Telefono: {userOrders.pop().usuario[0].phone}</p>
           <p>Estado de Pago: {userOrders.pop().status}</p>
-          <h1>Estado de Orden: {userOrders.pop().status_order}</h1>
+          <h1>Estado de tu compra: {userOrders.pop().status_order}</h1>
         </div>
       ) : (
         <p>No tienes ordenes</p>
