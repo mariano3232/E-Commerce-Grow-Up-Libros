@@ -8,7 +8,7 @@ const Alert = (title, type) => {
   switch (type) {
     case 'fav': {
       color = '#ff6b6b'
-      icon = Images.favorito
+      icon = `<img src="${Images.favorito}">`
       customClass = {
         icon: 'sweet-icon-fav',
         image: 'sweet-icon-fav',
@@ -19,7 +19,7 @@ const Alert = (title, type) => {
     }
     case 'cart': {
       color = '#22b8cf'
-      icon = '<img src="../assets/imgs/carrito.png">'
+      icon = `<img src="${Images.carrito}">`
       customClass = {
         icon: 'sweet-icon-cart',
         image: 'sweet-icon-cart',
