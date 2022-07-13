@@ -731,11 +731,13 @@ export function setUserPlan(payload) {
 }
 
 export function setUserNews(payload) {
+  
   return async function (dispatch) {
     const json = await axios.post(
       'https://ecommercehenryx.herokuapp.com/users/toggleNewsletter',
       payload
     )
+    
     return dispatch({
       type: 'SET_USER_NEWS',
     })

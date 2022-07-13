@@ -26,10 +26,10 @@ const UserEditPlanes = () => {
   const handleNewsDelete = () => {
     const id = [logged[0]._id]
     dispatch(setUserNews(id))
-    Alert('Desuscripción a nuestro Newsletter con éxito', 'success')
+    Alert('Desuscripción a nuestro Newsletter con éxito', 'email')
     setTimeout(function () {
-      dispatch(getUsers()), 100
-    })
+      dispatch(getUsers())
+    }, 1000)
   }
 
   const handleDeleteUser = () => {
@@ -38,8 +38,8 @@ const UserEditPlanes = () => {
     Alert('Usuario Eliminado', 'delete')
     logout({ returnTo: window.location.origin })
     setTimeout(function () {
-      dispatch(getUsers()), 100
-    })
+      dispatch(getUsers())
+    }, 500)
   }
 
   return (
@@ -76,14 +76,15 @@ const UserEditPlanes = () => {
         <button className={styles.buttonDelete} onClick={handleDeleteUser}>
           Baja como usuario
         </button>
-        <div></div>
-        <p>
-          Si quieres modificar tu forma de pago favor escríbenos a:
-          growup@gmail.com
-        </p>
       </div>
     </div>
   )
 }
 
 export default UserEditPlanes
+
+{/* <div></div>
+<p>
+  Si quieres modificar tu forma de pago favor escríbenos a:
+  growup@gmail.com
+</p> */}

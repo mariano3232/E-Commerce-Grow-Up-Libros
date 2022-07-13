@@ -170,9 +170,6 @@ export default function BookDetails() {
         </div>
       </Link>
 
-      {
-        isLogged.length === 0 ?
-        <div></div> :
         <Link to='/user'>
         <div className={s.containerHeart}>
           <BsHeart className={s.heart}/>
@@ -187,8 +184,6 @@ export default function BookDetails() {
           )}
         </div>
       </Link>
-        
-      }
 
       <div className={styles.principal}>
         <img src={book.cover} alt='Not Found ):' className={styles.img} />

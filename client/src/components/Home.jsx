@@ -142,6 +142,8 @@ export default function Home() {
             <Carousel />
             <div className={styles.containerActionsAndCards}>
               <div className={styles.containerOrderAndPaginado}>
+
+                <Element name='gaston'>
                 <div className={styles.ubiOptions}>
                   <p className={styles.p}>
                     Ordenar Por:
@@ -192,15 +194,15 @@ export default function Home() {
                     </select>
                   </p>
                 </div>
+                </Element>
 
-                <Element name='gaston'>
                   <Paginado
                     bookPerPage={bookPerPage}
                     books1={allBooks.length}
                     paginado={paginado}
                     page={currentPage}
                   />
-                </Element>
+                
               </div>
               <GenerosTitle />
               <div className={styles.card}>

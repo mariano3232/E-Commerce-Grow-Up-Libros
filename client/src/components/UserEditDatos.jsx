@@ -455,7 +455,7 @@ const UserEditDatos = () => {
                     </div>} */}
           <Button
             sx={{
-              color: 'white',
+              color: 'black',
               fontWeight: 'bold',
               backgroundColor: 'white',
             }}

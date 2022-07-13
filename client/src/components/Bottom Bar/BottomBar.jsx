@@ -61,7 +61,9 @@ export default function BottomBar() {
     )
     setInput('')
     navigate('/user')
-    dispatch(getUsers())
+    setTimeout(function () {
+      dispatch(getUsers())
+    }, 1000)
   }
 
   return (
@@ -127,44 +129,22 @@ export default function BottomBar() {
       <Grid width={'100%'} xs={1} item>
         <Stack direction={'row'} spacing='2'>
 
-        <Typography sx={{ textDecoration: 'inherit', color: 'white', fontSize: '20px' }}>
+            <Typography sx={{ textDecoration: 'inherit', color: 'white', fontSize: '26px' }}>
               NewsLetters
             </Typography>
-          {/* <Input
-            type='text'
-            placeholder='Email'
-            value={input}
-            onChange={(e) => handleChange(e)}
-            sx={{
-              color: 'white',
-              fontSize: '20px',
-              '::placeholder': {
-                color: 'white',
-              },
-              ':hover:not(.Mui-disabled):before': {
-                borderColor: 'white',
-              },
-              ':before': {
-                borderColor: 'white',
-              },
-              ':after': {
-                borderColor: 'transparent',
-              },
-            }}
-          /> */}
 
           {
-            isLogged.lenght === 0 ?
-            <Typography sx={{ textDecoration: 'inherit', color: 'white', fontSize: '15px' }}>
-              Para suscribirse a nuestro NewsLetter debes estar logeado
+            isLogged.length === 0 ?
+            <Typography sx={{ textDecoration: 'inherit', color: 'white', fontSize: '18px' }}>
+              Para suscribirse debes estar logeado
             </Typography> :
             <Button
-            sx={{ fontWeight: 'bold' }}
-            onClick={handleSubmit}
-            color='secondary'
-          >
-            Suscribete
-          </Button>
+              sx={{ fontWeight: 'bold' }}
+              onClick={handleSubmit}
+              color='secondary'
+            >
+              Suscribete
+            </Button>
           }
 
           
@@ -173,3 +153,26 @@ export default function BottomBar() {
     </Grid>
   )
 }
+
+{/* <Input
+  type='text'
+  placeholder='Email'
+  value={input}
+  onChange={(e) => handleChange(e)}
+  sx={{
+    color: 'white',
+    fontSize: '20px',
+    '::placeholder': {
+      color: 'white',
+    },
+    ':hover:not(.Mui-disabled):before': {
+      borderColor: 'white',
+    },
+    ':before': {
+      borderColor: 'white',
+    },
+    ':after': {
+      borderColor: 'transparent',
+    },
+  }}
+/> */}
