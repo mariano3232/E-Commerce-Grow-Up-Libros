@@ -12,7 +12,7 @@ const UserSeguimientoOrden = () => {
   )
   console.log('SOY ORDER WITH USER', ordersWithUsers)
   console.log('SOY usersOrders', userOrders)
-
+  console.log('hola3')
   return (
     <div>
       {userOrders.length !== 0 ? (
