@@ -98,7 +98,6 @@ router.post('/toggleAdmin', async (req, res) => {
           user.isAdmin = false
           await user.save()
         } else {
-          mail.enviar_mail_premium(user.name, user.email)
           user.isAdmin = true
           await user.save()
         }
@@ -169,12 +168,12 @@ router.post('/togglePremium', async (req, res) => {
     if (userIds) {
       userIds.forEach(async (id) => {
         const user = await Users.findById(id)
-
         if (!user) throw new Error('The user not exists')
         if (user.isPremiun) {
           user.isPremiun = false
           await user.save()
         } else {
+          mail.enviar_mail_premium(user.name, user.email)
           user.isPremiun = true
           await user.save()
         }
