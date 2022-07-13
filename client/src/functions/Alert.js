@@ -29,7 +29,7 @@ const Alert = (title, type) => {
     }
     case 'updateInfo': {
       color = '#22b8cf'
-      icon = '<img src="/assets/imgs/updateUser.png">'
+      icon = `<img src="${Images.updateUser}">`
       customClass = {
         icon: 'sweet-icon-cart',
         image: 'sweet-icon-cart',
@@ -39,7 +39,7 @@ const Alert = (title, type) => {
     }
     case 'delete': {
       color = '#e03131'
-      icon = '<img src="../dist/assets/imgs/delete-account.png">'
+      icon = `<img src="${Images.deleteAccount}">`
       customClass = {
         icon: 'sweet-icon-cart',
         image: 'sweet-icon-cart',
@@ -48,7 +48,7 @@ const Alert = (title, type) => {
     }
     case 'updateBook': {
       color = '#22b8cf'
-      icon = '<img src="../dist/assets/imgs/books.png">'
+      icon = `<img src="${Images.books}">`
       customClass = {
         icon: 'sweet-icon-cart',
         image: 'sweet-icon-cart',
@@ -57,7 +57,7 @@ const Alert = (title, type) => {
     }
     case 'updateCarrousel': {
       color = '#22b8cf'
-      icon = '<img src="../dist/assets/imgs/image-files.png">'
+      icon = `<img src="${Images.imagesFiles}">`
       customClass = {
         icon: 'sweet-icon-cart',
         image: 'sweet-icon-cart',
@@ -66,7 +66,7 @@ const Alert = (title, type) => {
     }
     case 'updateOrder': {
       color = '#22b8cf'
-      icon = '<img src="../dist/assets/imgs/order.png">'
+      icon = `<img src="${Images.orderIcon}">`
       customClass = {
         icon: 'sweet-icon-cart',
         image: 'sweet-icon-cart',
@@ -75,7 +75,7 @@ const Alert = (title, type) => {
     }
     case 'email': {
       color = '#22b8cf'
-      icon = '<img src="../dist/assets/imgs/email.png">'
+      icon = `<img src="${Images.email}">`
       customClass = {
         icon: 'sweet-icon-cart',
         image: 'sweet-icon-cart',
