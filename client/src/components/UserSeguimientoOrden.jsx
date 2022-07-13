@@ -12,13 +12,14 @@ const UserSeguimientoOrden = () => {
     (order) => order.usuario[0]._id === logged[0]._id
   )
   const ultimaOrden = []
-  if (userOrders.length === 0) {
+
+  if (userOrders.length !== 0) {
     ultimaOrden = userOrders.pop()
   }
 
   return (
     <div>
-      {ultimaOrden.length === 0 ? (
+      {ultimaOrden ? (
         <div>
           <h1>Detalles de Orden</h1>
           <p>Orden Id: {ultimaOrden._id}</p>
