@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { postUser, getUsers, setToAdmin , setUserPlan , setUserBanned , setUserNews } from '../../../actions'
+import {
+  postUser,
+  getUsers,
+  setToAdmin,
+  setUserPlan,
+  setUserBanned,
+  setUserNews,
+} from '../../../actions'
 import { useSelector, useDispatch } from 'react-redux'
 import AdminProSet from '../../AdminPro/Permisos/AdminProSet'
 import AdminUserChangePlan from './Manejo de estados/AdminUserChangePlan'
@@ -22,13 +29,11 @@ import { animateScroll as scroll, Element } from 'react-scroll'
 // {id: userId, changes:{isAdmin:true}}
 
 export default function AdminUsers2(props) {
-
   const dispatch = useDispatch()
 
   const usuarios = useSelector((state) => state.users)
 
-
-  function changePlan(e){
+  function changePlan(e) {
     e.preventDefault()
     var userId = [e.target.value]
     dispatch(setUserPlan(userId))
@@ -37,8 +42,7 @@ export default function AdminUsers2(props) {
     }, 500)
   }
 
-  
-  function changeBan(e){
+  function changeBan(e) {
     e.preventDefault()
     var userId = [e.target.value]
     dispatch(setUserBanned(userId))
@@ -47,8 +51,7 @@ export default function AdminUsers2(props) {
     }, 500)
   }
 
-  
-  function changeNews(e){
+  function changeNews(e) {
     e.preventDefault()
     var userId = [e.target.value]
     dispatch(setUserNews(userId))
@@ -57,155 +60,134 @@ export default function AdminUsers2(props) {
     }, 500)
   }
 
-
- 
-   
-
-
   useEffect(() => {
     dispatch(getUsers())
   }, [])
-
-  
 
   useEffect(() => {
     scroll.scrollToTop()
   }, [])
 
-
-
   return usuarios.length > 0 ? (
     <div className={styles.containerAll}>
       <h1>Control de usuarios</h1>
-      <div>
+      <div className={styles.containerUser}>
         <Link to='/admin'>
           <button className={style.btnAdmin}>Panel de Administrador</button>
         </Link>
-        <br />
-        <br />
-        
-        <div className={styles.containerFlex}>
-          
-          <div>
-            <div className={styles.containerUser}>
-              <AdminRefreshUsers />
-              <AdminSearchBarUser />
-            </div>
-            <div class='container'>
-              <table class='content-table'>
-                <thead>
-                  <tr>
-                    <th>Email</th>
-                    <th>Usuario</th>
+        <AdminRefreshUsers />
+        <AdminSearchBarUser />
+      </div>
+      <div class='container'>
+        <table class='content-table'>
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Usuario</th>
 
-                    <th>Plan Premium</th>
-                    <th>Estado Bloqueado</th>
-                    <th>NewsLetter</th>
-                    <th>Administrador</th>
-                  </tr>
-                </thead>
+              <th>Plan Premium</th>
+              <th>Estado Bloqueado</th>
+              <th>NewsLetter</th>
+              <th>Administrador</th>
+            </tr>
+          </thead>
 
-                <tbody>
-                  {usuarios.map((usuario) => (
-                    <tr key={usuario.id}>
-                      <td>
-                        <Link to={`/adminuserprofile/${usuario._id}`}>
-                          {usuario.email}
-                        </Link>
-                      </td>
+          <tbody>
+            {usuarios.map((usuario) => (
+              <tr key={usuario.id}>
+                <td>
+                  <Link to={`/adminuserprofile/${usuario._id}`}>
+                    {usuario.email}
+                  </Link>
+                </td>
 
-                      <td>{usuario.name}</td>
+                <td>{usuario.name}</td>
 
-                      <td>
-                      {usuario.isPremiun ?
-                      <label class='switch'>
-                         <input 
-                          type="checkbox"
-                          value={usuario._id}
-                          onChange={(e) => changePlan(e)}
-                          defaultChecked={true}
-                           />
-                         <span class="slider round"></span>
-                         
-                         </label>
+                <td>
+                  {usuario.isPremiun ? (
+                    <label class='switch'>
+                      <input
+                        type='checkbox'
+                        value={usuario._id}
+                        onChange={(e) => changePlan(e)}
+                        defaultChecked={true}
+                      />
+                      <span class='slider round'></span>
+                    </label>
+                  ) : (
+                    <label class='switch'>
+                      <input
+                        type='checkbox'
+                        value={usuario._id}
+                        onChange={(e) => changePlan(e)}
+                        defaultChecked={false}
+                      />
+                      <span class='slider round'></span>
+                    </label>
+                  )}
+                </td>
 
-                         : <label class='switch'>
-                         <input 
-                          type="checkbox"
-                          value={usuario._id}
-                          onChange={(e) => changePlan(e)}
-                          defaultChecked={false}
-                           />
-                         <span class="slider round"></span>
-                         
-                      </label>}
-                      
-                      </td>
+                <td>
+                  {' '}
+                  {usuario.isBanned ? (
+                    <label class='switch'>
+                      <input
+                        type='checkbox'
+                        value={usuario._id}
+                        onChange={(e) => changeBan(e)}
+                        defaultChecked={true}
+                      />
+                      <span class='slider round'></span>
+                    </label>
+                  ) : (
+                    <label class='switch'>
+                      <input
+                        type='checkbox'
+                        value={usuario._id}
+                        onChange={(e) => changeBan(e)}
+                        defaultChecked={false}
+                      />
+                      <span class='slider round'></span>
+                    </label>
+                  )}
+                </td>
 
-                      <td>  {usuario.isBanned?
-                      <label class='switch'>
-                         <input 
-                          type="checkbox"
-                          value={usuario._id}
-                          onChange={(e) => changeBan(e)}
-                          defaultChecked={true}
-                           />
-                         <span class="slider round"></span>
-                       
-                         </label>
+                <td>
+                  {' '}
+                  {usuario.isSuscribeNewsletter ? (
+                    <label class='switch'>
+                      <input
+                        type='checkbox'
+                        value={usuario._id}
+                        onChange={(e) => changeNews(e)}
+                        defaultChecked={true}
+                      />
+                      <span class='slider round'></span>
+                    </label>
+                  ) : (
+                    <label class='switch'>
+                      <input
+                        type='checkbox'
+                        value={usuario._id}
+                        onChange={(e) => changeNews(e)}
+                        defaultChecked={false}
+                      />
+                      <span class='slider round'></span>
+                    </label>
+                  )}
+                </td>
 
-                         : <label class='switch'>
-                         <input 
-                          type="checkbox"
-                          value={usuario._id}
-                          onChange={(e) => changeBan(e)}
-                          defaultChecked={false}
-                           />
-                         <span class="slider round"></span>
-                         
-                      </label>}</td>
-
-                      <td>   {usuario.isSuscribeNewsletter ?
-                      <label class='switch'>
-                         <input 
-                          type="checkbox"
-                          value={usuario._id}
-                          onChange={(e) => changeNews(e)}
-                          defaultChecked={true}
-                           />
-                         <span class="slider round"></span>
-                    
-                         </label>
-
-                         : <label class='switch'>
-                         <input 
-                          type="checkbox"
-                          value={usuario._id}
-                          onChange={(e) => changeNews(e)}
-                          defaultChecked={false}
-                           />
-                         <span class="slider round"></span>
-                         
-                      </label>}</td>
-
-                      <td>{usuario.isAdmin ? 'Si' : 'No'}</td>
-                     
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+                <td>{usuario.isAdmin ? 'Si' : 'No'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   ) : (
     <p>Loading...</p>
   )
 }
-
-
-
 
 //------------CTODO CON CHECK BOX----------------
 /*

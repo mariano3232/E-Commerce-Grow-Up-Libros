@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getUsers, getAllOrders , orderByDate } from '../../../actions'
+import { getUsers, getAllOrders, orderByDate } from '../../../actions'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import AdminSearchBarUserOrders from '../SearchBars/AdminSearchBarUserOrders'
@@ -11,34 +11,28 @@ import AdminOrderStatusComplete from './ManejoDeEstados/AdminOrderStatusComplete
 import AdminOrderStatusCreated from './ManejoDeEstados/AdminOrderStatusCreated'
 import AdminSearchBarStatusOrders from '../SearchBars/AdminSearchBarStatusOrders'
 import AdminOrderStatusShipped from './ManejoDeEstados/AdminOrderStatusShipped'
-import styles from '../../../Styles/AdminUser2.module.css'
 import AdminSearchBarPaymentStatus from '../SearchBars/AdminSearchBarPaymentStatus'
 import { animateScroll as scroll, Element } from 'react-scroll'
 import style from '../../../Styles/Button.module.css'
-
-
-
-
+import styles from '../../../Styles/AdminOrders.module.css'
+import { MenuItem, Select } from '@mui/material'
 
 export default function AdminOrders(props) {
   const dispatch = useDispatch()
 
   const usuarios = useSelector((state) => state.users)
-  const orders = useSelector(state =>state.orders)
+  const orders = useSelector((state) => state.orders)
 
-  const orderOk = orders.filter(order => order.usuario.length > 0)
-  
+  const orderOk = orders.filter((order) => order.usuario.length > 0)
+
   const [seleccionados, setSeleccionados] = useState([])
 
   const [changed, setChanged] = useState(false)
 
-
-
-
   function selectOrder(e) {
     var orderId = e.target.value
     if (!e.target.checked) {
-      let seleccion = seleccionados.filter((order) => order._id !== orderId)    
+      let seleccion = seleccionados.filter((order) => order._id !== orderId)
       setSeleccionados(seleccion)
     } else {
       let orderCheck = orders.find((order) => order._id === orderId)
@@ -46,67 +40,66 @@ export default function AdminOrders(props) {
     }
   }
 
-
   useEffect(() => {
     dispatch(getAllOrders())
   }, [])
 
- 
-
   useEffect(() => {
     scroll.scrollToTop()
   }, [])
-  
-  
 
   //------------PAGINADO
-  const [currentPage, setCurrentPage] = useState(1);
-  const [rows, setRows] = useState(10); 
-  const [pageNumberLimit, setPageNumberLimit] = useState(5);
-  const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(5);
-  const [minPageNumberLmit, setMinPageNumberLmit] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1)
+  const [rows, setRows] = useState(10)
+  const [pageNumberLimit, setPageNumberLimit] = useState(5)
+  const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(5)
+  const [minPageNumberLmit, setMinPageNumberLmit] = useState(0)
 
   const handleClick = (event) => {
-    setCurrentPage(Number(event.target.id));
-  };
-  const handleNextbtn = () => {
-    setCurrentPage(currentPage + 1);
-    if (currentPage + 1 > maxPageNumberLimit) {
-      setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
-      setMinPageNumberLmit(minPageNumberLmit + pageNumberLimit);
-    }
-  };
-  const handlePrevbtn = () => {
-    setCurrentPage(currentPage - 1);
-    if ((currentPage - 1) % pageNumberLimit === 0) {
-      setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
-      setMinPageNumberLmit(minPageNumberLmit - pageNumberLimit);
-    }
-  };
- 
-  const pages = [];
-  for (let i = 1; i <= Math.ceil(orderOk.length / rows); i++) {
-    pages.push(i);
+    setCurrentPage(Number(event.target.id))
   }
-  const indexOfLastItem = currentPage * rows;
-  const indexOfFirstItem = indexOfLastItem - rows;
-  const currentItems = orderOk.slice(indexOfFirstItem, indexOfLastItem);
+  const handleNextbtn = () => {
+    setCurrentPage(currentPage + 1)
+    if (currentPage + 1 > maxPageNumberLimit) {
+      setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit)
+      setMinPageNumberLmit(minPageNumberLmit + pageNumberLimit)
+    }
+  }
+  const handlePrevbtn = () => {
+    setCurrentPage(currentPage - 1)
+    if ((currentPage - 1) % pageNumberLimit === 0) {
+      setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit)
+      setMinPageNumberLmit(minPageNumberLmit - pageNumberLimit)
+    }
+  }
+
+  const pages = []
+  for (let i = 1; i <= Math.ceil(orderOk.length / rows); i++) {
+    pages.push(i)
+  }
+  const indexOfLastItem = currentPage * rows
+  const indexOfFirstItem = indexOfLastItem - rows
+  const currentItems = orderOk.slice(indexOfFirstItem, indexOfLastItem)
   const renderPageNumbers = pages.map((number) => {
     if (number < maxPageNumberLimit + 1 && number > minPageNumberLmit) {
       return (
         <li
           key={number}
           id={number}
-          onClick={e=>handleClick(e)}
-          className={currentPage === number ? "activo" : null}
+          onClick={(e) => handleClick(e)}
+          className={
+            currentPage === number
+              ? styles.paginationBulletActive
+              : styles.paginationBullet
+          }
         >
           {number}
         </li>
-      );
+      )
     } else {
-      return null;
+      return null
     }
-  });
+  })
   //-------------------------------------------------------------------
 
   useEffect(() => {
@@ -122,7 +115,6 @@ export default function AdminOrders(props) {
 
   const [order, setOrder] = useState(true)
 
-
   function handleOrderByDate(e) {
     //e.preventDefault()
     dispatch(orderByDate(e.target.value))
@@ -132,151 +124,140 @@ export default function AdminOrders(props) {
 
   return orders.length > 0 ? (
     <div className={styles.containerAll}>
-
-      <Link to='/admin'>
-            <button className={style.button} >Panel Administrador</button>
-      </Link>
-      
       <h1>Control de Ordenes</h1>
-     
-      <div>
-        <div id='tableleft'></div>
-        <div className={styles.containerFlex}>
-          <div className={styles.containerActions}>
-          <h2>Cambiar el Estado de la Orden a:</h2>
-            <AdminOrderStatusCreated
-              orders={seleccionados}
-              changed={changed}
-              setChanged={setChanged}
-            />
-             <AdminOrderStatusProcessing
-              orders={seleccionados}
-              changed={changed}
-              setChanged={setChanged}
-            />
-             <AdminOrderStatusShipped
-              orders={seleccionados}
-              changed={changed}
-              setChanged={setChanged}
-            />
-             <AdminOrderStatusComplete
-              orders={seleccionados}
-              changed={changed}
-              setChanged={setChanged}
-            />
-             <AdminOrderStatusCancelled
-              orders={seleccionados}
-              changed={changed}
-              setChanged={setChanged}
-            />
-          
-          </div>
-          <div>
-            <div className={styles.containerUser}>
-              <AdminRefreshOrders />
-              <AdminSearchBarUserOrders />
-              <AdminSearchBarStatusOrders />
-              <AdminSearchBarPaymentStatus/>
-
-              <p>
-              <select
-                      onChange={(e) => handleOrderByDate(e)}
-                      defaultValue='default'
-                    >
-                      <option value='default' disabled>
-                        Orden por Fecha
-                      </option>
-                      <option  value='desc'>
-                       Mas antiguas
-                      </option>
-                      <option  value='Asc'>
-                        Mas nuevas
-                      </option>
-                    </select>
-              </p>
-              
-            </div>
-            <div class='container'>
-              
-              <table class='content-table'>
-                <thead>
-                  <tr>
-                    <th>Nº Orden</th>
-                    <th>Usuario</th>
-
-                    <th>Fecha</th>
-                    <th>Total</th>
-                    <th>Estado de Pago</th>
-                    <th>Estado de Orden</th>
-                   
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {currentItems.length>0  && currentItems.map((order) => (
-                    <tr key={order._id}>
-                      <td>
-                        <Link to={`/adminorderdetails/${order._id}`}>
-                          {order._id}
-                        </Link>
-                      </td>
-
-                      <td> <Link to={`/adminuserprofile/${order.usuario[0]._id}`}>
-                          {order.usuario[0].email}
-                        </Link></td>
-
-                      <td>
-                        {order.fecha}
-                      </td>
-
-                      <td>
-                        {order.total}
-                      </td>
-
-                      <td>{order.status}</td>
-
-                      <td>{order.status_order}</td>
-
-                    
-                      <td>
-                        <input
-                          className='checkbox'
-                          type='checkbox'
-                          value={order._id}
-                          onChange={(e) => selectOrder(e)}
-                          defaultChecked={false}
-                        ></input>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+      <div className={styles.containerUser}>
+        <div className={styles.buttonsNavigation}>
+          <Link to='/admin'>
+            <button className={style.button}>Panel Administrador</button>
+          </Link>
+          <AdminRefreshOrders />
+          <Select
+            onChange={(e) => handleOrderByDate(e)}
+            defaultValue='default'
+            sx={{ fontSize: '20px' }}
+          >
+            <MenuItem sx={{ fontSize: '20px' }} value='default' disabled>
+              Orden por Fecha
+            </MenuItem>
+            <MenuItem sx={{ fontSize: '20px' }} value='desc'>
+              Mas antiguas
+            </MenuItem>
+            <MenuItem sx={{ fontSize: '20px' }} value='Asc'>
+              Mas nuevas
+            </MenuItem>
+          </Select>
         </div>
-        {
-          <ul className="pageNumbers">
-            <li>
-              <button
-                onClick={handlePrevbtn}
-                disabled={currentPage === pages[0] ? true : false}
-              >
-                prev
-              </button>
-            </li>
-            {renderPageNumbers}
-            <li>
-              <button
-                onClick={handleNextbtn}
-                disabled={
-                  currentPage === pages[pages.length - 1] ? true : false
-                }
-              >
-                next
-              </button>
-            </li>
-          </ul>
-        }
+        <div className={styles.inputSearch}>
+          <AdminSearchBarUserOrders />
+          <AdminSearchBarStatusOrders />
+          <AdminSearchBarPaymentStatus />
+        </div>
+      </div>
+      <div class='container'>
+        <div className={styles.containerActions}>
+          <h3>Cambiar el Estado de la Orden a:</h3>
+          <AdminOrderStatusCreated
+            orders={seleccionados}
+            changed={changed}
+            setChanged={setChanged}
+          />
+          <AdminOrderStatusProcessing
+            orders={seleccionados}
+            changed={changed}
+            setChanged={setChanged}
+          />
+          <AdminOrderStatusShipped
+            orders={seleccionados}
+            changed={changed}
+            setChanged={setChanged}
+          />
+          <AdminOrderStatusComplete
+            orders={seleccionados}
+            changed={changed}
+            setChanged={setChanged}
+          />
+          <AdminOrderStatusCancelled
+            orders={seleccionados}
+            changed={changed}
+            setChanged={setChanged}
+          />
+        </div>
+        <div className={styles.containerTable__Pagination}>
+          <table class='content-table'>
+            <thead>
+              <tr>
+                <th>Nº Orden</th>
+                <th>Usuario</th>
+
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Estado de Pago</th>
+                <th>Estado de Orden</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {currentItems.length > 0 &&
+                currentItems.map((order) => (
+                  <tr key={order._id}>
+                    <td>
+                      <Link to={`/adminorderdetails/${order._id}`}>
+                        {order._id}
+                      </Link>
+                    </td>
+
+                    <td>
+                      {' '}
+                      <Link to={`/adminuserprofile/${order.usuario[0]._id}`}>
+                        {order.usuario[0].email}
+                      </Link>
+                    </td>
+
+                    <td>{order.fecha}</td>
+
+                    <td>{order.total}</td>
+
+                    <td>{order.status}</td>
+
+                    <td>{order.status_order}</td>
+
+                    <td>
+                      <input
+                        className='checkbox'
+                        type='checkbox'
+                        value={order._id}
+                        onChange={(e) => selectOrder(e)}
+                        defaultChecked={false}
+                      ></input>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+          {
+            <ul className={styles.paginationStock}>
+              <li>
+                <button
+                  onClick={handlePrevbtn}
+                  disabled={currentPage === pages[0] ? true : false}
+                >
+                  {'<'}
+                </button>
+              </li>
+              {renderPageNumbers}
+              <li>
+                <button
+                  onClick={handleNextbtn}
+                  disabled={
+                    currentPage === pages[pages.length - 1] ? true : false
+                  }
+                >
+                  {'>'}
+                </button>
+              </li>
+            </ul>
+          }
+        </div>
       </div>
     </div>
   ) : (
@@ -284,31 +265,13 @@ export default function AdminOrders(props) {
   )
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import React, { useState, useEffect } from "react";
 // import { useSelector, useDispatch } from "react-redux";
 // import { Link, NavLink } from "react-router-dom";
 // import { getAllOrders } from "../../../actions";
 
-
-
-
-
 // function AdminOrders() {
-  
+
 //   // const dispatch = useDispatch();
 //   // const [orderView, setOrderView] = useState([]);
 //   // const [status, setStatus] = useState("");
@@ -321,7 +284,7 @@ export default function AdminOrders(props) {
 //   // useEffect(() => {
 //   //   setOrderView(orders);
 //   // }, [orders]);
-  
+
 //   // const handleStatus = (e) => {
 //   //   setStatus(e.target.value);
 //   //   setCurrentPage(1)

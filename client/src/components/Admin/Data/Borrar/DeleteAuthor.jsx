@@ -1,6 +1,6 @@
 import React from 'react'
 import style from '../../../../Styles/DeleteData.module.css'
-import styleButton from '../../../../Styles/Button.module.css'
+import styledButton from '../../../../Styles/Button.module.css'
 import {
   deleteAuthor,
   getAuthors,
@@ -116,14 +116,14 @@ export default function DeleteAuthor() {
                     <div className={style.containerButtons}>
                       {author.isHidden === true ? (
                         <button
-                          className={styleButton.button}
+                          className={`${styledButton.button} ${styledButton.buttonShow}`}
                           onClick={() => ShowAuthor(author._id)}
                         >
                           Mostrar
                         </button>
                       ) : (
                         <button
-                          className={styleButton.button}
+                          className={`${styledButton.button} ${styledButton.buttonHide}`}
                           onClick={() => HideAuthor(author._id)}
                         >
                           Ocultar

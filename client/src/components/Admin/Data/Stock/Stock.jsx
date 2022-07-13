@@ -6,7 +6,10 @@ import AdminSearchBarBooks from '../../SearchBars/AdminSearchBarBooks'
 import AdminRefreshBooks from '../../RefreshButtons/AdminRefreshBooks'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { orderByNameAdminBooks, orderByStockAdminBooks } from '../../../../actions'
+import {
+  orderByNameAdminBooks,
+  orderByStockAdminBooks,
+} from '../../../../actions'
 import { animateScroll as scroll, Element } from 'react-scroll'
 import { useEffect } from 'react'
 
@@ -35,25 +38,29 @@ export default function Stock() {
     scroll.scrollToTop()
   }, [])
 
-
   return (
     <div className={style.stock}>
-      <Link to='/admin'>
-        <button className={style.btnAdmin}>Panel Administrador</button>
-      </Link>
+      <h1>Stock</h1>
+      <div className={style.containerButtonsNavigation}>
+        <Link to='/admin'>
+          <button className={style.btnAdmin}>Panel Administrador</button>
+        </Link>
 
-      <Link to='/stocktable'>
-        <button className={style.btnAdmin}>DataGrid</button>
-      </Link>
+        <Link to='/stocktable'>
+          <button className={style.btnAdmin}>DataGrid</button>
+        </Link>
 
-      <Link to='/stocktable2'>
-        <button className={style.btnAdmin}>Tabla</button>
-      </Link>
+        <Link to='/stocktable2'>
+          <button className={style.btnAdmin}>Tabla</button>
+        </Link>
+      </div>
 
-      <AdminSearchBarBooks />
-      <AdminRefreshBooks />
+      <div className={style.containerbuttonsActions}>
+        <AdminRefreshBooks />
+        <AdminSearchBarBooks />
+      </div>
 
-      <div>
+      <div className={style.containerSelects}>
         <select
           className={style.selectOrder}
           onChange={(e) => handleOrderByName(e)}
@@ -65,9 +72,7 @@ export default function Stock() {
           <option value='Asc'>Nombre Ascendente</option>
           <option value='desc'>Nombre Descendente</option>
         </select>
-      </div>
 
-      <div>
         <select
           className={style.selectOrder}
           onChange={(e) => handleOrderByStock(e)}
@@ -80,16 +85,13 @@ export default function Stock() {
           <option value='desc'>Descendente</option>
         </select>
       </div>
-
-      <h1>Libros</h1>
       <ul className={style.gridContainerBooks}>
         {allBooks.length
           ? allBooks.map((book) => {
               return (
                 <li className={style.cardItem}>
                   <img src={book.cover} alt='' />
-                  <p> {book.title}</p> <p>{book.editorial}</p>{' '}
-                  <p>{book.stock}</p>
+                  <p>Editorial: {book.editorial}</p> <p>Stock: {book.stock}</p>
                 </li>
               )
             })

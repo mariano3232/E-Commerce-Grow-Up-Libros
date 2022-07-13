@@ -1,0 +1,98 @@
+.containerStock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+.paginationStock {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.paginationBulletActive {
+  border-radius: 50%;
+  padding: 5px 10px;
+  background-color: #22b8cf;
+  color: white;
+}
+
+.paginationBullet {
+  border-radius: 50%;
+  padding: 5px 10px;
+  background-color: #adb5bd;
+  color: white;
+}
+
+.paginationStock button {
+  border-radius: 50%;
+  background-color: #22b8cf;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 2rem;
+}
+
+.containerPrimaryActions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.containerFlex {
+  display: flex;
+  gap: 2rem;
+}
+
+.containerButtonNavigation {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+.containerButtonAdd {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 20px 0;
+}
+
+.containerButtonAdd h3 {
+  margin: 0;
+}
+
+.table {
+  width: 90%;
+}
+
+.table th {
+  background-color: #22b8cf;
+  color: white;
+  padding: 5px 10px;
+  font-size: 22px;
+}
+
+.containerAll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.containerButtonsActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.containerActionsSearch {
+  display: flex;
+  gap: 1rem;
+}

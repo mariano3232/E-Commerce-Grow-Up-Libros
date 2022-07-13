@@ -2,13 +2,14 @@
   z-index: 1;
   position: relative;
   font-size: 18px;
-  background-color:none;
+  background-color: #22b8cf;
   height: 3rem;
   border-radius: 4px;
   transition: 500ms;
   color: white;
-  border:none;
+  border: none;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .button::after {
@@ -29,4 +30,25 @@
 .button:hover::after {
   transform: scaleX(1);
   transform-origin: left;
+}
+
+.buttonShow {
+  background-color: #51cf66;
+}
+
+.buttonHide {
+  background-color: #f03e3e;
+}
+
+.btnAdmin {
+  text-decoration: none;
+  font-size: 1.2rem;
+  background-color: #22b8cf;
+
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
 }

@@ -19,6 +19,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 1rem;
+}
+
+.cardItem p {
+  font-size: 24px;
 }
 
 .gridContainerBooks img {
@@ -30,10 +35,10 @@
   margin: 0;
 }
 .btnAdmin {
-  margin-top: 2rem;
   text-decoration: none;
   font-size: 1.2rem;
-  background: -webkit-linear-gradient(80deg, #77c9d4, #015249);
+  background-color: #22b8cf;
+
   color: #fff;
   font-size: 1.2rem;
   padding: 0.5rem 1rem;
@@ -48,4 +53,19 @@
   border-radius: 5px;
   border: 2px solid #77c9d4;
   background-color: transparent;
+}
+
+.containerButtonsNavigation {
+  display: flex;
+  gap: 2rem;
+}
+
+.containerbuttonsActions {
+  display: flex;
+  gap: 1rem;
+}
+
+.containerSelects {
+  display: flex;
+  gap: 1rem;
 }

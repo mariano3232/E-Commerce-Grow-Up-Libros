@@ -26,7 +26,7 @@ const UserEditPlanes = () => {
   const handleNewsDelete = () => {
     const id = [logged[0]._id]
     dispatch(setUserNews(id))
-    Alert('Desuscripción a nuestro Newsletter con éxito', 'success')
+    Alert('Desuscripción a nuestro Newsletter con éxito', 'email')
     setTimeout(function () {
       dispatch(getUsers()), 100
     })
