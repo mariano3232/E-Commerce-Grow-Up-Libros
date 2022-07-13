@@ -277,7 +277,7 @@ export function deleteBook(id) {
 export function deleteAuthor(id) {
   return async function (dispatch) {
     const json = await axios.delete(
-      `http://ecommercehenryx.herokuapp.com/authors/deleteAuthor/${id}`
+      `https://ecommercehenryx.herokuapp.com/authors/deleteAuthor/${id}`
     )
     return dispatch({
       type: 'DELETE_AUTHOR',
@@ -290,7 +290,7 @@ export function deleteAuthor(id) {
 export function putAuthor(payload, id) {
   return async function (dispatch) {
     const json = await axios.post(
-      `http://ecommercehenryx.herokuapp.com/authors/update/${id}`,
+      `https://ecommercehenryx.herokuapp.com/authors/update/${id}`,
       payload
     )
     return dispatch({
@@ -302,7 +302,7 @@ export function putAuthor(payload, id) {
 export function putBook(payload, id) {
   return async function (dispatch) {
     const json = await axios.post(
-      `http://ecommercehenryx.herokuapp.com/books/update/${id}`,
+      `https://ecommercehenryx.herokuapp.com/books/update/${id}`,
       payload
     )
     console.log('stockM:', json.data)
@@ -731,13 +731,12 @@ export function setUserPlan(payload) {
 }
 
 export function setUserNews(payload) {
-  
   return async function (dispatch) {
     const json = await axios.post(
       'https://ecommercehenryx.herokuapp.com/users/toggleNewsletter',
       payload
     )
-    
+
     return dispatch({
       type: 'SET_USER_NEWS',
     })
