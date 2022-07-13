@@ -36,7 +36,6 @@ export default function BottomBar() {
   const allUsers = useSelector((state) => state.users)
   const isLogged = useSelector((state) => state.userLogged)
   const navigate = useNavigate()
-
   const handleChange = (e) => {
     setInput(e.target.value)
   }
@@ -44,6 +43,7 @@ export default function BottomBar() {
   const handleSubmit = (e) => {
     e.preventDefault()
     const usuario = allUsers.filter((u) => u._id === isLogged[0]._id)
+    console.log(usuario)
     /* if(isLogged.length === 0) {
       setInput('');
       return alert('Para suscribirte a nuestro newsletter necesitas estar logeado'); 
