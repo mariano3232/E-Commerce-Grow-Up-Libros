@@ -1,4 +1,5 @@
 import Swal from 'sweetalert2'
+import { Images } from '../assets'
 
 const Alert = (title, type) => {
   let color
@@ -7,7 +8,7 @@ const Alert = (title, type) => {
   switch (type) {
     case 'fav': {
       color = '#ff6b6b'
-      icon = '<img src="../dist/assets/imgs/favorito.png">'
+      icon = Images.favorito
       customClass = {
         icon: 'sweet-icon-fav',
         image: 'sweet-icon-fav',
@@ -18,7 +19,7 @@ const Alert = (title, type) => {
     }
     case 'cart': {
       color = '#22b8cf'
-      icon = '<img src="../dist/assets/imgs/carrito.png">'
+      icon = '<img src="../assets/imgs/carrito.png">'
       customClass = {
         icon: 'sweet-icon-cart',
         image: 'sweet-icon-cart',
@@ -28,7 +29,7 @@ const Alert = (title, type) => {
     }
     case 'updateInfo': {
       color = '#22b8cf'
-      icon = '<img src="../dist/assets/imgs/updateUser.png">'
+      icon = '<img src="/assets/imgs/updateUser.png">'
       customClass = {
         icon: 'sweet-icon-cart',
         image: 'sweet-icon-cart',
