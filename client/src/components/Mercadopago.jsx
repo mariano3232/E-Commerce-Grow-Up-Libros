@@ -123,7 +123,7 @@ const Mercadopago = () => {
                   Cantidad
                 </Typography>
                 {successInfo.libros.map((lb) => (
-                  <Typography>{lb.cantidad}</Typography>
+                  <Typography>{lb.quantity}</Typography>
                 ))}
               </Grid>
               <Grid item xs={1}>

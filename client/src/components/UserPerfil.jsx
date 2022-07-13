@@ -18,6 +18,7 @@ import UserEditDatos from './UserEditDatos'
 import UserEditPlanes from './UserEditPlanes'
 import { animateScroll as scroll } from 'react-scroll'
 import { Button } from '@mui/material'
+import UserSeguimientoOrden from './UserSeguimientoOrden'
 
 const UserPerfil = () => {
   const dispatch = useDispatch()
@@ -49,6 +50,7 @@ const UserPerfil = () => {
     if (name === 'userEditPlan') setComponent(<UserEditPlanes />)
     if (name === 'userPlanLectura') setComponent(<UserPlanLectura />)
     if (name === 'userFav') setComponent(<UserFav />)
+    if (name === 'userSeguimientoOrden') setComponent(<UserSeguimientoOrden />)
     if (name === 'userHistory') setComponent(<UserHistory />)
   }
 
@@ -114,7 +116,7 @@ const UserPerfil = () => {
             onClick={handleInput}
             name='userSubscripcion'
           >
-            Plan de suscripcion
+            Plan Soy Premium
           </Button>
 
           <Button
@@ -123,7 +125,7 @@ const UserPerfil = () => {
             onClick={handleInput}
             name='userEditPlan'
           >
-            Editar Planes
+            Editar Suscripcion
           </Button>
 
           <Button
@@ -143,6 +145,15 @@ const UserPerfil = () => {
           >
             Plan de lectura
           </Button>
+        
+          <Button
+            sx={{ fontWeight: 'bold' }}
+            className={styles.button}
+            onClick={handleInput}
+            name='userSeguimientoOrden'
+          >
+            Seguimiento de compra
+          </Button>
 
           <Button
             sx={{ fontWeight: 'bold' }}
@@ -150,7 +161,7 @@ const UserPerfil = () => {
             onClick={handleInput}
             name='userHistory'
           >
-            Mis compras
+            Historial de compras
           </Button>
         </div>
         <div className={styles.containerSection}>{component}</div>

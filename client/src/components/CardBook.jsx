@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import Alert from '../functions/Alert'
+import Cart from './Cart'
 
 export default function CardBook({ title, cover, price, rating, id, stock }) {
   const dispatch = useDispatch()
@@ -18,7 +19,8 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
   const products = useSelector((state) => state.cart)
   const myFavsBooks = useSelector((state) => state.userLoggedFavsBooksShowed)
   const myFavsBooksIds = myFavsBooks.map((book) => book._id)
-
+  const algo = products.filter(e => e.title === title)
+  
   const { loginWithRedirect } = useAuth0()
 
   //const [ifRating, setIfRating] = useState();
@@ -61,6 +63,8 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
   function handleAddToCart(e) {
     e.preventDefault()
     if (userLogged.length === 0) return loginWithRedirect()
+    if (algo.length) return alert('ya esta agregado');
+    console.log('algo2', algo);
     dispatch(addToCart(id))
     dispatch(updateAmount(productsAmount + 1))
     Alert('Libro agregado al carrito!', 'cart')
@@ -142,7 +146,10 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
           </div>
 
           <div>
-            {stock > 1 ? (
+
+            <Cart title={title} stock={stock} id={id}/>
+
+            {/* {stock > 1 ? (
               <AddShoppingCartIcon
                 cursor='pointer'
                 color='action'
@@ -151,7 +158,7 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
               />
             ) : (
               ''
-            )}
+            )} */}
           </div>
         </div>
       </div>
