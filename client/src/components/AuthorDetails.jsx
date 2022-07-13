@@ -148,18 +148,23 @@ const AuthorDetails = () => {
               modules={[Pagination]}
               className={style.mySwipper}
             >
-              {authorBooks?.map((book) => (
-                <SwiperSlide>
-                  <CardBook
-                    id={book._id}
-                    title={book.title}
-                    cover={book.cover}
-                    rating={book.rating}
-                    price={book.price}
-                    stock={book.stock}
-                  />
-                </SwiperSlide>
-              ))}
+              {authorBooks &&
+                authorBooks?.map((book) =>
+                  book.isHidden === false ? (
+                    <SwiperSlide>
+                      <CardBook
+                        id={book._id}
+                        title={book.title}
+                        cover={book.cover}
+                        rating={book.rating}
+                        price={book.price}
+                        stock={book.stock}
+                      />
+                    </SwiperSlide>
+                  ) : (
+                    ''
+                  )
+                )}
             </Swiper>
           </div>
         </div>

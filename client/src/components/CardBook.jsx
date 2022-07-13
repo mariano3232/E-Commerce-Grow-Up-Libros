@@ -19,8 +19,8 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
   const products = useSelector((state) => state.cart)
   const myFavsBooks = useSelector((state) => state.userLoggedFavsBooksShowed)
   const myFavsBooksIds = myFavsBooks.map((book) => book._id)
-  const algo = products.filter(e => e.title === title)
-  
+  const algo = products.filter((e) => e.title === title)
+
   const { loginWithRedirect } = useAuth0()
 
   //const [ifRating, setIfRating] = useState();
@@ -57,14 +57,13 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
 
   function handleRating(event, value) {
     dispatch(putRating(id, value, userLogged[0]._id))
-    // setIfRating(true);
   }
 
   function handleAddToCart(e) {
     e.preventDefault()
     if (userLogged.length === 0) return loginWithRedirect()
-    if (algo.length) return alert('ya esta agregado');
-    console.log('algo2', algo);
+    if (algo.length) return alert('ya esta agregado')
+    console.log('algo2', algo)
     dispatch(addToCart(id))
     dispatch(updateAmount(productsAmount + 1))
     Alert('Libro agregado al carrito!', 'cart')
@@ -112,26 +111,6 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
         )}
       </div>
       <div className={styles.block}>
-        <div className={styles.rating}>
-          {ifRating ? (
-            <Rating
-              name='half-rating'
-              value={rating}
-              precision={0.5}
-              onChange={(event, value) => handleRating(event, value)}
-              readOnly
-            />
-          ) : (
-            <Rating
-              name='half-rating'
-              value={0}
-              precision={0.5}
-              onChange={(event, value) => handleRating(event, value)}
-            />
-          )}
-          <span className={styles.numberRating}>{rating.toFixed(2)}</span>
-        </div>
-
         <div className={styles.info}>
           <div className={styles.containerRating}>
             <span>
@@ -146,8 +125,7 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
           </div>
 
           <div>
-
-            <Cart title={title} stock={stock} id={id}/>
+            <Cart title={title} stock={stock} id={id} />
 
             {/* {stock > 1 ? (
               <AddShoppingCartIcon

@@ -19,6 +19,7 @@ import {
   getBookComments,
   clearComments,
   changeGenreTitle,
+  putRating,
 } from '../actions'
 
 import { Link } from 'react-router-dom'
@@ -30,9 +31,11 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import Fav from './Fav'
 import Alert from '../functions/Alert'
 import Cart from './Cart'
+import { Rating } from '@mui/material'
 
 export default function BookDetails() {
   const id = useParams().id
+  const { userLogged } = useSelector((state) => state)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const productsAmount = useSelector((state) => state.cartAmount)
@@ -41,15 +44,37 @@ export default function BookDetails() {
   const { loginWithRedirect } = useAuth0()
   const [render, setRender] = useState(0)
   const usuario = useSelector((state) => state.userLogged)
-  
+  const ifRating = changeRating(id)
+
+  function changeRating(id) {
+    if (userLogged.length > 0 && userLogged[0].ratingBooks.length > 0) {
+      let result = userLogged[0].ratingBooks.indexOf(id)
+      if (result === -1) {
+        return false
+      } else {
+        return true
+      }
+    }
+    if (userLogged.length === 0) {
+      return true
+    }
+  }
+
+  function handleRating(event, value) {
+    console.log(value)
+    dispatch(putRating(id, value, userLogged[0]._id))
+    setTimeout(() => {
+      dispatch(getBookDetails(id))
+    }, 500)
+  }
+
   const uBooksFav = useSelector((state) => state.userLoggedFavsBooksShowed)
   //console.log('uBooksFavs:',uBooksFav)
-  
+
   //const bookAdded = uBooksFav.filter((e) => e._id === id)
-  const bookAdded = uBooksFav.map((book) => book._id) 
+  const bookAdded = uBooksFav.map((book) => book._id)
   // console.log('bookAdded:,',bookAdded)
-  
-  
+
   const [comment, setComment] = useState({
     comment: '',
     nickname: '',
@@ -129,11 +154,11 @@ export default function BookDetails() {
           dispatch(getBookComments(id)), 500
         })
       })
-      setComment({
-        comment: '',
-        nickname: '',
-        title: '',
-      })
+    setComment({
+      comment: '',
+      nickname: '',
+      title: '',
+    })
   }
 
   function handleDelete(e) {
@@ -156,12 +181,12 @@ export default function BookDetails() {
   const author = book.authors
 
   const hola = () => {
-    loginWithRedirect();
+    loginWithRedirect()
   }
 
   return (
     <div className={s.container}>
-      <Link  to='/cart'>
+      <Link to='/cart'>
         <div className={s.containerCart}>
           <BsCart className={s.cart} />
           <div className={s.productsAmount}>
@@ -170,15 +195,15 @@ export default function BookDetails() {
         </div>
       </Link>
 
-        <Link to='/user'>
+      <Link to='/user'>
         <div className={s.containerHeart}>
-          <BsHeart className={s.heart}/>
+          <BsHeart className={s.heart} />
           {isLogged.length ? (
             <div className={s.productsAmount}>
               <p className={s.productsAmountNumber}>{uBooksFav.length}</p>
             </div>
           ) : (
-            <div className={s.productsAmount} >
+            <div className={s.productsAmount}>
               <p className={s.productsAmountNumber}>{0}</p>
             </div>
           )}
@@ -214,7 +239,7 @@ export default function BookDetails() {
           </h4>
 
           <div>
-            <Cart title={book.title} stock={book.stock} id={id}/>
+            <Cart title={book.title} stock={book.stock} id={id} />
           </div>
 
           {/* {book.stock > 0 ? (
@@ -254,6 +279,27 @@ export default function BookDetails() {
             </button>
           )
         })}
+
+        <div className={styles.rating}>
+          <p>Rating: </p>
+          <span className={styles.numberRating}>{book.rating}</span>
+          {ifRating ? (
+            <Rating
+              name='half-rating'
+              value={book.rating}
+              precision={0.5}
+              onChange={(event, value) => handleRating(event, value)}
+              readOnly
+            />
+          ) : (
+            <Rating
+              name='half-rating'
+              value={0}
+              precision={0.5}
+              onChange={(event, value) => handleRating(event, value)}
+            />
+          )}
+        </div>
       </div>
 
       <div className={styles.separador} />
@@ -270,6 +316,7 @@ export default function BookDetails() {
         <p className={styles.detail}>Paginas : {book.pages}</p>
         <p className={styles.detail}>Año : {book.year}</p>
         <p className={styles.detail}>Editorial : {book.editorial}</p>
+        <p className={styles.detail}>Rating: {book.rating}</p>
       </div>
 
       <div className={styles.separador} />
@@ -297,14 +344,14 @@ export default function BookDetails() {
         )}
       </div>
       {comments.map((e) => {
-        if (e.users.length > 0) {
+        if (e.users.length > 0 && e.isHidden === false) {
           return (
             <div className={styles.commentContainer}>
               {e.users[0]._id === usuario[0]?._id ? (
                 <button
                   value={e._id}
                   onClick={(e) => handleDelete(e)}
-                  className={styles.delete}
+                  // className={styles.delete}
                 >
                   x
                 </button>
