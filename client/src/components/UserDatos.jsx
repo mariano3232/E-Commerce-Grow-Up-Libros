@@ -123,24 +123,24 @@ const UserDatos = () => {
     <div className={styles.containerAll}>
       <form className={styles.userForm} onSubmit={(e) => handleSubmit(e)}>
         <legend className={styles.legendForm}>Datos personales</legend>
-        <img className={styles.userimage} src={userId[0].picture} alt='' />
+        <img className={styles.userimage} src={userId[0]?.picture} alt='' />
         <div className={styles.containerInputsGrid}>
           <div className={styles.containerInput}>
             <label htmlFor='nickname'>Usuario:</label>
             <input
               type='text'
               name='nickname'
-              value={userId[0].nickname}
+              value={userId[0]?.nickname}
               readOnly
             />
           </div>
           <div className={styles.containerInput}>
             <label htmlFor='email'>Email:</label>
-            <input type='text' name='email' value={userId[0].email} readOnly />
+            <input type='text' name='email' value={userId[0]?.email} readOnly />
           </div>
           <div className={styles.containerInput}>
             <label htmlFor='name'>Nombre:</label>
-            <input type='text' name='name' value={userId[0].name} readOnly />
+            <input type='text' name='name' value={userId[0]?.name} readOnly />
             {/* {
               errors?.name?<p className={styles.error}>{errors.name}</p>:null
             } */}
@@ -150,7 +150,7 @@ const UserDatos = () => {
             <input
               type='text'
               name='surname'
-              value={userId[0].surname}
+              value={userId[0]?.surname}
               readOnly
             />
             {/* {
@@ -162,7 +162,7 @@ const UserDatos = () => {
             <input
               type='date'
               name='birthday'
-              value={userId[0].birthday}
+              value={userId[0]?.birthday}
               readOnly
             />
           </div>
@@ -174,7 +174,7 @@ const UserDatos = () => {
             <input
               type='text'
               name='country'
-              value={userId[0].country}
+              value={userId[0]?.country}
               readOnly
             />
 
@@ -195,14 +195,14 @@ const UserDatos = () => {
           </div>
           <div className={styles.containerInput}>
             <label htmlFor='dni'>Nº de Documento:</label>
-            <input type='text' name='dni' value={userId[0].dni} readOnly />
+            <input type='text' name='dni' value={userId[0]?.dni} readOnly />
             {/* {
               errors.dni&&input.dni?<p className={styles.error}>{errors.dni}</p>:null
             } */}
           </div>
           <div className={styles.containerInput}>
             <label htmlFor='phone'>Telofono:</label>
-            <input type='text' name='phone' value={userId[0].phone} readOnly />
+            <input type='text' name='phone' value={userId[0]?.phone} readOnly />
             {/* {
               errors.phone&&input.phone?<p className={styles.error}>{errors.phone}</p>:null
             } */}
@@ -212,7 +212,7 @@ const UserDatos = () => {
             <input
               type='text'
               name='address'
-              value={userId[0].address}
+              value={userId[0]?.address}
               readOnly
             />
             {/* {
@@ -225,7 +225,7 @@ const UserDatos = () => {
             <input
               type='text'
               name='ciudad'
-              value={userId[0].ciudad}
+              value={userId[0]?.ciudad}
               readOnly
             />
             {/* {
@@ -238,7 +238,7 @@ const UserDatos = () => {
             <input
               type='number'
               name='postal'
-              value={userId[0].postal}
+              value={userId[0]?.postal}
               readOnly
             />
             {/* {

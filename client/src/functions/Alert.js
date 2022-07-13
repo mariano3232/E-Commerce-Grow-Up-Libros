@@ -7,7 +7,7 @@ const Alert = (title, type) => {
   switch (type) {
     case 'fav': {
       color = '#ff6b6b'
-      icon = '<img src="/client/src/assets/imgs/favorito.png">'
+      icon = '<img src="../dist/assets/imgs/favorito.png">'
       customClass = {
         icon: 'sweet-icon-fav',
         image: 'sweet-icon-fav',
@@ -18,7 +18,7 @@ const Alert = (title, type) => {
     }
     case 'cart': {
       color = '#22b8cf'
-      icon = '<img src="/client/src/assets/imgs/carrito.png">'
+      icon = '<img src="../dist/assets/imgs/carrito.png">'
       customClass = {
         icon: 'sweet-icon-cart',
         image: 'sweet-icon-cart',
@@ -28,7 +28,7 @@ const Alert = (title, type) => {
     }
     case 'updateInfo': {
       color = '#22b8cf'
-      icon = '<img src="/client/src/assets/imgs/updateUser.png">'
+      icon = '<img src="../dist/assets/imgs/updateUser.png">'
       customClass = {
         icon: 'sweet-icon-cart',
         image: 'sweet-icon-cart',
@@ -38,7 +38,7 @@ const Alert = (title, type) => {
     }
     case 'delete': {
       color = '#e03131'
-      icon = '<img src="/client/src/assets/imgs/delete-account.png">'
+      icon = '<img src="../dist/assets/imgs/delete-account.png">'
       customClass = {
         icon: 'sweet-icon-cart',
         image: 'sweet-icon-cart',
@@ -47,7 +47,7 @@ const Alert = (title, type) => {
     }
     case 'updateBook': {
       color = '#22b8cf'
-      icon = '<img src="/client/src/assets/imgs/books.png">'
+      icon = '<img src="../dist/assets/imgs/books.png">'
       customClass = {
         icon: 'sweet-icon-cart',
         image: 'sweet-icon-cart',
@@ -56,7 +56,7 @@ const Alert = (title, type) => {
     }
     case 'updateCarrousel': {
       color = '#22b8cf'
-      icon = '<img src="/client/src/assets/imgs/image-files.png">'
+      icon = '<img src="../dist/assets/imgs/image-files.png">'
       customClass = {
         icon: 'sweet-icon-cart',
         image: 'sweet-icon-cart',
@@ -65,7 +65,7 @@ const Alert = (title, type) => {
     }
     case 'updateOrder': {
       color = '#22b8cf'
-      icon = '<img src="/client/src/assets/imgs/order.png">'
+      icon = '<img src="../dist/assets/imgs/order.png">'
       customClass = {
         icon: 'sweet-icon-cart',
         image: 'sweet-icon-cart',
@@ -74,7 +74,7 @@ const Alert = (title, type) => {
     }
     case 'email': {
       color = '#22b8cf'
-      icon = '<img src="/client/src/assets/imgs/email.png">'
+      icon = '<img src="../dist/assets/imgs/email.png">'
       customClass = {
         icon: 'sweet-icon-cart',
         image: 'sweet-icon-cart',
