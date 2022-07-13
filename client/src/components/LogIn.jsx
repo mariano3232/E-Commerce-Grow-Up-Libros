@@ -25,7 +25,7 @@ export default function LogInButton() {
   return (
     <Box>
       <IconButton onClick={handleOpenUserMenu}>
-        <Avatar alt='icon_profile' />
+        <Avatar sx={{ width: 56, height: 56 }} alt='icon_profile' />
       </IconButton>
       <Menu
         sx={{ mt: '45px' }}

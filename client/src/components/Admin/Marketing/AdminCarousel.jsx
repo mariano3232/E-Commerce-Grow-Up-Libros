@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Image } from 'cloudinary-react'
 import { getCarouselImages } from '../../../actions'
 import styles from '../../../Styles/adminCarousel.module.css'
+import styledButton from '../../../Styles/Button.module.css'
 import { Link } from 'react-router-dom'
 import Alert from '../../../functions/Alert'
 
@@ -71,46 +72,45 @@ export default function AdminCarousel() {
   }
 
   return (
-    <div>
-      <Link to='/admin'>
-        <button>Panel Administrador</button>
-      </Link>
-      <div>
+    <div className={styles.containerAll}>
+      <div className={styles.containerButtons}>
+        <Link to='/admin'>
+          <button className={styledButton.btnAdmin}>Panel Administrador</button>
+        </Link>
         <input
           type='file'
           multiple={true}
           onChange={(e) => {
             setImage(e.target.files)
           }}
-          className={styles.input}
+          className={styledButton.btnAdmin}
         />
         {console.log('image :', image)}
         {image ? (
-          <button onClick={uploadImage} className={styles.button}>
+          <button onClick={uploadImage} className={styledButton.btnAdmin}>
             Añadir
           </button>
         ) : null}
-
-        <div className={styles.cardsContainer}>
-          {Images.map((e) => {
-            return (
-              <div className={styles.card}>
-                <Image
-                  cloudName='dflpxjove'
-                  publicId={e.image}
-                  className={styles.img}
-                />
-                <button
-                  value={e._id}
-                  onClick={(e) => handleDelete(e)}
-                  className={styles.buttonX}
-                >
-                  X
-                </button>
-              </div>
-            )
-          })}
-        </div>
+      </div>
+      <div className={styles.cardsContainer}>
+        {Images.map((e) => {
+          return (
+            <div className={styles.card}>
+              <Image
+                cloudName='dflpxjove'
+                publicId={e.image}
+                className={styles.img}
+              />
+              <button
+                value={e._id}
+                onClick={(e) => handleDelete(e)}
+                className={styles.buttonX}
+              >
+                X
+              </button>
+            </div>
+          )
+        })}
       </div>
     </div>
   )

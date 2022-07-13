@@ -21,3 +21,7 @@
   display: flex;
   gap: 2rem;
 }
+
+.containerUserSuscription {
+  width: 80%;
+}

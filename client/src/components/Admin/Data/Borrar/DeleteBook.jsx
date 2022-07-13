@@ -115,14 +115,14 @@ export default function DeleteBook() {
                     <div className={style.containerButtons}>
                       {book.isHidden === true ? (
                         <button
-                          className={styledButton.button}
+                          className={`${styledButton.button} ${styledButton.buttonShow}`}
                           onClick={() => ShowBook(book._id)}
                         >
                           Mostrar
                         </button>
                       ) : (
                         <button
-                          className={styledButton.button}
+                          className={`${styledButton.button} ${styledButton.buttonHide}`}
                           onClick={() => HideBook(book._id)}
                         >
                           Ocultar

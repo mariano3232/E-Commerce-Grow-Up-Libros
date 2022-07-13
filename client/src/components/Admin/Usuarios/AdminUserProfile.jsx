@@ -4,8 +4,9 @@ import { useParams } from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import styles from '../../../Styles/adminUserProfile.module.css'
-import { NavLink } from 'react-router-dom'
 import style from '../../../Styles/AdminUser2.module.css'
+import styledButton from '../../../Styles/Button.module.css'
+import { NavLink } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import AdminOrderStatusCancelled from '../Orders/ManejoDeEstados/AdminOrderStatusCancelled'
 import AdminOrderStatusProcessing from '../Orders/ManejoDeEstados/AdminOrderStatusProcessing'
@@ -23,6 +24,8 @@ import AdminRefreshOrders from '../RefreshButtons/AdminRefreshOrders'
 import { animateScroll as scroll, Element } from 'react-scroll'
 import { useNavigate } from 'react-router-dom'
 import Alert from './../../../functions/Alert'
+import AdminOrderStatusShipped from './../Orders/ManejoDeEstados/AdminOrderStatusShipped'
+import { MenuItem, Select } from '@mui/material'
 
 export default function AdminUserProfile() {
   const id = useParams().id
@@ -126,7 +129,11 @@ export default function AdminUserProfile() {
           key={number}
           id={number}
           onClick={(e) => handleClick(e)}
-          className={currentPage === number ? 'activo' : null}
+          className={
+            currentPage === number
+              ? styles.paginationBulletActive
+              : styles.paginationBullet
+          }
         >
           {number}
         </li>
@@ -156,7 +163,7 @@ export default function AdminUserProfile() {
   return (
     <div className={styles.containerAdminProfile}>
       <Link to='/adminusers2'>
-        <button className={style.btnAdmin}>↼ Back</button>
+        <button className={styledButton.btnAdmin}>↼ Back</button>
       </Link>
 
       <h1>Manejo Perfil de Usuario</h1>
@@ -176,128 +183,145 @@ export default function AdminUserProfile() {
       {userL[0].isAdminOrders === true ? (
         <div>
           <div>
-            <h2>ORDENES</h2>
+            <div className={styles.containerSearchBar}>
+              <AdminRefreshOrders />
+              <AdminSearchBarStatusOrders />
+              <AdminSearchBarPaymentStatus />
+            </div>
 
-            <NavLink className={` ${style.buttonBack}`} to='/adminorders'>
-              <button className={`${style.button} `}>
-                Ver Las Ordenes de Todos Los Usuarios
-              </button>
-            </NavLink>
-
-            <AdminRefreshOrders />
-            <AdminSearchBarStatusOrders />
-            <AdminSearchBarPaymentStatus />
-
-            <p>
-              <select
+            <div className={styles.containerSelect_ButtonOrdenes}>
+              <Select
                 onChange={(e) => handleOrderByDate(e)}
                 defaultValue='default'
+                sx={{ fontSize: '20px' }}
               >
-                <option value='default' disabled>
+                <MenuItem sx={{ fontSize: '20px' }} value='default' disabled>
                   Orden por Fecha
-                </option>
-                <option value='desc'>Mas antiguas</option>
-                <option value='Asc'>Mas nuevas</option>
-              </select>
-            </p>
-
-            <AdminOrderStatusCreated
-              orders={seleccionados}
-              changed={changed}
-              setChanged={setChanged}
-            />
-            <AdminOrderStatusProcessing
-              orders={seleccionados}
-              changed={changed}
-              setChanged={setChanged}
-            />
-            <AdminOrderStatusComplete
-              orders={seleccionados}
-              changed={changed}
-              setChanged={setChanged}
-            />
-            <AdminOrderStatusCancelled
-              orders={seleccionados}
-              changed={changed}
-              setChanged={setChanged}
-            />
-
-            <div class='container'>
-              <table class='content-table'>
-                <thead>
-                  <tr>
-                    <th>Nº Orden</th>
-                    <th>Fecha</th>
-                    <th>Total</th>
-                    <th>Estado de Pago</th>
-                    <th>Estado de Orden</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {currentItems.length > 0 &&
-                    currentItems.map((order) => (
-                      <tr key={order._id}>
-                        <td>
-                          <Link to={`/adminorderdetails/${order._id}`}>
-                            {order._id}
-                          </Link>
-                        </td>
-
-                        <td>{order.fecha}</td>
-
-                        <td>{order.total}</td>
-
-                        <td>{order.status}</td>
-
-                        <td>{order.status_order}</td>
-
-                        <td>
-                          <input
-                            className='checkbox'
-                            type='checkbox'
-                            value={order._id}
-                            onChange={(e) => selectOrder(e)}
-                            defaultChecked={false}
-                          ></input>
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
+                </MenuItem>
+                <MenuItem sx={{ fontSize: '20px' }} value='desc'>
+                  Mas antiguas
+                </MenuItem>
+                <MenuItem sx={{ fontSize: '20px' }} value='Asc'>
+                  Mas nuevas
+                </MenuItem>
+              </Select>
+              <NavLink className={` ${style.buttonBack}`} to='/adminorders'>
+                <button className={`${styledButton.btnAdmin} `}>
+                  Ver Las Ordenes de Todos Los Usuarios
+                </button>
+              </NavLink>
             </div>
-          </div>
-          <div>
-            {
-              <ul className='pageNumbers'>
-                <li>
-                  <button
-                    onClick={handlePrevbtn}
-                    disabled={currentPage === pages[0] ? true : false}
-                  >
-                    prev
-                  </button>
-                </li>
-                {renderPageNumbers}
-                <li>
-                  <button
-                    onClick={handleNextbtn}
-                    disabled={
-                      currentPage === pages[pages.length - 1] ? true : false
-                    }
-                  >
-                    next
-                  </button>
-                </li>
-              </ul>
-            }
+            <div className={styles.containerTable__Buttons}>
+              <div className={styles.containerButtonOrders}>
+                <AdminOrderStatusCreated
+                  orders={seleccionados}
+                  changed={changed}
+                  setChanged={setChanged}
+                />
+                <AdminOrderStatusProcessing
+                  orders={seleccionados}
+                  changed={changed}
+                  setChanged={setChanged}
+                />
+                <AdminOrderStatusShipped
+                  orders={seleccionados}
+                  changed={changed}
+                  setChanged={setChanged}
+                />
+                <AdminOrderStatusComplete
+                  orders={seleccionados}
+                  changed={changed}
+                  setChanged={setChanged}
+                />
+                <AdminOrderStatusCancelled
+                  orders={seleccionados}
+                  changed={changed}
+                  setChanged={setChanged}
+                />
+                <button
+                  className={styledButton.btnAdmin}
+                  onClick={() => handleDeleteUser(id)}
+                >
+                  Eliminar Usuario
+                </button>
+              </div>
+              <div className={styles.containerTable__Pagination}>
+                <table class='content-table'>
+                  <thead>
+                    <tr>
+                      <th>Nº Orden</th>
+                      <th>Fecha</th>
+                      <th>Total</th>
+                      <th>Estado de Pago</th>
+                      <th>Estado de Orden</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {currentItems.length > 0 &&
+                      currentItems.map((order) => (
+                        <tr key={order._id}>
+                          <td>
+                            <Link to={`/adminorderdetails/${order._id}`}>
+                              {order._id}
+                            </Link>
+                          </td>
+
+                          <td>{order.fecha}</td>
+
+                          <td>{order.total}</td>
+
+                          <td>{order.status}</td>
+
+                          <td>{order.status_order}</td>
+
+                          <td>
+                            <input
+                              className='checkbox'
+                              type='checkbox'
+                              value={order._id}
+                              onChange={(e) => selectOrder(e)}
+                              defaultChecked={false}
+                            ></input>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+                <div>
+                  {
+                    <ul className={styles.paginationStock}>
+                      <li>
+                        <button
+                          onClick={handlePrevbtn}
+                          disabled={currentPage === pages[0] ? true : false}
+                        >
+                          {'<'}
+                        </button>
+                      </li>
+                      {renderPageNumbers}
+                      <li>
+                        <button
+                          onClick={handleNextbtn}
+                          disabled={
+                            currentPage === pages[pages.length - 1]
+                              ? true
+                              : false
+                          }
+                        >
+                          {'>'}
+                        </button>
+                      </li>
+                    </ul>
+                  }
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       ) : (
         ''
       )}
-
-      <button onClick={() => handleDeleteUser(id)}>Eliminar Usuario</button>
     </div>
   )
 }

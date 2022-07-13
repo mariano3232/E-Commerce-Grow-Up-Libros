@@ -7,7 +7,7 @@ import AdminRefreshBooks from '../RefreshButtons/AdminRefreshBooks'
 import { Link } from 'react-router-dom'
 import { animateScroll as scroll, Element } from 'react-scroll'
 import styledButton from '../../../Styles/Button.module.css'
-
+import styles from '../../../Styles/AdminVentas.module.css'
 export default function AdminVentas() {
   const books = useSelector((state) => state.booksAdmin)
 
@@ -30,11 +30,11 @@ export default function AdminVentas() {
       selector: 'title',
       sortable: true,
     },
-      {
-        name: 'Apellido',
-        selector: 'authorSurname',
-        sortable: true,
-      },
+    {
+      name: 'Apellido',
+      selector: 'authorSurname',
+      sortable: true,
+    },
     {
       name: 'Editorial',
       selector: 'editorial',
@@ -55,24 +55,27 @@ export default function AdminVentas() {
   }
 
   return (
-    <div>
+    <div className={styles.containerAll}>
+      <div className={styles.containerActions}>
+        <h1>Ventas</h1>
         <Link to='/admin'>
-            <button className={styledButton.button}>Panel Administrador</button>
+          <button className={styledButton.button}>Panel Administrador</button>
         </Link>
-
-      <div>
-        <AdminSearchBarBooks />
-        <AdminRefreshBooks />
-        <DataTable
-          columns={columnas}
-          data={tabla}
-          title='Ventas'
-          pagination
-          paginationComponentOptions={paginacionOpciones}
-          fixedHeader
-          fixedHeaderScrollHeight='600px'
-        />
+        <div className={styles.containerActionsButtons}>
+          <AdminRefreshBooks />
+          <AdminSearchBarBooks />
+        </div>
       </div>
+
+      <DataTable
+        columns={columnas}
+        data={tabla}
+        title='Ventas'
+        pagination
+        paginationComponentOptions={paginacionOpciones}
+        fixedHeader
+        fixedHeaderScrollHeight='600px'
+      />
     </div>
   )
 }

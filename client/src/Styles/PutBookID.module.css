@@ -10,7 +10,8 @@
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
-  background: -webkit-linear-gradient(80deg, #77c9d4, #015249);
+  background-color: #22b8cf;
+
   padding: 3rem;
   border-radius: 10px;
 }
@@ -51,47 +52,29 @@
 .containerForm textarea:focus {
   outline: none;
 }
+
 .btn {
-  background-color: transparent;
+  background-color: #099268;
   border: none;
   color: #fff;
   cursor: pointer;
   position: relative;
   padding: 0;
   margin-top: 1rem;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.2s;
 }
 
-.btn::before {
-  content: '';
-  background: white;
-  height: 3px;
-  width: 0;
-  position: absolute;
-  bottom: 0;
-  transition: 0.3s;
-}
-.btn:hover::before {
-  width: 90%;
-}
-
-.btn::after {
-  content: '';
-  background: white;
-  height: 3px;
-  width: 0;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  transition: 0.3s;
-}
-.btn:hover::after {
-  width: 100%;
+.btn:hover {
+  transform: scale(1.05);
 }
 .btnAdmin {
   margin-top: 2rem;
   text-decoration: none;
   font-size: 1.2rem;
-  background: -webkit-linear-gradient(80deg, #77c9d4, #015249);
+  background-color: #22b8cf;
+
   color: #fff;
   font-size: 1.2rem;
   padding: 0.5rem 1rem;

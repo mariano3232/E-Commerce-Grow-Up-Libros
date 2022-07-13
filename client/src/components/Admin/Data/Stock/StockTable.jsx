@@ -7,10 +7,8 @@ import AdminSearchBarBooks from '../../SearchBars/AdminSearchBarBooks'
 import AdminRefreshBooks from '../../RefreshButtons/AdminRefreshBooks'
 import { Link } from 'react-router-dom'
 import { animateScroll as scroll, Element } from 'react-scroll'
-import StockTable2 from './StockTable2'
-
 import styledButton from '../../../../Styles/Button.module.css'
-
+import styles from '../../../../Styles/stockTable.module.css'
 export default function StockTable() {
   const books = useSelector((state) => state.booksAdmin)
 
@@ -52,31 +50,33 @@ export default function StockTable() {
   }
 
   return (
-    <div>
-       <Link to='/admin'>
-                  <button className={styledButton.button}>Panel Administrador</button>
-          </Link>
+    <div className={styles.containerDataGrid}>
+      <h1>Stock Libros</h1>
+      <div className={styles.containerButtonNavigation}>
+        <Link to='/admin'>
+          <button className={styledButton.button}>Panel Administrador</button>
+        </Link>
 
-      <Link to='/stock'>
-        <button className={styledButton.button}>Formato Cartas</button>
-      </Link>
+        <Link to='/stock'>
+          <button className={styledButton.button}>Formato Cartas</button>
+        </Link>
 
-      <Link to='/stocktable2'>
-        <button className={styledButton.button}>Tabla</button>
-      </Link>
-      <div>
-        <AdminSearchBarBooks />
-        <AdminRefreshBooks />
-        <DataTable
-          columns={columnas}
-          data={tabla}
-          title='Stock Libros'
-          pagination
-          paginationComponentOptions={paginacionOpciones}
-          fixedHeader
-          fixedHeaderScrollHeight='600px'
-        />
+        <Link to='/stocktable2'>
+          <button className={styledButton.button}>Tabla</button>
+        </Link>
       </div>
+      <div className={styles.actions}>
+        <AdminRefreshBooks />
+        <AdminSearchBarBooks />
+      </div>
+      <DataTable
+        columns={columnas}
+        data={tabla}
+        pagination
+        paginationComponentOptions={paginacionOpciones}
+        fixedHeader
+        fixedHeaderScrollHeight='600px'
+      />
     </div>
   )
 }
