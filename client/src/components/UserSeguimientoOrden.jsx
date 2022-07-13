@@ -15,7 +15,7 @@ const UserSeguimientoOrden = () => {
 
   return (
     <div>
-      {userOrders ? (
+      {userOrders.length !== 0 ? (
         <div>
           <h1>Detalles de Orden</h1>
           <p>Orden Id: {userOrders.pop()._id}</p>
