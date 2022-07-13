@@ -7,10 +7,11 @@ const UserSeguimientoOrden = () => {
   const logged = useSelector((state) => state.userLogged)
 
   const ordersWithUsers = allOrders.filter((order) => order.usuario.length > 0)
-  console.log('SOY ORDER WITH USER', ordersWithUsers)
   const userOrders = ordersWithUsers.filter(
     (order) => order.usuario[0]._id === logged[0]._id
   )
+  console.log('SOY ORDER WITH USER', ordersWithUsers)
+  console.log('SOY usersOrders', userOrders)
 
   return (
     <div>
