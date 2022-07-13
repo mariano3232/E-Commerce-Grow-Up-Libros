@@ -7,15 +7,18 @@ const UserSeguimientoOrden = () => {
   const logged = useSelector((state) => state.userLogged)
 
   const ordersWithUsers = allOrders.filter((order) => order.usuario.length > 0)
-
+  console.log('SOY ORDER WITH USER', ordersWithUsers)
   const userOrders = ordersWithUsers.filter(
     (order) => order.usuario[0]._id === logged[0]._id
   )
+  console.log('SOY userOrders', userOrders)
+
   const ultimaOrden = []
 
   if (userOrders.length !== 0) {
     ultimaOrden = userOrders.pop()
   }
+  console.log('SOY ultimaOrden', ultimaOrden)
 
   return (
     <div>
