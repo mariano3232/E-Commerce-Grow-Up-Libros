@@ -4,12 +4,12 @@ const router = Router()
 const { ACCESS_TOKEN } = process.env
 
 // SDK de Mercado Pago
-const mercadopago = require("mercadopago");
-const Books = require("../model/Books");
-const Orders = require("../model/Order");
-const Users = require("../model/Users");
-const { Enum, EnumStatus } = require("./EmunStatus");
-const mail = require("./util/successEmail");
+const mercadopago = require('mercadopago')
+const Books = require('../model/Books')
+const Orders = require('../model/Order')
+const Users = require('../model/Users')
+const { Enum, EnumStatus } = require('./EmunStatus')
+const mail = require('./util/successEmail')
 
 mercadopago.configure({
   access_token: `${ACCESS_TOKEN}`,
@@ -38,9 +38,9 @@ router.post('/orden', async (req, res) => {
     payment_id: 0,
     status_order: Enum.CREATED,
     libros: carrito.map((e) => {
-      return { title: e.title, quantity: e.quantity };
+      return { title: e.title, quantity: e.quantity }
     }),
-  });
+  })
 
   await newOrder.save()
   userDB.buyBooks = userDB.buyBooks.concat(newOrder._id)
@@ -68,9 +68,9 @@ router.post('/orden', async (req, res) => {
       },
 
       back_urls: {
-        success: 'http://localhost:3000/mercadopago/success',
-        failure: 'http://localhost:3000/mercadopago/success',
-        pending: 'http://localhost:3000/mercadopago/success',
+        success: 'https://e-commerce-books.vercel.app/mercadopago/success',
+        failure: 'https://e-commerce-books.vercel.app/mercadopago/success',
+        pending: 'https://e-commerce-books.vercel.app/mercadopago/success',
       },
       auto_return: 'approved',
     }
@@ -85,36 +85,36 @@ router.post('/orden', async (req, res) => {
   } catch (error) {
     return console.log('FALLO MERCADO PAGO', error)
   }
-});
+})
 
-router.get("/success", async (req, res) => {
-  const { external_reference } = req.query;
+router.get('/success', async (req, res) => {
+  const { external_reference } = req.query
   try {
     const order = await Orders.findOneAndUpdate(
       {
         _id: external_reference,
       },
       req.query
-    ).populate({path: 'usuario'});
-    const orderSave = await order.save();
+    ).populate({ path: 'usuario' })
+    const orderSave = await order.save()
     const libros = orderSave.produt.map(async (e) => {
-      const librosTem = await Books.findOne({ title: e });
-      return librosTem;
-    });
-    const libroDB = await Promise.all(libros);
-    const user = await Users.findOne({ _id: orderSave.usuario[0] });
+      const librosTem = await Books.findOne({ title: e })
+      return librosTem
+    })
+    const libroDB = await Promise.all(libros)
+    const user = await Users.findOne({ _id: orderSave.usuario[0] })
     libroDB.forEach(async (e, i) => {
-      const temp = e.title;
+      const temp = e.title
       if (temp === orderSave.libros[i].title) {
-        e.stock = e.stock - orderSave.libros[i].quantity;
-        e.soldCount += orderSave.libros[i].quantity;
-        await e.save();
+        e.stock = e.stock - orderSave.libros[i].quantity
+        e.soldCount += orderSave.libros[i].quantity
+        await e.save()
       }
-    });
-    res.json(orderSave);
-    mail.enviar_mail(user.name, user.email);
+    })
+    res.json(orderSave)
+    mail.enviar_mail(user.name, user.email)
   } catch (error) {
-    return res.json({ msg: "FALLO SUCCESS ", error: error });
+    return res.json({ msg: 'FALLO SUCCESS ', error: error })
   }
 })
 
@@ -133,4 +133,4 @@ router.get("/success", async (req, res) => {
 // {"id":1156545904,"nickname":"TETE2598970","password":"qatest9115","site_status":"active","site_id":"MCO","description":"a description","date_created":"2022-07-07T15:54:38-04:00","date_last_updated":"2022-07-07T15:54:38-04:00"
 //test_user_18656584@testuser.com}
 
-module.exports = router;
+module.exports = router
