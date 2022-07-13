@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styles from '../../Styles/SideBar.module.css'
-
+import { WiStars } from 'react-icons/wi'
 export default function SideBar() {
   const allBooks = useSelector((state) => state.booksTop)
 
@@ -41,8 +41,12 @@ export default function SideBar() {
                       <img src={book.cover} className={styles.img}></img>
                     </div>
                     <div className={`${styles.face} ${styles.face_back}`}>
-                      <p> {book.pages}</p>
-                      <p> {book.title}</p>
+                      <p> {book.title} </p>
+                      <p>Páginas: {book.pages}</p>
+                      <div className={styles.cardRating}>
+                        <WiStars color='yellow' fontSize={'48px'} />{' '}
+                        <p>{book.rating}</p>
+                      </div>
                     </div>
                   </div>
                 </Link>
@@ -68,8 +72,12 @@ export default function SideBar() {
                       <img src={book.cover} className={styles.img}></img>
                     </div>
                     <div className={`${styles.face} ${styles.face_back}`}>
-                      <p> {book.pages}</p>
-                      <p> {book.title}</p>
+                      <p> {book.title} </p>
+                      <p>Páginas: {book.pages}</p>
+                      <div className={styles.cardRating}>
+                        <WiStars color='yellow' fontSize={'48px'} />{' '}
+                        <p>{book.rating}</p>
+                      </div>
                     </div>
                   </div>
                 </Link>
