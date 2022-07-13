@@ -38,43 +38,34 @@ const UserSuscripcion = () => {
         Mejora tu futuro con las herramientas que te ofrece Soy Premium.
       </h3>
 
-      <h4> 
+      <h4>
         Vas a tener la gran oportunidad de alcanzar nuestra plan "Soy Premium"
-        al llegar a tu compra numero 10 de nuestros libros de desarrollo personal
-        y comenzaras a tener multiples beneficios.
+        al llegar a tu compra numero 10 de nuestros libros de desarrollo
+        personal y comenzaras a tener multiples beneficios.
       </h4>
       <h4>
-        Queremos ofrecerte muchas herramientas para que alcances tus más altos niveles
-        y seas una persona nivel top.
+        Queremos ofrecerte muchas herramientas para que alcances tus más altos
+        niveles y seas una persona nivel top.
       </h4>
-      <h4>
-        No dejes pasar esta oportunidad de convertirte en Premium.
-      </h4>
-      <h4>
-        Con Soy Premium vas a contar con:
-      </h4>
+      <h4>No dejes pasar esta oportunidad de convertirte en Premium.</h4>
+      <h4>Con Soy Premium vas a contar con:</h4>
       <ol>
         <li>Envio de podcast y notas de interes.</li>
         <li>Reseñas de textos selecionadas.</li>
-        <li>Nuestras opiniones de las ultimas herramientas de productividad.</li>
+        <li>
+          Nuestras opiniones de las ultimas herramientas de productividad.
+        </li>
         <li>Novedades de los ultimos libros de desarrollo personal.</li>
         <li>Resumen de tus libros favoritos.</li>
       </ol>
 
       <p>
-        Al momento de tu compra número diez vas a estar recibiendo un mail con nuestras
-        felicitaciones y dandote la bienvenida, y a partir de ese momento
-        comenzarás a recibir todos los beneficios.
+        Al momento de tu compra número diez vas a estar recibiendo un mail con
+        nuestras felicitaciones y dandote la bienvenida, y a partir de ese
+        momento comenzarás a recibir todos los beneficios.
       </p>
 
-      <p>
-        Éxitos en tu Crecimiento Personal !! Equipo de Grow-Up Libros.
-      </p>
-
-
-    
-
-
+      <p>Éxitos en tu Crecimiento Personal !! Equipo de Grow-Up Libros.</p>
 
       {/* <div className={styles.containerCards}>
         <CardPremium mes={'$599,99 / mes'} />

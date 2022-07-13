@@ -127,17 +127,24 @@ export default function BottomBar() {
         <img style={{ maxWidth: '50%' }} src={mercado} alt='mercadopago-logo' />
       </Grid>
       <Grid width={'100%'} xs={1} item>
-        <Stack direction={'row'} spacing='2'>
-
-            <Typography sx={{ textDecoration: 'inherit', color: 'white', fontSize: '26px' }}>
-              NewsLetters
-            </Typography>
-
-          {
-            isLogged.length === 0 ?
-            <Typography sx={{ textDecoration: 'inherit', color: 'white', fontSize: '18px' }}>
+        <Stack
+          direction={'row'}
+          spacing={1}
+          alignItems={'center'}
+          justifyContent='center'
+        >
+          <img className={styles.imgEmail} src={Images.email} alt='' />
+          {isLogged.length === 0 ? (
+            <Typography
+              sx={{
+                textDecoration: 'inherit',
+                color: 'white',
+                fontSize: '18px',
+              }}
+            >
               Para suscribirse debes estar logeado
-            </Typography> :
+            </Typography>
+          ) : (
             <Button
               sx={{ fontWeight: 'bold' }}
               onClick={handleSubmit}
@@ -145,16 +152,15 @@ export default function BottomBar() {
             >
               Suscribete
             </Button>
-          }
-
-          
+          )}
         </Stack>
       </Grid>
     </Grid>
   )
 }
 
-{/* <Input
+{
+  /* <Input
   type='text'
   placeholder='Email'
   value={input}
@@ -175,4 +181,5 @@ export default function BottomBar() {
       borderColor: 'transparent',
     },
   }}
-/> */}
+/> */
+}
