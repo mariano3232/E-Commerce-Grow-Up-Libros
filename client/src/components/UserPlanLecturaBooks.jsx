@@ -142,7 +142,7 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
         ) : size == 'cortos' &&
           budget == 'Más de $3.500' &&
           genre == 'Desarrollo Personal' ? (
-          roundThree?.map((e) => (
+          roundFour?.map((e) => (
             <SwiperSlide>
               <CardBook
                 id={e._id}
@@ -157,7 +157,7 @@ const UserPlanLecturaBooks = ({ size, genre, budget }) => {
         ) : size == 'largos' &&
           budget == 'Menos de $3.500' &&
           genre == 'Desarrollo Personal' ? (
-          roundFour?.map((e) => (
+          roundThree?.map((e) => (
             <SwiperSlide>
               <CardBook
                 id={e._id}
