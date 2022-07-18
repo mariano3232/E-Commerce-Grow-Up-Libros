@@ -125,7 +125,7 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
           </div>
 
           <div>
-            <Cart title={title} stock={stock} id={id} />
+            <Cart color='white' title={title} stock={stock} id={id} />
 
             {/* {stock > 1 ? (
               <AddShoppingCartIcon
