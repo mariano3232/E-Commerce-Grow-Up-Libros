@@ -220,7 +220,7 @@ export default function BookDetails() {
                 {ifRating ? (
                   <Rating
                     name='half-rating'
-                    value={Number(book?.rating)}
+                    value={Number(book?.rating) || 0}
                     precision={0.5}
                     onChange={(event, value) => handleRating(event, value)}
                     readOnly
@@ -228,7 +228,7 @@ export default function BookDetails() {
                 ) : (
                   <Rating
                     name='half-rating'
-                    value={rating}
+                    value={Number(book?.rating) || 0}
                     precision={0.5}
                     onChange={(event, value) => handleRating(event, value)}
                   />
