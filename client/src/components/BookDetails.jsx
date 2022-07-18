@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { scroller } from 'react-scroll'
@@ -31,10 +31,12 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import Fav from './Fav'
 import Alert from '../functions/Alert'
 import Cart from './Cart'
-import { Rating } from '@mui/material'
+import { Avatar, Rating } from '@mui/material'
 
 export default function BookDetails() {
   const id = useParams().id
+  const book = useSelector((state) => state.bookDetails)
+  const comments = useSelector((state) => state.comments)
   const { userLogged } = useSelector((state) => state)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -61,11 +63,8 @@ export default function BookDetails() {
   }
 
   function handleRating(event, value) {
-    console.log(value)
     dispatch(putRating(id, value, userLogged[0]._id))
-    setTimeout(() => {
-      dispatch(getBookDetails(id))
-    }, 500)
+    dispatch(getBookDetails(id))
   }
 
   const uBooksFav = useSelector((state) => state.userLoggedFavsBooksShowed)
@@ -117,7 +116,7 @@ export default function BookDetails() {
       dispatch(clearPageBookDetails())
       dispatch(clearComments())
     }
-  }, [dispatch])
+  }, [])
 
   /* const handleClickFav = () => {
    
@@ -136,29 +135,30 @@ export default function BookDetails() {
       nickname: usuario[0].nickname,
       title: book.title,
     })
-    console.log('comment :', comment)
   }
   function handlePost(e) {
-    e.preventDefault()
-    console.log('comment :', comment)
-    axios
-      .post(
-        'https://ecommercehenryx.herokuapp.com/comments/addComment',
-        comment
-      )
-      .then((response) => {
-        console.log('axios response', response)
-      })
-      .then(() => {
-        setTimeout(function () {
-          dispatch(getBookComments(id)), 500
+    if (isLogged.length === 0) {
+      loginWithRedirect()
+    } else {
+      axios
+        .post(
+          'https://ecommercehenryx.herokuapp.com/comments/addComment',
+          comment
+        )
+        .then((response) => {
+          console.log('axios response', response)
         })
+        .then(() => {
+          setTimeout(function () {
+            dispatch(getBookComments(id)), 500
+          })
+        })
+      setComment({
+        comment: '',
+        nickname: '',
+        title: '',
       })
-    setComment({
-      comment: '',
-      nickname: '',
-      title: '',
-    })
+    }
   }
 
   function handleDelete(e) {
@@ -175,9 +175,6 @@ export default function BookDetails() {
       })
   }
 
-  const book = useSelector((state) => state.bookDetails)
-  const comments = useSelector((state) => state.comments)
-  console.log('comments:', comments)
   const author = book.authors
 
   const hola = () => {
@@ -185,7 +182,7 @@ export default function BookDetails() {
   }
 
   return (
-    <div className={s.container}>
+    <div className={styles.main_container}>
       <Link to='/cart'>
         <div className={s.containerCart}>
           <BsCart className={s.cart} />
@@ -210,118 +207,160 @@ export default function BookDetails() {
         </div>
       </Link>
 
-      <div className={styles.principal}>
-        <img src={book.cover} alt='Not Found ):' className={styles.img} />
-        <h1 className={styles.title}>{book.title}</h1>
-        <label>Autor :</label>
-        {author ? (
-          <Link to={'/author/' + author._id}>
-            <span className={styles.author}>
-              {author?.name} {author?.surname}{' '}
-            </span>
-          </Link>
-        ) : (
-          'N'
-        )}
-        <div className={styles.buy}>
-          <h3 className={styles.price}>${book.price}</h3>
-          <h4>
-            Stock:
-            {book.stock > 3
-              ? '  Disponible'
-              : book.stock === 3
-              ? '  ¡Quedan 3!'
-              : book.stock === 2
-              ? '  ¡Quedan 2!'
-              : book.stock === 1
-              ? '  ¡Ultimo disponible!'
-              : '  No hay Stock'}
-          </h4>
-
-          <div>
-            <Cart title={book.title} stock={book.stock} id={id} />
+      <div className={styles.containerBookDetails}>
+        <div className={styles.bookInfo}>
+          <div className={styles.containerBookImage}>
+            <img src={book?.cover} alt='book-cover' />
           </div>
-
-          {/* {book.stock > 0 ? (
-            <div className={styles.iconBackground}>
-              <AddShoppingCartIcon
-                cursor='pointer'
-                color='action'
-                fontSize='large'
-                onClick={(e) => handleAddToCart(e)}
-              />
+          <div className={styles.containerBookData}>
+            <h1 className={styles.titleBook}>{book?.title}</h1>
+            <div className={styles.containerRating_Genero}>
+              <div className={styles.containerRating}>
+                <span className={styles.numberRating}>{book?.rating}</span>
+                {ifRating ? (
+                  <Rating
+                    name='half-rating'
+                    value={Number(book?.rating)}
+                    precision={0.5}
+                    onChange={(event, value) => handleRating(event, value)}
+                    readOnly
+                  />
+                ) : (
+                  <Rating
+                    name='half-rating'
+                    value={rating}
+                    precision={0.5}
+                    onChange={(event, value) => handleRating(event, value)}
+                  />
+                )}
+              </div>
+              <span className={styles.span}>|</span>
+              <div className={styles.containerBookGeneros}>
+                <div className={styles.containerGenerosBtn}>
+                  {book?.genres?.map((e) => {
+                    return (
+                      <button onClick={(event) => handleClick(event, e.genre)}>
+                        {e.genre}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
             </div>
-          ) : (
-            ''
-          )} */}
-          <div className={styles.iconBackground}>
-            <Fav
-              book={book._id}
-              painted={`${
-                bookAdded.includes(book._id) ? 'secondary' : 'disabled'
-              }`}
-            />
+            <div className={styles.containerPriceBook}>
+              <h3>${book?.price}.00</h3>
+            </div>
+            <div className={styles.containerAuthor}>
+              <NavLink to={`/author/${book?.authors?._id}`}>
+                <h3>
+                  {book?.authors?.name} {book?.authors?.surname}
+                </h3>
+              </NavLink>
+            </div>
+            <div className={styles.containerBookDetailsMin}>
+              <ul>
+                <li>Páginas: {book?.pages}</li>
+                <li>Editorial: {book?.editorial}</li>
+                <li>Año: {book?.year}</li>
+                <li>
+                  Stock:{' '}
+                  {book.stock > 3
+                    ? '  Disponible'
+                    : book.stock === 3
+                    ? '  ¡Quedan 3!'
+                    : book.stock === 2
+                    ? '  ¡Quedan 2!'
+                    : book.stock === 1
+                    ? '  ¡Ultimo disponible!'
+                    : '  No hay Stock'}
+                </li>
+              </ul>
+            </div>
+
+            <div className={styles.containerAddBtns}>
+              <div>
+                <Cart
+                  color='white'
+                  title={book.title}
+                  stock={book.stock}
+                  id={id}
+                />
+              </div>
+              <div>
+                <Fav
+                  book={book._id}
+                  painted={`${
+                    bookAdded.includes(book._id) ? 'secondary' : 'disabled'
+                  }`}
+                />
+              </div>
+            </div>
           </div>
-          {/* <button className={styles.button} onClick={() => handleClickFav()}>
-          Añadir a lista de desesados
-        </button> */}
         </div>
-
-        <span>Generos :</span>
-
-        {book?.genres?.map((e) => {
-          return (
-            <button
-              onClick={(event) => handleClick(event, e.genre)}
-              className={styles.genres}
-            >
-              {e.genre}
-            </button>
-          )
-        })}
-
-        <div className={styles.rating}>
-          <p>Rating: </p>
-          <span className={styles.numberRating}>{book.rating}</span>
-          {ifRating ? (
-            <Rating
-              name='half-rating'
-              value={book.rating}
-              precision={0.5}
-              onChange={(event, value) => handleRating(event, value)}
-              readOnly
-            />
-          ) : (
-            <Rating
-              name='half-rating'
-              value={0}
-              precision={0.5}
-              onChange={(event, value) => handleRating(event, value)}
-            />
-          )}
+        {/* SINOPSIS */}
+        <div className={styles.containerBookSinopsis}>
+          <h3>Sinopsis del libro:</h3>
+          <p>{book.review}</p>
+        </div>
+        {/* COMENTARIOS */}
+        <div className={styles.containerComentarios}>
+          <h3>Comentarios</h3>
+          <div className={styles.postComments}>
+            <div className={styles.containerComentarioHabilitado}>
+              <div className={styles.containerComentarioAvatar}>
+                <Avatar src={isLogged[0]?.picture} />
+                <span>{isLogged[0]?.nickname || 'usuario'}</span>
+              </div>
+              <textarea
+                cols='80'
+                rows='4'
+                value={comment.comment}
+                onChange={(e) => handleChange(e)}
+              />
+              <button
+                onClick={(e) => handlePost(e)}
+                className={styles.postComentarioBtn}
+              >
+                Publicar
+              </button>
+            </div>
+          </div>
+          <div className={styles.mainContainerComentarios}>
+            {comments.map((e) => {
+              if (e.users.length > 0 && e.isHidden === false) {
+                return (
+                  <div className={styles.containerComentario}>
+                    <div className={styles.containerComentarioAvatar}>
+                      <Avatar src={e.users[0]?.picture} />
+                      <span>{e.users[0]?.nickname}</span>
+                    </div>
+                    <div className={styles.containerComent}>
+                      <p>{e.comment}</p>
+                      <span className={styles.comentarioFecha}>
+                        {e.createdAt?.slice(0, 10)}
+                      </span>
+                    </div>
+                    {e.users[0]._id === usuario[0]?._id ? (
+                      <button
+                        className={styles.eliminarComentarioBtn}
+                        value={e._id}
+                        onClick={(e) => handleDelete(e)}
+                      >
+                        x
+                      </button>
+                    ) : null}
+                  </div>
+                )
+              }
+            })}
+          </div>
         </div>
       </div>
+    </div>
+  )
+}
 
-      <div className={styles.separador} />
-
-      <div className={styles.reviewContainer}>
-        <h2 className={styles.title}>Reseña del libro</h2>
-        <p>{book.review}</p>
-      </div>
-
-      <div className={styles.separador} />
-
-      <div className={styles.details}>
-        <h4>Detalles del producto</h4>
-        <p className={styles.detail}>Paginas : {book.pages}</p>
-        <p className={styles.detail}>Año : {book.year}</p>
-        <p className={styles.detail}>Editorial : {book.editorial}</p>
-        <p className={styles.detail}>Rating: {book.rating}</p>
-      </div>
-
-      <div className={styles.separador} />
-
-      <div className={styles.postComments}>
+/*  <div className={styles.postComments}>
         {isLogged.length === 0 ? (
           <button className={styles.login} onClick={() => loginWithRedirect()}>
             Ingresa a tu cuenta para comentar
@@ -363,13 +402,4 @@ export default function BookDetails() {
           )
         }
       })}
-      <div className={styles.space} />
-    </div>
-  )
-}
-
-/* 
-<button className={styles.button} onClick={(e) => handleAddToCart(e)}>
-            Añadir al carrito
-            </button>
-*/
+      <div className={styles.space} /> */
