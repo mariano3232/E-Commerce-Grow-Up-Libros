@@ -1,14 +1,7 @@
 .color {
   height: 100%;
-  background: linear-gradient(
-    298.8deg,
-    rgba(204, 214, 38, 0.85) -59.75%,
-    rgba(27, 163, 168, 0.85) 26.91%,
-    rgba(55, 61, 81, 0.85) 98.72%
-  );
-  padding: 50px 0;
+  background-color: white;
 }
-
 .containerCart {
   position: fixed;
   background-color: #77c9d4;
@@ -71,6 +64,7 @@
 
 .home {
   width: 100%;
+  min-width: 375px;
 }
 
 .carrousel__containerCards {
@@ -93,44 +87,37 @@
   margin-top: 5%;
 }
 
-.p {
-  font-weight: bold;
-  color: white;
-  margin: 0;
-}
-
 .options {
   width: 160px;
-  height: 25px;
-  background-color: #77c9d4;
+  height: 35px;
+  background-color: rgba(27, 163, 168);
   border: none;
   font-weight: bold;
-  margin-left: 10px;
-  margin-bottom: 10px;
-  color: black;
+  color: white;
 }
-
 .options:hover {
   cursor: pointer;
 }
-
 .containerActionsAndCards {
   width: 100%;
-  padding: 0 1rem;
 }
 .card {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  margin: 3rem;
 }
-
 .link {
   text-decoration: none;
   color: black;
 }
-
-.containerOrderAndPaginado {
+.ubiOptions{
+  width: fit-content;
+  gap: 2rem;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
+  margin: auto;
+}
+@media (max-width:605px){
+  .ubiOptions{
+    flex-direction: column;
+  }
 }

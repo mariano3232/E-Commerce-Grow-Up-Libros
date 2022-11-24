@@ -83,9 +83,14 @@
 .card:hover .face_back {
   transform: perspective(600px) rotateY(360deg);
 }
-
 .cardRating {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media(max-width:911px){
+  .container{
+    display: none;
+  }
 }

@@ -5,19 +5,21 @@
 }
 
 .btnNav {
-  background-color: #77c9d4;
+  background-color: rgba(27, 163, 168);
   width: 40px;
   border: none;
-  border-radius: 5px;
-  height: 25px;
+  border-radius: 2px;
+  height: 30px;
   margin: 5px;
   font-weight: bold;
   font-size: large;
   color: black;
+  transition: 300ms;
 }
-
 .btnNav:hover {
   cursor: pointer;
+  transform: scale(1.03);
+  transform:rotate3d(2, 1, 1, 5deg);
 }
 
 .btnNav:active {
@@ -25,15 +27,16 @@
 }
 
 .btnSel {
-  background-color: #015249;
-  color: white;
-  width: 40px;
+  background-color: rgba(27, 163, 168);
+  width: 45px;
   border: none;
-  border-radius: 5px;
-  height: 25px;
+  border-radius: 2px;
+  height: 30px;
   margin: 5px;
   font-weight: bold;
   font-size: large;
+  color: white;
+  transition: 300ms;
 }
 
 .btnSel:hover {

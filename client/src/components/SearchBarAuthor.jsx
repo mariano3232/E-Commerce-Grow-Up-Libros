@@ -42,16 +42,16 @@ const SearchBarAuthor = () => {
         onChange={(e) => handleChange(e)}
         onKeyPress={(e) => handleKeyPress(e)}
         sx={{
-          color: 'white',
+          color: 'rgba(27, 163, 168)',
           fontSize: '20px',
           '::placeholder': {
-            color: 'white',
+            color: 'rgba(27, 163, 168)',
           },
           ':hover:not(.Mui-disabled):before': {
-            borderColor: 'white',
+            borderColor: 'rgba(27, 163, 168)',
           },
           ':before': {
-            borderColor: 'white',
+            borderColor: 'rgba(27, 163, 168)',
           },
           ':after': {
             borderColor: 'transparent',
@@ -60,7 +60,7 @@ const SearchBarAuthor = () => {
       />
 
       <IconButton onClick={(e) => handleSubmit(e)}>
-        <Search sx={{ fontSize: '32px', color: 'white' }} />
+        <Search sx={{ fontSize: '32px', color: 'rgba(27, 163, 168)' }} />
       </IconButton>
     </Box>
   )

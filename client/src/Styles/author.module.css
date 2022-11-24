@@ -1,10 +1,5 @@
 .authors {
-  background: linear-gradient(
-    298.8deg,
-    rgba(204, 214, 38, 0.85) -59.75%,
-    rgba(27, 163, 168, 0.85) 26.91%,
-    rgba(55, 61, 81, 0.85) 98.72%
-  );
+  background-color: white;
 }
 .container {
   display: flex;
@@ -21,7 +16,7 @@
   padding: 1em 1.5em;
   border-radius: 5px;
   color: white;
-  background-color: #468ea2;
+  background-color: rgba(27, 163, 168);
 }
 
 .containerActions {
@@ -34,7 +29,7 @@
 .button {
   text-decoration: none;
   font-size: xx-large;
-  color: white;
+  color: rgba(27, 163, 168);
   margin: 15px;
   position: relative;
   opacity: 0.9;
@@ -46,7 +41,7 @@
 
 .button::before {
   content: '';
-  background: white;
+  background: rgba(27, 163, 168);
   height: 3px;
   width: 0;
   position: absolute;
@@ -59,7 +54,7 @@
 
 .button::after {
   content: '';
-  background: white;
+  background: rgba(27, 163, 168);
   height: 3px;
   width: 0;
   position: absolute;

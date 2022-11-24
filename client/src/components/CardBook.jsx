@@ -88,8 +88,6 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
             className={styles.img}
             src={cover}
             alt='Not Found ):'
-            width='200x'
-            height='300'
           />
         </Link>
         {userLogged ? (
@@ -125,7 +123,7 @@ export default function CardBook({ title, cover, price, rating, id, stock }) {
           </div>
 
           <div>
-            <Cart color='white' title={title} stock={stock} id={id} />
+            <Cart color='rgba(27, 163, 168)' title={title} stock={stock} id={id} />
 
             {/* {stock > 1 ? (
               <AddShoppingCartIcon

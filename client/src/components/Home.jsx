@@ -142,11 +142,7 @@ export default function Home() {
             <Carousel />
             <div className={styles.containerActionsAndCards}>
               <div className={styles.containerOrderAndPaginado}>
-
-                <Element name='gaston'>
                 <div className={styles.ubiOptions}>
-                  <p className={styles.p}>
-                    Ordenar Por:
                     <select
                       className={styles.options}
                       onChange={(e) => handleOrderByName(e)}
@@ -192,17 +188,7 @@ export default function Home() {
                         Rating mas Alto
                       </option>
                     </select>
-                  </p>
                 </div>
-                </Element>
-
-                  <Paginado
-                    bookPerPage={bookPerPage}
-                    books1={allBooks.length}
-                    paginado={paginado}
-                    page={currentPage}
-                  />
-                
               </div>
               <GenerosTitle />
               <div className={styles.card}>
