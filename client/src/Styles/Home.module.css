@@ -65,6 +65,7 @@
 .home {
   width: 100%;
   min-width: 375px;
+  overflow: hidden;
 }
 
 .carrousel__containerCards {
