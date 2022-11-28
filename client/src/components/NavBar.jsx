@@ -8,6 +8,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import SearchBar from './SearchBar'
 import LogInButton from './LogIn'
 import LogOutButton from './LogOut'
+import logoBook from '../assets/imgs/logoBook'
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -190,7 +191,10 @@ export default function NavBar() {
           direction={'row'}
           alignItems='center'
           justifyContent={'space-between'}
-          >
+          >     
+            <IconButton as={Link} to='/' className={styles.logo}>
+              <img width={64} src={logoBook} alt='book' />
+            </IconButton>
                 <MenuItem key={TornadoSharp} onClick={handleCloseNavMenu}>
                     <Link to='/home' className={styles.Link}>
                         <Button
