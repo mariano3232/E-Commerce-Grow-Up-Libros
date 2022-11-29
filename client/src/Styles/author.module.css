@@ -5,8 +5,9 @@
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  width: 95%;
+  margin: auto;
   height: 100%;
+  min-width: 350px;
 }
 .Link {
   text-decoration: none;
@@ -67,4 +68,9 @@
 }
 .link {
   text-decoration: none;
+}
+@media(max-width:628px){
+  .containerActions{
+    flex-direction: column;
+  }
 }

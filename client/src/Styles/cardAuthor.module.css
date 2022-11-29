@@ -35,3 +35,11 @@
   border-radius: 5px;
 }
 
+@media(max-width:628px){
+  .container{
+    width: 9rem;
+    height: 18rem;
+    margin:10px;
+    font-size: 10px;
+  }
+}
