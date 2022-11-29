@@ -182,6 +182,7 @@ export default function NavBar() {
                 ))}
             </Select>
             </Menu>
+            <SearchBar />
             {isAuthenticated ? <LogOutButton/> : <LogInButton/>}
             </Stack>
           </Box>

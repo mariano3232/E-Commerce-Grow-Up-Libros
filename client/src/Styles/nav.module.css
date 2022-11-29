@@ -1,4 +1,6 @@
-
+.appBar{
+  position: static;
+}
 .Link {
   text-decoration: none;
   color: black;
@@ -46,4 +48,9 @@
 }
 .navItem:hover::after {
   width: 100%;
+}
+@media(max-width:900px){
+  .appBar{
+    position: fixed;
+  }
 }
