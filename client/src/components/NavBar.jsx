@@ -155,7 +155,7 @@ export default function NavBar() {
                   <Typography textAlign="center">Todos los libros</Typography>
                 </MenuItem>
                 <Link to='/author' className={styles.Link}>
-                    <MenuItem key={TornadoSharp} onClick={handleClick}>
+                    <MenuItem key={TornadoSharp}>
                         <Typography textAlign="center">Autores</Typography>
                     </MenuItem>
                 </Link>
