@@ -8,7 +8,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import SearchBar from './SearchBar'
 import LogInButton from './LogIn'
 import LogOutButton from './LogOut'
-import logoBook from '../assets/imgs/logoBook'
+import logoBook from '../assets/imgs/logoBooks.png'
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
