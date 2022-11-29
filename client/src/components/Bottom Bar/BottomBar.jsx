@@ -71,18 +71,18 @@ export default function BottomBar() {
       alignItems={'center'}
       container
       spacing={2}
-      columns={4}
+      columns={9}
       className={styles.container}
     >
       <Grid width={'100%'} xs={1} item>
-        <Stack spacing={2} direction={'row'} alignItems={'center'}>
+        <Stack spacing={1} direction={'row'} alignItems={'center'}>
           <IconButton as={Link} to='/'>
             <img src={Images.logoBook} alt='logo' />
           </IconButton>
           <Stack spacing={1}>
-            <Typography color='white' fontSize={'24px'}>
+            {/* <Typography color='white' fontSize={'24px'}>
               Grow-Up Libros
-            </Typography>
+            </Typography> */}
             <Stack spacing={4} direction={'row'}>
               <a
                 href='https://www.instagram.com/'
@@ -98,44 +98,20 @@ export default function BottomBar() {
               >
                 <Facebook sx={{ fontSize: '32px', color: 'white' }} />
               </a>
-              <WhatsApp sx={{ fontSize: '32px', color: 'white' }} />
             </Stack>
           </Stack>
         </Stack>
       </Grid>
-      <Grid xs={1} item>
-        <Stack alignItems={'flex-start'}>
-          <Stack as={Link} to='/aboutus' direction={'row'} alignItems='center'>
-            <IconButton>
-              <InfoIcon sx={{ color: 'white' }} />
-            </IconButton>
-            <Typography sx={{ textDecoration: 'inherit', color: 'white' }}>
-              Sobre nosotros
-            </Typography>
-          </Stack>
-          <Stack as={Link} to='/faq' direction={'row'} alignItems='center'>
-            <IconButton>
-              <LiveHelpIcon sx={{ color: 'white' }} />
-            </IconButton>
-            <Typography sx={{ textDecoration: 'inherit', color: 'white' }}>
-              Preguntas frecuentes
-            </Typography>
-          </Stack>
-        </Stack>
-      </Grid>
-      <Grid item xs={1}>
-        <img style={{ maxWidth: '50%' }} src={mercado} alt='mercadopago-logo' />
-      </Grid>
-      <Grid width={'100%'} xs={1} item>
-        <Stack
+      <Grid width={'50%'} xs={2} item>
+        <Stack 
           direction={'row'}
           spacing={1}
-          alignItems={'center'}
-          justifyContent='center'
+          alignItems={'flex-end'}
         >
-          <img className={styles.imgEmail} src={Images.email} alt='' />
+          <img className={styles.imgEmail} src={Images.email} alt=''/>
           {isLogged.length === 0 ? (
             <Typography
+            className={styles.newsLetter}
               sx={{
                 textDecoration: 'inherit',
                 color: 'white',
@@ -155,6 +131,30 @@ export default function BottomBar() {
           )}
         </Stack>
       </Grid>
+      <Grid xs={5} item>
+        <Stack alignItems={'flex-end'}>
+          <Stack as={Link} to='/aboutus' direction={'row'} alignItems='center'>
+            <IconButton>
+              <InfoIcon sx={{ color: 'white' }} />
+            </IconButton>
+            <Typography sx={{ textDecoration: 'inherit', color: 'white' }}>
+              Sobre nosotros
+            </Typography>
+          </Stack>
+          <Stack as={Link} to='/faq' direction={'row'} alignItems='center'>
+            <IconButton>
+              <LiveHelpIcon sx={{ color: 'white' }} />
+            </IconButton>
+            <Typography sx={{ textDecoration: 'inherit', color: 'white' }}>
+              Preguntas frecuentes
+            </Typography>
+          </Stack>
+        </Stack>
+      </Grid>
+      {/* <Grid item xs={1}>
+        <img style={{ maxWidth: '50%' }} src={mercado} alt='mercadopago-logo' />
+      </Grid> */}
+      
     </Grid>
   )
 }

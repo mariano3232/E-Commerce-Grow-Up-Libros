@@ -2,6 +2,7 @@
   position: absolute;
   background: #12b886;
   width: 100%;
+  min-width: 470px;
   height: 150px;
   bottom: 0;
   color: #fff;
@@ -51,6 +52,22 @@
 }
 
 .imgEmail {
+  position: relative;
+  left: 7rem;
   width: 60px;
   height: 60px;
+}
+.newsLetter{
+  position: relative;
+  left: 7rem;
+}
+
+
+@media(max-width:1030px){
+  .newsLetter{
+    display: none;
+  }
+  .imgEmail {
+    display: none;
+  }
 }
