@@ -83,7 +83,7 @@ export default function BottomBar() {
             {/* <Typography color='white' fontSize={'24px'}>
               Grow-Up Libros
             </Typography> */}
-            <Stack spacing={4} direction={'row'}>
+            <Stack spacing={2} direction={'column'}>
               <a
                 href='https://www.instagram.com/'
                 target='_blank'
@@ -131,8 +131,9 @@ export default function BottomBar() {
           )}
         </Stack>
       </Grid>
-      <Grid xs={5} item>
-        <Stack alignItems={'flex-end'}>
+      <Grid xs={2} item></Grid>
+      <Grid xs={3} item>
+        <Stack alignItems={'flex-start'}>
           <Stack as={Link} to='/aboutus' direction={'row'} alignItems='center'>
             <IconButton>
               <InfoIcon sx={{ color: 'white' }} />
